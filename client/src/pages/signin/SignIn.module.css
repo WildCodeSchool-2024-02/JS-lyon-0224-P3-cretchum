@@ -1,0 +1,96 @@
+#signInForm {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  background-image: url(../../assets/images/patounes.png);
+  background-size: cover;
+  color: black;
+  padding: 1rem;
+  width: 75vw;
+  height: 85vh;
+  border-radius: 15px;
+  font-size: 1.3rem;
+  justify-content: space-around;
+  align-items: center;
+  overflow: auto;
+}
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+#formContainer {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#firstInput {
+  padding-top: 1rem;
+}
+.inputSizeM {
+  font-size: 1.3rem;
+  padding: 0.5rem;
+  background:
+    linear-gradient(white, white) padding-box,
+    linear-gradient(to right, #e37acc, #474fff) border-box;
+  border-radius: 15px;
+  border: 1px solid transparent;
+  width: 88%;
+  margin-left: 3%;
+  padding-left: 3%;
+}
+
+.inputSizeM:focus {
+  outline: none;
+}
+
+.inputDesc {
+  font-size: 1.3rem;
+  padding: 0.5rem;
+  height: 100%;
+  background:
+    linear-gradient(white, white) padding-box,
+    linear-gradient(to right, #e37acc, #474fff) border-box;
+  border-radius: 15px;
+  border: 1px solid transparent;
+  margin-left: 3%;
+  padding-left: 3%;
+}
+
+.inputDesc:focus {
+  outline: none;
+}
+.description {
+  height: 30%;
+}
+
+.formLabel {
+  padding-bottom: 0.2rem;
+  font-weight: 600;
+}
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  padding-top: 1rem;
+  align-items: center;
+}
+.compte {
+  font-size: 1rem;
+  font-style: italic;
+}
+.accountButton {
+  margin-bottom: 0.8rem;
+  background: linear-gradient(to right, #e37acc, #474fff);
+  color: white;
+  border: none;
+  font-size: 1.3rem;
+  padding: 1.3rem;
+  border-radius: 30px;
+}
+.connectButton {
+  border: none;
+  background-color: transparent;
+  color: blue;
+}
