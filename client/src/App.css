@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "roboto";
+  src: url("./assets/fonts/Roboto/Roboto-Regular.ttf") format("truetype");
+}
+
+:root {
+  --main-color: #6a6b86;
+  --secondary-color: #e37acc;
+  --container-color: #474fff;
+}
+
+h1,
+h2,
+h3,
+p,
+a,
+select {
+  font-family: "roboto";
+}
+
+body {
+  background: var(--main-color);
+}
