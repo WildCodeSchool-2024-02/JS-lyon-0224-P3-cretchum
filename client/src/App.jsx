@@ -1,11 +1,14 @@
-import NavMenu from './pages/NavMenu';
+import "./App.css";
+import { Outlet } from "react-router-dom";
+import NavMenu from "./pages/NavMenu";
+
 
 function App() {
   return (
-    <div className="App">
-      <NavMenu />
-      </div>
-    
+    <>
+    <NavMenu />
+    <Outlet />
+    </>
   );
 }
 

@@ -5,10 +5,10 @@ function NavMenu  () {
     <nav className="navMenu">
       <div className="navMenu-container">
         <div className="navMenu-item">
-          <span>SearchPage</span>
+          <p>SearchPage</p>
         </div>
         <div className="navMenu-item">
-          <span>Connexion</span>
+          <p>Connexion</p>
         </div>
       </div>
     </nav>
