@@ -128,7 +128,12 @@ function SingIn() {
           <label className={styles.formLabel} htmlFor="Description">
             Description :
           </label>
-          <textarea className={styles.inputDesc} type="text" />
+          <textarea
+            className={styles.inputDesc}
+            type="text"
+            name="description"
+            maxLength={255}
+          />
         </div>
         <div className={styles.buttonContainer}>
           <button className={styles.accountButton} type="submit">
