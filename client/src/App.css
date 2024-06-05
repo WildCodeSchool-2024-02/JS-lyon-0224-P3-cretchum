@@ -20,6 +20,8 @@ h2,
 h3,
 p,
 a,
+input,
+textarea,
 select {
   font-family: "roboto";
 }

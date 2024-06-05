@@ -1,15 +1,18 @@
 #signInForm {
+  margin-top: 30px;
+  margin-bottom: 30px;
   display: flex;
   flex-direction: column;
   background-color: white;
-  background-image: url(../../assets/images/patounes.png);
-  background-size: cover;
+  background-image: url(../../assets/images/2patounes.png);
+  background-size: 317px 510px;
+  background-position: center;
+  background-repeat: repeat-y;
   color: black;
-  padding: 1rem;
+  padding: 0.9em;
   width: 75vw;
-  height: 85vh;
   border-radius: 15px;
-  font-size: 1.3rem;
+  font-size: 1.3em;
   justify-content: space-around;
   align-items: center;
   overflow: auto;
@@ -18,26 +21,26 @@
   display: flex;
   flex-direction: column;
   width: 90%;
+  padding-top: 0.4em;
 }
 #formContainer {
-  height: 100vh;
   width: 100vw;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: (var(--main-color));
 }
 #firstInput {
-  padding-top: 1rem;
+  padding-top: 0.8em;
 }
 .inputSizeM {
-  font-size: 1.3rem;
-  padding: 0.5rem;
+  font-size: 1.1em;
+  padding: 0.4em;
   background:
     linear-gradient(white, white) padding-box,
     linear-gradient(to right, #e37acc, #474fff) border-box;
   border-radius: 15px;
   border: 1px solid transparent;
-  width: 88%;
   margin-left: 3%;
   padding-left: 3%;
 }
@@ -47,9 +50,9 @@
 }
 
 .inputDesc {
-  font-size: 1.3rem;
-  padding: 0.5rem;
-  height: 100%;
+  font-size: 1.1em;
+  padding: 0.4rem;
+  height: 7em;
   background:
     linear-gradient(white, white) padding-box,
     linear-gradient(to right, #e37acc, #474fff) border-box;
@@ -62,31 +65,28 @@
 .inputDesc:focus {
   outline: none;
 }
-.description {
-  height: 30%;
-}
 
 .formLabel {
-  padding-bottom: 0.2rem;
+  padding-bottom: 0.1em;
   font-weight: 600;
 }
 .buttonContainer {
   display: flex;
   flex-direction: column;
-  padding-top: 1rem;
+  padding-top: 0.9em;
   align-items: center;
 }
 .compte {
-  font-size: 1rem;
+  font-size: 0.9em;
   font-style: italic;
 }
 .accountButton {
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.7em;
   background: linear-gradient(to right, #e37acc, #474fff);
   color: white;
   border: none;
-  font-size: 1.3rem;
-  padding: 1.3rem;
+  font-size: 1.1em;
+  padding: 1.1em;
   border-radius: 30px;
 }
 .connectButton {

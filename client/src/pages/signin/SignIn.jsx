@@ -1,114 +1,87 @@
 import { useState } from "react";
+import { Form } from "react-router-dom";
 import styles from "./SignIn.module.css";
 
-export default function SingIn() {
+function SingIn() {
   function handleInputChange(event, setState) {
     setState(event.target.value);
   }
-  const handleInputKeyDown = (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-    }
-  };
 
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [pseudo, setPseudo] = useState("");
-  const [phone, setPhone] = useState("");
-  const [mail, setMail] = useState("");
-  const [adress, setAdress] = useState("");
-  const [desc, setDesc] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConf, setPasswordConf] = useState("");
 
   return (
     <div id={styles.formContainer}>
-      <form id={styles.signInForm}>
+      <Form method="post" id={styles.signInForm}>
         <div className={styles.inputContainer} id={styles.firstInput}>
-          <label className={styles.formLabel} htmlFor="firstname">
-            Prénom :
-          </label>
-          <input
-            className={styles.inputSizeM}
-            type="text"
-            value={firstname}
-            onChange={(event) => handleInputChange(event, setFirstname)}
-            onKeyDown={handleInputKeyDown}
-          />
-        </div>
-        <div className={styles.inputContainer}>
           <label className={styles.formLabel} htmlFor="lastname">
             Nom :
           </label>
-          <input
-            className={styles.inputSizeM}
-            type="text"
-            value={lastname}
-            onChange={(event) => handleInputChange(event, setLastname)}
-            onKeyDown={handleInputKeyDown}
-          />
+          <input className={styles.inputSizeM} type="text" name="lastname" />
         </div>
         <div className={styles.inputContainer}>
-          <label className={styles.formLabel} htmlFor="Pseudo">
+          <label className={styles.formLabel} htmlFor="firstname">
+            Prénom :
+          </label>
+          <input className={styles.inputSizeM} type="text" name="firstname" />
+        </div>
+        <div className={styles.inputContainer}>
+          <label className={styles.formLabel} htmlFor="username">
             Pseudo :
           </label>
-          <input
-            className={styles.inputSizeM}
-            type="text"
-            value={pseudo}
-            onChange={(event) => handleInputChange(event, setPseudo)}
-            onKeyDown={handleInputKeyDown}
-          />
+          <input className={styles.inputSizeM} type="text" name="username" />
         </div>
         <div className={styles.inputContainer}>
           <label className={styles.formLabel} htmlFor="phonenumber">
             Téléphone :
           </label>
-          <input
-            className={styles.inputSizeM}
-            type="text"
-            value={phone}
-            onChange={(event) => handleInputChange(event, setPhone)}
-            onKeyDown={handleInputKeyDown}
-          />
+          <input className={styles.inputSizeM} type="text" name="phonenumber" />
+        </div>{" "}
+        <div className={styles.inputContainer}>
+          <label className={styles.formLabel} htmlFor="address">
+            Adresse :
+          </label>
+          <input className={styles.inputSizeM} type="text" name="address" />
         </div>
         <div className={styles.inputContainer}>
           <label className={styles.formLabel} htmlFor="mail">
             E-mail :
           </label>
+          <input className={styles.inputSizeM} type="text" name="mail" />
+        </div>
+        <div className={styles.inputContainer}>
+          <label className={styles.formLabel} htmlFor="password">
+            Mot de passe :
+          </label>
           <input
             className={styles.inputSizeM}
             type="text"
-            value={mail}
-            onChange={(event) => handleInputChange(event, setMail)}
-            onKeyDown={handleInputKeyDown}
+            name="password"
+            value={password}
+            onChange={(event) => handleInputChange(event, setPassword)}
             placeholder="exemple@mail.com"
           />
         </div>
         <div className={styles.inputContainer}>
           <label className={styles.formLabel} htmlFor="adress">
-            Adresse :
+            Confirmer le mot de passe :
           </label>
           <input
             className={styles.inputSizeM}
             type="text"
-            value={adress}
-            onChange={(event) => handleInputChange(event, setAdress)}
-            onKeyDown={handleInputKeyDown}
+            name="passwordConf"
+            value={passwordConf}
+            onChange={(event) => handleInputChange(event, setPasswordConf)}
           />
         </div>
         <div className={`${styles.inputContainer} ${styles.description}`}>
           <label className={styles.formLabel} htmlFor="Description">
             Description :
           </label>
-          <textarea
-            className={styles.inputDesc}
-            type="text"
-            value={desc}
-            onChange={(event) => handleInputChange(event, setDesc)}
-            onKeyDown={handleInputKeyDown}
-          />
+          <textarea className={styles.inputDesc} type="text" />
         </div>
         <div className={styles.buttonContainer}>
-          <button className={styles.accountButton} type="button">
+          <button className={styles.accountButton} type="submit">
             Créer mon compte
           </button>
           <span className={styles.compte}>
@@ -118,7 +91,9 @@ export default function SingIn() {
             </button>
           </span>
         </div>
-      </form>
+      </Form>
     </div>
   );
 }
+
+export default SingIn;
