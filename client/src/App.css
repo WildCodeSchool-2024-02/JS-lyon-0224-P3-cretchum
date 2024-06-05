@@ -6,7 +6,7 @@
 
 @font-face {
   font-family: "roboto";
-  src: url("./assets/fonts/Roboto/Roboto-Regular.ttf") format("truetype");
+  src: url("./assets/fonts/roboto/Roboto-Regular.ttf") format("truetype");
 }
 
 :root {
