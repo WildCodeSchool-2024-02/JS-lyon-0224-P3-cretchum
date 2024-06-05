@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Form, Link } from "react-router-dom";
+import { Form, Link, useNavigate } from "react-router-dom";
 import styles from "./SignIn.module.css";
 
 function SingIn() {
   function handleInputChange(event, setState) {
     setState(event.target.value);
   }
-
+  const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [passwordConf, setPasswordConf] = useState("");
 
@@ -89,7 +89,13 @@ function SingIn() {
           <textarea className={styles.inputDesc} type="text" />
         </div>
         <div className={styles.buttonContainer}>
-          <button className={styles.accountButton} type="submit">
+          <button
+            className={styles.accountButton}
+            type="submit"
+            onClick={() => {
+              navigate("/search-page");
+            }}
+          >
             Créer mon compte
           </button>
           <span className={styles.compte}>
