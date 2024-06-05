@@ -2,8 +2,9 @@
   background-color: white;
   min-height: 18vh;
   min-width: 80vw;
-  border-radius: 5px;
+  border-radius: 40px;
   padding: 1em;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
 }
 
 #userGeneral {
@@ -64,8 +65,8 @@
 }
 
 #userimg {
-  width: 20vw;
-  height: 9vh;
+  width: 90px;
+  height: 90px;
   border-radius: 40px;
   overflow: hidden;
 }
@@ -94,11 +95,6 @@
   #userCard {
     min-width: 61vw;
   }
-
-  #userimg {
-    width: 11vw;
-    height: 10vh;
-  }
 }
 
 @media screen and (min-width: 1100px) {
@@ -107,12 +103,12 @@
   }
 
   #userimg {
-    width: 7vw;
-    height: 9vh;
+    width: 90px;
+    height: 90px;
   }
 
   #userGeneral {
-    margin-bottom: 15%;
+    margin-bottom: 8%;
   }
 
   .useranimal {

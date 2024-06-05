@@ -1,4 +1,5 @@
 import HomeStructureList from "../components/SearchPage/HomeStructureList";
+import Filter from "../components/SearchPage/Filter";
 import personImage from "../assets/images/person.jpg";
 import "./SearchPage.css";
 
@@ -72,7 +73,12 @@ function SearchPage() {
     </li>
   ));
 
-  return <ul id="peoplemap">{allpeople}</ul>;
+  return (
+    <>
+      <Filter />
+      <ul id="peoplemap">{allpeople}</ul>
+    </>
+  );
 }
 
 export default SearchPage;
