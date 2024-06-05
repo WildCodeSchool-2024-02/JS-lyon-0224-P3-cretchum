@@ -1,0 +1,15 @@
+.navMenu {
+  background-color: #e0e7ee;
+  padding: 10px;
+}
+
+.navMenu-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.navMenu-item {
+  margin-left: 20px;
+  font-size: 1em;
+  cursor: pointer;
+}
