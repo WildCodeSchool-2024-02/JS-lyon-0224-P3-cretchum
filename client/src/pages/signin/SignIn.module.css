@@ -16,7 +16,7 @@
   justify-content: space-around;
   align-items: center;
   overflow: auto;
-  min-width: 240pxgit;
+  min-width: 240px;
 }
 .inputContainer {
   display: flex;

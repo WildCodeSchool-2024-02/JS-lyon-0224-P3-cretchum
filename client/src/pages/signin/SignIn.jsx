@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { Form, Link, useNavigate } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 import styles from "./SignIn.module.css";
 
 function SingIn() {
   function handleInputChange(event, setState) {
     setState(event.target.value);
   }
-  const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [passwordConf, setPasswordConf] = useState("");
 
@@ -18,13 +17,27 @@ function SingIn() {
             <label className={styles.formLabel} htmlFor="lastname">
               Nom :
             </label>
-            <input className={styles.inputSizeM} type="text" name="lastname" />
+            <input
+              className={styles.inputSizeM}
+              type="text"
+              name="lastname"
+              minLength={2}
+              maxLength={55}
+              required
+            />
           </div>
           <div className={styles.inputContainer} id={styles.firstname}>
             <label className={styles.formLabel} htmlFor="firstname">
               Prénom :
             </label>
-            <input className={styles.inputSizeM} type="text" name="firstname" />
+            <input
+              className={styles.inputSizeM}
+              type="text"
+              name="firstname"
+              minLength={2}
+              maxLength={55}
+              required
+            />
           </div>
         </div>
         <div className={styles.desktopRow}>
@@ -32,7 +45,14 @@ function SingIn() {
             <label className={styles.formLabel} htmlFor="username">
               Pseudo :
             </label>
-            <input className={styles.inputSizeM} type="text" name="username" />
+            <input
+              className={styles.inputSizeM}
+              type="text"
+              name="username"
+              minLength={3}
+              maxLength={20}
+              required
+            />
           </div>
           <div className={styles.inputContainer}>
             <label className={styles.formLabel} htmlFor="phonenumber">
@@ -40,8 +60,10 @@ function SingIn() {
             </label>
             <input
               className={styles.inputSizeM}
-              type="text"
+              type="tel"
               name="phonenumber"
+              pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"
+              required
             />
           </div>
         </div>
@@ -49,13 +71,28 @@ function SingIn() {
           <label className={styles.formLabel} htmlFor="address">
             Adresse :
           </label>
-          <input className={styles.inputSizeM} type="text" name="address" />
+          <input
+            className={styles.inputSizeM}
+            type="text"
+            name="address"
+            minLength={3}
+            maxLength={255}
+            required
+          />
         </div>
         <div className={styles.inputContainer}>
           <label className={styles.formLabel} htmlFor="mail">
             E-mail :
           </label>
-          <input className={styles.inputSizeM} type="text" name="mail" />
+          <input
+            className={styles.inputSizeM}
+            type="mail"
+            name="mail"
+            placeholder="exemple@mail.com"
+            minLength={6}
+            maxLength={254}
+            required
+          />
         </div>
         <div className={styles.inputContainer}>
           <label className={styles.formLabel} htmlFor="password">
@@ -63,11 +100,13 @@ function SingIn() {
           </label>
           <input
             className={styles.inputSizeM}
-            type="text"
+            type="password"
             name="password"
             value={password}
+            minLength={12}
+            maxLength={64}
             onChange={(event) => handleInputChange(event, setPassword)}
-            placeholder="exemple@mail.com"
+            required
           />
         </div>
         <div className={styles.inputContainer}>
@@ -76,10 +115,13 @@ function SingIn() {
           </label>
           <input
             className={styles.inputSizeM}
-            type="text"
+            type="password"
             name="passwordConf"
+            minLength={12}
+            maxLength={64}
             value={passwordConf}
             onChange={(event) => handleInputChange(event, setPasswordConf)}
+            required
           />
         </div>
         <div className={`${styles.inputContainer} ${styles.description}`}>
@@ -89,13 +131,7 @@ function SingIn() {
           <textarea className={styles.inputDesc} type="text" />
         </div>
         <div className={styles.buttonContainer}>
-          <button
-            className={styles.accountButton}
-            type="submit"
-            onClick={() => {
-              navigate("/search-page");
-            }}
-          >
+          <button className={styles.accountButton} type="submit">
             Créer mon compte
           </button>
           <span className={styles.compte}>
