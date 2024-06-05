@@ -1,8 +1,7 @@
 #userCard {
   background-color: white;
-  width: 27vw;
   min-height: 18vh;
-  margin: 2%;
+  min-width: 80vw;
   border-radius: 5px;
   padding: 1em;
 }
@@ -10,7 +9,7 @@
 #userGeneral {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 15%;
+  margin-bottom: 8%;
   justify-content: space-around;
 }
 
@@ -27,7 +26,7 @@
 #userPref {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
   list-style-type: none;
 }
 
@@ -41,7 +40,7 @@
 
 .useranimal {
   display: flex;
-  padding: 0.25em 1.5em;
+  padding: 0.25em 0.5em;
   text-align: center;
   border-radius: 14px;
 }
@@ -65,7 +64,7 @@
 }
 
 #userimg {
-  width: 7vw;
+  width: 20vw;
   height: 9vh;
   border-radius: 40px;
   overflow: hidden;
@@ -91,26 +90,32 @@
   margin-top: 10%;
 }
 
+@media screen and (min-width: 800px) {
+  #userCard {
+    min-width: 61vw;
+  }
+
+  #userimg {
+    width: 11vw;
+    height: 10vh;
+  }
+}
+
 @media screen and (min-width: 1100px) {
   #userCard {
-    background-color: white;
-    width: 27vw;
-    min-height: 18vh;
-    margin: 2%;
-    border-radius: 5px;
-    padding: 1em;
+    min-width: 28vw;
   }
 
   #userimg {
     width: 7vw;
     height: 9vh;
-    border-radius: 40px;
-    overflow: hidden;
   }
 
-  #userPicture {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  #userGeneral {
+    margin-bottom: 15%;
+  }
+
+  .useranimal {
+    padding: 0.25em 1.5em;
   }
 }
