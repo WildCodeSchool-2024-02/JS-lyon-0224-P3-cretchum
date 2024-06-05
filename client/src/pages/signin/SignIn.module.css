@@ -16,6 +16,7 @@
   justify-content: space-around;
   align-items: center;
   overflow: auto;
+  min-width: 240pxgit;
 }
 .inputContainer {
   display: flex;
@@ -25,6 +26,7 @@
 }
 #formContainer {
   width: 100vw;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,6 +34,12 @@
 }
 #firstInput {
   padding-top: 0.8em;
+}
+.desktopRow {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
 }
 .inputSizeM {
   font-size: 1.1em;
@@ -80,6 +88,7 @@
   font-size: 0.9em;
   font-style: italic;
 }
+
 .accountButton {
   margin-bottom: 0.7em;
   background: linear-gradient(to right, #e37acc, #474fff);
@@ -88,9 +97,44 @@
   font-size: 1.1em;
   padding: 1.1em;
   border-radius: 30px;
+  cursor: pointer;
 }
-.connectButton {
-  border: none;
-  background-color: transparent;
-  color: blue;
+
+@media screen and (min-width: 600px) {
+  #signInForm {
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
+
+@media screen and (min-width: 1100px) {
+  #signInForm {
+    background-size: 22em;
+    background-repeat: repeat-x;
+    background-position: 0% 5px;
+    max-width: 900px;
+    height: 96vh;
+    margin: 0;
+    padding-bottom: 0.2em;
+    padding-top: 0.2em;
+  }
+  .desktopRow {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    align-items: center;
+  }
+  #formContainer {
+    height: 100vh;
+  }
+  #firstname {
+    padding-top: 0.8em;
+  }
+  .inputContainer {
+    padding-top: 0.8em;
+  }
+  .inputDesc {
+    height: 15vh;
+    min-height: 120px;
+  }
 }

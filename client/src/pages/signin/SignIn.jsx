@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 import styles from "./SignIn.module.css";
 
 function SingIn() {
@@ -13,30 +13,38 @@ function SingIn() {
   return (
     <div id={styles.formContainer}>
       <Form method="post" id={styles.signInForm}>
-        <div className={styles.inputContainer} id={styles.firstInput}>
-          <label className={styles.formLabel} htmlFor="lastname">
-            Nom :
-          </label>
-          <input className={styles.inputSizeM} type="text" name="lastname" />
+        <div className={styles.desktopRow}>
+          <div className={styles.inputContainer} id={styles.firstInput}>
+            <label className={styles.formLabel} htmlFor="lastname">
+              Nom :
+            </label>
+            <input className={styles.inputSizeM} type="text" name="lastname" />
+          </div>
+          <div className={styles.inputContainer} id={styles.firstname}>
+            <label className={styles.formLabel} htmlFor="firstname">
+              Prénom :
+            </label>
+            <input className={styles.inputSizeM} type="text" name="firstname" />
+          </div>
         </div>
-        <div className={styles.inputContainer}>
-          <label className={styles.formLabel} htmlFor="firstname">
-            Prénom :
-          </label>
-          <input className={styles.inputSizeM} type="text" name="firstname" />
+        <div className={styles.desktopRow}>
+          <div className={styles.inputContainer}>
+            <label className={styles.formLabel} htmlFor="username">
+              Pseudo :
+            </label>
+            <input className={styles.inputSizeM} type="text" name="username" />
+          </div>
+          <div className={styles.inputContainer}>
+            <label className={styles.formLabel} htmlFor="phonenumber">
+              Téléphone :
+            </label>
+            <input
+              className={styles.inputSizeM}
+              type="text"
+              name="phonenumber"
+            />
+          </div>
         </div>
-        <div className={styles.inputContainer}>
-          <label className={styles.formLabel} htmlFor="username">
-            Pseudo :
-          </label>
-          <input className={styles.inputSizeM} type="text" name="username" />
-        </div>
-        <div className={styles.inputContainer}>
-          <label className={styles.formLabel} htmlFor="phonenumber">
-            Téléphone :
-          </label>
-          <input className={styles.inputSizeM} type="text" name="phonenumber" />
-        </div>{" "}
         <div className={styles.inputContainer}>
           <label className={styles.formLabel} htmlFor="address">
             Adresse :
@@ -85,10 +93,7 @@ function SingIn() {
             Créer mon compte
           </button>
           <span className={styles.compte}>
-            Déjà un compte ?{" "}
-            <button className={styles.connectButton} type="button">
-              se connecter
-            </button>
+            Déjà un compte ? <Link to="/connect">se connecter</Link>
           </span>
         </div>
       </Form>
