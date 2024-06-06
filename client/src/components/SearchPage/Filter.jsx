@@ -1,11 +1,11 @@
 import "./Filter.css";
-import patoune from "../../assets/logo/1patounes.png";
+import Patoune from "../../assets/logo/1patounes.png";
 
 function Filter() {
   return (
     <div id="filterDiv">
       <div id="imgSearch">
-        <img src={patoune} alt="orange paw" id="filterPaw" />
+        <img src={Patoune} alt="orange paw" id="filterPaw" />
         <input
           type="text"
           className="filterInput"
