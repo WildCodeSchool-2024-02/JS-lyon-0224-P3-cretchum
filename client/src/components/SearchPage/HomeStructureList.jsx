@@ -7,7 +7,7 @@ function HomeStructureList({ structure }) {
   return (
     <div id="userCard">
       <div id="userGeneral">
-        <div id="userimg">
+        <div id="userImg">
           <img id="userPicture" src={structure.img} alt={structure.name} />
         </div>
         <div id="userInfo">
@@ -32,13 +32,13 @@ function HomeStructureList({ structure }) {
         <li
           className={`useranimal ${structure.cat === false ? "animalHidden" : "userCat"}`}
         >
-          <img src={catImage} alt="dessin de chat noir" className="animalImg" />{" "}
+          <img src={catImage} alt="dessin de chat noir" className="animalImg" />
           <p>Chat</p>
         </li>
         <li
           className={`useranimal ${structure.dog === false ? "animalHidden" : "userDog"}`}
         >
-          <img src={dogImage} alt="dessin de chat noir" className="animalImg" />{" "}
+          <img src={dogImage} alt="dessin de chat noir" className="animalImg" />
           <p>Chien</p>
         </li>
         <li>

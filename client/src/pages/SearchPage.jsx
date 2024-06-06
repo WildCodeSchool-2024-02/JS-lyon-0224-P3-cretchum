@@ -76,7 +76,7 @@ function SearchPage() {
   return (
     <>
       <Filter />
-      <ul id="peoplemap">{allpeople}</ul>
+      <ul id="peopleMap">{allpeople}</ul>
     </>
   );
 }

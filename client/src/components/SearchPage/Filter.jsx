@@ -3,15 +3,15 @@ import patoune from "../../assets/logo/1patounes.png";
 
 function Filter() {
   return (
-    <div id="filterdiv">
+    <div id="filterDiv">
       <div id="imgSearch">
-        <img src={patoune} alt="orange paw" id="filterpaw" />
+        <img src={patoune} alt="orange paw" id="filterPaw" />
         <input
           type="text"
           className="filterInput"
-          id="seachinput"
-          maxLength={55}
-          placeholder="Rehercher par nom, lieu..."
+          id="seachInput"
+          maxLength={255}
+          placeholder="Rehercher par nom"
         />
       </div>
       <div id="filterConditions">
