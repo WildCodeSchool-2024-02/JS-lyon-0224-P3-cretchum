@@ -9,6 +9,10 @@ function SingIn() {
   const [password, setPassword] = useState("");
   const [passwordConf, setPasswordConf] = useState("");
 
+  const HandleValidateButton = () => {
+      window.location = "/page-recherche";
+  };
+
   return (
     <div id={styles.formContainer}>
       <Form method="post" id={styles.signInForm}>
@@ -136,7 +140,7 @@ function SingIn() {
           />
         </div>
         <div className={styles.buttonContainer}>
-          <button className={styles.accountButton} type="submit">
+          <button className={styles.accountButton} type="submit" onClick={HandleValidateButton}>
             Créer mon compte
           </button>
           <span className={styles.compte}>
