@@ -1,0 +1,18 @@
+#peopleMap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+  flex-direction: column;
+}
+
+#peopleList {
+  margin: 2%;
+}
+
+@media screen and (min-width: 1100px) {
+  #peopleMap {
+    flex-direction: row;
+  }
+}
