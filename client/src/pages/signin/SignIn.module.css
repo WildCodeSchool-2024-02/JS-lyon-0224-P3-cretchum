@@ -73,10 +73,31 @@
 .inputDesc:focus {
   outline: none;
 }
-
+.isRequired {
+  position: relative;
+  width: 0.8em;
+  color: red;
+  font-weight: lighter;
+  font-size: 0.7em;
+  text-align: end;
+}
 .formLabel {
   padding-bottom: 0.1em;
   font-weight: 600;
+  display: flex;
+}
+
+.containerSmall {
+  width: 90%;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.containerSmall small {
+  padding-top: 0.2em;
+  color: red;
+  font-style: italic;
+  font-size: 0.8em;
 }
 .buttonContainer {
   display: flex;
@@ -87,6 +108,9 @@
 .compte {
   font-size: 0.9em;
   font-style: italic;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .accountButton {
