@@ -23,6 +23,8 @@ a,
 li,
 input,
 textarea,
+label,
+small,
 select {
   font-family: "roboto";
 }
