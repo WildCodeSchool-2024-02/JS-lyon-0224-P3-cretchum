@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import "./homePage-style.css";
+import "./homePage.css";
 
 import logoPatounes from "../../assets/logo/1patounes.png";
 import logoCicorne from "../../assets/logo/cicorne.png";
@@ -36,7 +36,7 @@ function HomePage() {
               </Link>
             </li>
             <li className="homePageNavItem">
-              <Link className="homePageNavLink" to="/visiteur">
+              <Link className="homePageNavLink" to="/page-recherche">
                 Visiteur
               </Link>
             </li>
