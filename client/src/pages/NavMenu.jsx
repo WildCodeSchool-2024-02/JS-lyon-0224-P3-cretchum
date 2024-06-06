@@ -1,6 +1,6 @@
 import "./NavMenu.css";
 
-function NavMenu  () {
+function NavMenu() {
   return (
     <nav className="navMenu">
       <div className="navMenu-container">
@@ -13,6 +13,6 @@ function NavMenu  () {
       </div>
     </nav>
   );
-};
+}
 
 export default NavMenu;
