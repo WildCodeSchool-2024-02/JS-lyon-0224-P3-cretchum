@@ -1,7 +1,8 @@
-import HomeStructureList from "../components/SearchPage/HomeStructureList";
-import Filter from "../components/SearchPage/Filter";
-import personImage from "../assets/images/person.jpg";
+import HomeStructureList from "../../components/SearchPage/HomeStructureList";
+import Filter from "../../components/SearchPage/Filter";
+import personImage from "../../assets/images/person.jpg";
 import "./SearchPage.css";
+import NavMenu from "../../components/nav_menu/NavMenu";
 
 function SearchPage() {
   const peoples = [
@@ -75,6 +76,7 @@ function SearchPage() {
 
   return (
     <>
+      <NavMenu />
       <Filter />
       <ul id="peopleMap">{allpeople}</ul>
     </>

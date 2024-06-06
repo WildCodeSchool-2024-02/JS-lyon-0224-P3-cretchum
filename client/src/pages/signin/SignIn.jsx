@@ -9,13 +9,17 @@ function SingIn() {
   const [password, setPassword] = useState("");
   const [passwordConf, setPasswordConf] = useState("");
 
+  const HandleValidateButton = () => {
+      window.location = "/page-recherche";
+  };
+
   return (
     <div id={styles.formContainer}>
       <Form method="post" id={styles.signInForm}>
         <div className={styles.desktopRow}>
           <div className={styles.inputContainer} id={styles.firstInput}>
             <label className={styles.formLabel} htmlFor="lastname">
-              Nom :
+              Nom :<span className={styles.isRequired}> *</span>
             </label>
             <input
               className={styles.inputSizeM}
@@ -28,7 +32,7 @@ function SingIn() {
           </div>
           <div className={styles.inputContainer} id={styles.firstname}>
             <label className={styles.formLabel} htmlFor="firstname">
-              Prénom :
+              Prénom :<span className={styles.isRequired}> *</span>
             </label>
             <input
               className={styles.inputSizeM}
@@ -43,7 +47,7 @@ function SingIn() {
         <div className={styles.desktopRow}>
           <div className={styles.inputContainer}>
             <label className={styles.formLabel} htmlFor="username">
-              Pseudo :
+              Pseudo :<span className={styles.isRequired}> *</span>
             </label>
             <input
               className={styles.inputSizeM}
@@ -56,7 +60,7 @@ function SingIn() {
           </div>
           <div className={styles.inputContainer}>
             <label className={styles.formLabel} htmlFor="phonenumber">
-              Téléphone :
+              Téléphone :<span className={styles.isRequired}> *</span>
             </label>
             <input
               className={styles.inputSizeM}
@@ -69,7 +73,7 @@ function SingIn() {
         </div>
         <div className={styles.inputContainer}>
           <label className={styles.formLabel} htmlFor="address">
-            Adresse :
+            Adresse : <span className={styles.isRequired}> *</span>
           </label>
           <input
             className={styles.inputSizeM}
@@ -82,7 +86,7 @@ function SingIn() {
         </div>
         <div className={styles.inputContainer}>
           <label className={styles.formLabel} htmlFor="mail">
-            E-mail :
+            E-mail :<span className={styles.isRequired}> *</span>
           </label>
           <input
             className={styles.inputSizeM}
@@ -96,7 +100,7 @@ function SingIn() {
         </div>
         <div className={styles.inputContainer}>
           <label className={styles.formLabel} htmlFor="password">
-            Mot de passe :
+            Mot de passe :<span className={styles.isRequired}> *</span>
           </label>
           <input
             className={styles.inputSizeM}
@@ -112,6 +116,7 @@ function SingIn() {
         <div className={styles.inputContainer}>
           <label className={styles.formLabel} htmlFor="adress">
             Confirmer le mot de passe :
+            <span className={styles.isRequired}> *</span>
           </label>
           <input
             className={styles.inputSizeM}
@@ -135,8 +140,12 @@ function SingIn() {
             maxLength={255}
           />
         </div>
+        <div className={styles.containerSmall}>
+          <small>* champs requis</small>
+        </div>
+
         <div className={styles.buttonContainer}>
-          <button className={styles.accountButton} type="submit">
+          <button className={styles.accountButton} type="submit" onClick={HandleValidateButton}>
             Créer mon compte
           </button>
           <span className={styles.compte}>
