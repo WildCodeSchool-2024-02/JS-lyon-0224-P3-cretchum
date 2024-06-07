@@ -94,7 +94,7 @@ function SingIn() {
             name="mail"
             placeholder="exemple@mail.com"
             minLength={6}
-            maxLength={254}
+            maxLength={60}
             required
           />
         </div>
@@ -108,7 +108,6 @@ function SingIn() {
             name="password"
             value={password}
             minLength={12}
-            maxLength={64}
             onChange={(event) => handleInputChange(event, setPassword)}
             required
           />
@@ -136,7 +135,7 @@ function SingIn() {
             className={styles.inputDesc}
             type="text"
             name="description"
-            maxLength={60}
+            maxLength={255}
           />
         </div>
         <div className={styles.containerSmall}>
