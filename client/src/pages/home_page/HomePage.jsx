@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import "./homePage.css";
 
-import logoPatounes from "../../assets/logo/1patounes.png";
-import logoCicorne from "../../assets/logo/cicorne.png";
+import LogoPatounes from "../../assets/logo/1patounes.png";
+import LogoCicorne from "../../assets/logo/cicorne.png";
 
 function HomePage() {
 	return (
@@ -10,7 +10,7 @@ function HomePage() {
       <header className="homePageHeader">
         <img
           className="homePageLogoCicorne"
-          src={logoCicorne}
+          src={LogoCicorne}
           alt="Site logo representing a chimera of a stork and a unicorn"
         />
       </header>
@@ -18,7 +18,7 @@ function HomePage() {
         <section className="homePageSectionTitle">
           <img
             className="homePageLogoPatounes"
-            src={logoPatounes}
+            src={LogoPatounes}
             alt="Visual representing an animal's footprint."
           />
           <h1 className="homePageTitle">Cretchom</h1>

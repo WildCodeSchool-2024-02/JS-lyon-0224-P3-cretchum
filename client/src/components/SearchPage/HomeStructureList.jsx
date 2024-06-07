@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import "./HomeStructureList.css";
-import catImage from "../../assets/images/cat.png";
-import dogImage from "../../assets/images/dog.png";
+import CatImage from "../../assets/images/cat.png";
+import DogImage from "../../assets/images/dog.png";
 
 function HomeStructureList({ structure }) {
   return (
@@ -32,13 +32,13 @@ function HomeStructureList({ structure }) {
         <li
           className={`useranimal ${structure.cat === false ? "animalHidden" : "userCat"}`}
         >
-          <img src={catImage} alt="dessin de chat noir" className="animalImg" />
+          <img src={CatImage} alt="dessin de chat noir" className="animalImg" />
           <p>Chat</p>
         </li>
         <li
           className={`useranimal ${structure.dog === false ? "animalHidden" : "userDog"}`}
         >
-          <img src={dogImage} alt="dessin de chat noir" className="animalImg" />
+          <img src={DogImage} alt="dessin de chat noir" className="animalImg" />
           <p>Chien</p>
         </li>
         <li>

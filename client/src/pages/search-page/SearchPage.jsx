@@ -1,6 +1,6 @@
 import HomeStructureList from "../../components/SearchPage/HomeStructureList";
 import Filter from "../../components/SearchPage/Filter";
-import personImage from "../../assets/images/person.jpg";
+import PersonImage from "../../assets/images/person.jpg";
 import "./SearchPage.css";
 import NavMenu from "../../components/nav_menu/NavMenu";
 
@@ -14,7 +14,7 @@ function SearchPage() {
       dog: true,
       professionnel: true,
       price: 22,
-      img: personImage,
+      img: PersonImage,
     },
     {
       id: 2,
@@ -24,7 +24,7 @@ function SearchPage() {
       dog: false,
       professionnel: false,
       price: 22,
-      img: personImage,
+      img: PersonImage,
     },
     {
       id: 3,
@@ -34,7 +34,7 @@ function SearchPage() {
       dog: true,
       professionnel: false,
       price: 24,
-      img: personImage,
+      img: PersonImage,
     },
     {
       id: 4,
@@ -44,7 +44,7 @@ function SearchPage() {
       dog: true,
       professionnel: true,
       price: 22,
-      img: personImage,
+      img: PersonImage,
     },
     {
       id: 5,
@@ -54,7 +54,7 @@ function SearchPage() {
       dog: false,
       professionnel: false,
       price: 22,
-      img: personImage,
+      img: PersonImage,
     },
     {
       id: 6,
@@ -64,7 +64,7 @@ function SearchPage() {
       dog: true,
       professionnel: false,
       price: 24,
-      img: personImage,
+      img: PersonImage,
     },
   ];
 
