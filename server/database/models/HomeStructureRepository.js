@@ -1,27 +1,30 @@
 const AbstractRepository = require("./AbstractRepository");
 
-class UserRepository extends AbstractRepository {
+class HomeStructureRepository extends AbstractRepository {
   constructor() {
     // Call the constructor of the parent class (AbstractRepository)
     // and pass the table name "program" as configuration
-    super({ table: "users" });
+    super({ table: "home_structure" });
   }
 
   // The C of CRUD - Create operation
 
-  async create(user) {
+  async create(structure) {
     // Execute the SQL INSERT query to add a new program to the "program" table
     const [result] = await this.database.query(
-      `insert into ${this.table} (title, synopsis, poster, country, year, category_id) values (?, ?, ?, ?, ?, ?)`,
+      `insert into ${this.table} (name, city, postal_code, mail, password , is_professional, cat, dog, price) values (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
-        user.lastname,
-        user.firstname,
-        user.username,
-        user.phone_number,
-        user.location,
-        user.mail,
-        user.password,
-        user.description,
+        structure.name,
+        structure.citye,
+        structure.postal_code,
+        structure.mail,
+        structure.password,
+        structure.mail,
+        structure.password,
+        structure.is_professional,
+        structure.cat,
+        structure.dog,
+        structure.price,
       ]
     );
 
@@ -52,19 +55,22 @@ class UserRepository extends AbstractRepository {
 
   // The U of CRUD - Update operation
 
-  async update(user) {
+  async update(structure) {
     // Execute the SQL UPDATE query to update a specific program
     const [result] = await this.database.query(
-      `update ${this.table} set lastname = ?, firstname = ?, username = ?, phone_number = ?, location = ?, mail = ?, password = ?, description = ?  where id = ?`,
+      `update ${this.table} set name = ?, city = ?, postal_code = ?, mail = ?, password = ?, is_professional = ?, cat = ?, dog = ?, price =?,  where id = ?`,
       [
-        user.lastname,
-        user.firstname,
-        user.username,
-        user.phone_number,
-        user.location,
-        user.mail,
-        user.password,
-        user.description,
+        structure.name,
+        structure.citye,
+        structure.postal_code,
+        structure.mail,
+        structure.password,
+        structure.mail,
+        structure.password,
+        structure.is_professional,
+        structure.cat,
+        structure.dog,
+        structure.price,
       ]
     );
 
@@ -86,4 +92,4 @@ class UserRepository extends AbstractRepository {
   }
 }
 
-module.exports = UserRepository;
+module.exports = HomeStructureRepository;

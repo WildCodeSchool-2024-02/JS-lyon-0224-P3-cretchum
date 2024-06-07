@@ -18,6 +18,17 @@ class HomeStructureSeeder extends AbstractSeeder {
         dog: true,
         price: 25,
       },
+      {
+        name: "Ludovic",
+        city: "Villeurbanne",
+        postal_code: 69100,
+        mail: "bonjour@exemple.com",
+        password: "false96783254",
+        is_professional: false,
+        cat: true,
+        dog: false,
+        price: 18,
+      },
     ];
 
     homeStructure.forEach((structure) => {
