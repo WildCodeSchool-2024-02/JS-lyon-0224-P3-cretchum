@@ -123,7 +123,6 @@ function SingIn() {
             type="password"
             name="passwordConf"
             minLength={12}
-            maxLength={64}
             value={passwordConf}
             onChange={(event) => handleInputChange(event, setPasswordConf)}
             required
@@ -137,7 +136,7 @@ function SingIn() {
             className={styles.inputDesc}
             type="text"
             name="description"
-            maxLength={255}
+            maxLength={60}
           />
         </div>
         <div className={styles.containerSmall}>
