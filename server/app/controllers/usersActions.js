@@ -41,7 +41,7 @@ const edit = async (req, res, next) => {
 
   try {
     // Update the user in the database
-    await tables.category.update(users);
+    await tables.users.update(users);
 
     // Respond with HTTP 204 (No Content)
     res.sendStatus(204);
@@ -60,7 +60,7 @@ const add = async (req, res, next) => {
     // Insert the user into the database
     const insertId = await tables.users.create(user);
 
-    // Respond with HTTP 201 (Created) and the ID of the newly inserted category
+    // Respond with HTTP 201 (Created) and the ID of the newly inserted user
     res.status(201).json({ insertId });
   } catch (err) {
     // Pass any errors to the error-handling middleware
