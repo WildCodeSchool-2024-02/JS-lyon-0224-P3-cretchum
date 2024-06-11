@@ -65,6 +65,7 @@ class UserRepository extends AbstractRepository {
         user.mail,
         user.password,
         user.description,
+        user.id
       ]
     );
 

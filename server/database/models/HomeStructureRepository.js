@@ -15,10 +15,8 @@ class HomeStructureRepository extends AbstractRepository {
       `insert into ${this.table} (name, city, postal_code, mail, password , is_professional, cat, dog, price) values (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         structure.name,
-        structure.citye,
+        structure.city,
         structure.postal_code,
-        structure.mail,
-        structure.password,
         structure.mail,
         structure.password,
         structure.is_professional,
@@ -61,16 +59,15 @@ class HomeStructureRepository extends AbstractRepository {
       `update ${this.table} set name = ?, city = ?, postal_code = ?, mail = ?, password = ?, is_professional = ?, cat = ?, dog = ?, price =?,  where id = ?`,
       [
         structure.name,
-        structure.citye,
+        structure.city,
         structure.postal_code,
-        structure.mail,
-        structure.password,
         structure.mail,
         structure.password,
         structure.is_professional,
         structure.cat,
         structure.dog,
         structure.price,
+        structure.id
       ]
     );
 
