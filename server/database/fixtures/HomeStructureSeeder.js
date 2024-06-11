@@ -9,7 +9,10 @@ class HomeStructureSeeder extends AbstractSeeder {
     const homeStructure = [
       {
         name: "Yankee",
-        city: "Lyon2",
+        lastname : "jean",
+        firstname : "Michel" ,
+        phone_number :  788264465,
+        location : "123 trois ptits chats",
         postal_code: 69002,
         mail: "yakeestructure@exemple.com",
         password: "true96783254",
@@ -17,6 +20,20 @@ class HomeStructureSeeder extends AbstractSeeder {
         cat: true,
         dog: true,
         price: 25,
+      },
+      {
+        name: "Ludovic",
+        lastname : "Gépa",
+        firstname : "Didier" ,
+        phone_number :  788264465,
+        location : "31 adresse d'exemple",
+        postal_code: 69100,
+        mail: "bonjour@exemple.com",
+        password: "false96783254",
+        is_professional: false,
+        cat: true,
+        dog: false,
+        price: 18,
       },
     ];
 
