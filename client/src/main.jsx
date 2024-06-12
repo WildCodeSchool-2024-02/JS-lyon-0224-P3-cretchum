@@ -64,6 +64,13 @@ const router = createBrowserRouter([
       {
         path: "/page-recherche",
         element: <SearchPage />,
+        loader: async () => {
+          const response = await fetch(
+            "http://localhost:3310/api/homestructure"
+          );
+          const data = await response.json();
+          return data;
+        },
       },
     ],
   },
