@@ -1,8 +1,11 @@
+import { Link, Form } from "react-router-dom";
 import Patoune from "../../assets/logo/1patounes.png";
 import "./ConnexionPage.css";
 
 function ConnexionPage() {
-  const HandleConnexionButton = () => {};
+  const HandleConnexionButton = () => {
+    window.location = "/page-recherche";
+  };
 
   return (
     <>
@@ -12,35 +15,42 @@ function ConnexionPage() {
       </section>
 
       <section id="connexionBody">
-        <div id="ConnexionPageDiv">
-          <h3>Nom</h3>
+        <Form method="post" id="connexionPageDiv">
+          <h3>Pseudo</h3>
           <input
-            className=""
+            className="connexionPageInput"
             type="text"
-            name="lastname"
-            minLength={2}
-            maxLength={55}
+            name="username"
+            minLength={3}
+            maxLength={20}
             required
           />
 
           <h3>Mot de passe</h3>
           <input
-            className=""
-            type="text"
-            name="lastname"
+            className="connexionPageInput"
+            type="password"
+            name="password"
             minLength={2}
-            maxLength={55}
+            maxLength={255}
             required
           />
 
-          <button type="submit" onClick={HandleConnexionButton}>
+          <button
+            type="submit"
+            onClick={HandleConnexionButton}
+            id="connexionButton"
+          >
             Connexion
           </button>
+
           <p>Mot de passe oublié ?</p>
-        </div>
+        </Form>
       </section>
 
-      <p>Pas encore de compte ? S'inscrire</p>
+      <section id="connexionFooter">
+        <Link to="/inscription">Pas encore de compte ? S'inscrire</Link>
+      </section>
     </>
   );
 }
