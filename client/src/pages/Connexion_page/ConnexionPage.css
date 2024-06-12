@@ -1,0 +1,26 @@
+#connexionPatoune {
+  width: 5vw;
+  margin-right: 3%;
+}
+
+#headerConnexionPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+#connexionBody {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#ConnexionPageDiv {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  min-width: 50vw;
+  height: 30vh;
+  border-radius: 40px;
+}
