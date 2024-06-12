@@ -87,7 +87,7 @@ function Filter({ onFilterChange }) {
           </li>
         </ul>
       </div>
-      <button type="button" onClick={onClick}>
+      <button type="button" onClick={onClick} className="buttonRechercher">
         Rechercher
       </button>
     </div>
