@@ -16,7 +16,7 @@ function ConnexionPage() {
 
       <section id="connexionBody">
         <Form method="post" id="connexionPageDiv">
-          <h3>Pseudo</h3>
+          <label htmlFor="username">Pseudo</label>
           <input
             className="connexionPageInput"
             type="text"
@@ -26,7 +26,7 @@ function ConnexionPage() {
             required
           />
 
-          <h3>Mot de passe</h3>
+          <label htmlFor="password">Mot de passe</label>
           <input
             className="connexionPageInput"
             type="password"
