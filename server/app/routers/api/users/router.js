@@ -15,6 +15,8 @@ const {
   destroy,
 } = require("../../../controllers/usersActions");
 
+const validateSignIn = require("../../../services/validateSignIn");
+
 // Route to get a list of categories
 router.get("/", browse);
 
@@ -22,10 +24,10 @@ router.get("/", browse);
 router.get("/:id", read);
 
 // Route to edit an existing user
-router.put("/:id", edit);
+router.put("/:id", validateSignIn, edit);
 
 // Route to add a new user
-router.post("/", add);
+router.post("/", validateSignIn, add);
 
 // Route to edit an existing user
 router.delete("/:id", destroy);
