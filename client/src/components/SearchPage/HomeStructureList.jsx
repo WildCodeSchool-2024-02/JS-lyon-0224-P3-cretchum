@@ -31,19 +31,19 @@ function HomeStructureList({ structure }) {
 
       <ul id="userPref">
         <li
-          className={`useranimal ${structure.cat === 0 ? "animalHidden" : "userCat"}`}
+          className={`userAnimal ${structure.cat === 0 ? "animalHidden" : "userCat"}`}
         >
           <img src={CatImage} alt="dessin de chat noir" className="animalImg" />
           <p>Chat</p>
         </li>
         <li
-          className={`useranimal ${structure.dog === 0 ? "animalHidden" : "userDog"}`}
+          className={`userAnimal ${structure.dog === 0 ? "animalHidden" : "userDog"}`}
         >
           <img src={DogImage} alt="dessin de chat noir" className="animalImg" />
           <p>Chien</p>
         </li>
         <li>
-          <p id="userprice">{structure.price} € </p>
+          <p id="userPrice">{structure.price} € </p>
         </li>
       </ul>
     </div>
@@ -56,10 +56,9 @@ HomeStructureList.propTypes = {
   structure: PropTypes.shape({
     name: PropTypes.string.isRequired,
     postal_code: PropTypes.number.isRequired,
-    is_professional: PropTypes.bool.isRequired,
-    cat: PropTypes.bool.isRequired,
-    dog: PropTypes.bool.isRequired,
+    is_professional: PropTypes.number.isRequired,
+    cat: PropTypes.number.isRequired,
+    dog: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
-    img: PropTypes.string.isRequired,
   }).isRequired,
 };
