@@ -2,12 +2,12 @@ const Joi = require("joi");
 
 const signInSchema = Joi.object({
   lastname: Joi.string()
-    .pattern(/^[a-zA-Z\s]+$/, { name: "alpha" }) // Autorise les lettres majuscules, minuscules et les espaces
+    .pattern(/^[a-zA-ZÀ-ÿ\s']+$/)
     .min(2)
     .max(55)
     .required(),
   firstname: Joi.string()
-    .pattern(/^[a-zA-Z\s]+$/, { name: "alpha" }) // Autorise les lettres majuscules, minuscules et les espaces
+    .pattern(/^[a-zA-ZÀ-ÿ\s']+$/)
     .min(2)
     .max(55)
     .required(),
@@ -24,14 +24,11 @@ const signInSchema = Joi.object({
 });
 
 const validateSignIn = (req, res, next) => {
-  // console.log("Request body:", req.body); // Log de la requête reçue
   const { error } = signInSchema.validate(req.body, { abortEarly: false });
 
   if (!error) {
-    // console.log("Validation passed");
     next();
   } else {
-    // console.log("Validation error:", error.details);
     res.status(400).json({ validationErrors: error.details });
   }
 };
