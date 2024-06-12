@@ -87,6 +87,38 @@ class HomeStructureRepository extends AbstractRepository {
     // Return how many rows were affected
     return result.affectedRows;
   }
+
+  async filter(filters) {
+    let sql = `SELECT * FROM ${this.table} WHERE 1=1`;
+
+    if (filters.nom) {
+      sql += ` AND name LIKE '%${filters.nom}%'`;
+    }
+    if (filters.codePostal) {
+      sql += ` AND postal_code = '${filters.codePostal}'`;
+    }
+    if (filters.type && filters.type !== 'tous') {
+      sql += ` AND type = '${filters.type}'`;
+    }
+    if (filters.structure && filters.structure !== 'tous') {
+      sql += ` AND structure = '${filters.structure}'`;
+    }
+    if (filters.prix && filters.prix !== 'tous') {
+      switch (filters.prix) {
+        case 'fourchette1':
+          sql += ` AND price BETWEEN 10 AND 20`;
+          break;
+        case 'fourchette2':
+          sql += ` AND price BETWEEN 20 AND 30`;
+          break;
+        default:
+          break;
+      }
+    }
+
+    const [rows] = await this.database.query(sql);
+    return rows;
+  }
 }
 
 module.exports = HomeStructureRepository;

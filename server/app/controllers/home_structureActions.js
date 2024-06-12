@@ -72,11 +72,24 @@ const add = async (req, res, next) => {
 const destroy = async (req, res, next) => {
   try {
     // Delete the user from the database
-
     await tables.home_structure.delete(req.params.id);
 
     // Respond with HTTP 204 (No Content)
     res.sendStatus(204);
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
+const filter = async (req, res, next) => {
+  const homeStructure = { ...req.body, id: req.params.id };
+  try {
+    //
+    await tables.home_structure.read(req.params.id);
+
+    // Respond with HTTP 204 (No Content)
+    res.status(200).json(homeStructure);
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);
@@ -90,4 +103,5 @@ module.exports = {
   edit,
   add,
   destroy,
+  filter,
 };

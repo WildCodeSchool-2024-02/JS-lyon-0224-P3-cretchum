@@ -28,7 +28,7 @@ function Filter() {
     try {
       // Make the API call with the query parameters
       const response = await fetch(
-        `http://localhost:3310/api/homestructure?${queryParams}`
+        `http://localhost:3310/api/filter?${queryParams}`
       );
       // Check if the response is not okay, throw an error
       if (!response.ok) {

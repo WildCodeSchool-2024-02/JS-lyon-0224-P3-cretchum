@@ -9,6 +9,7 @@ const router = express.Router();
 // Import users-related actions
 const {
   browse,
+  filter,
   read,
   edit,
   add,
@@ -17,6 +18,9 @@ const {
 
 // Route to get a list of categories
 router.get("/", browse);
+
+// Route to get a list of categories
+router.get('/filter', filter);
 
 // Route to get a specific user by ID
 router.get("/:id", read);
