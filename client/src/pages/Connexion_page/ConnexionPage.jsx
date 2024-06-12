@@ -3,9 +3,6 @@ import Patoune from "../../assets/logo/1patounes.png";
 import "./ConnexionPage.css";
 
 function ConnexionPage() {
-  const HandleConnexionButton = () => {
-    window.location = "/page-recherche";
-  };
 
   return (
     <>
@@ -38,7 +35,6 @@ function ConnexionPage() {
 
           <button
             type="submit"
-            onClick={HandleConnexionButton}
             id="connexionButton"
           >
             Connexion
