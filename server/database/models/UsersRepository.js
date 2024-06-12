@@ -17,7 +17,7 @@ class UserRepository extends AbstractRepository {
         user.lastname,
         user.firstname,
         user.username,
-        parseInt(user.phoneNumber, 10),
+        user.phoneNumber,
         user.location,
         user.mail,
         user.password,
