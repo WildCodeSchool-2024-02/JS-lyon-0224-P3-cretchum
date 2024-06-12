@@ -52,14 +52,12 @@
   margin-top: 2%;
 }
 
-.connexionPageInput:focus {
-  outline: none;
-}
-
 #connexionButton {
-  background: linear-gradient(to right, #e37acc, #474fff);
-  color: white;
-  border: none;
+  background:
+    linear-gradient(white, white) padding-box,
+    linear-gradient(to right, #e37acc, #474fff) border-box;
+  border: 1px solid transparent;
+  color: black;
   border-radius: 30px;
   cursor: pointer;
   margin: 6% 0 5%;
@@ -69,7 +67,13 @@
   font-size: 1em;
 }
 
-#connexionPageDiv > h3 {
+#connexionButton:hover {
+  background: linear-gradient(to right, #e37acc, #474fff);
+  border: none;
+  color: white;
+}
+
+#connexionPageDiv > label {
   margin-top: 5%;
 }
 
