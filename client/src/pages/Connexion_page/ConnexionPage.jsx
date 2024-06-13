@@ -13,13 +13,13 @@ function ConnexionPage() {
 
       <section id="connexionBody">
         <Form method="post" id="connexionPageDiv">
-          <label htmlFor="username">Pseudo</label>
+          <label htmlFor="mail">Adresse mail</label>
           <input
             className="connexionPageInput"
-            type="text"
-            name="username"
+            type="mail"
+            name="mail"
             minLength={3}
-            maxLength={20}
+            maxLength={254}
             required
           />
 

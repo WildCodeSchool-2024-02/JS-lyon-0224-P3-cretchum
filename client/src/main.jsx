@@ -25,7 +25,7 @@ const router = createBrowserRouter([
         action: async ({ request }) => {
           try {
             const formData = await request.formData();
-            const username = formData.get("username");
+            const mail = formData.get("mail");
             const password = formData.get("password");
 
             const response = await fetch(`http://localhost:3310/api/users/login`, {
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({ username, password }),
+              body: JSON.stringify({ mail, password }),
             });
 
             if (response.status === 200) {
