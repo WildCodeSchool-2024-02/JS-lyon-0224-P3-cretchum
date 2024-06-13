@@ -9,6 +9,8 @@ import {
 
 import App from "./App";
 import HomePage from "./pages/home_page/HomePage";
+
+import StructureForm from "./pages/structure_form/StructureForm";
 import ConnexionPage from "./pages/Connexion_page/ConnexionPage";
 import SingIn from "./pages/signin/SignIn";
 import SearchPage from "./pages/search-page/SearchPage";
@@ -19,6 +21,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: "/", element: <HomePage /> },
+      { path: "/structure-form", element: <StructureForm /> },
       {
         path: "/connexion",
         element: <ConnexionPage />,
