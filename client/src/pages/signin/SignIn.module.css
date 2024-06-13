@@ -53,10 +53,6 @@
   padding-left: 3%;
 }
 
-.inputSizeM:focus {
-  outline: none;
-}
-
 .inputDesc {
   font-size: 1.1em;
   padding: 0.4rem;
@@ -70,9 +66,6 @@
   padding-left: 3%;
 }
 
-.inputDesc:focus {
-  outline: none;
-}
 .isRequired {
   position: relative;
   width: 0.8em;

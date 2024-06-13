@@ -38,7 +38,7 @@ function Filter() {
           <li className="filter">
             <select className="filterInput">
               <option value="" disabled selected>
-                Type de structure
+                structures
               </option>
               <option value="tous">Tous</option>
               <option value="particulier">Particulier</option>
