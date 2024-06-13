@@ -13,6 +13,7 @@ const {
   edit,
   add,
   destroy,
+  checkLog
 } = require("../../../controllers/usersActions");
 
 // Route to get a list of categories
@@ -26,6 +27,9 @@ router.put("/:id", edit);
 
 // Route to add a new user
 router.post("/", add);
+
+// Route to check the login
+router.post("/login", checkLog);
 
 // Route to edit an existing user
 router.delete("/:id", destroy);

@@ -1,7 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import { createBrowserRouter, RouterProvider, redirect, } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  redirect,
+} from "react-router-dom";
 
 import App from "./App";
 import HomePage from "./pages/home_page/HomePage";
@@ -18,7 +22,28 @@ const router = createBrowserRouter([
       {
         path: "/connexion",
         element: <ConnexionPage />,
-        action: async () => redirect("/page-recherche"),
+        action: async ({ request }) => {
+          try {
+            const formData = await request.formData();
+            const username = formData.get("username");
+            const password = formData.get("password");
+
+            const response = await fetch(`http://localhost:3310/api/users/login`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ username, password }),
+            });
+
+            if (response.status === 200) {
+              return redirect("/page-recherche");
+            }
+            return null
+          } catch (err) {
+            return err;
+          }
+        },
       },
       { path: "/inscription", element: <SingIn /> },
       { path: "/page-recherche", element: <SearchPage /> },

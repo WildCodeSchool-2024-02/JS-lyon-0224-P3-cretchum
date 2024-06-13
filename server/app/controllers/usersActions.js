@@ -80,6 +80,22 @@ const destroy = async (req, res, next) => {
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);
+  }};
+
+const checkLog = async (req, res, next) => {
+  const user = req.body;
+
+  try {
+   const log =  await tables.users.login(user)
+
+   if (log.length !== 0) {
+    res.status(200).json()}
+    else {
+      res.status(401).json()
+    }
+  }
+  catch (err) {
+    next(err)
   }
 };
 
@@ -90,4 +106,5 @@ module.exports = {
   edit,
   add,
   destroy,
+  checkLog
 };
