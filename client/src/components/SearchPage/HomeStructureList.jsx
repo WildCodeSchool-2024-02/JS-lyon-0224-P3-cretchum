@@ -1,27 +1,28 @@
 import PropTypes from "prop-types";
 import "./HomeStructureList.css";
-import catImage from "../../assets/images/cat.png";
-import dogImage from "../../assets/images/dog.png";
+import CatImage from "../../assets/images/cat.png";
+import DogImage from "../../assets/images/dog.png";
+import PersonImage from "../../assets/images/person.jpg";
 
 function HomeStructureList({ structure }) {
   return (
     <div id="userCard">
       <div id="userGeneral">
         <div id="userImg">
-          <img id="userPicture" src={structure.img} alt={structure.name} />
+          <img id="userPicture" src={PersonImage} alt={structure.name} />
         </div>
         <div id="userInfo">
           <h3 id="userName">{structure.name}</h3>
-          <p id="userLocation">{structure.city}</p>
+          <p id="userLocation">{structure.postal_code}</p>
           <p
             className="userStructure"
             id={
-              structure.professionnel === false
+              structure.is_professional === 0
                 ? "userParticulier"
                 : "userChenil"
             }
           >
-            {structure.professionnel === false
+            {structure.is_professional === 0
               ? "particulier"
               : "professionnel"}
           </p>
@@ -30,19 +31,19 @@ function HomeStructureList({ structure }) {
 
       <ul id="userPref">
         <li
-          className={`useranimal ${structure.cat === false ? "animalHidden" : "userCat"}`}
+          className={`userAnimal ${structure.cat === 0 ? "animalHidden" : "userCat"}`}
         >
-          <img src={catImage} alt="dessin de chat noir" className="animalImg" />
+          <img src={CatImage} alt="dessin de chat noir" className="animalImg" />
           <p>Chat</p>
         </li>
         <li
-          className={`useranimal ${structure.dog === false ? "animalHidden" : "userDog"}`}
+          className={`userAnimal ${structure.dog === 0 ? "animalHidden" : "userDog"}`}
         >
-          <img src={dogImage} alt="dessin de chat noir" className="animalImg" />
+          <img src={DogImage} alt="dessin de chat noir" className="animalImg" />
           <p>Chien</p>
         </li>
         <li>
-          <p id="userprice">{structure.price} € </p>
+          <p id="userPrice">{structure.price} € </p>
         </li>
       </ul>
     </div>
@@ -54,11 +55,10 @@ export default HomeStructureList;
 HomeStructureList.propTypes = {
   structure: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    city: PropTypes.string.isRequired,
-    professionnel: PropTypes.bool.isRequired,
-    cat: PropTypes.bool.isRequired,
-    dog: PropTypes.bool.isRequired,
+    postal_code: PropTypes.number.isRequired,
+    is_professional: PropTypes.number.isRequired,
+    cat: PropTypes.number.isRequired,
+    dog: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
-    img: PropTypes.string.isRequired,
   }).isRequired,
 };

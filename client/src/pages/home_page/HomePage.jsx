@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import "./homePage.css";
 
-import logoPatounes from "../../assets/logo/1patounes.png";
-import logoCicorne from "../../assets/logo/cicorne.png";
+import LogoPatounes from "../../assets/logo/1patounes.png";
+import LogoCicorne from "../../assets/logo/cicorne.png";
 
 function HomePage() {
   return (
@@ -10,10 +10,11 @@ function HomePage() {
       <header className="homePageHeader">
         <img
           className="homePageLogoCicorne"
-          src={logoCicorne}
+          src={LogoCicorne}
           alt="Site logo representing a chimera of a stork and a unicorn"
         />
       </header>
+      <div className="homeRightContainer">
       <main className="homePageMain">
         <section className="homePageSectionTitle">
           <img
@@ -51,6 +52,7 @@ function HomePage() {
       <footer className="homePageFooter">
         <p>© 2024 Cretchom. Tous droits réservés.</p>
       </footer>
+      </div>
     </div>
   );
 }
