@@ -44,7 +44,7 @@
   width: 70vw;
   background:
     linear-gradient(white, white) padding-box,
-    linear-gradient(to right, #e37acc, #474fff) border-box;
+    linear-gradient(to right, #e37acc, #08256e) border-box;
   border-radius: 15px;
   border: 1px solid transparent;
   margin-left: 3%;
@@ -55,7 +55,7 @@
 #connexionButton {
   background:
     linear-gradient(white, white) padding-box,
-    linear-gradient(to right, #e37acc, #474fff) border-box;
+    linear-gradient(to right, #e37acc, #08256e) border-box;
   border: 1px solid transparent;
   color: black;
   border-radius: 30px;
@@ -68,7 +68,7 @@
 }
 
 #connexionButton:hover {
-  background: linear-gradient(to right, #e37acc, #474fff);
+  background: linear-gradient(to right, #e37acc, #08256e);
   border: none;
   color: white;
 }

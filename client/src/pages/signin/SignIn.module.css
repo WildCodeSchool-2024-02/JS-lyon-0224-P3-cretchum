@@ -46,7 +46,7 @@
   padding: 0.4em;
   background:
     linear-gradient(white, white) padding-box,
-    linear-gradient(to right, #e37acc, #474fff) border-box;
+    linear-gradient(to right, #e37acc, #08256e) border-box;
   border-radius: 15px;
   border: 1px solid transparent;
   margin-left: 3%;
@@ -59,7 +59,7 @@
   height: 7em;
   background:
     linear-gradient(white, white) padding-box,
-    linear-gradient(to right, #e37acc, #474fff) border-box;
+    linear-gradient(to right, #e37acc, #08256e) border-box;
   border-radius: 15px;
   border: 1px solid transparent;
   margin-left: 3%;
@@ -120,7 +120,7 @@
 
 .accountButton {
   margin-bottom: 0.7em;
-  background: linear-gradient(to right, #e37acc, #474fff);
+  background: linear-gradient(to right, #e37acc, #08256e);
   color: white;
   border: none;
   font-size: 1.1em;
