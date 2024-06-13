@@ -16,6 +16,8 @@ const {
   checkLog
 } = require("../../../controllers/usersActions");
 
+const validateLogin = require("../../../services/ValidateLogin")
+
 // Route to get a list of categories
 router.get("/", browse);
 
@@ -29,7 +31,7 @@ router.put("/:id", edit);
 router.post("/", add);
 
 // Route to check the login
-router.post("/login", checkLog);
+router.post("/login", validateLogin, checkLog);
 
 // Route to edit an existing user
 router.delete("/:id", destroy);
