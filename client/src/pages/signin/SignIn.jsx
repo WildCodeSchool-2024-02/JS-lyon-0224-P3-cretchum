@@ -9,10 +9,6 @@ function SingIn() {
   const [password, setPassword] = useState("");
   const [passwordConf, setPasswordConf] = useState("");
 
-  const HandleValidateButton = () => {
-      window.location = "/page-recherche";
-  };
-
   return (
     <div id={styles.formContainer}>
       <Form method="post" id={styles.signInForm}>
@@ -65,7 +61,7 @@ function SingIn() {
             <input
               className={styles.inputSizeM}
               type="tel"
-              name="phonenumber"
+              name="phone_number"
               pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"
               required
             />
@@ -78,7 +74,7 @@ function SingIn() {
           <input
             className={styles.inputSizeM}
             type="text"
-            name="address"
+            name="location"
             minLength={3}
             maxLength={255}
             required
@@ -135,7 +131,7 @@ function SingIn() {
             className={styles.inputDesc}
             type="text"
             name="description"
-            maxLength={255}
+            maxLength={800}
           />
         </div>
         <div className={styles.containerSmall}>
@@ -143,7 +139,7 @@ function SingIn() {
         </div>
 
         <div className={styles.buttonContainer}>
-          <button className={styles.accountButton} type="submit" onClick={HandleValidateButton}>
+          <button className={styles.accountButton} type="submit">
             Créer mon compte
           </button>
           <span className={styles.compte}>
