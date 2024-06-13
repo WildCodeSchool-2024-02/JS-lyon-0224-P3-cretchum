@@ -150,7 +150,7 @@ function SingIn() {
           <button
             className={styles.accountButton}
             type="submit"
-            disabled={password === passwordConf ? "false" : "disabled"}
+            disabled={password !== passwordConf}
           >
             Créer mon compte
           </button>
