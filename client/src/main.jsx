@@ -4,9 +4,10 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import App from "./App";
-import HomePage from "./pages/home_page/HomePage"
+import HomePage from "./pages/home_page/HomePage";
 import SingIn from "./pages/signin/SignIn";
-import SearchPage from "./pages/search-page/SearchPage"
+import SearchPage from "./pages/search-page/SearchPage";
+import StructureForm from "./components/Structure/StructureForm";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
       { path: "/", element: <HomePage /> },
       { path: "/inscription", element: <SingIn /> },
       { path: "/page-recherche", element: <SearchPage /> },
+      { path: "/structure-form", element: <StructureForm /> },
     ],
   },
 ]);

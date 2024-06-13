@@ -85,6 +85,15 @@
   bottom: 0;
   color: white;
 }
+.additionalLink {
+  font-size: 1em;
+  text-decoration: underline;
+  color: white;
+}
+
+#additionalDiv {
+  margin-top: 2em;
+}
 
 @media screen and (min-width: 580px) {
   .homePageLogoCicorne {

@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import "./homePage.css";
 
 import logoPatounes from "../../assets/logo/1patounes.png";
 import logoCicorne from "../../assets/logo/cicorne.png";
 
 function HomePage() {
-	return (
+  return (
     <div className="homePage">
       <header className="homePageHeader">
         <img
@@ -42,6 +42,11 @@ function HomePage() {
             </li>
           </ul>
         </nav>
+        <div id="additionalDiv">
+          <Link className="additionalLink" to="/structure-form">
+            Vous accueillez des animaux? Inscription ici !
+          </Link>
+        </div>
       </main>
       <footer className="homePageFooter">
         <p>© 2024 Cretchom. Tous droits réservés.</p>
