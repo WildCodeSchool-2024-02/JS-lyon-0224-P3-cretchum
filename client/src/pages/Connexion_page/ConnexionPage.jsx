@@ -28,8 +28,7 @@ function ConnexionPage() {
             className="connexionPageInput"
             type="password"
             name="password"
-            minLength={2}
-            maxLength={255}
+            minLength={12}
             required
           />
 

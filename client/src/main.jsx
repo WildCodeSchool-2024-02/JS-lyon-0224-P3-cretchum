@@ -28,20 +28,26 @@ const router = createBrowserRouter([
             const mail = formData.get("mail");
             const password = formData.get("password");
 
-            const response = await fetch(`http://localhost:3310/api/users/login`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ mail, password }),
-            });
+            const response = await fetch(
+              `http://localhost:3310/api/users/login`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ mail, password }),
+              }
+            );
 
             if (response.status === 200) {
               return redirect("/page-recherche");
             }
-            return null
+            return { error: "mail ou mot de passe incorrect" }
           } catch (err) {
-            return err;
+            console.error("Login error:", err);
+            return {
+              error: "An error occurred during login. Please try again later.",
+            };
           }
         },
       },
