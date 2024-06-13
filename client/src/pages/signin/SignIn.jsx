@@ -15,7 +15,7 @@ function SingIn() {
         <div className={styles.desktopRow}>
           <div className={styles.inputContainer} id={styles.firstInput}>
             <label className={styles.formLabel} htmlFor="lastname">
-              Nom :<span className={styles.isRequired}> *</span>
+              Nom <span className={styles.isRequired}> *</span>
             </label>
             <input
               className={styles.inputSizeM}
@@ -28,7 +28,7 @@ function SingIn() {
           </div>
           <div className={styles.inputContainer} id={styles.firstname}>
             <label className={styles.formLabel} htmlFor="firstname">
-              Prénom :<span className={styles.isRequired}> *</span>
+              Prénom <span className={styles.isRequired}> *</span>
             </label>
             <input
               className={styles.inputSizeM}
@@ -43,7 +43,7 @@ function SingIn() {
         <div className={styles.desktopRow}>
           <div className={styles.inputContainer}>
             <label className={styles.formLabel} htmlFor="username">
-              Pseudo :<span className={styles.isRequired}> *</span>
+              Pseudo <span className={styles.isRequired}> *</span>
             </label>
             <input
               className={styles.inputSizeM}
@@ -56,7 +56,7 @@ function SingIn() {
           </div>
           <div className={styles.inputContainer}>
             <label className={styles.formLabel} htmlFor="phonenumber">
-              Téléphone :<span className={styles.isRequired}> *</span>
+              Téléphone <span className={styles.isRequired}> *</span>
             </label>
             <input
               className={styles.inputSizeM}
@@ -69,7 +69,7 @@ function SingIn() {
         </div>
         <div className={styles.inputContainer}>
           <label className={styles.formLabel} htmlFor="address">
-            Adresse : <span className={styles.isRequired}> *</span>
+            Adresse <span className={styles.isRequired}> *</span>
           </label>
           <input
             className={styles.inputSizeM}
@@ -82,7 +82,7 @@ function SingIn() {
         </div>
         <div className={styles.inputContainer}>
           <label className={styles.formLabel} htmlFor="mail">
-            E-mail :<span className={styles.isRequired}> *</span>
+            E-mail <span className={styles.isRequired}> *</span>
           </label>
           <input
             className={styles.inputSizeM}
@@ -96,7 +96,7 @@ function SingIn() {
         </div>
         <div className={styles.inputContainer}>
           <label className={styles.formLabel} htmlFor="password">
-            Mot de passe :<span className={styles.isRequired}> *</span>
+            Mot de passe <span className={styles.isRequired}> *</span>
           </label>
           <input
             className={styles.inputSizeM}
@@ -110,7 +110,7 @@ function SingIn() {
         </div>
         <div className={styles.inputContainer}>
           <label className={styles.formLabel} htmlFor="adress">
-            Confirmer le mot de passe :
+            Confirmer le mot de passe
             <span className={styles.isRequired}> *</span>
           </label>
           <input
@@ -130,7 +130,7 @@ function SingIn() {
         </div>
         <div className={`${styles.inputContainer} ${styles.description}`}>
           <label className={styles.formLabel} htmlFor="Description">
-            Description :
+            Description
           </label>
           <textarea
             className={styles.inputDesc}
