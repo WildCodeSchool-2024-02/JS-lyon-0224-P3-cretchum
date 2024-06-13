@@ -1,28 +1,14 @@
 import { useState, useEffect } from "react";
+import { useLoaderData } from "react-router-dom";
 import "./SearchPage.css";
 import NavMenu from "../../components/nav_menu/NavMenu";
 import Filter from "../../components/SearchPage/Filter";
 import HomeStructureList from "../../components/SearchPage/HomeStructureList";
 
 function SearchPage() {
+  const allStructures = useLoaderData();
   const [filters, setFilters] = useState({});
-  const [allStructures, setAllStructures] = useState([]);
-  const [filteredStructures, setFilteredStructures] = useState([]);
-
-  // Fetch all structures when the component mounts
-  useEffect(() => {
-    fetch('http://localhost:3310/api/homestructure')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setAllStructures(data);
-      })
-      .catch((error) => console.error('Fetch error:', error));
-  }, []);
+  const [filteredStructures, setFilteredStructures] = useState(allStructures);
 
   // Apply filters whenever filters or allStructures change
   useEffect(() => {
@@ -66,7 +52,7 @@ function SearchPage() {
           );
         } else if (filters.priceRange === "fourchette2") {
           filtered = filtered.filter(
-            // Filter structures with price between 20 and 30
+            // Filter structures with price between 20 et 30
             (structure) => structure.price >= 20 && structure.price <= 30
           );
         }
@@ -82,7 +68,7 @@ function SearchPage() {
 
   // Function to handle filter changes
   const handleFilterChange = (newFilters) => {
-     // Update the filters state with the new filters
+    // Update the filters state with the new filters
     setFilters(newFilters);
   };
 
