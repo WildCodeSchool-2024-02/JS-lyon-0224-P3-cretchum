@@ -45,8 +45,60 @@ const router = createBrowserRouter([
           }
         },
       },
-      { path: "/inscription", element: <SingIn /> },
-      { path: "/page-recherche", element: <SearchPage /> },
+      {
+        path: "/inscription",
+        element: <SingIn />,
+        action: async ({ request }) => {
+          try {
+            const formData = await request.formData();
+
+            const lastname = formData.get("lastname");
+            const firstname = formData.get("firstname");
+            const username = formData.get("username");
+            const phoneNumber = formData.get("phone_number");
+            const location = formData.get("location");
+            const mail = formData.get("mail");
+            const password = formData.get("password");
+            const description = formData.get("description");
+
+            const response = await fetch(`http://localhost:3310/api/users`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                lastname,
+                firstname,
+                username,
+                phoneNumber,
+                location,
+                mail,
+                password,
+                description,
+              }),
+            });
+
+            if (!response.ok) {
+              throw new Error("");
+            }
+          } catch (err) {
+            console.error("Fetch error:", err);
+            return null;
+          }
+          return redirect("/page-recherche");
+        },
+      },
+      {
+        path: "/page-recherche",
+        element: <SearchPage />,
+        loader: async () => {
+          const response = await fetch(
+            "http://localhost:3310/api/homestructure"
+          );
+          const data = await response.json();
+          return data;
+        },
+      },
     ],
   },
 ]);
