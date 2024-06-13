@@ -15,6 +15,7 @@ import ConnexionPage from "./pages/Connexion_page/ConnexionPage";
 import SingIn from "./pages/signin/SignIn";
 import SearchPage from "./pages/search-page/SearchPage";
 
+const URL = import.meta.env.VITE_API_URL;
 const router = createBrowserRouter([
   {
     path: "/",
@@ -31,21 +32,18 @@ const router = createBrowserRouter([
             const mail = formData.get("mail");
             const password = formData.get("password");
 
-            const response = await fetch(
-              `http://localhost:3310/api/users/login`,
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ mail, password }),
-              }
-            );
+            const response = await fetch(`${URL}/users/login`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ mail, password }),
+            });
 
             if (response.status === 200) {
               return redirect("/page-recherche");
             }
-            return { error: "mail ou mot de passe incorrect" }
+            return { error: "mail ou mot de passe incorrect" };
           } catch (err) {
             console.error("Login error:", err);
             return {
@@ -70,7 +68,7 @@ const router = createBrowserRouter([
             const password = formData.get("password");
             const description = formData.get("description");
 
-            const response = await fetch(`http://localhost:3310/api/users`, {
+            const response = await fetch(`${URL}/users`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -101,9 +99,7 @@ const router = createBrowserRouter([
         path: "/page-recherche",
         element: <SearchPage />,
         loader: async () => {
-          const response = await fetch(
-            "http://localhost:3310/api/homestructure"
-          );
+          const response = await fetch(`${URL}/homestructure`);
           const data = await response.json();
           return data;
         },

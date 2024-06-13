@@ -8,7 +8,7 @@ const loginSchema = Joi.object({
 const validateLogin = (req, res, next) => {
   const { error } = loginSchema.validate(req.body, { abortEarly: true });
 
-  if (!error) {
+  if (!error === true) {
     next();
   } else {
     res.status(400).json({ validationErrors: error.details });
