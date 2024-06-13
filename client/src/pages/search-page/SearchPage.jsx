@@ -15,16 +15,15 @@ function SearchPage() {
     const applyFilters = () => {
       // Start with all structures
       let filtered = allStructures;
-
       // Apply postal code filter
-      if (filters.postalCode) {
+      if (filters.postalCode !== undefined) {
         filtered = filtered.filter((structure) =>
           structure.postal_code.toString().includes(filters.postalCode)
         );
       }
 
       // Apply animal filter
-      if (filters.animal && filters.animal !== "tous") {
+      if (filters.animal !== "tous") {
         // Filter structures that have cats
         if (filters.animal === "chat") {
           filtered = filtered.filter((structure) => structure.cat === 1);
@@ -34,17 +33,22 @@ function SearchPage() {
         }
       }
 
-      // Apply structure type filter
-      if (filters.structureType && filters.structureType !== "tous") {
-        filtered = filtered.filter(
-          (structure) =>
-            structure.is_professional ===
-            (filters.structureType === "professionnel" ? 1 : 0)
-        );
+      if (filters.structureType !== "tous") {
+        // Filter structures that have cats
+        if (filters.structureType === "particulier") {
+          filtered = filtered.filter(
+            (structure) => structure.is_professional === 0
+          );
+        } else if (filters.structureType === "professionnel") {
+          // Filter structures that have dogs
+          filtered = filtered.filter(
+            (structure) => structure.is_professional === 1
+          );
+        }
       }
 
       // Apply price range filter
-      if (filters.priceRange && filters.priceRange !== "tous") {
+      if (filters.priceRange !== "tous") {
         if (filters.priceRange === "fourchette1") {
           filtered = filtered.filter(
             // Filter structures with price between 10 and 20

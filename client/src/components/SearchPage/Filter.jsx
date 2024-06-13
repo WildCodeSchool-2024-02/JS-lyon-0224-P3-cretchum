@@ -5,9 +5,9 @@ import Patoune from "../../assets/logo/1patounes.png";
 
 function Filter({ onFilterChange }) {
   const [postalCode, setPostalCode] = useState("");
-  const [animal, setAnimal] = useState("");
-  const [structureType, setStructureType] = useState("");
-  const [priceRange, setPriceRange] = useState("");
+  const [animal, setAnimal] = useState("tous");
+  const [structureType, setStructureType] = useState("tous");
+  const [priceRange, setPriceRange] = useState("tous");
 
   // Handle click event to send filter values to parent component
   const onClick = () => {
@@ -18,7 +18,7 @@ function Filter({ onFilterChange }) {
       priceRange,
     };
     onFilterChange(filters);
-  }
+  };
 
   return (
     <div id="filterDiv">
@@ -49,7 +49,7 @@ function Filter({ onFilterChange }) {
               className="filterInput"
               onChange={(e) => setAnimal(e.target.value)}
             >
-              <option value="" disabled selected>
+              <option value="tous" disabled selected>
                 Animal
               </option>
               <option value="tous">Tous</option>
@@ -63,7 +63,7 @@ function Filter({ onFilterChange }) {
               className="filterInput"
               onChange={(e) => setStructureType(e.target.value)}
             >
-              <option value="" disabled selected>
+              <option value="tous" disabled selected>
                 Structures
               </option>
               <option value="tous">Tous</option>
@@ -77,7 +77,7 @@ function Filter({ onFilterChange }) {
               className="filterInput"
               onChange={(e) => setPriceRange(e.target.value)}
             >
-              <option value="" disabled selected>
+              <option value="tous" disabled selected>
                 Prix
               </option>
               <option value="tous">Tous les prix</option>
