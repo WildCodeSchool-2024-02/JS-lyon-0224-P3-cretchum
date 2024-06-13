@@ -85,6 +85,14 @@ class UserRepository extends AbstractRepository {
     // Return how many rows were affected
     return result.affectedRows;
   }
-}
+
+  async login(user) {
+    const [result] = await this.database.query(
+      `SELECT * FROM ${this.table} WHERE mail = ? AND password = ?`,
+      [user.mail, user.password]
+    );
+      return result;
+    }
+  }
 
 module.exports = UserRepository;
