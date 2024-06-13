@@ -64,7 +64,7 @@ function Filter({ onFilterChange }) {
               onChange={(e) => setStructureType(e.target.value)}
             >
               <option value="" disabled selected>
-                Type de structure
+                structures
               </option>
               <option value="tous">Tous</option>
               <option value="particulier">Particulier</option>

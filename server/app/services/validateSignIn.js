@@ -20,11 +20,11 @@ const signInSchema = Joi.object({
   location: Joi.string().min(3).max(255).required(),
   mail: Joi.string().email().required(),
   password: Joi.string().min(12).required(),
-  description: Joi.string().max(800),
+  description: Joi.string().min(0).max(800),
 });
 
 const validateSignIn = (req, res, next) => {
-  const { error } = signInSchema.validate(req.body, { abortEarly: false });
+  const { error } = signInSchema.validate(req.body, { abortEarly: true });
 
   if (!error) {
     next();
