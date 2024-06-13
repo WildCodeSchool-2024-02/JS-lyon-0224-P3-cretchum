@@ -9,6 +9,7 @@ import {
 
 import App from "./App";
 import HomePage from "./pages/home_page/HomePage";
+import ConnexionPage from "./pages/Connexion_page/ConnexionPage";
 import SingIn from "./pages/signin/SignIn";
 import SearchPage from "./pages/search-page/SearchPage";
 
@@ -18,6 +19,38 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: "/", element: <HomePage /> },
+      {
+        path: "/connexion",
+        element: <ConnexionPage />,
+        action: async ({ request }) => {
+          try {
+            const formData = await request.formData();
+            const mail = formData.get("mail");
+            const password = formData.get("password");
+
+            const response = await fetch(
+              `http://localhost:3310/api/users/login`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ mail, password }),
+              }
+            );
+
+            if (response.status === 200) {
+              return redirect("/page-recherche");
+            }
+            return { error: "mail ou mot de passe incorrect" }
+          } catch (err) {
+            console.error("Login error:", err);
+            return {
+              error: "An error occurred during login. Please try again later.",
+            };
+          }
+        },
+      },
       {
         path: "/inscription",
         element: <SingIn />,

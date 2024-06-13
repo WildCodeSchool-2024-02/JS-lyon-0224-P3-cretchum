@@ -1,0 +1,102 @@
+#connexionPatoune {
+  width: 50px;
+  margin-right: 3%;
+}
+
+#headerConnexionPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  margin-top: 15%;
+}
+
+#headerConnexionPage > h1 {
+  font-size: 2em;
+}
+
+#connexionBody {
+  margin-top: 3%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#connexionPageDiv {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  min-width: 90vw;
+  min-height: 60vh;
+  border-radius: 40px;
+  justify-content: center;
+  align-items: center;
+  background-image: url(../../assets/images/2patounes.png);
+  background-size: auto 600px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.connexionPageInput {
+  font-size: 1.1em;
+  padding: 0.4rem;
+  width: 35vw;
+  width: 70vw;
+  background:
+    linear-gradient(white, white) padding-box,
+    linear-gradient(to right, #e37acc, #474fff) border-box;
+  border-radius: 15px;
+  border: 1px solid transparent;
+  margin-left: 3%;
+  padding-left: 3%;
+  margin-top: 2%;
+}
+
+#connexionButton {
+  background:
+    linear-gradient(white, white) padding-box,
+    linear-gradient(to right, #e37acc, #474fff) border-box;
+  border: 1px solid transparent;
+  color: black;
+  border-radius: 30px;
+  cursor: pointer;
+  margin: 6% 0 5%;
+  height: 5vh;
+  padding: 1em;
+  min-width: 10vw;
+  font-size: 1em;
+}
+
+#connexionButton:hover {
+  background: linear-gradient(to right, #e37acc, #474fff);
+  border: none;
+  color: white;
+}
+
+#connexionPageDiv > label {
+  margin-top: 5%;
+}
+
+#connexionFooter {
+  margin-top: 6%;
+  text-align: center;
+}
+
+#connexionFooter > a {
+  color: white;
+}
+
+@media screen and (min-width: 1100px) {
+  #headerConnexionPage {
+    margin-top: 3%;
+  }
+
+  #connexionPageDiv {
+    min-width: 50vw;
+    min-height: 60vh;
+  }
+
+  .connexionPageInput {
+    width: 35vw;
+  }
+}

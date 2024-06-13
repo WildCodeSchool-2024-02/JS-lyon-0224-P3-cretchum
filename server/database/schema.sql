@@ -19,7 +19,7 @@ CREATE TABLE home_structure (
   location TEXT NOT NULL,
   postal_code INT(6) NOT NULL,
   mail VARCHAR(254) NOT NULL UNIQUE,
-  password VARCHAR(255) NOT NULL, 
+  password TEXT NOT NULL, 
   is_professional BOOLEAN NOT NULL,
   cat BOOLEAN NOT NULL, 
   dog BOOLEAN NOT NULL, 
