@@ -48,7 +48,28 @@
   display: flex;
   align-items: center;
 }
-
+.buttonRechercher {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 40px;
+  font-size: 1.5em;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  box-shadow: 10px 5px 5px rgba(5, 5, 5, 0.3);
+  color: Black;
+  border: 1px solid;
+  background: white;
+}
+.buttonRechercher:hover {
+  background: linear-gradient(
+    90deg,
+    var(--container-color),
+    var(--secondary-color)
+  );
+}
 @media screen and (min-width: 1100px) {
   #filterDiv {
     flex-direction: row;
@@ -66,5 +87,10 @@
 
   #filterList {
     margin-bottom: 0;
+  }
+}
+@media screen and (max-width: 1100px) {
+  .buttonRechercher {
+    margin-bottom: 15px;
   }
 }
