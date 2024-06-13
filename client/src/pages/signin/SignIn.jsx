@@ -124,10 +124,7 @@ function SingIn() {
           />
           <div className={styles.passwordSmall}>
             {password !== passwordConf && (
-              <small>
-                le mot de passe et la confirmation de mot de passe doivent être
-                identiques
-              </small>
+              <small>les mots de passes ne sont pas identiques</small>
             )}
           </div>
         </div>
