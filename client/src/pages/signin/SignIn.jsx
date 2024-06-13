@@ -122,6 +122,14 @@ function SingIn() {
             onChange={(event) => handleInputChange(event, setPasswordConf)}
             required
           />
+          <div className={styles.passwordSmall}>
+            {password !== passwordConf && (
+              <small>
+                le mot de passe et la confirmation de mot de passe doivent être
+                identiques
+              </small>
+            )}
+          </div>
         </div>
         <div className={`${styles.inputContainer} ${styles.description}`}>
           <label className={styles.formLabel} htmlFor="Description">
@@ -139,7 +147,11 @@ function SingIn() {
         </div>
 
         <div className={styles.buttonContainer}>
-          <button className={styles.accountButton} type="submit">
+          <button
+            className={styles.accountButton}
+            type="submit"
+            disabled={password === passwordConf ? "false" : "disabled"}
+          >
             Créer mon compte
           </button>
           <span className={styles.compte}>
