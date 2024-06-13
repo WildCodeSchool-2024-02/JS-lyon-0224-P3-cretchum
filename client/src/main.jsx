@@ -10,7 +10,7 @@ import {
 import App from "./App";
 import HomePage from "./pages/home_page/HomePage";
 
-import StructureForm from "./components/Structure/StructureForm";
+import StructureForm from "./pages/structure_form/StructureForm";
 import ConnexionPage from "./pages/Connexion_page/ConnexionPage";
 import SingIn from "./pages/signin/SignIn";
 import SearchPage from "./pages/search-page/SearchPage";

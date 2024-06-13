@@ -212,7 +212,7 @@ function StructureForm() {
             className={styles.inputDesc}
             type="text"
             name="description"
-            maxLength={255}
+            maxLength={800}
           />
         </div>
         <div className={styles.containerSmall}>

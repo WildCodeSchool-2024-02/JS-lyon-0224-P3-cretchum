@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./homePage.css";
 
-import LogoPatounes from "../../assets/logo/1patounes.png";
+import LogoPatounes from "../../assets/logo/1patounes.png"
 import LogoCicorne from "../../assets/logo/cicorne.png";
 
 function HomePage() {
@@ -19,7 +19,7 @@ function HomePage() {
         <section className="homePageSectionTitle">
           <img
             className="homePageLogoPatounes"
-            src={logoPatounes}
+            src={LogoPatounes}
             alt="Visual representing an animal's footprint."
           />
           <h1 className="homePageTitle">Cretchom</h1>
