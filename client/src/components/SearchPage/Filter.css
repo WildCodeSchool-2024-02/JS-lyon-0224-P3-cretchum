@@ -58,7 +58,6 @@
   text-decoration: none;
   padding: 10px 20px;
   border-radius: 30px;
-  box-shadow: 10px 5px 5px rgba(5, 5, 5, 0.3);
   color: Black;
   border: 1px solid;
   background: white;
@@ -69,6 +68,8 @@
     var(--container-color),
     var(--secondary-color)
   );
+  color: white;
+  border: none;
 }
 @media screen and (min-width: 1100px) {
   #filterDiv {
@@ -82,7 +83,7 @@
   }
 
   .filterInput {
-    width: 6vw;
+    width: 7vw;
   }
 
   #filterList {
