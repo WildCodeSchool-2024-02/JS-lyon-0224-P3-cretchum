@@ -48,7 +48,7 @@
   list-style: none;
 }
 .homePageNavItem {
-  margin: 15px;
+  margin-top: 6%;
 }
 .homePageNavLink {
   display: inline-flex;
@@ -80,10 +80,18 @@
   justify-content: center;
   text-align: center;
   padding: 20px;
-  position: fixed;
   width: 100%;
   bottom: 0;
   color: white;
+}
+.additionalLink {
+  font-size: 1em;
+  text-decoration: underline;
+  color: white;
+}
+
+#additionalDiv {
+  margin-top: 2em;
 }
 
 @media screen and (min-width: 580px) {
@@ -111,6 +119,7 @@
   .homePageLogoCicorne {
     width: 100%;
     height: auto;
+    max-height: 95vh;
   }
   .homePageSectionTitle {
     display: flex;
@@ -134,9 +143,11 @@
     height: 7vh;
   }
   .homePageFooter {
-    width: 67%;
-    position: fixed;
     bottom: 0;
     right: 0;
+    padding-top: 50px;
+  }
+  .homeRightContainer {
+    width: 50vw;
   }
 }

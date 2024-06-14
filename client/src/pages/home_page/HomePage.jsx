@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import "./homePage.css";
 
-import LogoPatounes from "../../assets/logo/1patounes.png";
+import LogoPatounes from "../../assets/logo/1patounes.png"
 import LogoCicorne from "../../assets/logo/cicorne.png";
 
 function HomePage() {
-	return (
+  return (
     <div className="homePage">
       <header className="homePageHeader">
         <img
@@ -14,6 +14,7 @@ function HomePage() {
           alt="Site logo representing a chimera of a stork and a unicorn"
         />
       </header>
+      <div className="homeRightContainer">
       <main className="homePageMain">
         <section className="homePageSectionTitle">
           <img
@@ -42,10 +43,16 @@ function HomePage() {
             </li>
           </ul>
         </nav>
+        <div id="additionalDiv">
+          <Link className="additionalLink" to="/structure-form">
+            Vous accueillez des animaux? Inscription ici !
+          </Link>
+        </div>
       </main>
       <footer className="homePageFooter">
         <p>© 2024 Cretchom. Tous droits réservés.</p>
       </footer>
+      </div>
     </div>
   );
 }

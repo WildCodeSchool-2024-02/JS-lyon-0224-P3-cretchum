@@ -11,11 +11,21 @@ class UserSeeder extends AbstractSeeder {
         lastname: "Moustache",
         firstname: "Pedro",
         username: "judekornichon",
-        phone_number: 788264465,
+        phone_number: "0788264465",
         location: "Perrache",
         mail: "darkpedro@exemple.com",
         password: "true!25445aa",
         description: "Non !",
+      },
+      {
+        lastname: "Martin",
+        firstname: "Lou",
+        username: "Lou69",
+        phone_number: "0688263395",
+        location: "Lyon 7",
+        mail: "lou.martin@exemple.com",
+        password: "password",
+        description: "J'ai 2 chiens :) !",
       },
     ];
 
