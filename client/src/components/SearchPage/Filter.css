@@ -2,6 +2,7 @@
   display: flex;
   background-color: white;
   min-height: 13vh;
+  min-width: 250px;
   border-radius: 0 0 10px 10px;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
   align-items: center;
@@ -19,13 +20,15 @@
   border: none;
   border-radius: 10px;
   min-height: 4.5vh;
-  padding: 1em;
+  padding: 0.5em;
   width: 14vw;
+  min-width: 48px;
   text-align: center;
 }
 
 #seachInput {
-  width: 20vw;
+  width: 35vw;
+  min-width: 180px;
 }
 
 #filterConditions {
