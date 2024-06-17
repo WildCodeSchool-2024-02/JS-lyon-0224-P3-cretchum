@@ -37,6 +37,19 @@ function Filter({ onFilterChange, setRefetch, refetch, setSearch }) {
     }
   };
 
+  const onSearchChange = (e) => {
+    e.preventDefault();
+    setSearch(e.target.value);
+    const filters = {
+      postalCode,
+      animal,
+      structureType,
+      priceRange,
+    };
+    onFilterChange(filters);
+    setRefetch(!refetch);
+  };
+
   return (
     <div id="filterDiv">
       <div id="imgSearch">
@@ -47,7 +60,7 @@ function Filter({ onFilterChange, setRefetch, refetch, setSearch }) {
           id="seachInput"
           maxLength={255}
           placeholder="Rehercher par nom"
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => onSearchChange(e)}
           onKeyDown={handleInputKeyDown}
         />
       </div>

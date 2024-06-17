@@ -3,6 +3,8 @@ import "./SearchPage.css";
 import NavMenu from "../../components/nav_menu/NavMenu";
 import Filter from "../../components/SearchPage/Filter";
 import HomeStructureList from "../../components/SearchPage/HomeStructureList";
+import BtnPrev from "../../assets/images/Btn-prev.png";
+import BtnNext from "../../assets/images/Btn-next.png";
 
 function SearchPage() {
   const [allStructures, setAllStructures] = useState([]);
@@ -10,6 +12,9 @@ function SearchPage() {
   const [filteredStructures, setFilteredStructures] = useState(allStructures);
   const [search, setSearch] = useState("");
   const [refetch, setRefetch] = useState(true);
+  const [pageLim, setPageLim] = useState(0);
+  const [pageLimSup, setPageLimSup] = useState(30);
+  const [countPage, setCountPage] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,7 +25,7 @@ function SearchPage() {
       setAllStructures(jsonData);
     };
     fetchData();
-  }, [refetch]);
+  }, [search]);
 
   useEffect(() => {
     const applyFilters = () => {
@@ -79,12 +84,24 @@ function SearchPage() {
 
     // Call the applyFilters function to update the filtered structures
     applyFilters();
-  }, [filters, allStructures]); // Dependencies: re-run effect when filters or allStructures change
+  }, [filters, allStructures, search]); // Dependencies: re-run effect when filters or allStructures change
 
   // Function to handle filter changes
   const handleFilterChange = (newFilters) => {
     // Update the filters state with the new filters
     setFilters(newFilters);
+  };
+
+  const next = () => {
+    setPageLim(pageLim + 30);
+    setPageLimSup(pageLimSup + 30);
+    setCountPage(countPage + 1);
+  };
+
+  const prev = () => {
+    setPageLim(pageLim - 30);
+    setPageLimSup(pageLimSup - 30);
+    setCountPage(countPage - 1);
   };
 
   return (
@@ -97,12 +114,33 @@ function SearchPage() {
         setSearch={setSearch}
       />
       <ul id="peopleMap">
-        {filteredStructures.map((structure) => (
+        {filteredStructures.slice(pageLim, pageLimSup).map((structure) => (
           <li key={structure.id} id="peopleList">
             <HomeStructureList structure={structure} />
           </li>
         ))}
       </ul>
+      <div className="nextPrev">
+        <button
+          type="button"
+          className="buttonNextPrev"
+          onClick={prev}
+          hidden={countPage <= 1}
+        >
+          <img className="buttonImg" src={BtnPrev} alt="bouton précedent" />
+        </button>
+
+        <p>{`page ${countPage} sur ${Math.ceil(filteredStructures.length / 30)}`}</p>
+
+        <button
+          type="button"
+          onClick={next}
+          hidden={pageLimSup >= filteredStructures.length}
+          className="buttonNextPrev"
+        >
+          <img className="buttonImg" src={BtnNext} alt="bouton suivant" />
+        </button>
+      </div>
     </>
   );
 }

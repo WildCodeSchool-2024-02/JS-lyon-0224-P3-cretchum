@@ -10,6 +10,26 @@
 #peopleList {
   margin: 2%;
 }
+.nextPrev {
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color: white;
+  font-weight: bolder;
+  align-items: center;
+}
+
+.buttonNextPrev {
+  width: 5em;
+  background-color: transparent;
+  border: none;
+}
+
+.buttonImg {
+  height: 2em;
+  width: auto;
+}
 
 @media screen and (min-width: 1100px) {
   #peopleMap {
