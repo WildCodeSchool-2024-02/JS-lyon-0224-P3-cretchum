@@ -67,7 +67,7 @@ class HomeStructureRepository extends AbstractRepository {
         structure.cat,
         structure.dog,
         structure.price,
-        structure.id
+        structure.id,
       ]
     );
 
@@ -86,6 +86,16 @@ class HomeStructureRepository extends AbstractRepository {
 
     // Return how many rows were affected
     return result.affectedRows;
+  }
+
+  // incules for the searchBar
+  async includes(search) {
+    const [result] = await this.database.query(
+      `SELECT * FROM ${this.table} WHERE name like ? OR location like ?`,
+      [`%${search}%`, `%${search}%`]
+    );
+
+    return result;
   }
 }
 
