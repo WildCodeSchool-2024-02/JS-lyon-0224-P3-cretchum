@@ -127,7 +127,7 @@ function SearchPage() {
           ))}
         </ul>
       )}
-      {allStructures.length < 1 && search.length >= 1 && (
+      {filteredStructures.length < 1 && search.length >= 1 && (
         <p className="loading">Aucun résultat</p>
       )}
       <div className="nextPrev">

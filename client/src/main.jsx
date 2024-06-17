@@ -98,11 +98,6 @@ const router = createBrowserRouter([
       {
         path: "/page-recherche",
         element: <SearchPage />,
-        loader: async () => {
-          const response = await fetch(`${URL}/homestructure`);
-          const data = await response.json();
-          return data;
-        },
       },
     ],
   },
