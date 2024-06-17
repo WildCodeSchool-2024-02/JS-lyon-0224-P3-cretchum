@@ -3,15 +3,23 @@ import PropTypes from "prop-types";
 import "./Filter.css";
 import Patoune from "../../assets/logo/1patounes.png";
 
-function Filter({ onFilterChange, setRefetch, refetch, setSearch }) {
+function Filter({
+  onFilterChange,
+  setRefetch,
+  refetch,
+  setSearch,
+  setCountPage,
+  setPageLim,
+  setPageLimSup,
+}) {
   const [postalCode, setPostalCode] = useState("");
   const [animal, setAnimal] = useState("tous");
   const [structureType, setStructureType] = useState("tous");
   const [priceRange, setPriceRange] = useState("tous");
 
   // Handle click event to send filter values to parent component
-  const onClick = (event) => {
-    event.preventDefault();
+  const onClick = (e) => {
+    e.preventDefault();
     const filters = {
       postalCode,
       animal,
@@ -20,34 +28,21 @@ function Filter({ onFilterChange, setRefetch, refetch, setSearch }) {
     };
     onFilterChange(filters);
     setRefetch(!refetch);
+    setCountPage(1);
+    setPageLim(0);
+    setPageLimSup(30);
   };
 
   // Handle Input Key Down if the key Enter it press, it send Input and filter values to parent component
-  const handleInputKeyDown = (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      const filters = {
-        postalCode,
-        animal,
-        structureType,
-        priceRange,
-      };
-      onFilterChange(filters);
-      setRefetch(!refetch);
+  const handleInputKeyDown = (e) => {
+    if (e.key === "Enter") {
+      onClick(e);
     }
   };
 
   const onSearchChange = (e) => {
-    e.preventDefault();
     setSearch(e.target.value);
-    const filters = {
-      postalCode,
-      animal,
-      structureType,
-      priceRange,
-    };
-    onFilterChange(filters);
-    setRefetch(!refetch);
+    onClick(e);
   };
 
   return (
@@ -131,6 +126,9 @@ Filter.propTypes = {
   setRefetch: PropTypes.func.isRequired,
   setSearch: PropTypes.func.isRequired,
   refetch: PropTypes.bool.isRequired,
+  setCountPage: PropTypes.func.isRequired,
+  setPageLim: PropTypes.func.isRequired,
+  setPageLimSup: PropTypes.func.isRequired,
 };
 
 export default Filter;

@@ -112,14 +112,24 @@ function SearchPage() {
         setRefetch={setRefetch}
         refetch={refetch}
         setSearch={setSearch}
+        setCountPage={setCountPage}
+        setPageLim={setPageLim}
+        setPageLimSup={setPageLimSup}
       />
-      <ul id="peopleMap">
-        {filteredStructures.slice(pageLim, pageLimSup).map((structure) => (
-          <li key={structure.id} id="peopleList">
-            <HomeStructureList structure={structure} />
-          </li>
-        ))}
-      </ul>
+      {allStructures.length < 1 && search.length < 1 ? (
+        <p className="loading">Chargement ...</p>
+      ) : (
+        <ul id="peopleMap">
+          {filteredStructures.slice(pageLim, pageLimSup).map((structure) => (
+            <li key={structure.id} id="peopleList">
+              <HomeStructureList structure={structure} />
+            </li>
+          ))}
+        </ul>
+      )}
+      {allStructures.length < 1 && search.length >= 1 && (
+        <p className="loading">Aucun résultat</p>
+      )}
       <div className="nextPrev">
         <button
           type="button"
@@ -130,7 +140,9 @@ function SearchPage() {
           <img className="buttonImg" src={BtnPrev} alt="bouton précedent" />
         </button>
 
-        <p>{`page ${countPage} sur ${Math.ceil(filteredStructures.length / 30)}`}</p>
+        <p
+          hidden={Math.ceil(filteredStructures.length / 30) <= 1}
+        >{`page ${countPage} sur ${Math.ceil(filteredStructures.length / 30)}`}</p>
 
         <button
           type="button"
