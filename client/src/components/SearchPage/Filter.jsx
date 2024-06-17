@@ -41,8 +41,8 @@ function Filter({
   };
 
   const onSearchChange = (e) => {
-    setSearch(e.target.value);
     onClick(e);
+    setSearch(e.target.value);
   };
 
   return (
