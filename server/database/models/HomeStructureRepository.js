@@ -91,7 +91,7 @@ class HomeStructureRepository extends AbstractRepository {
   // incules for the searchBar
   async includes(search) {
     const [result] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE name like ? OR location like ?`,
+      `SELECT name, phone_number, location, postal_code, is_professional, cat, dog, price FROM ${this.table} WHERE name like ? OR location like ?`,
       [`%${search}%`, `%${search}%`]
     );
 

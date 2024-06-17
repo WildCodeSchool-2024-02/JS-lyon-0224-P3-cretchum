@@ -8,6 +8,7 @@
   align-items: center;
   margin-bottom: 7vh;
   flex-direction: column;
+  width: 100%;
 }
 
 #filterPaw {
@@ -22,12 +23,13 @@
   min-height: 4.5vh;
   padding: 0.5em;
   width: 14vw;
-  min-width: 48px;
+  min-width: 55px;
   text-align: center;
+  font-size: 1em;
 }
 
 #seachInput {
-  width: 35vw;
+  width: 30vw;
   min-width: 180px;
 }
 

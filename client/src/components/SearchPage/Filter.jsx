@@ -108,8 +108,8 @@ function Filter({
                 Prix
               </option>
               <option value="tous">Tous les prix</option>
-              <option value="fourchette1">entre 10 et 20 €</option>
-              <option value="fourchette2">entre 20 et 30 €</option>
+              <option value="fourchette1">de 10 à 20 €</option>
+              <option value="fourchette2">de 20 à 30 €</option>
             </select>
           </li>
         </ul>
