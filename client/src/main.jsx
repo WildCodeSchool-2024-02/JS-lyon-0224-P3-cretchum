@@ -14,6 +14,7 @@ import StructureForm from "./pages/structure_form/StructureForm";
 import ConnexionPage from "./pages/Connexion_page/ConnexionPage";
 import SingIn from "./pages/signin/SignIn";
 import SearchPage from "./pages/search-page/SearchPage";
+import HomeStructureDetails from "./pages/home_structure_details/HomeStructureDetails";
 
 const URL = import.meta.env.VITE_API_URL;
 const router = createBrowserRouter([
@@ -103,6 +104,10 @@ const router = createBrowserRouter([
           const data = await response.json();
           return data;
         },
+      },
+      {
+        path: "/reservation",
+        element: <HomeStructureDetails />,
       },
     ],
   },
