@@ -1,16 +1,27 @@
 import { useState, useEffect } from "react";
-import { useLoaderData } from "react-router-dom";
 import "./SearchPage.css";
 import NavMenu from "../../components/nav_menu/NavMenu";
 import Filter from "../../components/SearchPage/Filter";
 import HomeStructureList from "../../components/SearchPage/HomeStructureList";
 
 function SearchPage() {
-  const allStructures = useLoaderData();
+  const [allStructures, setAllStructures] = useState([]);
   const [filters, setFilters] = useState({});
   const [filteredStructures, setFilteredStructures] = useState(allStructures);
+  const [search, setSearch] = useState("");
+  const [refetch, setRefetch] = useState(true);
 
-  // Apply filters whenever filters or allStructures change
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        `http://localhost:3310/api/homestructure?q=${search}`
+      );
+      const jsonData = await response.json();
+      setAllStructures(jsonData);
+    };
+    fetchData();
+  }, [refetch]);
+
   useEffect(() => {
     const applyFilters = () => {
       // Start with all structures
@@ -79,7 +90,12 @@ function SearchPage() {
   return (
     <>
       <NavMenu />
-      <Filter onFilterChange={handleFilterChange} />
+      <Filter
+        onFilterChange={handleFilterChange}
+        setRefetch={setRefetch}
+        refetch={refetch}
+        setSearch={setSearch}
+      />
       <ul id="peopleMap">
         {filteredStructures.map((structure) => (
           <li key={structure.id} id="peopleList">

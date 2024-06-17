@@ -3,14 +3,15 @@ import PropTypes from "prop-types";
 import "./Filter.css";
 import Patoune from "../../assets/logo/1patounes.png";
 
-function Filter({ onFilterChange }) {
+function Filter({ onFilterChange, setRefetch, refetch, setSearch }) {
   const [postalCode, setPostalCode] = useState("");
   const [animal, setAnimal] = useState("tous");
   const [structureType, setStructureType] = useState("tous");
   const [priceRange, setPriceRange] = useState("tous");
 
   // Handle click event to send filter values to parent component
-  const onClick = () => {
+  const onClick = (event) => {
+    event.preventDefault();
     const filters = {
       postalCode,
       animal,
@@ -18,6 +19,22 @@ function Filter({ onFilterChange }) {
       priceRange,
     };
     onFilterChange(filters);
+    setRefetch(!refetch);
+  };
+
+  // Handle Input Key Down if the key Enter it press, it send Input and filter values to parent component
+  const handleInputKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      const filters = {
+        postalCode,
+        animal,
+        structureType,
+        priceRange,
+      };
+      onFilterChange(filters);
+      setRefetch(!refetch);
+    }
   };
 
   return (
@@ -30,6 +47,8 @@ function Filter({ onFilterChange }) {
           id="seachInput"
           maxLength={255}
           placeholder="Rehercher par nom"
+          onChange={(e) => setSearch(e.target.value)}
+          onKeyDown={handleInputKeyDown}
         />
       </div>
       <div id="filterConditions">
@@ -96,6 +115,9 @@ function Filter({ onFilterChange }) {
 
 Filter.propTypes = {
   onFilterChange: PropTypes.func.isRequired,
+  setRefetch: PropTypes.func.isRequired,
+  setSearch: PropTypes.func.isRequired,
+  refetch: PropTypes.bool.isRequired,
 };
 
 export default Filter;
