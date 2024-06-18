@@ -151,9 +151,9 @@ function SingIn() {
           >
             Créer mon compte
           </button>
-          <span className={styles.compte}>
+          <p className={styles.compte}>
             Déjà un compte ? <Link to="/connexion">se connecter</Link>
-          </span>
+          </p>
         </div>
       </Form>
     </div>

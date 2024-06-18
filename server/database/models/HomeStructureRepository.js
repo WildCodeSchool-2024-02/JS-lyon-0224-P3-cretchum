@@ -12,17 +12,15 @@ class HomeStructureRepository extends AbstractRepository {
   async create(structure) {
     // Execute the SQL INSERT query to add a new program to the "program" table
     const [result] = await this.database.query(
-      `insert into ${this.table} (name, city, postal_code, mail, password , is_professional, cat, dog, price) values (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `insert into ${this.table} (postal_code, capacity, is_professional, cat, dog, price, user_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
-        structure.name,
-        structure.city,
         structure.postal_code,
-        structure.mail,
-        structure.password,
+        structure.capacity,
         structure.is_professional,
         structure.cat,
         structure.dog,
         structure.price,
+        structure.user_id,
       ]
     );
 
@@ -35,7 +33,7 @@ class HomeStructureRepository extends AbstractRepository {
   async read(id) {
     // Execute the SQL SELECT query to retrieve a specific program by its ID
     const [rows] = await this.database.query(
-      `select * from ${this.table} where id = ?`,
+      `select * from ${this.table} JOIN users ON ${this.table}.users_id = users.id WHERE id = ?`,
       [id]
     );
 
@@ -45,7 +43,7 @@ class HomeStructureRepository extends AbstractRepository {
 
   async readAll() {
     // Execute the SQL SELECT query to retrieve all programs from the "program" table
-    const [rows] = await this.database.query(`select * from ${this.table} ORDER BY capacity DESC`);
+    const [rows] = await this.database.query(`select * from ${this.table} JOIN users ON ${this.table}.users_id = users.id ORDER BY capacity DESC`);
 
     // Return the array of programs
     return rows;
@@ -56,18 +54,23 @@ class HomeStructureRepository extends AbstractRepository {
   async update(structure) {
     // Execute the SQL UPDATE query to update a specific program
     const [result] = await this.database.query(
-      `update ${this.table} set name = ?, city = ?, postal_code = ?, mail = ?, password = ?, is_professional = ?, cat = ?, dog = ?, price =?,  where id = ?`,
+      `update ${this.table} JOIN users ON ${this.table}.users_id = users.id set users.lastname = ?, users.firstname = ?, users.username =?, users.phone_number = ?, users.location = ?, users.mail = ?, users.password = ?, users.description = ?, ${this.table}.postal_code = ?, ${this.table}.capacity = ?, ${this.table}.is_professional = ?, ${this.table}.cat = ?, ${this.table}.dog = ?, ${this.table}.price =?  where id = ?`,
       [
-        structure.name,
-        structure.city,
-        structure.postal_code,
+        structure.lastname,
+        structure.firstname,
+        structure.username,
+        structure.phone_number,
+        structure.location,
         structure.mail,
         structure.password,
+        structure.description,
+        structure.postal_code,
+        structure.capacity,
         structure.is_professional,
         structure.cat,
         structure.dog,
         structure.price,
-        structure.id
+        structure.id,
       ]
     );
 
