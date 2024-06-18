@@ -40,7 +40,7 @@ function HomeStructureList({ structure }) {
           <img src={DogImage} alt="dessin de chat noir" className="animalImg" />
           <p>Chien</p>
         </li>
-        <li>
+        <li className="price">
           <p id="userPrice">{structure.price} € </p>
         </li>
       </ul>

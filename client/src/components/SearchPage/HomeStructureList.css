@@ -1,18 +1,18 @@
 #userCard {
   background-color: white;
-  /* min-height: 18vh; */
-  min-width: 80vw;
-
+  min-width: 300px;
+  width: 80vw;
   border-radius: 40px;
   padding: 1em;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
 }
 
 #userGeneral {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 8%;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 #userName {
@@ -31,10 +31,12 @@
 }
 
 #userPref {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
   list-style-type: none;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  justify-items: center;
+  align-items: center;
+  grid-template-rows: 1fr 1fr;
 }
 
 #userParticulier {
@@ -50,6 +52,7 @@
   padding: 0.25em 0.5em;
   text-align: center;
   border-radius: 14px;
+  align-items: center;
 }
 
 .animalHidden {
@@ -58,6 +61,7 @@
 
 .userCat {
   background-color: #ffc3a0;
+  grid-column: 1;
 }
 
 .userDog {
@@ -65,14 +69,14 @@
 }
 
 .animalImg {
-  width: 2em;
-  height: auto;
+  width: auto;
+  height: 2.4em;
   margin-right: 10px;
 }
 
 #userImg {
   width: 90px;
-  height: 90px;
+  height: auto;
   border-radius: 40px;
   overflow: hidden;
 }
@@ -86,6 +90,7 @@
 #userPrice {
   color: #008000;
   font-size: 1.5em;
+  padding-right: 15px;
 }
 
 .userLocation {
@@ -96,10 +101,19 @@
 .userStructure {
   margin-top: 10%;
 }
+.price {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  height: 100%;
+  width: 100%;
+}
 
-@media screen and (min-width: 455px) and (max-width: 1000px) {
+@media screen and (min-width: 475px) and (max-width: 1000px) {
   #userCard {
-    min-width: 450px;
+    width: 450px;
   }
   .userCard {
     max-width: 450px;
@@ -114,20 +128,38 @@
     font-weight: bold;
     font-size: 1.4em;
   }
+  #userInfo {
+    padding-right: 15px;
+  }
+}
+
+@media screen and (min-width: 475px) {
+  #userPref {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr 0.75fr;
+    grid-template-rows: 1fr;
+
+    justify-items: center;
+    align-items: center;
+  }
+  .price {
+    grid-column: 3;
+    grid-row: 1;
+  }
+  #userImg {
+    width: 150px;
+  }
 }
 
 @media screen and (min-width: 1000px) {
   #userCard {
-    min-width: 500px;
-  }
-
-  #userImg {
-    width: 90px;
-    height: 90px;
+    width: 500px;
   }
 
   #userGeneral {
     margin-bottom: 8%;
+    justify-content: space-around;
   }
 
   .userAnimal {
