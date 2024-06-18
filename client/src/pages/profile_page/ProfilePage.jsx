@@ -43,32 +43,13 @@ function ProfilePage() {
         <address className={styles.profileAddressContainer}>
           <EditableField
             label="Téléphone :"
-            value={
-              isEditMode === true ? (
-                customer.phone_number
-              ) : (
-                <a
-                  href={`tel:${customer.phone_number}`}
-                  className={styles.link}
-                >
-                  {customer.phone_number}
-                </a>
-              )
-            }
+            value={customer.phone_number}
             isEditMode={isEditMode}
             labelClass={styles.label}
           />
           <EditableField
             label="Email :"
-            value={
-              isEditMode === true ? (
-                customer.mail
-              ) : (
-                <a href={`mailto:${customer.mail}`} className={styles.link}>
-                  {customer.mail}
-                </a>
-              )
-            }
+            value={customer.mail}
             isEditMode={isEditMode}
             labelClass={styles.label}
           />

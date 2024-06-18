@@ -3,19 +3,16 @@ import styles from "./EditableField.module.css";
 
 function EditableField({ label, value, isEditMode, onChange, labelClass }) {
   return (
-    <p>
-      <span className={labelClass}>{label}</span>{" "}
-      {isEditMode ===true ? (
-        <input
-          type="text"
-          defaultValue={value}
-          onChange={onChange}
-          className={styles.input}
-        />
-      ) : (
-        value
-      )}
-    </p>
+    <div>
+      <label className={labelClass}>{label}</label>
+      <input
+        type="text"
+        defaultValue={value}
+        readOnly={!isEditMode}
+        onChange={isEditMode ? onChange : undefined}
+        className={`${styles.input} ${!isEditMode ? styles.readOnlyInput : ""}`}
+      />
+    </div>
   );
 }
 
