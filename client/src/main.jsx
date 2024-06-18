@@ -12,7 +12,7 @@ import HomePage from "./pages/home_page/HomePage";
 
 import StructureForm from "./pages/structure_form/StructureForm";
 import ConnexionPage from "./pages/Connexion_page/ConnexionPage";
-import SingIn from "./pages/signin/SignIn";
+import SignIn from "./pages/signin/SignIn";
 import SearchPage from "./pages/search-page/SearchPage";
 
 const URL = import.meta.env.VITE_API_URL;
@@ -54,7 +54,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/inscription",
-        element: <SingIn />,
+        element: <SignIn />,
         action: async ({ request }) => {
           try {
             const formData = await request.formData();
