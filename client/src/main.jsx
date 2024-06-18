@@ -14,6 +14,7 @@ import StructureForm from "./pages/structure_form/StructureForm";
 import ConnexionPage from "./pages/Connexion_page/ConnexionPage";
 import SingIn from "./pages/signin/SignIn";
 import SearchPage from "./pages/search-page/SearchPage";
+import ProfilePage from "./pages/profile_page/ProfilePage";
 
 const URL = import.meta.env.VITE_API_URL;
 const router = createBrowserRouter([
@@ -101,6 +102,18 @@ const router = createBrowserRouter([
         loader: async () => {
           const response = await fetch(`${URL}/homestructure`);
           const data = await response.json();
+          return data;
+        },
+      },
+      {
+        path: "/profile/:id",
+        element: <ProfilePage />,
+        loader: async ({ params }) => {
+          const response = await fetch(`${URL}/users/${params.id}`);
+          const data = await response.json();
+          if (!response.ok) {
+            throw new Error("Failed to fetch profile data");
+          }
           return data;
         },
       },
