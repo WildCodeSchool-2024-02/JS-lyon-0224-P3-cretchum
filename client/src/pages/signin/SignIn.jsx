@@ -148,7 +148,8 @@ function SingIn() {
             <button
               className={styles.accountButton}
               type="submit"
-              value="structure"
+              name="submitButton"
+              value="animal"
               disabled={password !== passwordConf}
             >
               Je veux faire garder
@@ -156,7 +157,8 @@ function SingIn() {
             <button
               className={styles.accountButton}
               type="submit"
-              value="animal"
+              name="submitButton"
+              value="structure"
               disabled={password !== passwordConf}
             >
               Je veux accueillir

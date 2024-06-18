@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: "/", element: <HomePage /> },
-      { path: "/structure-form", element: <StructureForm /> },
+      { path: "/inscription_accueil/:id", element: <StructureForm /> },
       {
         path: "/connexion",
         element: <ConnexionPage />,
@@ -68,6 +68,8 @@ const router = createBrowserRouter([
             const password = formData.get("password");
             const description = formData.get("description");
 
+            const buttonValue = formData.get("submitButton");
+
             const response = await fetch(`${URL}/users`, {
               method: "POST",
               headers: {
@@ -88,11 +90,17 @@ const router = createBrowserRouter([
             if (!response.ok) {
               throw new Error("");
             }
+
+            if (buttonValue === "structure") {
+              const newdata = await response.json();
+              const userId = newdata.insertId;
+              return redirect(`/inscription_accueil/${userId}`);
+            }
+            return redirect("/page-recherche");
           } catch (err) {
             console.error("Fetch error:", err);
             return null;
           }
-          return redirect("/page-recherche");
         },
       },
       {
