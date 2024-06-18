@@ -61,7 +61,7 @@ function Filter({
           <li className="filter">
             <input
               type="number"
-              className="filterInput "
+              className="filterInput"
               placeholder="Code postal"
               maxLength={11}
               value={postalCode}
@@ -70,7 +70,7 @@ function Filter({
           </li>
           <li className="filter">
             <select
-              className="filterInput"
+              className="filterInput pointer"
               onChange={(e) => setAnimal(e.target.value)}
             >
               <option value="tous" disabled selected>
@@ -84,7 +84,7 @@ function Filter({
 
           <li className="filter">
             <select
-              className="filterInput"
+              className="filterInput pointer"
               onChange={(e) => setStructureType(e.target.value)}
             >
               <option value="tous" disabled selected>
@@ -98,7 +98,7 @@ function Filter({
 
           <li className="filter">
             <select
-              className="filterInput"
+              className="filterInput pointer"
               onChange={(e) => setPriceRange(e.target.value)}
             >
               <option value="tous" disabled selected>

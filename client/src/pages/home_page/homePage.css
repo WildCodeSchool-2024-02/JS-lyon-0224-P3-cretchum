@@ -28,7 +28,7 @@
 }
 .homePageTitle {
   font-size: 3em;
-  color: white;
+  color: black;
 }
 .homePageNav {
   display: flex;
@@ -66,11 +66,7 @@
   background: white;
 }
 .homePageNavLink:hover {
-  background: linear-gradient(
-    90deg,
-    var(--container-color),
-    var(--secondary-color)
-  );
+  background-color: var(--secondary-color);
   box-shadow: 10px 5px 5px rgba(5, 5, 5, 1);
   border: none;
   color: white;
@@ -82,12 +78,12 @@
   padding: 20px;
   width: 100%;
   bottom: 0;
-  color: white;
+  color: black;
 }
 .additionalLink {
   font-size: 1em;
   text-decoration: underline;
-  color: white;
+  color: #804980;
 }
 
 #additionalDiv {

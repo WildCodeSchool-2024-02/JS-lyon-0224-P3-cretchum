@@ -1,14 +1,14 @@
 #connexionPatoune {
   width: 50px;
-  margin-right: 3%;
+  margin-right: 15px;
 }
 
 #headerConnexionPage {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
-  margin-top: 15%;
+  color: black;
+  margin-top: 15vh;
 }
 
 #headerConnexionPage > h1 {
@@ -16,7 +16,7 @@
 }
 
 #connexionBody {
-  margin-top: 3%;
+  margin-top: 3vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,13 +26,14 @@
   display: flex;
   flex-direction: column;
   background-color: white;
-  min-width: 90vw;
-  min-height: 60vh;
+  width: 90vw;
+  min-width: 300px;
+  min-height: 528px;
   border-radius: 40px;
   justify-content: center;
   align-items: center;
   background-image: url(../../assets/images/2patounes.png);
-  background-size: auto 600px;
+  background-size: auto 550px;
   background-position: center;
   background-repeat: no-repeat;
 }
@@ -41,36 +42,34 @@
   font-size: 1.1em;
   padding: 0.4rem;
   width: 35vw;
-  width: 70vw;
-  background:
-    linear-gradient(white, white) padding-box,
-    linear-gradient(to right, #e37acc, #08256e) border-box;
+  min-width: 250px;
+  max-width: 70vw;
   border-radius: 15px;
-  border: 1px solid transparent;
+  border: 1px solid #797979;
   margin-left: 3%;
   padding-left: 3%;
   margin-top: 2%;
+  text-align: center;
 }
 
 #connexionButton {
-  background:
-    linear-gradient(white, white) padding-box,
-    linear-gradient(to right, #e37acc, #08256e) border-box;
+  background-color: var(--secondary-color);
   border: 1px solid transparent;
-  color: black;
+  color: white;
   border-radius: 30px;
   cursor: pointer;
   margin: 6% 0 5%;
-  height: 5vh;
-  padding: 1em;
+
+  width: 10em;
+  padding: 0.75em;
   min-width: 10vw;
   font-size: 1em;
 }
 
 #connexionButton:hover {
-  background: linear-gradient(to right, #e37acc, #08256e);
+  background: var(--hover-color);
   border: none;
-  color: white;
+  color: black;
 }
 
 #connexionPageDiv > label {
@@ -78,25 +77,28 @@
 }
 
 #connexionFooter {
-  margin-top: 6%;
+  margin-top: 6vh;
   text-align: center;
 }
 
 #connexionFooter > a {
-  color: white;
+  color: #804980;
+}
+@media screen and (min-width: 550px) and (max-width: 1100px) {
+  #connexionPageDiv {
+    width: 490px;
+  }
+  .connexionPageInput {
+    width: 380px;
+  }
 }
 
 @media screen and (min-width: 1100px) {
-  #headerConnexionPage {
-    margin-top: 3%;
-  }
-
   #connexionPageDiv {
-    min-width: 50vw;
-    min-height: 60vh;
+    width: 600px;
   }
 
   .connexionPageInput {
-    width: 35vw;
+    width: 400px;
   }
 }

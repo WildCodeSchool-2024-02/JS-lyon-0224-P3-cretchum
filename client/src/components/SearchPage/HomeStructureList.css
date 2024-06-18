@@ -4,7 +4,7 @@
   width: 80vw;
   border-radius: 40px;
   padding: 1em;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
 }
 
@@ -40,11 +40,11 @@
 }
 
 #userParticulier {
-  background-color: #ffff00;
+  background-color: #c2aad6;
 }
 
 #userChenil {
-  background-color: #8fff00;
+  background-color: #b4d2c3;
 }
 
 .userAnimal {
@@ -60,12 +60,12 @@
 }
 
 .userCat {
-  background-color: #ffc3a0;
+  background-color: #fbb8d9;
   grid-column: 1;
 }
 
 .userDog {
-  background-color: #00cdac;
+  background-color: #8bd8e1;
 }
 
 .animalImg {
