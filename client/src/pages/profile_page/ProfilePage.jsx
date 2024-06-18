@@ -7,7 +7,7 @@ import ProfileSection from "../../components/profile/ProfileSection";
 import EditableField from "../../components/profile/EditableField";
 
 function ProfilePage() {
-  const structures = useLoaderData();
+  const customer = useLoaderData();
   const [isEditMode, setIsEditMode] = useState(false);
 
   const handleEditClick = () => {
@@ -17,26 +17,26 @@ function ProfilePage() {
   return (
     <div className={styles.profilePageContainer}>
       <ProfileHeader
-        username={structures.username}
+        username={customer.username}
         isEditMode={isEditMode}
         handleEditClick={handleEditClick}
       />
       <ProfileSection title="Informations générales">
         <EditableField
           label="Nom :"
-          value={structures.lastname}
+          value={customer.lastname}
           isEditMode={isEditMode}
           labelClass={styles.label}
         />
         <EditableField
           label="Prénom :"
-          value={structures.firstname}
+          value={customer.firstname}
           isEditMode={isEditMode}
           labelClass={styles.label}
         />
         <EditableField
           label="Localisation :"
-          value={structures.location}
+          value={customer.location}
           isEditMode={isEditMode}
           labelClass={styles.label}
         />
@@ -44,14 +44,14 @@ function ProfilePage() {
           <EditableField
             label="Téléphone :"
             value={
-              isEditMode ? (
-                structures.phone_number
+              isEditMode === true ? (
+                customer.phone_number
               ) : (
                 <a
-                  href={`tel:${structures.phone_number}`}
+                  href={`tel:${customer.phone_number}`}
                   className={styles.link}
                 >
-                  {structures.phone_number}
+                  {customer.phone_number}
                 </a>
               )
             }
@@ -61,11 +61,11 @@ function ProfilePage() {
           <EditableField
             label="Email :"
             value={
-              isEditMode ? (
-                structures.mail
+              isEditMode === true ? (
+                customer.mail
               ) : (
-                <a href={`mailto:${structures.mail}`} className={styles.link}>
-                  {structures.mail}
+                <a href={`mailto:${customer.mail}`} className={styles.link}>
+                  {customer.mail}
                 </a>
               )
             }
@@ -75,7 +75,7 @@ function ProfilePage() {
         </address>
       </ProfileSection>
       <ProfileSection title="Description">
-        <EditableField value={structures.description} isEditMode={isEditMode} />
+        <EditableField value={customer.description} isEditMode={isEditMode} />
       </ProfileSection>
       <ProfileSection title="Vos réservations">
         <ul className={styles.noBullets}>
@@ -87,7 +87,7 @@ function ProfilePage() {
 }
 
 ProfilePage.propTypes = {
-  structures: PropTypes.shape({
+  customer: PropTypes.shape({
     username: PropTypes.string.isRequired,
     lastname: PropTypes.string.isRequired,
     firstname: PropTypes.string.isRequired,

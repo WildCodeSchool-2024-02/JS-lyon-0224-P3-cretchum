@@ -13,7 +13,7 @@ function ProfileHeader({ username, isEditMode, handleEditClick }) {
       />
       <section className={styles.profilePageH1Container}>
         <h1 className={styles.profilePageH1}>
-          {isEditMode ? (
+          {isEditMode === true ? (
             <input
               type="text"
               defaultValue={username}
@@ -29,7 +29,7 @@ function ProfileHeader({ username, isEditMode, handleEditClick }) {
         className={styles.editButton}
         onClick={handleEditClick}
       >
-        {isEditMode ? "Sauvegarder" : "Modifier"}
+        {isEditMode === true ? "Sauvegarder" : "Modifier"}
         <img
           className={styles.profilePagePen}
           src={Pen}

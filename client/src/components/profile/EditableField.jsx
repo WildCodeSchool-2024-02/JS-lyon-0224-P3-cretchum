@@ -5,7 +5,7 @@ function EditableField({ label, value, isEditMode, onChange, labelClass }) {
   return (
     <p>
       <span className={labelClass}>{label}</span>{" "}
-      {isEditMode ? (
+      {isEditMode ===true ? (
         <input
           type="text"
           defaultValue={value}
