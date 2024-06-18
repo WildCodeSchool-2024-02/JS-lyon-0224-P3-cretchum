@@ -5,6 +5,7 @@ const tables = require("../../database/tables");
 const browse = async (req, res, next) => {
   try {
     if (req.query.q != null) {
+      // Fetch home_structure whose includes the search Bar words
       const homeStructure = await tables.home_structure.includes(req.query.q);
       res.status(200).json(homeStructure);
     } else {
