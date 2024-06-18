@@ -43,7 +43,7 @@ function SignIn() {
         <div className={styles.desktopRow}>
           <div className={styles.inputContainer}>
             <label className={styles.formLabel} htmlFor="username">
-              Pseudo <span className={styles.isRequired}> *</span>
+              Pseudo ou nom de votre organisme<span className={styles.isRequired}> *</span>
             </label>
             <input
               className={styles.inputSizeM}
