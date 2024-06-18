@@ -10,9 +10,9 @@ const browse = async (req, res, next) => {
     } else {
       // Fetch all home_structure from the database
       const homeStructure = await tables.home_structure.readAll();
+      // Respond with the home_structure in JSON format
       res.status(200).json(homeStructure);
     }
-    // Respond with the home_structure in JSON format
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);
