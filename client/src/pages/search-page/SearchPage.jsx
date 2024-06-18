@@ -11,7 +11,6 @@ function SearchPage() {
   const [filters, setFilters] = useState({});
   const [filteredStructures, setFilteredStructures] = useState(allStructures);
   const [search, setSearch] = useState("");
-  const [refetch, setRefetch] = useState(true);
   const [pageLim, setPageLim] = useState(0);
   const [pageLimSup, setPageLimSup] = useState(30);
   const [countPage, setCountPage] = useState(1);
@@ -108,8 +107,6 @@ function SearchPage() {
       <NavMenu />
       <Filter
         onFilterChange={handleFilterChange}
-        setRefetch={setRefetch}
-        refetch={refetch}
         setSearch={setSearch}
         setCountPage={setCountPage}
         setPageLim={setPageLim}

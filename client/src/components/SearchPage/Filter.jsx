@@ -5,8 +5,6 @@ import Patoune from "../../assets/logo/1patounes.png";
 
 function Filter({
   onFilterChange,
-  setRefetch,
-  refetch,
   setSearch,
   setCountPage,
   setPageLim,
@@ -27,7 +25,6 @@ function Filter({
       priceRange,
     };
     onFilterChange(filters);
-    setRefetch(!refetch);
     setCountPage(1);
     setPageLim(0);
     setPageLimSup(30);
@@ -123,9 +120,7 @@ function Filter({
 
 Filter.propTypes = {
   onFilterChange: PropTypes.func.isRequired,
-  setRefetch: PropTypes.func.isRequired,
   setSearch: PropTypes.func.isRequired,
-  refetch: PropTypes.bool.isRequired,
   setCountPage: PropTypes.func.isRequired,
   setPageLim: PropTypes.func.isRequired,
   setPageLimSup: PropTypes.func.isRequired,
