@@ -87,7 +87,7 @@ const router = createBrowserRouter([
             });
 
             if (!response.ok) {
-              throw new Error("");
+              throw new Error("Fetch error");
             }
           } catch (err) {
             console.error("Fetch error:", err);

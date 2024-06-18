@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Form, Link } from "react-router-dom";
 import styles from "./SignIn.module.css";
 
-function SingIn() {
+function SignIn() {
   function handleInputChange(event, setState) {
     setState(event.target.value);
   }
@@ -160,4 +160,4 @@ function SingIn() {
   );
 }
 
-export default SingIn;
+export default SignIn;

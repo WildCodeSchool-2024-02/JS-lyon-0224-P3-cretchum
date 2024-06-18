@@ -6,7 +6,7 @@ import PersonImage from "../../assets/images/person.jpg";
 
 function HomeStructureList({ structure }) {
   return (
-    <div id="userCard">
+    <div id="userCard" className="userCard">
       <div id="userGeneral">
         <div id="userImg">
           <img id="userPicture" src={PersonImage} alt={structure.name} />

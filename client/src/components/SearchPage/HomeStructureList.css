@@ -1,7 +1,8 @@
 #userCard {
   background-color: white;
-  min-height: 18vh;
+  /* min-height: 18vh; */
   min-width: 80vw;
+
   border-radius: 40px;
   padding: 1em;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
@@ -16,6 +17,11 @@
 
 #userName {
   font-weight: bold;
+  font-size: 1.2em;
+}
+
+#userInfo p {
+  font-size: 1em;
 }
 
 .userStructure {
@@ -59,7 +65,7 @@
 }
 
 .animalImg {
-  width: 2vh;
+  width: 2em;
   height: auto;
   margin-right: 10px;
 }
@@ -91,15 +97,28 @@
   margin-top: 10%;
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 455px) and (max-width: 1000px) {
   #userCard {
-    min-width: 61vw;
+    min-width: 450px;
+  }
+  .userCard {
+    max-width: 450px;
+  }
+  #userInfo p {
+    font-size: 1.3em;
+  }
+  #userPrice {
+    font-size: 2em;
+  }
+  #userName {
+    font-weight: bold;
+    font-size: 1.4em;
   }
 }
 
-@media screen and (min-width: 1100px) {
+@media screen and (min-width: 1000px) {
   #userCard {
-    min-width: 28vw;
+    min-width: 500px;
   }
 
   #userImg {
@@ -113,5 +132,15 @@
 
   .userAnimal {
     padding: 0.25em 1.5em;
+  }
+  #userInfo p {
+    font-size: 1.5em;
+  }
+  #userPrice {
+    font-size: 2em;
+  }
+  #userName {
+    font-weight: bold;
+    font-size: 1.8em;
   }
 }

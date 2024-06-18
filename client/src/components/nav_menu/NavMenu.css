@@ -25,7 +25,9 @@ nav a {
   text-decoration: none;
   color: black;
 }
-
+#searchPage.active {
+  display: none;
+}
 @media (min-width: 430px) {
   .navMenu-container {
     flex-direction: row;
