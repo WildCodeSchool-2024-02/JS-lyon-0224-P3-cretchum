@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { toast } from 'react-toastify';
 import "./SearchPage.css";
 import NavMenu from "../../components/nav_menu/NavMenu";
 import Filter from "../../components/SearchPage/Filter";
@@ -14,16 +15,34 @@ function SearchPage() {
   const [pageLim, setPageLim] = useState(0);
   const [pageLimSup, setPageLimSup] = useState(30);
   const [countPage, setCountPage] = useState(1);
+  const [dataLoaded, setDataLoaded] = useState(false);
+  
   const URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`${URL}/homestructure?q=${search}`);
-      const jsonData = await response.json();
-      setAllStructures(jsonData);
+      try {
+        const response = await fetch(`${URL}/homestructure?q=${search}`);
+        if (!response.ok) {
+          throw new Error('Erreur lors de la récupération des données.');
+        }
+        const jsonData = await response.json();
+        setAllStructures(jsonData);
+        setDataLoaded(true);
+      } catch (error) {
+        toast.error("Erreur de réseau. Veuillez vérifier votre connexion.");
+        console.error("Fetch error:", error);
+      }
     };
     fetchData();
   }, [search, URL]);
+
+  useEffect(() => {
+    if (dataLoaded) {
+      toast.success("Données chargées avec succès !");
+    }
+  }, [dataLoaded]);
+
 
   useEffect(() => {
     const applyFilters = () => {
