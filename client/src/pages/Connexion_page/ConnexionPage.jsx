@@ -14,7 +14,7 @@ function ConnexionPage() {
   };
 
   const validateForm = () => {
-    if (!email || !password) {
+    if (!email.trim() || !password.trim()) {
       notify("Tous les champs sont requis !", "error");
       return false;
     }
@@ -45,6 +45,7 @@ function ConnexionPage() {
             name="mail"
             minLength={3}
             maxLength={254}
+            value={email}
             onChange={(event) => handleInputChange(event, setEmail)}
             required
           />
@@ -55,6 +56,7 @@ function ConnexionPage() {
             type="password"
             name="password"
             minLength={12}
+            value={password}
             onChange={(event) => handleInputChange(event, setPassword)}
             required
           />
