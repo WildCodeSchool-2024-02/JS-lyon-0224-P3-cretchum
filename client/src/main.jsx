@@ -15,6 +15,7 @@ import ConnexionPage from "./pages/Connexion_page/ConnexionPage";
 import SingIn from "./pages/signin/SignIn";
 import SearchPage from "./pages/search-page/SearchPage";
 import HomeStructureDetails from "./pages/home_structure_details/HomeStructureDetails";
+import ProfilePage from "./pages/profile_page/ProfilePage";
 
 const URL = import.meta.env.VITE_API_URL;
 const router = createBrowserRouter([
@@ -99,15 +100,30 @@ const router = createBrowserRouter([
       {
         path: "/page-recherche",
         element: <SearchPage />,
-        loader: async () => {
-          const response = await fetch(`${URL}/homestructure`);
+      },
+      {
+        path: "/profile/:id",
+        element: <ProfilePage />,
+        loader: async ({ params }) => {
+          const response = await fetch(`${URL}/users/${params.id}`);
           const data = await response.json();
+          if (!response.ok) {
+            throw new Error("Failed to fetch profile data");
+          }
           return data;
         },
       },
       {
-        path: "/reservation",
+        path: "/reservation/:id",
         element: <HomeStructureDetails />,
+        loader: async ({ params }) => {
+          const response = await fetch(`${URL}/homestructure/${params.id}`);
+          const data = await response.json();
+          if (!response.ok) {
+            throw new Error("Failed to fetch profile data");
+          }
+          return data;
+        },
       },
     ],
   },

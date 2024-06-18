@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Form } from "react-router-dom";
 
-import "./PriceDetails.css";
+import "./Reservation.css";
 
-function PriceDetails() {
+function Reservation() {
   const priceday = 32; // info en dure à supprimer une fois la base de données récupérées
 
   // Récupération de la date d'aujourd'hui
@@ -83,4 +83,4 @@ function PriceDetails() {
   );
 }
 
-export default PriceDetails;
+export default Reservation;

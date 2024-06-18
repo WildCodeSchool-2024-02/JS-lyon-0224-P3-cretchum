@@ -3,14 +3,21 @@ import PropTypes from "prop-types";
 import "./Filter.css";
 import Patoune from "../../assets/logo/1patounes.png";
 
-function Filter({ onFilterChange }) {
+function Filter({
+  onFilterChange,
+  setSearch,
+  setCountPage,
+  setPageLim,
+  setPageLimSup,
+}) {
   const [postalCode, setPostalCode] = useState("");
   const [animal, setAnimal] = useState("tous");
   const [structureType, setStructureType] = useState("tous");
   const [priceRange, setPriceRange] = useState("tous");
 
   // Handle click event to send filter values to parent component
-  const onClick = () => {
+  const onClick = (e) => {
+    e.preventDefault();
     const filters = {
       postalCode,
       animal,
@@ -18,6 +25,21 @@ function Filter({ onFilterChange }) {
       priceRange,
     };
     onFilterChange(filters);
+    setCountPage(1);
+    setPageLim(0);
+    setPageLimSup(30);
+  };
+
+  // Handle Input Key Down if the key Enter it press, it send Input and filter values to parent component
+  const handleInputKeyDown = (e) => {
+    if (e.key === "Enter") {
+      onClick(e);
+    }
+  };
+
+  const onSearchChange = (e) => {
+    onClick(e);
+    setSearch(e.target.value);
   };
 
   return (
@@ -30,6 +52,8 @@ function Filter({ onFilterChange }) {
           id="seachInput"
           maxLength={255}
           placeholder="Rehercher par nom"
+          onChange={(e) => onSearchChange(e)}
+          onKeyDown={handleInputKeyDown}
         />
       </div>
       <div id="filterConditions">
@@ -81,8 +105,8 @@ function Filter({ onFilterChange }) {
                 Prix
               </option>
               <option value="tous">Tous les prix</option>
-              <option value="fourchette1">entre 10 et 20 €</option>
-              <option value="fourchette2">entre 20 et 30 €</option>
+              <option value="fourchette1">de 10 à 20 €</option>
+              <option value="fourchette2">de 20 à 30 €</option>
             </select>
           </li>
         </ul>
@@ -96,6 +120,10 @@ function Filter({ onFilterChange }) {
 
 Filter.propTypes = {
   onFilterChange: PropTypes.func.isRequired,
+  setSearch: PropTypes.func.isRequired,
+  setCountPage: PropTypes.func.isRequired,
+  setPageLim: PropTypes.func.isRequired,
+  setPageLimSup: PropTypes.func.isRequired,
 };
 
 export default Filter;

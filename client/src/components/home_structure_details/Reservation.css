@@ -1,16 +1,17 @@
 #reservation {
   background-color: white;
-  width: 79vw;
   border-radius: 20px;
   padding: 1em;
   min-height: 15vh;
   display: flex;
+  margin: 1em;
+  padding: 2em;
 }
 
 #reservationForm {
   display: flex;
   align-items: center;
-  width: 79vw;
+  width: 100%;
   justify-content: space-between;
   flex-wrap: wrap;
 }
@@ -25,7 +26,7 @@
   cursor: pointer;
   margin: 6% 0 5%;
   height: 5vh;
-  min-width: 22vw;
+  width: 40%;
   font-size: 1em;
 }
 
@@ -39,18 +40,21 @@
   display: flex;
   margin: 0 0 10% 0;
   text-align: center;
+  flex-wrap: wrap;
 }
 
 .reservationDate {
   margin: 0 0 0 3%;
   border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   appearance: none;
-  -webkit-appearance: none; /* Safari et Chrome */
 }
 
 .reservationInput {
   width: 25vw;
   text-align: center;
+  padding: 0.9em;
 }
 
 #detailsLine {
@@ -66,14 +70,16 @@
     display: block;
     text-align: left;
   }
+
   #reservation {
-    min-width: 20vw;
-    max-width: 25vw;
+    width: 20vw;
     min-height: 53vh;
     flex-direction: column;
     text-align: center;
     justify-content: space-evenly;
+    margin: 3%;
   }
+
   #reservationForm {
     flex-direction: column;
     width: unset;
@@ -85,5 +91,8 @@
 
   .reservationInput {
     width: 16vw;
+  }
+  #reservationButton {
+    width: 50%;
   }
 }

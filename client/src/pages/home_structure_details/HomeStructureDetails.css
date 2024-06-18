@@ -1,0 +1,56 @@
+#HomeStructureInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#HomeStructurePage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#HomeStructureInfo,
+#homeStructureHeader,
+#gobalInfo,
+.reservation {
+  width: 100%;
+}
+
+@media screen and (min-width: 900px) {
+  #HomeStructureInfo {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+  }
+
+  #HomeStructureInfo,
+  #homeStructureHeader {
+    width: 65%;
+  }
+
+  #gobalInfo {
+    width: 70%;
+    margin-right: 8%;
+  }
+  #infoDiv {
+    min-height: 35vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-align: left;
+  }
+
+  #HomeStructureDescription {
+    min-height: 15vh;
+    text-align: center;
+  }
+
+  #infoDiv,
+  #HomeStructureDescription {
+    padding: 2em;
+  }
+  .reservation {
+    width: unset;
+  }
+}

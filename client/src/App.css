@@ -1,3 +1,13 @@
+:root {
+  --main-color: #6a6b86;
+  --secondary-color: #e37acc;
+  --container-color: #08256e;
+  --base-font-size: 1.5rem;
+  --header-font-size: 2.5rem;
+  --subheader-font-size: 2rem;
+  --body-font-size: 1rem;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -9,15 +19,10 @@
   src: url("./assets/fonts/roboto/Roboto-Regular.ttf") format("truetype");
 }
 
-:root {
-  --main-color: #6a6b86;
-  --secondary-color: #e37acc;
-  --container-color: #08256e;
-}
-
 h1,
 h2,
 h3,
+h4,
 p,
 a,
 li,

@@ -13,18 +13,16 @@ function HomeStructureList({ structure }) {
         </div>
         <div id="userInfo">
           <h3 id="userName">{structure.name}</h3>
-          <p id="userLocation">{structure.postal_code}</p>
+          <p id="userLocation">
+            {structure.postal_code} {structure.location}
+          </p>
           <p
             className="userStructure"
             id={
-              structure.is_professional === 0
-                ? "userParticulier"
-                : "userChenil"
+              structure.is_professional === 0 ? "userParticulier" : "userChenil"
             }
           >
-            {structure.is_professional === 0
-              ? "particulier"
-              : "professionnel"}
+            {structure.is_professional === 0 ? "particulier" : "professionnel"}
           </p>
         </div>
       </div>
@@ -60,5 +58,6 @@ HomeStructureList.propTypes = {
     cat: PropTypes.number.isRequired,
     dog: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
+    location: PropTypes.string.isRequired,
   }).isRequired,
 };
