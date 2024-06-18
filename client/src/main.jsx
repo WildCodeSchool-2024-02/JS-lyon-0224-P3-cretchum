@@ -92,7 +92,7 @@ const router = createBrowserRouter([
               }),
             });
             if (response.status !== 201) {
-              toast.error("Erreur lors de l'inscription !");
+              toast.error("Inscription réussie !");
               return redirect("/page-recherche");
             }
             toast.error("Erreur lors de l'inscription !");
