@@ -15,17 +15,16 @@ function SearchPage() {
   const [pageLim, setPageLim] = useState(0);
   const [pageLimSup, setPageLimSup] = useState(30);
   const [countPage, setCountPage] = useState(1);
+  const URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(
-        `http://localhost:3310/api/homestructure?q=${search}`
-      );
+      const response = await fetch(`${URL}/homestructure?q=${search}`);
       const jsonData = await response.json();
       setAllStructures(jsonData);
     };
     fetchData();
-  }, [search]);
+  }, [search, URL]);
 
   useEffect(() => {
     const applyFilters = () => {
