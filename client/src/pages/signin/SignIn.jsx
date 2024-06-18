@@ -144,13 +144,24 @@ function SingIn() {
         </div>
 
         <div className={styles.buttonContainer}>
-          <button
-            className={styles.accountButton}
-            type="submit"
-            disabled={password !== passwordConf}
-          >
-            Créer mon compte
-          </button>
+          <div className={styles.buttonsContainer}>
+            <button
+              className={styles.accountButton}
+              type="submit"
+              value="structure"
+              disabled={password !== passwordConf}
+            >
+              Je veux faire garder
+            </button>
+            <button
+              className={styles.accountButton}
+              type="submit"
+              value="animal"
+              disabled={password !== passwordConf}
+            >
+              Je veux accueillir
+            </button>
+          </div>
           <p className={styles.compte}>
             Déjà un compte ? <Link to="/connexion">se connecter</Link>
           </p>
