@@ -6,102 +6,26 @@ class HomeStructureSeeder extends AbstractSeeder {
   }
 
   run() {
-    const homeStructure = [
-      {
-        name: "Yankee",
-        lastname : "jean",
-        firstname : "Michel" ,
-        phone_number :  788264465,
-        location : "123 trois ptits chats",
-        postal_code: 69002,
-        mail: "yakeestructure@exemple.com",
-        password: "true96783254",
-        capacity : 25,
-        is_professional: true,
-        cat: true,
-        dog: true,
-        price: 25,
-      },
-      {
-        name: "Ludovic",
-        lastname : "Gépa",
-        firstname : "Didier" ,
-        phone_number :  788264465,
-        location : "31 adresse d'exemple",
-        postal_code: 69100,
-        mail: "bonjour@exemple.com",
-        password: "false96783254",
-        capacity : 4,
-        is_professional: false,
-        cat: true,
-        dog: false,
-        price: 18,
-      },
-      {
-        name: "Pedro",
-        lastname : "pedro",
-        firstname : "pascal" ,
-        phone_number :  788264465,
-        location : "31 adresse d'exemple",
-        postal_code: 69006,
-        mail: "coucou@exemple.com",
-        password: "false96783254",
-        capacity : 3,
-        is_professional: false,
-        cat: false,
-        dog: true,
-        price: 18,
-      },
-      {
-        name: "Au Bonheur du chien",
-        lastname : "Mike",
-        firstname : "Mike" ,
-        phone_number :  788264465,
-        location : "31 adresse d'exemple",
-        postal_code: 69007,
-        mail: "salut@exemple.com",
-        password: "false96783254",
-        capacity : 50,
-        is_professional: true,
-        cat: false,
-        dog: true,
-        price: 31,
-      },
-      {
-        name: "Rambo",
-        lastname : "Kuvo",
-        firstname : "Mike" ,
-        phone_number :  788264465,
-        location : "31 adresse d'exemple",
-        postal_code: 69003,
-        mail: "leplusbeau@exemple.com",
-        password: "false96783254",
-        capacity : 1,
-        is_professional: false,
-        cat: true,
-        dog: true,
-        price: 31,
-      },
-      {
-        name: "Zoebonbon Garderie",
-        lastname : "Jean",
-        firstname : "Michel" ,
-        phone_number :  788264465,
-        location : "31 adresse d'exemple",
-        postal_code: 69003,
-        mail: "ZoeBonbon@exemple.com",
-        password: "false96783254",
-        capacity : 30,
-        is_professional: true,
-        cat: true,
-        dog: true,
-        price: 31,
-      },
-    ];
-
-    homeStructure.forEach((structure) => {
-      this.insert(structure);
-    });
+    for (let i = 0; i < 1000; i += 1) {
+      // Generate fake user data
+      const fakeHomeStructure = {
+        name: this.faker.internet.userName(),
+        lastname: this.faker.person.lastName(),
+        firstname: this.faker.person.firstName(),
+        phone_number: this.faker.string.numeric(10),
+        location: this.faker.location.city(),
+        postal_code: this.faker.number.bigInt({ min: 69000, max: 69999 }),
+        mail: this.faker.internet.email(), // Generate a fake email using faker library
+        password: this.faker.internet.password(), // Generate a fake password using faker library
+        capacity: this.faker.number.int({ min: 0, max: 30 }),
+        is_professional: this.faker.datatype.boolean({ probability: 0.5 }),
+        cat: this.faker.datatype.boolean({ probability: 0.3 }),
+        dog: this.faker.datatype.boolean({ probability: 0.6 }),
+        price: this.faker.number.bigInt({ min: 10, max: 100 }),
+      };
+      // Insert the fakeUser data into the 'user' table
+      this.insert(fakeHomeStructure); // insert into user(email, password) values (?, ?)
+    }
   }
 }
 

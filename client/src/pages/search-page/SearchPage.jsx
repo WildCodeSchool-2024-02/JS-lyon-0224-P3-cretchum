@@ -1,16 +1,30 @@
 import { useState, useEffect } from "react";
-import { useLoaderData } from "react-router-dom";
 import "./SearchPage.css";
 import NavMenu from "../../components/nav_menu/NavMenu";
 import Filter from "../../components/SearchPage/Filter";
 import HomeStructureList from "../../components/SearchPage/HomeStructureList";
+import BtnPrev from "../../assets/images/Btn-prev.png";
+import BtnNext from "../../assets/images/Btn-next.png";
 
 function SearchPage() {
-  const allStructures = useLoaderData();
+  const [allStructures, setAllStructures] = useState([]);
   const [filters, setFilters] = useState({});
   const [filteredStructures, setFilteredStructures] = useState(allStructures);
+  const [search, setSearch] = useState("");
+  const [pageLim, setPageLim] = useState(0);
+  const [pageLimSup, setPageLimSup] = useState(30);
+  const [countPage, setCountPage] = useState(1);
+  const URL = import.meta.env.VITE_API_URL;
 
-  // Apply filters whenever filters or allStructures change
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`${URL}/homestructure?q=${search}`);
+      const jsonData = await response.json();
+      setAllStructures(jsonData);
+    };
+    fetchData();
+  }, [search, URL]);
+
   useEffect(() => {
     const applyFilters = () => {
       // Start with all structures
@@ -68,7 +82,7 @@ function SearchPage() {
 
     // Call the applyFilters function to update the filtered structures
     applyFilters();
-  }, [filters, allStructures]); // Dependencies: re-run effect when filters or allStructures change
+  }, [filters, allStructures, search]); // Dependencies: re-run effect when filters or allStructures change
 
   // Function to handle filter changes
   const handleFilterChange = (newFilters) => {
@@ -76,17 +90,65 @@ function SearchPage() {
     setFilters(newFilters);
   };
 
+  const next = () => {
+    setPageLim(pageLim + 30);
+    setPageLimSup(pageLimSup + 30);
+    setCountPage(countPage + 1);
+  };
+
+  const prev = () => {
+    setPageLim(pageLim - 30);
+    setPageLimSup(pageLimSup - 30);
+    setCountPage(countPage - 1);
+  };
+
   return (
     <>
       <NavMenu />
-      <Filter onFilterChange={handleFilterChange} />
-      <ul id="peopleMap">
-        {filteredStructures.map((structure) => (
-          <li key={structure.id} id="peopleList">
-            <HomeStructureList structure={structure} />
-          </li>
-        ))}
-      </ul>
+      <Filter
+        onFilterChange={handleFilterChange}
+        setSearch={setSearch}
+        setCountPage={setCountPage}
+        setPageLim={setPageLim}
+        setPageLimSup={setPageLimSup}
+      />
+      {allStructures.length < 1 && search.length < 1 ? (
+        <p className="loading">Chargement ...</p>
+      ) : (
+        <ul id="peopleMap">
+          {filteredStructures.slice(pageLim, pageLimSup).map((structure) => (
+            <li key={structure.id} id="peopleList">
+              <HomeStructureList structure={structure} />
+            </li>
+          ))}
+        </ul>
+      )}
+      {filteredStructures.length < 1 && search.length >= 1 && (
+        <p className="loading">Aucun résultat</p>
+      )}
+      <div className="nextPrev">
+        <button
+          type="button"
+          className="buttonNextPrev"
+          onClick={prev}
+          hidden={countPage <= 1}
+        >
+          <img className="buttonImg" src={BtnPrev} alt="bouton précedent" />
+        </button>
+
+        <p
+          hidden={Math.ceil(filteredStructures.length / 30) <= 1}
+        >{`page ${countPage} sur ${Math.ceil(filteredStructures.length / 30)}`}</p>
+
+        <button
+          type="button"
+          onClick={next}
+          hidden={pageLimSup >= filteredStructures.length}
+          className="buttonNextPrev"
+        >
+          <img className="buttonImg" src={BtnNext} alt="bouton suivant" />
+        </button>
+      </div>
     </>
   );
 }
