@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import { toast } from 'react-toastify';
 import PropTypes from "prop-types";
 import styles from "./ProfilePage.module.css";
 import ProfileHeader from "../../components/profile/ProfileHeader";
@@ -10,8 +11,15 @@ function ProfilePage() {
   const customer = useLoaderData();
   const [isEditMode, setIsEditMode] = useState(false);
 
+  const handleSave = () => {
+    toast.success("Informations mises à jour avec succès !", "success");
+  };
+
   const handleEditClick = () => {
     setIsEditMode(!isEditMode);
+    if (isEditMode) {
+      handleSave();
+    }
   };
 
   return (

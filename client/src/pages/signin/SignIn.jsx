@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Form, Link } from "react-router-dom";
+import { Form, Link, useNavigate } from "react-router-dom";
+import notify from "../../utils/notify";
 import styles from "./SignIn.module.css";
 
 function SingIn() {
@@ -8,6 +9,26 @@ function SingIn() {
   }
   const [password, setPassword] = useState("");
   const [passwordConf, setPasswordConf] = useState("");
+  const navigate = useNavigate();
+
+  const validateForm = () => {
+    // Add your validation logic here
+    if (password !== passwordConf) {
+      notify("Les mots de passe ne correspondent pas !", "error");
+      return false;
+    }
+    // Add more validation as needed
+    return true;
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (validateForm()) {
+      notify("Compte créé avec succès !", "success");
+      // Redirect or perform other actions here
+      navigate("/page-recherche");
+    }
+  };
 
   return (
     <div id={styles.formContainer}>
@@ -147,6 +168,7 @@ function SingIn() {
           <button
             className={styles.accountButton}
             type="submit"
+            onClick={handleSubmit}
             disabled={password !== passwordConf}
           >
             Créer mon compte
