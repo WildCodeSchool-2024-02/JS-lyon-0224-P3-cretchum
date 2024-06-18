@@ -1,65 +1,101 @@
+import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import "./profilePage.css";
-
-import LogoCicorne from "../../assets/logo/cicorne.png";
+import PropTypes from "prop-types";
+import styles from "./ProfilePage.module.css";
+import ProfileHeader from "../../components/profile/ProfileHeader";
+import ProfileSection from "../../components/profile/ProfileSection";
+import EditableField from "../../components/profile/EditableField";
 
 function ProfilePage() {
-  const structures = useLoaderData()
+  const structures = useLoaderData();
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  const handleEditClick = () => {
+    setIsEditMode(!isEditMode);
+  };
 
   return (
-    <div className="profile-page-container">
-      <header className="profile-page-header">
-        <img
-          className="profile-page-img"
-          src={LogoCicorne}
-          alt="user profile"
+    <div className={styles.profilePageContainer}>
+      <ProfileHeader
+        username={structures.username}
+        isEditMode={isEditMode}
+        handleEditClick={handleEditClick}
+      />
+      <ProfileSection title="Informations générales">
+        <EditableField
+          label="Nom :"
+          value={structures.lastname}
+          isEditMode={isEditMode}
+          labelClass={styles.label}
         />
-        <section className="profile-page-h1-container">
-          <h1 className="profile-page-h1">
-            {structures.lastname} {structures.firstname}
-          </h1>
-        </section>
-      </header>
-      <section className="profile-section profile-section-information">
-        <header className="profile-section-header">
-          <h2 className="profile-page-title">Informations générales</h2>
-        </header>
-        <section className="profile-section-content">
-          <p className="profile-firstname">Nom : {structures.lastname}</p>
-          <p className="profile-lastname">Prenom : {structures.firstname}</p>
-          <address className="profile-address-container">
-            <a
-              href={`tel:${structures.phone_number}`}
-              className="profile-phone"
-            >
-              Téléphone : {structures.phone_number}
-            </a>
-            <a href={`mailto:${structures.mail}`} className="profile-email">
-              email : {structures.mail}
-            </a>
-          </address>
-        </section>
-      </section>
-      <section className="profile-section profile-section-description">
-        <header className="profile-section-header">
-          <h2 className="profile-page-title">Description</h2>
-        </header>
-        <section className="profile-section-content">
-          <p>{structures.description}</p>
-        </section>
-      </section>
-      <section className="profile-section profile-section-reservation">
-        <header className="profile-section-header">
-          <h2 className="profile-page-title">Vos réservations</h2>
-        </header>
-        <section className="profile-section-content">
-          <ul>
-            <li className="profile-li-reservation">Aucune réservations</li>
-          </ul>
-        </section>
-      </section>
+        <EditableField
+          label="Prénom :"
+          value={structures.firstname}
+          isEditMode={isEditMode}
+          labelClass={styles.label}
+        />
+        <EditableField
+          label="Localisation :"
+          value={structures.location}
+          isEditMode={isEditMode}
+          labelClass={styles.label}
+        />
+        <address className={styles.profileAddressContainer}>
+          <EditableField
+            label="Téléphone :"
+            value={
+              isEditMode ? (
+                structures.phone_number
+              ) : (
+                <a
+                  href={`tel:${structures.phone_number}`}
+                  className={styles.link}
+                >
+                  {structures.phone_number}
+                </a>
+              )
+            }
+            isEditMode={isEditMode}
+            labelClass={styles.label}
+          />
+          <EditableField
+            label="Email :"
+            value={
+              isEditMode ? (
+                structures.mail
+              ) : (
+                <a href={`mailto:${structures.mail}`} className={styles.link}>
+                  {structures.mail}
+                </a>
+              )
+            }
+            isEditMode={isEditMode}
+            labelClass={styles.label}
+          />
+        </address>
+      </ProfileSection>
+      <ProfileSection title="Description">
+        <EditableField value={structures.description} isEditMode={isEditMode} />
+      </ProfileSection>
+      <ProfileSection title="Vos réservations">
+        <ul className={styles.noBullets}>
+          <li className={styles.profileLiReservation}>Aucune réservations</li>
+        </ul>
+      </ProfileSection>
     </div>
   );
 }
+
+ProfilePage.propTypes = {
+  structures: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    lastname: PropTypes.string.isRequired,
+    firstname: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
+    phone_number: PropTypes.string.isRequired,
+    mail: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default ProfilePage;
