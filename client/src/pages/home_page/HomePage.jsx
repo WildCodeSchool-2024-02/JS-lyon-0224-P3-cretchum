@@ -43,11 +43,6 @@ function HomePage() {
             </li>
           </ul>
         </nav>
-        <div id="additionalDiv">
-          <Link className="additionalLink" to="/structure-form">
-            Vous accueillez des animaux? Inscription ici !
-          </Link>
-        </div>
       </main>
       <footer className="homePageFooter">
         <p>© 2024 Cretchom. Tous droits réservés.</p>
