@@ -12,7 +12,7 @@ CREATE TABLE users (
 
 CREATE TABLE home_structure (
   id INT(11) unsigned PRIMARY KEY auto_increment NOT NULL,
-  postal_code INT(6) NOT NULL,
+  postal_code CHAR(5) NOT NULL,
   capacity INT NOT NULL, 
   is_professional BOOLEAN NOT NULL,
   cat BOOLEAN NOT NULL, 
