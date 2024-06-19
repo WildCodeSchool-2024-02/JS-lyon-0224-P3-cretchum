@@ -86,7 +86,7 @@ function SignIn() {
           </label>
           <input
             className={styles.inputSizeM}
-            type="mail"
+            type="email"
             name="mail"
             placeholder="exemple@mail.com"
             minLength={6}
