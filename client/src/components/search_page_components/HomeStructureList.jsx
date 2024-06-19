@@ -3,10 +3,9 @@ import "./HomeStructureList.css";
 import CatImage from "../../assets/images/cat.png";
 import DogImage from "../../assets/images/dog.png";
 import PersonImage from "../../assets/images/person.jpg";
-import bToB from "../../assets/function/bToB";
 
 function HomeStructureList({ structure }) {
-  const isProfessionnal = bToB(structure.is_professional);
+  const isProfessionnal = structure.is_professional === 1;
   return (
     <div id="userCard" className="userCard">
       <div id="userGeneral">
