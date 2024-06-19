@@ -92,7 +92,7 @@ const router = createBrowserRouter([
               }),
             });
             if (response.status === 201) {
-              notify("Inscription réussie !", "error");
+              notify("Inscription réussie !", "success");
               return redirect("/page-recherche");
             }
             notify("Erreur lors de l'inscription !", "error");

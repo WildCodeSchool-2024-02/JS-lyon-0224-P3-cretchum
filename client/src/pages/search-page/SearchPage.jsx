@@ -15,8 +15,6 @@ function SearchPage() {
   const [pageLim, setPageLim] = useState(0);
   const [pageLimSup, setPageLimSup] = useState(30);
   const [countPage, setCountPage] = useState(1);
-  const [dataLoaded, setDataLoaded] = useState(false);
-  
   const URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
@@ -28,7 +26,7 @@ function SearchPage() {
         }
         const jsonData = await response.json();
         setAllStructures(jsonData);
-        setDataLoaded(true);
+        notify("Données chargées avec succès !", "success");
       } catch (error) {
         notify("Erreur de réseau. Veuillez vérifier votre connexion.", "error");
         console.error("Fetch error:", error);
@@ -36,13 +34,6 @@ function SearchPage() {
     };
     fetchData();
   }, [search, URL]);
-
-  useEffect(() => {
-    if (dataLoaded) {
-      notify("Données chargées avec succès !", "success");
-    }
-  }, [dataLoaded]);
-
 
   useEffect(() => {
     const applyFilters = () => {
