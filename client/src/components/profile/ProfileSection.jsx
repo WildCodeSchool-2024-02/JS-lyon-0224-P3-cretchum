@@ -7,7 +7,9 @@ function ProfileSection({ title, children, additionalStyle }) {
       <header className={styles.profileSectionHeader}>
         <h2 className={styles.profilePageTitle}>{title}</h2>
       </header>
-      <section className={styles.profileSectionContent} id={additionalStyle}>{children}</section>
+      <section className={styles.profileSectionContent} id={additionalStyle}>
+        {children}
+      </section>
     </section>
   );
 }
@@ -15,7 +17,7 @@ function ProfileSection({ title, children, additionalStyle }) {
 ProfileSection.propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
-  additionalStyle : PropTypes.string,
+  additionalStyle: PropTypes.string,
 };
 
 ProfileSection.defaultProps = {

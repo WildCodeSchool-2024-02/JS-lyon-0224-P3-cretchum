@@ -7,6 +7,11 @@
   flex-direction: column;
 }
 
+#peopleList > a {
+  text-decoration: none;
+  color: black;
+}
+
 #peopleList {
   margin: 2%;
 }

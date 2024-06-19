@@ -5,7 +5,7 @@
 
 .hsHrLine {
   border: none;
-  border-top: 0.5px solid var(--container-color);
+  border-top: 1px solid var(--container-color);
   width: 90%;
 }
 
@@ -88,7 +88,7 @@
     margin-right: 8%;
   }
   #infoDiv {
-    min-height: 40vh;
+    min-height: 48vh;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;

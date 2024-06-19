@@ -32,10 +32,10 @@ function Reservation({ priceday }) {
   return (
     <section id="reservation">
       <Form method="post" id="reservationForm">
-        <div>
+        <div id="userChoice">
           <h2 id="totalPrice">TOTAL {price} €</h2>
-          <div id="DatesChoice">
-            <p>du </p>
+          <div id="datesChoice">
+            <p>du</p>
             <input
               className="reservationDate"
               type="date"
@@ -58,7 +58,7 @@ function Reservation({ priceday }) {
             />
           </div>
           <div id="reservationPets">
-            <p>Pour qui ?</p>
+            <h4 id="resaH4">Pour qui ?</h4>
             <select className="filterInput reservationInput">
               <option value="tous">Tous mes animaux</option>;
               <option value="tous">nom1</option>

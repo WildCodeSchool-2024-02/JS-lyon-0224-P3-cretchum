@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./SearchPage.css";
 import NavMenu from "../../components/nav_menu/NavMenu";
 import Filter from "../../components/SearchPage/Filter";
 import HomeStructureList from "../../components/SearchPage/HomeStructureList";
 import BtnPrev from "../../assets/images/Btn-prev.png";
 import BtnNext from "../../assets/images/Btn-next.png";
+
 
 function SearchPage() {
   const [allStructures, setAllStructures] = useState([]);
@@ -118,8 +120,11 @@ function SearchPage() {
         <ul id="peopleMap">
           {filteredStructures.slice(pageLim, pageLimSup).map((structure) => (
             <li key={structure.id} id="peopleList">
-              <HomeStructureList structure={structure} />
-            </li>
+          <Link to={`/reservation/${structure.id}`}>
+            <HomeStructureList structure={structure} />
+          </Link>
+        </li>
+            
           ))}
         </ul>
       )}
