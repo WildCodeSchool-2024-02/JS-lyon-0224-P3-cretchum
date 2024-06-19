@@ -7,7 +7,7 @@
 .profileSectionHeader {
   padding: 1em;
   border-bottom: 1px solid #ccc;
-  background-color: #08256e;
+  background-color: var(--highlight-color);
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   color: white;

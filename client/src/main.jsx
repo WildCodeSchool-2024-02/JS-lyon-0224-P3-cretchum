@@ -1,19 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-
 import {
   createBrowserRouter,
   RouterProvider,
   redirect,
 } from "react-router-dom";
-
+import notify from "./utils/notify";
 import App from "./App";
 import HomePage from "./pages/home_page/HomePage";
-
 import StructureForm from "./pages/structure_form/StructureForm";
 import ConnexionPage from "./pages/Connexion_page/ConnexionPage";
 import SingIn from "./pages/signin/SignIn";
-import SearchPage from "./pages/search-page/SearchPage";
+import SearchPage from "./pages/search_page/SearchPage";
 import HomeStructureDetails from "./pages/home_structure_details/HomeStructureDetails";
 import ProfilePage from "./pages/profile_page/ProfilePage";
 
@@ -43,10 +41,16 @@ const router = createBrowserRouter([
             });
 
             if (response.status === 200) {
+              notify("Connexion réussie !", "success");
               return redirect("/page-recherche");
             }
-            return { error: "mail ou mot de passe incorrect" };
+            notify("Email ou mot de passe incorrect !", "error");
+            return { error: "incorrect mail or password" };
           } catch (err) {
+            notify(
+              "Une erreur est survenue lors de la connexion. Veuillez réessayer plus tard.",
+              "error"
+            );
             console.error("Login error:", err);
             return {
               error: "An error occurred during login. Please try again later.",
@@ -87,14 +91,23 @@ const router = createBrowserRouter([
               }),
             });
 
-            if (!response.ok) {
-              throw new Error("");
+            if (response.status === 201) {
+              notify("Inscription réussie !", "success");
+              return redirect("/page-recherche");
             }
+            notify("Erreur lors de l'inscription !", "error");
+            throw new Error("Registration error");
           } catch (err) {
             console.error("Fetch error:", err);
-            return null;
+            notify(
+              "Une erreur est survenue lors de l'inscription. Veuillez réessayer plus tard.",
+              "error"
+            );
+            return {
+              error:
+                "An error occurred during registration. Please try again later.",
+            };
           }
-          return redirect("/page-recherche");
         },
       },
       {
@@ -102,15 +115,32 @@ const router = createBrowserRouter([
         element: <SearchPage />,
       },
       {
-        path: "/profile/:id",
+        path: "/profil/:id",
         element: <ProfilePage />,
         loader: async ({ params }) => {
-          const response = await fetch(`${URL}/users/${params.id}`);
-          const data = await response.json();
-          if (!response.ok) {
-            throw new Error("Failed to fetch profile data");
+          try {
+            const response = await fetch(`${URL}/users/${params.id}`);
+            if (!response.ok === true) {
+              notify(
+                "Erreur lors de la récupération des données du profil !",
+                "error"
+              );
+              throw new Error("Failed to fetch profile data");
+            }
+            const data = await response.json();
+            notify(
+              "Les données du profil ont été récupérées avec succès.",
+              "success"
+            );
+            return data;
+          } catch (err) {
+            console.error("Fetch profile error:", err);
+            notify(
+              "Une erreur est survenue lors de la récupération des données du profil. Veuillez réessayer plus tard.",
+              "error"
+            );
+            throw err;
           }
-          return data;
         },
       },
       {
@@ -120,7 +150,7 @@ const router = createBrowserRouter([
           const response = await fetch(`${URL}/homestructure/${params.id}`);
           const data = await response.json();
           if (!response.ok) {
-            throw new Error("Failed to fetch profile data");
+            throw new Error("erreur lorsde la récupération des données");
           }
           return data;
         },

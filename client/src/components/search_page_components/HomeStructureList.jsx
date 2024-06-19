@@ -1,12 +1,14 @@
 import PropTypes from "prop-types";
-import "./HomeStructureList.css";
-import PersonImage from "../../assets/images/person.jpg";
-import UserAnimal from "./UserAnimal";
+
 import IsProfessionnal from "./isProfessional";
+import UserAnimal from "./UserAnimal";
+import PersonImage from "../../assets/images/person.jpg";
+
+import "./HomeStructureList.css";
 
 function HomeStructureList({ structure }) {
   return (
-    <div id="userCard">
+    <div id="userCard" className="userCard">
       <div id="userGeneral">
         <div id="userImg">
           <img id="userPicture" src={PersonImage} alt={structure.name} />
@@ -22,7 +24,7 @@ function HomeStructureList({ structure }) {
 
       <ul id="userPref">
         <UserAnimal dog={structure.dog} cat={structure.cat} />
-        <li>
+        <li className="price">
           <p id="userPrice">{structure.price} € </p>
         </li>
       </ul>

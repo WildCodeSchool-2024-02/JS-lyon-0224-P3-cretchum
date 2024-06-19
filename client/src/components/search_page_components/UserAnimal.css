@@ -1,16 +1,9 @@
-.userCat {
-  background-color: #ffc3a0;
-}
-
-.userDog {
-  background-color: #00cdac;
-}
-
 .userAnimal {
   display: flex;
   padding: 0.25em 0.5em;
   text-align: center;
   border-radius: 14px;
+  align-items: center;
 }
 
 .animalHidden {
@@ -21,11 +14,12 @@
 .userDog {
   width: 8em;
   margin: 2%;
+  background-color: #94fac93d;
 }
 
 .animalImg {
-  width: 2vh;
-  height: auto;
+  width: auto;
+  height: 2.4em;
   margin-right: 10px;
 }
 

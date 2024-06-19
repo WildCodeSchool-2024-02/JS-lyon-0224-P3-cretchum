@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import notify from "../../utils/notify";
 import "./SearchPage.css";
 import NavMenu from "../../components/nav_menu/NavMenu";
-import Filter from "../../components/SearchPage/Filter";
-import HomeStructureList from "../../components/SearchPage/HomeStructureList";
+import Filter from "../../components/search_page_components/Filter";
+import HomeStructureList from "../../components/search_page_components/HomeStructureList";
 import BtnPrev from "../../assets/images/Btn-prev.png";
 import BtnNext from "../../assets/images/Btn-next.png";
-
 
 function SearchPage() {
   const [allStructures, setAllStructures] = useState([]);
@@ -20,9 +20,17 @@ function SearchPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`${URL}/homestructure?q=${search}`);
-      const jsonData = await response.json();
-      setAllStructures(jsonData);
+      try {
+        const response = await fetch(`${URL}/homestructure?q=${search}`);
+        if (!response.ok === true) {
+          throw new Error("Erreur lors de la récupération des données.");
+        }
+        const jsonData = await response.json();
+        setAllStructures(jsonData);
+      } catch (error) {
+        notify("Erreur de réseau. Veuillez vérifier votre connexion.", "error");
+        console.error("Fetch error:", error);
+      }
     };
     fetchData();
   }, [search, URL]);
@@ -120,11 +128,10 @@ function SearchPage() {
         <ul id="peopleMap">
           {filteredStructures.slice(pageLim, pageLimSup).map((structure) => (
             <li key={structure.id} id="peopleList">
-          <Link to={`/reservation/${structure.id}`}>
-            <HomeStructureList structure={structure} />
-          </Link>
-        </li>
-            
+              <Link to={`/reservation/${structure.id}`}>
+                <HomeStructureList structure={structure} />
+              </Link>
+            </li>
           ))}
         </ul>
       )}

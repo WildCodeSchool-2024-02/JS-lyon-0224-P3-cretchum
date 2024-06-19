@@ -29,8 +29,7 @@ function Reservation({ priceday }) {
   // calculating price
   const price = priceday * datediff;
 
-
-// avoiding ending date to go before startingDate
+  // avoiding ending date to go before startingDate
   useEffect(() => {
     if (endingDate < startingDate) {
       setEndingDate(startingDate);
@@ -75,7 +74,7 @@ function Reservation({ priceday }) {
           </div>
         </div>
 
-        <button type="submit" className="buttonType1">
+        <button type="submit" className="searchBtn buttonType1">
           Réserver
         </button>
       </Form>
