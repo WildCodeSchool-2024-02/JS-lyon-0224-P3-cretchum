@@ -48,14 +48,14 @@ function HomeStructureDetails() {
                 <p id="hsPrice">{structures.price} €</p>
               </div>
             </ProfileSection>
-            {/* {structures.description !== null && ( */}
+            {structures.description !== null && (
             <ProfileSection
               title="A propos"
               additionalStyle="HomeStructureDescription"
             >
               <p>{structures.description}</p>
             </ProfileSection>
-            {/* )} */}
+            )} 
           </div>
           <aside className="reservation">
             <Reservation priceday={structures.price} />
