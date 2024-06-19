@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import "./SearchPage.css";
 import NavMenu from "../../components/nav_menu/NavMenu";
-import Filter from "../../components/SearchPage/Filter";
-import HomeStructureList from "../../components/SearchPage/HomeStructureList";
+import Filter from "../../components/search_page_components/Filter";
+import HomeStructureList from "../../components/search_page_components/HomeStructureList";
 import BtnPrev from "../../assets/images/Btn-prev.png";
 import BtnNext from "../../assets/images/Btn-next.png";
 
