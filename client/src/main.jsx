@@ -114,12 +114,12 @@ const router = createBrowserRouter([
         element: <SearchPage />,
       },
       {
-        path: "/profile/:id",
+        path: "/profil/:id",
         element: <ProfilePage />,
         loader: async ({ params }) => {
           try {
             const response = await fetch(`${URL}/users/${params.id}`);
-            if (!response.ok === false) {
+            if (!response.ok === true) {
               notify(
                 "Erreur lors de la récupération des données du profil !",
                 "error"
