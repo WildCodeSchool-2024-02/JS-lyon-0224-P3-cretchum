@@ -114,7 +114,7 @@ const router = createBrowserRouter([
         loader: async ({ params }) => {
           try {
             const response = await fetch(`${URL}/users/${params.id}`);
-            if (!response.ok) {
+            if (!response.ok === false) {
               notify("Erreur lors de la récupération des données du profil !", "error");
               throw new Error("Failed to fetch profile data");
             }

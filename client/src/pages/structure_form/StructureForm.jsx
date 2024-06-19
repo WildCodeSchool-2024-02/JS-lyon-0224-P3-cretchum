@@ -24,7 +24,7 @@ function StructureForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (validateForm()) {
+    if (validateForm() === true) {
       notify("Compte créé avec succès !", "success");
       // Redirect or perform other actions here
       navigate("/page-recherche");

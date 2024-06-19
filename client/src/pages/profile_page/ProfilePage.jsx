@@ -17,7 +17,7 @@ function ProfilePage() {
 
   const handleEditClick = () => {
     setIsEditMode(!isEditMode);
-    if (isEditMode) {
+    if (isEditMode === true) {
       handleSave();
     }
   };

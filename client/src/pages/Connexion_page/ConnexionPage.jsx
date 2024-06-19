@@ -23,7 +23,7 @@ function ConnexionPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (validateForm()) {
+    if (validateForm() === true) {
       notify("Connexion réussie !", "success");
       navigate("/page-recherche");
     }

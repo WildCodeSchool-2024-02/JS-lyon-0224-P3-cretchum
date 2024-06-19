@@ -21,7 +21,7 @@ function SearchPage() {
     const fetchData = async () => {
       try {
         const response = await fetch(`${URL}/homestructure?q=${search}`);
-        if (!response.ok) {
+        if (!response.ok === false) {
           throw new Error('Erreur lors de la récupération des données.');
         }
         const jsonData = await response.json();
