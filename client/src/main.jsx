@@ -43,7 +43,7 @@ const router = createBrowserRouter([
             });
 
             if (response.status === 200) {
-              notify("Connexion réussie !", "succcess");
+              notify("Connexion réussie !", "success");
               return redirect("/page-recherche");
             }
             notify("Email ou mot de passe incorrect !", "error");
@@ -91,7 +91,7 @@ const router = createBrowserRouter([
                 description,
               }),
             });
-            if (response.status !== 201) {
+            if (response.status === 201) {
               notify("Inscription réussie !", "error");
               return redirect("/page-recherche");
             }
@@ -115,17 +115,17 @@ const router = createBrowserRouter([
           try {
             const response = await fetch(`${URL}/users/${params.id}`);
             if (!response.ok) {
-              notify(
-                "Erreur lors de la récupération des données du profil !", "error"
-              );
+              notify("Erreur lors de la récupération des données du profil !", "error");
               throw new Error("Failed to fetch profile data");
             }
             const data = await response.json();
+            notify("Les données du profil ont été récupérées avec succès.", "success");
             return data;
           } catch (err) {
             console.error("Fetch profile error:", err);
             notify(
-              "Une erreur est survenue lors de la récupération des données du profil. Veuillez réessayer plus tard.", "error"
+              "Une erreur est survenue lors de la récupération des données du profil. Veuillez réessayer plus tard.",
+              "error"
             );
             throw err;
           }
