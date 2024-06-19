@@ -1,3 +1,26 @@
+.hsDetailH4 {
+  color: #656060;
+  font-size: 1.3em;
+}
+
+.hsHrLine {
+  border: none;
+  border-top: 0.5px solid var(--container-color);
+  width: 90%;
+}
+
+.hsFlexBox {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  align-items: center;
+  padding: 1.3em;
+}
+
+#HomeStructureDescription {
+  text-align: center;
+}
+
 #HomeStructureInfo {
   display: flex;
   flex-direction: column;
@@ -10,11 +33,40 @@
   align-items: center;
 }
 
+#hsLocation {
+  font-size: 1.2em;
+}
+
 #HomeStructureInfo,
-#homeStructureHeader,
 #gobalInfo,
 .reservation {
-  width: 100%;
+  width: 90%;
+}
+
+#homeStructureHeader {
+  width: 80%;
+}
+
+#hsAnimalId {
+  margin: 0;
+}
+
+#infoDiv {
+  margin: 0;
+}
+
+#userParticulier,
+#userChenil {
+  margin: 4% 0 0 0;
+}
+
+#HomeStructureDescription {
+  font-size: 1.2em;
+}
+
+#hsPrice {
+  font-weight: bold;
+  font-size: 1.3em;
 }
 
 @media screen and (min-width: 900px) {
@@ -24,21 +76,22 @@
     flex-direction: row;
   }
 
-  #HomeStructureInfo,
-  #homeStructureHeader {
+  #HomeStructureInfo {
     width: 65%;
   }
 
+  #homeStructureHeader {
+    width: 65%;
+  }
   #gobalInfo {
     width: 70%;
     margin-right: 8%;
   }
   #infoDiv {
-    min-height: 35vh;
+    min-height: 40vh;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    text-align: left;
   }
 
   #HomeStructureDescription {
@@ -46,9 +99,9 @@
     text-align: center;
   }
 
-  #infoDiv,
-  #HomeStructureDescription {
-    padding: 2em;
+  #infoDiv {
+    padding-left: 5em;
+    padding-right: 3em;
   }
   .reservation {
     width: unset;

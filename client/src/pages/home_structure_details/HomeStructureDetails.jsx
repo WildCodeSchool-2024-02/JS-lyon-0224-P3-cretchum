@@ -17,27 +17,45 @@ function HomeStructureDetails() {
       </header>
       <section id="HomeStructureInfo">
         <div id="gobalInfo">
-          <ProfileSection title="Informations Générales">
-            <div id="infoDiv">
-              <h4>Code postale</h4>
-              <p>{structures.postal_code}</p>
-              <h4>Animaux acceptés</h4>
-              <ul>
+          <ProfileSection
+            title="Informations Générales"
+            additionalStyle="infoDiv"
+          >
+            <div className="hsFlexBox">
+              <h4 className="hsDetailH4">Adresse</h4>
+              <p id="hsLocation">
+                {structures.postal_code} - {structures.location}
+              </p>
+            </div>
+            <hr className="hsHrLine" />
+            <div className="hsFlexBox">
+              <h4 className="hsDetailH4">Animaux acceptés</h4>
+              <ul id="hsAnimalId">
                 <UserAnimal cat={structures.cat} dog={structures.dog} />
               </ul>
+            </div>
+            <hr className="hsHrLine" />
+            <div className="hsFlexBox">
+              <h4 className="hsDetailH4">Type de structure</h4>
               <IsProfessionnal professional={structures.is_professional} />
             </div>
+            <hr className="hsHrLine" />
+            <div className="hsFlexBox">
+              <h4 className="hsDetailH4">Prix à la journée</h4>
+              <p id="hsPrice">{structures.price} €</p>
+            </div>
           </ProfileSection>
-          {structures.description !== null && (
-            <ProfileSection title="A propos">
-              <div id="HomeStructureDescription">
-                <p>{structures.description}</p>
-              </div>
-            </ProfileSection>
-          )}
+          {/* {structures.description !== null && ( */}
+          <ProfileSection
+            title="A propos"
+            additionalStyle="HomeStructureDescription"
+          >
+            <p>Bonjour je suis Jean Michel</p>
+          </ProfileSection>
+          {/* )} */}
         </div>
         <aside className="reservation">
-          <Reservation />
+          <Reservation priceday={structures.price} />
         </aside>
       </section>
     </div>

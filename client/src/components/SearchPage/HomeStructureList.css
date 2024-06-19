@@ -31,39 +31,6 @@
   list-style-type: none;
 }
 
-#userParticulier {
-  background-color: #ffff00;
-}
-
-#userChenil {
-  background-color: #8fff00;
-}
-
-.userAnimal {
-  display: flex;
-  padding: 0.25em 0.5em;
-  text-align: center;
-  border-radius: 14px;
-}
-
-.animalHidden {
-  display: none;
-}
-
-.userCat {
-  background-color: #ffc3a0;
-}
-
-.userDog {
-  background-color: #00cdac;
-}
-
-.animalImg {
-  width: 2vh;
-  height: auto;
-  margin-right: 10px;
-}
-
 #userImg {
   width: 90px;
   height: 90px;
@@ -102,16 +69,7 @@
     min-width: 28vw;
   }
 
-  #userImg {
-    width: 90px;
-    height: 90px;
-  }
-
   #userGeneral {
     margin-bottom: 8%;
-  }
-
-  .userAnimal {
-    padding: 0.25em 1.5em;
   }
 }

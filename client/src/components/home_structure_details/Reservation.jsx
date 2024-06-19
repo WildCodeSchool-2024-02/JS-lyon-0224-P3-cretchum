@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { Form } from "react-router-dom";
+import PropTypes from "prop-types";
 
 import "./Reservation.css";
 
-function Reservation() {
-  const priceday = 32; // info en dure à supprimer une fois la base de données récupérées
-
-  // Récupération de la date d'aujourd'hui
+function Reservation({priceday}) {
+  // Get today date
   const currentDate = new Date();
   const day = currentDate.getDate().toString().padStart(2, "0");
   const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
@@ -16,7 +15,7 @@ function Reservation() {
   const [startingDate, setStartingDate] = useState(todayDate);
   const [endingDate, setEndingDate] = useState(todayDate);
 
-  // cacul du nombre de jours de différence entre la date de début et de fin
+  // calculating the number of days difference between the start and end date
   const dateDiffInDays = (start, end) => {
     const startDate = new Date(start);
     const endDate = new Date(end);
@@ -27,7 +26,7 @@ function Reservation() {
 
   const datediff = dateDiffInDays(startingDate, endingDate);
 
-  // calcul du prix
+  // calculating price
   const price = priceday * datediff;
 
   return (
@@ -68,7 +67,7 @@ function Reservation() {
           </div>
         </div>
 
-        <button type="submit" id="reservationButton">
+        <button type="submit" className="buttonType1">
           Réserver
         </button>
       </Form>
@@ -82,5 +81,10 @@ function Reservation() {
     </section>
   );
 }
+
+Reservation.propTypes = {
+  priceday: PropTypes.number.isRequired,
+};
+
 
 export default Reservation;

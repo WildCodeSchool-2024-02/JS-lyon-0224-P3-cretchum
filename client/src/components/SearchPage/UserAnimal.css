@@ -19,12 +19,23 @@
 
 .userCat,
 .userDog {
-  width: 135px;
+  width: 8em;
   margin: 2%;
+}
+
+.animalImg {
+  width: 2vh;
+  height: auto;
+  margin-right: 10px;
 }
 
 @media screen and (min-width: 1100px) {
   .userAnimal {
     padding: 0.25em 1.5em;
+  }
+
+  #userImg {
+    width: 90px;
+    height: 90px;
   }
 }
