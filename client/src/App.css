@@ -1,7 +1,7 @@
 :root {
-  --main-color: #6a6b86;
-  --secondary-color: #e37acc;
-  --container-color: #08256e;
+  --main-color: #c6d7e2ad;
+  --secondary-color: #007864;
+  --hover-color: #0078644d;
   --base-font-size: 1.5rem;
   --header-font-size: 2.5rem;
   --subheader-font-size: 2rem;
@@ -35,4 +35,16 @@ select {
 
 body {
   background: var(--main-color);
+}
+
+.buttonType1 {
+  background: var(--secondary-color);
+  color: white;
+}
+
+.buttonType1:hover {
+  background: var(--hover-color);
+  color: black;
+  border: none;
+  cursor: pointer;
 }

@@ -1,0 +1,178 @@
+#userCard {
+  background-color: white;
+  min-width: 300px;
+  width: 80vw;
+  border-radius: 40px;
+  padding: 1em;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+}
+
+#userGeneral {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 8%;
+  justify-content: space-between;
+}
+
+#userName {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+#userInfo p {
+  font-size: 1em;
+}
+
+.userStructure {
+  padding: 0.25em 1em;
+  text-align: center;
+  border-radius: 14px;
+}
+
+#userPref {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  justify-items: center;
+  align-items: center;
+  grid-template-rows: 1fr 1fr;
+}
+
+#userParticulier {
+  background-color: #a9e4f069;
+}
+#userChenil {
+  background-color: #f9f9715b;
+}
+
+.userAnimal {
+  display: flex;
+  padding: 0.25em 0.5em;
+  text-align: center;
+  border-radius: 14px;
+  align-items: center;
+}
+
+.animalHidden {
+  display: none;
+}
+
+.userCat {
+  color: black;
+  grid-column: 1;
+  background-color: #94fac93d;
+}
+
+.userDog {
+  background-color: #94fac93d;
+}
+
+.animalImg {
+  width: auto;
+  height: 2.4em;
+  margin-right: 10px;
+}
+
+#userImg {
+  width: 90px;
+  height: auto;
+  border-radius: 40px;
+  overflow: hidden;
+}
+
+#userPicture {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#userPrice {
+  color: #008000;
+  font-size: 1.5em;
+  padding-right: 15px;
+}
+
+.userLocation {
+  margin: 10px;
+}
+
+#userLocation,
+.userStructure {
+  margin-top: 10%;
+}
+.price {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  height: 100%;
+  width: 100%;
+}
+
+@media screen and (min-width: 475px) and (max-width: 1000px) {
+  #userCard {
+    width: 450px;
+  }
+  .userCard {
+    max-width: 450px;
+  }
+  #userInfo p {
+    font-size: 1.3em;
+  }
+  #userPrice {
+    font-size: 2em;
+  }
+  #userName {
+    font-weight: bold;
+    font-size: 1.4em;
+  }
+  #userInfo {
+    padding-right: 15px;
+  }
+}
+
+@media screen and (min-width: 475px) {
+  #userPref {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr 0.75fr;
+    grid-template-rows: 1fr;
+
+    justify-items: center;
+    align-items: center;
+  }
+  .price {
+    grid-column: 3;
+    grid-row: 1;
+  }
+  #userImg {
+    width: 150px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  #userCard {
+    width: 500px;
+  }
+
+  #userGeneral {
+    margin-bottom: 8%;
+    justify-content: space-around;
+  }
+
+  .userAnimal {
+    padding: 0.25em 1.5em;
+  }
+  #userInfo p {
+    font-size: 1.5em;
+  }
+  #userPrice {
+    font-size: 2em;
+  }
+  #userName {
+    font-weight: bold;
+    font-size: 1.8em;
+  }
+}

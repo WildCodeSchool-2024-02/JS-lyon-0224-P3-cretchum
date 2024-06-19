@@ -14,7 +14,7 @@ function ConnexionPage() {
   };
 
   const validateForm = () => {
-    if (!email.trim() === true || !password.trim() === true ) {
+    if (!email.trim() === true || !password.trim() === true) {
       notify("Tous les champs sont requis !", "error");
       return false;
     }
@@ -28,7 +28,6 @@ function ConnexionPage() {
       navigate("/page-recherche");
     }
   };
-
   return (
     <>
       <section id="headerConnexionPage">
@@ -61,10 +60,7 @@ function ConnexionPage() {
             required
           />
 
-          <button
-            type="submit"
-            id="connexionButton"
-          >
+          <button type="submit" id="connexionButton" className="buttonType1">
             Connexion
           </button>
 

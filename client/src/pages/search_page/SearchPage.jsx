@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import notify from "../../utils/notify";
 import "./SearchPage.css";
 import NavMenu from "../../components/nav_menu/NavMenu";
-import Filter from "../../components/SearchPage/Filter";
-import HomeStructureList from "../../components/SearchPage/HomeStructureList";
+import Filter from "../../components/search_page_components/Filter";
+import HomeStructureList from "../../components/search_page_components/HomeStructureList";
 import BtnPrev from "../../assets/images/Btn-prev.png";
 import BtnNext from "../../assets/images/Btn-next.png";
 
@@ -21,12 +21,11 @@ function SearchPage() {
     const fetchData = async () => {
       try {
         const response = await fetch(`${URL}/homestructure?q=${search}`);
-        if (!response.ok === false) {
-          throw new Error('Erreur lors de la récupération des données.');
+        if (!response.ok === true) {
+          throw new Error("Erreur lors de la récupération des données.");
         }
         const jsonData = await response.json();
         setAllStructures(jsonData);
-        notify("Données chargées avec succès !", "success");
       } catch (error) {
         notify("Erreur de réseau. Veuillez vérifier votre connexion.", "error");
         console.error("Fetch error:", error);

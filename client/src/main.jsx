@@ -1,20 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-
 import {
   createBrowserRouter,
   RouterProvider,
   redirect,
 } from "react-router-dom";
-
-import notify from "./utils/notify"
+import notify from "./utils/notify";
 import App from "./App";
 import HomePage from "./pages/home_page/HomePage";
-
 import StructureForm from "./pages/structure_form/StructureForm";
 import ConnexionPage from "./pages/Connexion_page/ConnexionPage";
 import SingIn from "./pages/signin/SignIn";
-import SearchPage from "./pages/search-page/SearchPage";
+import SearchPage from "./pages/search_page/SearchPage";
 import ProfilePage from "./pages/profile_page/ProfilePage";
 
 const URL = import.meta.env.VITE_API_URL;
@@ -50,7 +47,8 @@ const router = createBrowserRouter([
             return { error: "incorrect mail or password" };
           } catch (err) {
             notify(
-              "Une erreur est survenue lors de la connexion. Veuillez réessayer plus tard.", "error"
+              "Une erreur est survenue lors de la connexion. Veuillez réessayer plus tard.",
+              "error"
             );
             console.error("Login error:", err);
             return {
@@ -91,6 +89,7 @@ const router = createBrowserRouter([
                 description,
               }),
             });
+
             if (response.status === 201) {
               notify("Inscription réussie !", "success");
               return redirect("/page-recherche");
@@ -99,8 +98,14 @@ const router = createBrowserRouter([
             throw new Error("Registration error");
           } catch (err) {
             console.error("Fetch error:", err);
-            notify("Une erreur est survenue lors de l'inscription. Veuillez réessayer plus tard.", "error");
-            return { error: "An error occurred during registration. Please try again later." };
+            notify(
+              "Une erreur est survenue lors de l'inscription. Veuillez réessayer plus tard.",
+              "error"
+            );
+            return {
+              error:
+                "An error occurred during registration. Please try again later.",
+            };
           }
         },
       },
@@ -109,17 +114,23 @@ const router = createBrowserRouter([
         element: <SearchPage />,
       },
       {
-        path: "/profile/:id",
+        path: "/profil/:id",
         element: <ProfilePage />,
         loader: async ({ params }) => {
           try {
             const response = await fetch(`${URL}/users/${params.id}`);
-            if (!response.ok === false) {
-              notify("Erreur lors de la récupération des données du profil !", "error");
+            if (!response.ok === true) {
+              notify(
+                "Erreur lors de la récupération des données du profil !",
+                "error"
+              );
               throw new Error("Failed to fetch profile data");
             }
             const data = await response.json();
-            notify("Les données du profil ont été récupérées avec succès.", "success");
+            notify(
+              "Les données du profil ont été récupérées avec succès.",
+              "success"
+            );
             return data;
           } catch (err) {
             console.error("Fetch profile error:", err);
