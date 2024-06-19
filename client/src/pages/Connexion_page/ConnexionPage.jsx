@@ -1,7 +1,7 @@
 import { Link, Form, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Patoune from "../../assets/logo/1patounes.png";
 import notify from "../../utils/notify";
+import Patoune from "../../assets/logo/1patounes.png";
 import "./ConnexionPage.css";
 
 function ConnexionPage() {

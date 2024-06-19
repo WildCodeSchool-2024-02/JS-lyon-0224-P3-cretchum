@@ -7,7 +7,7 @@ import {
   redirect,
 } from "react-router-dom";
 
-import { toast } from 'react-toastify';
+import notify from "./utils/notify"
 import App from "./App";
 import HomePage from "./pages/home_page/HomePage";
 
@@ -43,14 +43,14 @@ const router = createBrowserRouter([
             });
 
             if (response.status === 200) {
-              toast.success("Connexion réussie !");
+              notify("Connexion réussie !", "succcess");
               return redirect("/page-recherche");
             }
-            toast.error("Email ou mot de passe incorrect !");
+            notify("Email ou mot de passe incorrect !", "error");
             return { error: "incorrect mail or password" };
           } catch (err) {
-            toast.error(
-              "Une erreur est survenue lors de la connexion. Veuillez réessayer plus tard."
+            notify(
+              "Une erreur est survenue lors de la connexion. Veuillez réessayer plus tard.", "error"
             );
             console.error("Login error:", err);
             return {
@@ -92,14 +92,14 @@ const router = createBrowserRouter([
               }),
             });
             if (response.status !== 201) {
-              toast.error("Inscription réussie !");
+              notify("Inscription réussie !", "error");
               return redirect("/page-recherche");
             }
-            toast.error("Erreur lors de l'inscription !");
+            notify("Erreur lors de l'inscription !", "error");
             throw new Error("Registration error");
           } catch (err) {
             console.error("Fetch error:", err);
-            toast.error("Une erreur est survenue lors de l'inscription. Veuillez réessayer plus tard.");
+            notify("Une erreur est survenue lors de l'inscription. Veuillez réessayer plus tard.", "error");
             return { error: "An error occurred during registration. Please try again later." };
           }
         },
@@ -115,8 +115,8 @@ const router = createBrowserRouter([
           try {
             const response = await fetch(`${URL}/users/${params.id}`);
             if (!response.ok) {
-              toast.error(
-                "Erreur lors de la récupération des données du profil !"
+              notify(
+                "Erreur lors de la récupération des données du profil !", "error"
               );
               throw new Error("Failed to fetch profile data");
             }
@@ -124,8 +124,8 @@ const router = createBrowserRouter([
             return data;
           } catch (err) {
             console.error("Fetch profile error:", err);
-            toast.error(
-              "Une erreur est survenue lors de la récupération des données du profil. Veuillez réessayer plus tard."
+            notify(
+              "Une erreur est survenue lors de la récupération des données du profil. Veuillez réessayer plus tard.", "error"
             );
             throw err;
           }

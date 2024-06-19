@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { toast } from 'react-toastify';
+import notify from "../../utils/notify";
 import "./SearchPage.css";
 import NavMenu from "../../components/nav_menu/NavMenu";
 import Filter from "../../components/SearchPage/Filter";
@@ -30,7 +30,7 @@ function SearchPage() {
         setAllStructures(jsonData);
         setDataLoaded(true);
       } catch (error) {
-        toast.error("Erreur de réseau. Veuillez vérifier votre connexion.");
+        notify("Erreur de réseau. Veuillez vérifier votre connexion.", "error");
         console.error("Fetch error:", error);
       }
     };
@@ -39,7 +39,7 @@ function SearchPage() {
 
   useEffect(() => {
     if (dataLoaded) {
-      toast.success("Données chargées avec succès !");
+      notify("Données chargées avec succès !", "success");
     }
   }, [dataLoaded]);
 
