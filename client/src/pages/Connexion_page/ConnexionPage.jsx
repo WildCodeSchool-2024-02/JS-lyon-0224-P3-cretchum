@@ -3,7 +3,6 @@ import Patoune from "../../assets/logo/1patounes.png";
 import "./ConnexionPage.css";
 
 function ConnexionPage() {
-
   return (
     <>
       <section id="headerConnexionPage">
@@ -32,10 +31,7 @@ function ConnexionPage() {
             required
           />
 
-          <button
-            type="submit"
-            id="connexionButton"
-          >
+          <button type="submit" id="connexionButton" className="buttonType1">
             Connexion
           </button>
 

@@ -111,7 +111,7 @@ function Filter({
           </li>
         </ul>
       </div>
-      <button type="button" onClick={onClick} className="buttonRechercher">
+      <button type="button" onClick={onClick} className="searchBtn buttonType1">
         Rechercher
       </button>
     </div>

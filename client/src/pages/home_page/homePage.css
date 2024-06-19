@@ -67,7 +67,6 @@
 }
 .homePageNavLink:hover {
   background-color: var(--secondary-color);
-  box-shadow: 10px 5px 5px rgba(5, 5, 5, 1);
   border: none;
   color: white;
 }

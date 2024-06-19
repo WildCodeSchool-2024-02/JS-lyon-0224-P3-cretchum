@@ -36,3 +36,15 @@ select {
 body {
   background: var(--main-color);
 }
+
+.buttonType1 {
+  background: var(--secondary-color);
+  color: white;
+}
+
+.buttonType1:hover {
+  background: var(--hover-color);
+  color: black;
+  border: none;
+  cursor: pointer;
+}

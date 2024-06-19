@@ -53,23 +53,14 @@
 }
 
 #connexionButton {
-  background-color: var(--secondary-color);
   border: 1px solid transparent;
-  color: white;
   border-radius: 30px;
   cursor: pointer;
   margin: 6% 0 5%;
-
   width: 10em;
   padding: 0.75em;
   min-width: 10vw;
   font-size: 1em;
-}
-
-#connexionButton:hover {
-  background: var(--hover-color);
-  border: none;
-  color: black;
 }
 
 #connexionPageDiv > label {
