@@ -1,20 +1,3 @@
-.hsDetailH4 {
-  color: #656060;
-  font-size: 1.3em;
-}
-
-.hsHrLine {
-  border: none;
-  border-top: 0.5px solid var(--container-color);
-  width: 80%;
-}
-
-.hsFlexBox {
-  display: flex;
-  justify-content: space-between;
-  width: 70%;
-}
-
 #reservation {
   background-color: white;
   border-radius: 20px;

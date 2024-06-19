@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import "./Reservation.css";
 
-function Reservation({priceday}) {
+function Reservation({ priceday }) {
   // Get today date
   const currentDate = new Date();
   const day = currentDate.getDate().toString().padStart(2, "0");
@@ -85,6 +85,5 @@ function Reservation({priceday}) {
 Reservation.propTypes = {
   priceday: PropTypes.number.isRequired,
 };
-
 
 export default Reservation;
