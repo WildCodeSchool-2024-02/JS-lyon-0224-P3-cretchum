@@ -14,7 +14,7 @@ function ConnexionPage() {
   };
 
   const validateForm = () => {
-    if (!email.trim() || !password.trim()) {
+    if (!email.trim() === true || !password.trim() === true ) {
       notify("Tous les champs sont requis !", "error");
       return false;
     }
