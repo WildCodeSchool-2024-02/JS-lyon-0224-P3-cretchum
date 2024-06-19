@@ -3,8 +3,10 @@ import "./HomeStructureList.css";
 import CatImage from "../../assets/images/cat.png";
 import DogImage from "../../assets/images/dog.png";
 import PersonImage from "../../assets/images/person.jpg";
+import bToB from "../../assets/function/bToB";
 
 function HomeStructureList({ structure }) {
+  const isProfessionnal = bToB(structure.is_professional);
   return (
     <div id="userCard" className="userCard">
       <div id="userGeneral">
@@ -18,11 +20,9 @@ function HomeStructureList({ structure }) {
           </p>
           <p
             className="userStructure"
-            id={
-              structure.is_professional === 0 ? "userParticulier" : "userChenil"
-            }
+            id={isProfessionnal === false ? "userParticulier" : "userChenil"}
           >
-            {structure.is_professional === 0 ? "particulier" : "professionnel"}
+            {isProfessionnal === false ? "particulier" : "professionnel"}
           </p>
         </div>
       </div>
