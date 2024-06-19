@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import notify from "../../utils/notify";
 import "./SearchPage.css";
 import NavMenu from "../../components/nav_menu/NavMenu";
 import Filter from "../../components/search_page_components/Filter";
@@ -18,9 +19,17 @@ function SearchPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`${URL}/homestructure?q=${search}`);
-      const jsonData = await response.json();
-      setAllStructures(jsonData);
+      try {
+        const response = await fetch(`${URL}/homestructure?q=${search}`);
+        if (!response.ok === true) {
+          throw new Error("Erreur lors de la récupération des données.");
+        }
+        const jsonData = await response.json();
+        setAllStructures(jsonData);
+      } catch (error) {
+        notify("Erreur de réseau. Veuillez vérifier votre connexion.", "error");
+        console.error("Fetch error:", error);
+      }
     };
     fetchData();
   }, [search, URL]);

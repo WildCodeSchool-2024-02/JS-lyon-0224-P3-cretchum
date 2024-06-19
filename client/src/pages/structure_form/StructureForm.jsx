@@ -1,16 +1,34 @@
 import { useState } from "react";
-import { Form, Link } from "react-router-dom";
+import { Form, Link, useNavigate } from "react-router-dom";
+import notify from "../../utils/notify";
 import styles from "./StructureForm.module.css";
 
 function StructureForm() {
+  const [password, setPassword] = useState("");
+  const [passwordConf, setPasswordConf] = useState("");
+  const navigate = useNavigate();
+
   function handleInputChange(event, setState) {
     setState(event.target.value);
   }
-  const [password, setPassword] = useState("");
-  const [passwordConf, setPasswordConf] = useState("");
 
-  const HandleValidateButton = () => {
-    window.location = "/page-recherche";
+  const validateForm = () => {
+    // Add your validation logic here
+    if (password !== passwordConf) {
+      notify("Les mots de passe ne correspondent pas !", "error");
+      return false;
+    }
+    // Add more validation as needed
+    return true;
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (validateForm() === true) {
+      notify("Compte créé avec succès !", "success");
+      // Redirect or perform other actions here
+      navigate("/page-recherche");
+    }
   };
 
   return (
@@ -223,7 +241,7 @@ function StructureForm() {
           <button
             className={styles.accountButton}
             type="submit"
-            onClick={HandleValidateButton}
+            onClick={handleSubmit}
           >
             Créer mon compte
           </button>
