@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form } from "react-router-dom";
 import PropTypes from "prop-types";
 
@@ -28,6 +28,14 @@ function Reservation({ priceday }) {
 
   // calculating price
   const price = priceday * datediff;
+
+
+// avoiding ending date to go before startingDate
+  useEffect(() => {
+    if (endingDate < startingDate) {
+      setEndingDate(startingDate);
+    }
+  }, [startingDate, endingDate]);
 
   return (
     <section id="reservation">
