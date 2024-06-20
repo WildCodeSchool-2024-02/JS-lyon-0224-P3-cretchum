@@ -5,26 +5,23 @@ import DogImage from "../../assets/images/dog.png";
 import PersonImage from "../../assets/images/person.jpg";
 
 function HomeStructureList({ structure }) {
+  const isProfessionnal = structure.is_professional === 1;
   return (
-    <div id="userCard">
+    <div id="userCard" className="userCard">
       <div id="userGeneral">
         <div id="userImg">
           <img id="userPicture" src={PersonImage} alt={structure.name} />
         </div>
         <div id="userInfo">
           <h3 id="userName">{structure.name}</h3>
-          <p id="userLocation">{structure.postal_code}</p>
+          <p id="userLocation">
+            {structure.postal_code} {structure.location}
+          </p>
           <p
             className="userStructure"
-            id={
-              structure.is_professional === 0
-                ? "userParticulier"
-                : "userChenil"
-            }
+            id={isProfessionnal === false ? "userParticulier" : "userChenil"}
           >
-            {structure.is_professional === 0
-              ? "particulier"
-              : "professionnel"}
+            {isProfessionnal === false ? "particulier" : "professionnel"}
           </p>
         </div>
       </div>
@@ -42,7 +39,7 @@ function HomeStructureList({ structure }) {
           <img src={DogImage} alt="dessin de chat noir" className="animalImg" />
           <p>Chien</p>
         </li>
-        <li>
+        <li className="price">
           <p id="userPrice">{structure.price} € </p>
         </li>
       </ul>
@@ -60,5 +57,6 @@ HomeStructureList.propTypes = {
     cat: PropTypes.number.isRequired,
     dog: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
+    location: PropTypes.string.isRequired,
   }).isRequired,
 };

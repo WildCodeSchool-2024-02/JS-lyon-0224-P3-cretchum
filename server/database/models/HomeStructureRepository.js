@@ -50,7 +50,9 @@ class HomeStructureRepository extends AbstractRepository {
 
   async readAll() {
     // Execute the SQL SELECT query to retrieve all programs from the "program" table
-    const [rows] = await this.database.query(`select * from ${this.table}`);
+    const [rows] = await this.database.query(
+      `select * from ${this.table} ORDER BY capacity DESC`
+    );
 
     // Return the array of programs
     return rows;
@@ -96,6 +98,16 @@ class HomeStructureRepository extends AbstractRepository {
 
     // Return how many rows were affected
     return result.affectedRows;
+  }
+
+  // includes for the searchBar
+  async includes(search) {
+    const [result] = await this.database.query(
+      `SELECT id, name, phone_number, location, postal_code, is_professional, cat, dog, price FROM ${this.table} WHERE name like ? OR location like ?`,
+      [`%${search}%`, `%${search}%`]
+    );
+
+    return result;
   }
 
   async login(homeStructure) {

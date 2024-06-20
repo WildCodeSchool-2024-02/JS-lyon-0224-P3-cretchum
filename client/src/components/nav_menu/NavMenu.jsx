@@ -6,7 +6,9 @@ function NavMenu() {
     <nav className="navMenu">
       <div className="navMenu-container">
         <div className="navMenu-item">
-          <NavLink to="/page-recherche">SearchPage</NavLink>
+          <NavLink id="searchPage" to="/page-recherche">
+            SearchPage
+          </NavLink>
         </div>
         <div className="navMenu-item">
           <NavLink to="/connexion">Connexion</NavLink>

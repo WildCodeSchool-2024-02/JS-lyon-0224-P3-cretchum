@@ -26,7 +26,7 @@ const signInSchema = Joi.object({
 const validateSignIn = (req, res, next) => {
   const { error } = signInSchema.validate(req.body, { abortEarly: true });
 
-  if (!error) {
+  if (!error === true) {
     next();
   } else {
     res.status(400).json({ validationErrors: error.details });

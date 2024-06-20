@@ -3,11 +3,12 @@ import { Form, Link } from "react-router-dom";
 import styles from "./StructureForm.module.css";
 
 function StructureForm() {
+  const [password, setPassword] = useState("");
+  const [passwordConf, setPasswordConf] = useState("");
+
   function handleInputChange(event, setState) {
     setState(event.target.value);
   }
-  const [password, setPassword] = useState("");
-  const [passwordConf, setPasswordConf] = useState("");
 
   return (
     <div id={styles.formContainer}>
@@ -199,6 +200,11 @@ function StructureForm() {
             required
           />
         </div>
+        <div className={styles.passwordSmall}>
+          {password !== passwordConf && (
+            <small>les mots de passes ne sont pas identiques</small>
+          )}
+        </div>
         <div className={`${styles.inputContainer} ${styles.description}`}>
           <label className={styles.formLabel} htmlFor="description">
             Description :
@@ -215,7 +221,11 @@ function StructureForm() {
         </div>
 
         <div className={styles.buttonContainer}>
-          <button className={styles.accountButton} type="submit">
+          <button
+            className={styles.accountButton}
+            disabled={password !== passwordConf}
+            type="submit"
+          >
             Créer mon compte
           </button>
           <span className={styles.compte}>

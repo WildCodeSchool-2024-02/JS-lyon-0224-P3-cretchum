@@ -4,11 +4,16 @@ const tables = require("../../database/tables");
 // The B of BREAD - Browse (Read All) operation
 const browse = async (req, res, next) => {
   try {
-    // Fetch all home_structure from the database
-    const homeStructure = await tables.home_structure.readAll();
-
-    // Respond with the home_structure in JSON format
-    res.status(200).json(homeStructure);
+    if (req.query.q != null) {
+      // Fetch home_structure whose includes the search Bar words
+      const homeStructure = await tables.home_structure.includes(req.query.q);
+      res.status(200).json(homeStructure);
+    } else {
+      // Fetch all home_structure from the database
+      const homeStructure = await tables.home_structure.readAll();
+      // Respond with the home_structure in JSON format
+      res.status(200).json(homeStructure);
+    }
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);
