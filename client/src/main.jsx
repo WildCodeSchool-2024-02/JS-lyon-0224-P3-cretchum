@@ -10,7 +10,7 @@ import App from "./App";
 import HomePage from "./pages/home_page/HomePage";
 import StructureForm from "./pages/structure_form/StructureForm";
 import ConnexionPage from "./pages/Connexion_page/ConnexionPage";
-import SignIn from "./pages/signin/SignIn";
+import SignUp from "./pages/sign_up/SignUp";
 import SearchPage from "./pages/search_page/SearchPage";
 import HomeStructureDetails from "./pages/home_structure_details/HomeStructureDetails";
 import ProfilePage from "./pages/profile_page/ProfilePage";
@@ -112,7 +112,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/inscription",
-        element: <SignIn />,
+        element: <SignUp />,
         action: async ({ request }) => {
           try {
             const formData = await request.formData();

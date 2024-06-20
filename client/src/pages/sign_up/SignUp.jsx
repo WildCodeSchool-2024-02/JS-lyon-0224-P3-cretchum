@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Form, Link } from "react-router-dom";
-import styles from "./SignIn.module.css";
+import styles from "./SignUp.module.css";
 
 function SignIn() {
   function handleInputChange(event, setState) {
