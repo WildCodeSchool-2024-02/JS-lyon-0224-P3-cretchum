@@ -1,6 +1,8 @@
 import { redirect } from "react-router-dom";
 import notify from "../../../src/utils/notify";
 
+const URL = import.meta.env.VITE_API_URL;
+
 const structureFormAction = async ({ request, params }) => {
     try {
       const formData = await request.formData();
@@ -13,7 +15,7 @@ const structureFormAction = async ({ request, params }) => {
       const dog = formData.get("dog");
       const userId = params.id;
       const response = await fetch(
-        `http://localhost:3310/api/homestructure`,
+        `${URL}/homestructure`,
         {
           method: "POST",
           headers: {
