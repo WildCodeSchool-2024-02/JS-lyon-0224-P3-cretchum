@@ -1,0 +1,110 @@
+.hsDetailH4 {
+  color: #656060;
+  font-size: 1.3em;
+}
+
+.hsHrLine {
+  border: none;
+  border-top: 1px solid var(--main-color);
+  width: 90%;
+}
+
+.hsFlexBox {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  align-items: center;
+  padding: 1.3em;
+}
+
+#HomeStructurePage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1%;
+}
+
+#HomeStructureDescription {
+  text-align: center;
+}
+
+#HomeStructureInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#hsLocation {
+  font-size: 1.2em;
+}
+
+#HomeStructureInfo,
+#gobalInfo,
+.reservation {
+  width: 90%;
+}
+
+#homeStructureHeader {
+  width: 80%;
+}
+
+#hsAnimalId {
+  margin: 0;
+}
+
+#infoDiv {
+  margin: 0;
+}
+
+#userParticulier,
+#userChenil {
+  margin: 4% 0 0 0;
+}
+
+#HomeStructureDescription {
+  font-size: 1.2em;
+}
+
+#hsPrice {
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+@media screen and (min-width: 900px) {
+  #HomeStructureInfo {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+  }
+
+  #HomeStructureInfo {
+    width: 65%;
+  }
+
+  #homeStructureHeader {
+    width: 65%;
+  }
+  #gobalInfo {
+    width: 70%;
+    margin-right: 8%;
+  }
+  #infoDiv {
+    min-height: 45vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  #HomeStructureDescription {
+    min-height: 15vh;
+    text-align: center;
+  }
+
+  #infoDiv {
+    padding-left: 5em;
+    padding-right: 3em;
+  }
+  .reservation {
+    width: unset;
+  }
+}

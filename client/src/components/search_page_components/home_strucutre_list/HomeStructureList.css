@@ -39,39 +39,9 @@
   grid-template-rows: 1fr 1fr;
 }
 
-#userParticulier {
-  background-color: #a9e4f069;
-}
-#userChenil {
-  background-color: #f9f9715b;
-}
-
-.userAnimal {
-  display: flex;
-  padding: 0.25em 0.5em;
-  text-align: center;
-  border-radius: 14px;
-  align-items: center;
-}
-
-.animalHidden {
-  display: none;
-}
-
 .userCat {
   color: black;
   grid-column: 1;
-  background-color: #94fac93d;
-}
-
-.userDog {
-  background-color: #94fac93d;
-}
-
-.animalImg {
-  width: auto;
-  height: 2.4em;
-  margin-right: 10px;
 }
 
 #userImg {
@@ -162,9 +132,6 @@
     justify-content: space-around;
   }
 
-  .userAnimal {
-    padding: 0.25em 1.5em;
-  }
   #userInfo p {
     font-size: 1.5em;
   }

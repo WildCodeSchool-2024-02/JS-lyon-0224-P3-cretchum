@@ -24,26 +24,33 @@ function ProfileHeader({ username, isEditMode, handleEditClick }) {
           )}
         </h1>
       </section>
-      <button
-        type="button"
-        className={styles.editButton}
-        onClick={handleEditClick}
-      >
-        {isEditMode === true ? "Sauvegarder" : "Modifier"}
-        <img
-          className={styles.profilePagePen}
-          src={Pen}
-          alt="Crayon pour la modification des informations du compte"
-        />
-      </button>
+      {handleEditClick !== undefined && (
+        <button
+          type="button"
+          className={styles.editButton}
+          onClick={handleEditClick}
+        >
+          {isEditMode === true ? "Sauvegarder" : "Modifier"}
+          <img
+            className={styles.profilePagePen}
+            src={Pen}
+            alt="Crayon pour la modification des informations du compte"
+          />
+        </button>
+      )}
     </header>
   );
 }
 
 ProfileHeader.propTypes = {
   username: PropTypes.string.isRequired,
-  isEditMode: PropTypes.bool.isRequired,
-  handleEditClick: PropTypes.func.isRequired,
+  isEditMode: PropTypes.bool,
+  handleEditClick: PropTypes.func,
+};
+
+ProfileHeader.defaultProps = {
+  isEditMode: false,
+  handleEditClick: undefined,
 };
 
 export default ProfileHeader;

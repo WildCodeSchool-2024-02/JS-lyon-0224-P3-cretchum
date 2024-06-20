@@ -3,10 +3,9 @@
   display: flex;
   align-items: center;
   background-color: white;
-  border-radius: 8px;
-  padding: 1em;
+  border-radius: 20px;
+  padding: 0.5em;
   margin: 1em;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
   position: relative;
 }
 

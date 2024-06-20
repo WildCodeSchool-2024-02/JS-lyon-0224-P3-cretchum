@@ -12,6 +12,7 @@ import StructureForm from "./pages/structure_form/StructureForm";
 import ConnexionPage from "./pages/Connexion_page/ConnexionPage";
 import SingIn from "./pages/signin/SignIn";
 import SearchPage from "./pages/search_page/SearchPage";
+import HomeStructureDetails from "./pages/home_structure_details/HomeStructureDetails";
 import ProfilePage from "./pages/profile_page/ProfilePage";
 
 const URL = import.meta.env.VITE_API_URL;
@@ -206,6 +207,18 @@ const router = createBrowserRouter([
             );
             throw err;
           }
+        },
+      },
+      {
+        path: "/reservation/:id",
+        element: <HomeStructureDetails />,
+        loader: async ({ params }) => {
+          const response = await fetch(`${URL}/homestructure/${params.id}`);
+          const data = await response.json();
+          if (!response.ok === true) {
+            throw new Error("erreur lorsde la récupération des données");
+          }
+          return data;
         },
       },
     ],

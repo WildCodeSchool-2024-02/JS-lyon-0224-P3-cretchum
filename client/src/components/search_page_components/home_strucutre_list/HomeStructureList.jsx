@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
+
+import IsProfessionnal from "../is_professionnal/isProfessional";
+import UserAnimal from "../user_animal/UserAnimal";
+import PersonImage from "../../../assets/images/person.jpg";
+
 import "./HomeStructureList.css";
-import CatImage from "../../assets/images/cat.png";
-import DogImage from "../../assets/images/dog.png";
-import PersonImage from "../../assets/images/person.jpg";
 
 function HomeStructureList({ structure }) {
-  const isProfessionnal = structure.is_professional === 1;
   return (
     <div id="userCard" className="userCard">
       <div id="userGeneral">
@@ -17,28 +18,12 @@ function HomeStructureList({ structure }) {
           <p id="userLocation">
             {structure.postal_code} {structure.location}
           </p>
-          <p
-            className="userStructure"
-            id={isProfessionnal === false ? "userParticulier" : "userChenil"}
-          >
-            {isProfessionnal === false ? "particulier" : "professionnel"}
-          </p>
+          <IsProfessionnal professional={structure.is_professional} />
         </div>
       </div>
 
       <ul id="userPref">
-        <li
-          className={`userAnimal ${structure.cat === 0 ? "animalHidden" : "userCat"}`}
-        >
-          <img src={CatImage} alt="dessin de chat noir" className="animalImg" />
-          <p>Chat</p>
-        </li>
-        <li
-          className={`userAnimal ${structure.dog === 0 ? "animalHidden" : "userDog"}`}
-        >
-          <img src={DogImage} alt="dessin de chat noir" className="animalImg" />
-          <p>Chien</p>
-        </li>
+        <UserAnimal dog={structure.dog} cat={structure.cat} />
         <li className="price">
           <p id="userPrice">{structure.price} € </p>
         </li>

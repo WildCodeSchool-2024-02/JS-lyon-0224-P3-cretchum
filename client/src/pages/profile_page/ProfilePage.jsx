@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import styles from "./ProfilePage.module.css";
 import ProfileHeader from "../../components/profile/ProfileHeader";

@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import notify from "../../utils/notify";
 import "./SearchPage.css";
 import NavMenu from "../../components/nav_menu/NavMenu";
-import Filter from "../../components/search_page_components/Filter";
-import HomeStructureList from "../../components/search_page_components/HomeStructureList";
+import Filter from "../../components/search_page_components/filter/Filter";
+import HomeStructureList from "../../components/search_page_components/home_strucutre_list/HomeStructureList";
 import BtnPrev from "../../assets/images/Btn-prev.png";
 import BtnNext from "../../assets/images/Btn-next.png";
 
@@ -127,7 +128,9 @@ function SearchPage() {
         <ul id="peopleMap">
           {filteredStructures.slice(pageLim, pageLimSup).map((structure) => (
             <li key={structure.id} id="peopleList">
-              <HomeStructureList structure={structure} />
+              <Link to={`/reservation/${structure.id}`}>
+                <HomeStructureList structure={structure} />
+              </Link>
             </li>
           ))}
         </ul>
