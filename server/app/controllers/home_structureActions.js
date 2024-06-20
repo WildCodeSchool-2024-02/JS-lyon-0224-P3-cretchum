@@ -59,11 +59,11 @@ const edit = async (req, res, next) => {
 // The A of BREAD - Add (Create) operation
 const add = async (req, res, next) => {
   // Extract the user data from the request body
-  const user = req.body;
+  const homeStructure = req.body;
 
   try {
     // Insert the user into the database
-    const insertId = await tables.home_structure.create(user);
+    const insertId = await tables.home_structure.create(homeStructure);
 
     // Respond with HTTP 201 (Created) and the ID of the newly inserted home_structure
     res.status(201).json({ insertId });
