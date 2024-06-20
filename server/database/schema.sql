@@ -20,9 +20,10 @@ CREATE TABLE home_structure (
   postal_code INT(6) NOT NULL,
   mail VARCHAR(254) NOT NULL UNIQUE,
   password TEXT NOT NULL, 
-  is_professional BOOLEAN NOT NULL,
-  cat BOOLEAN NOT NULL, 
-  dog BOOLEAN NOT NULL, 
+  capacity INT(5) NOT NULL,
+  is_professional TINYINT NOT NULL,
+  cat TINYINT NOT NULL, 
+  dog TINYINT NOT NULL, 
   price INT(11) NOT NULL, 
   description TEXT
 );

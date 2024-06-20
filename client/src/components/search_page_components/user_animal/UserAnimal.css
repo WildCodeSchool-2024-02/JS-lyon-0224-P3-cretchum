@@ -1,0 +1,35 @@
+.userAnimal {
+  display: flex;
+  padding: 0.25em 0.5em;
+  text-align: center;
+  border-radius: 14px;
+  align-items: center;
+}
+
+.animalHidden {
+  display: none;
+}
+
+.userCat,
+.userDog {
+  width: 8em;
+  margin: 2%;
+  background-color: #94fac93d;
+}
+
+.animalImg {
+  width: auto;
+  height: 2.4em;
+  margin-right: 10px;
+}
+
+@media screen and (min-width: 1100px) {
+  .userAnimal {
+    padding: 0.25em 1.5em;
+  }
+
+  #userImg {
+    width: 90px;
+    height: 90px;
+  }
+}

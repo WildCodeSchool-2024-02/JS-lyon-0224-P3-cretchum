@@ -118,6 +118,15 @@
   border-radius: 30px;
   cursor: pointer;
 }
+.passwordSmall {
+  width: 100%;
+  height: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: red;
+  font-style: italic;
+}
 @media screen and (min-width: 600px) {
   #signInForm {
     background-size: contain;
