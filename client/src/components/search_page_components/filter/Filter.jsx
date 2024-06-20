@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import "./Filter.css";
-import Patoune from "../../assets/logo/1patounes.png";
+import Patoune from "../../../assets/logo/1patounes.png";
 
 function Filter({
   onFilterChange,

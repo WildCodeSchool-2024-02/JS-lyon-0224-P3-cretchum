@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
-import CatImage from "../../assets/images/cat.png";
-import DogImage from "../../assets/images/dog.png";
+import CatImage from "../../../assets/images/cat.png";
+import DogImage from "../../../assets/images/dog.png";
 import "./UserAnimal.css";
 
 function UserAnimal({ dog, cat }) {

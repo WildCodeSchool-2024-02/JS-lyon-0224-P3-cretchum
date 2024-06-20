@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 
-import IsProfessionnal from "./isProfessional";
-import UserAnimal from "./UserAnimal";
-import PersonImage from "../../assets/images/person.jpg";
+import IsProfessionnal from "../is_professionnal/isProfessional";
+import UserAnimal from "../user_animal/UserAnimal";
+import PersonImage from "../../../assets/images/person.jpg";
 
 import "./HomeStructureList.css";
 

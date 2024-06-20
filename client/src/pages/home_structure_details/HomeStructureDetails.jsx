@@ -3,8 +3,8 @@ import { useLoaderData } from "react-router-dom";
 import ProfileHeader from "../../components/profile/ProfileHeader";
 import ProfileSection from "../../components/profile/ProfileSection";
 import Reservation from "../../components/home_structure_details/Reservation";
-import UserAnimal from "../../components/search_page_components/UserAnimal";
-import IsProfessionnal from "../../components/search_page_components/isProfessional";
+import UserAnimal from "../../components/search_page_components/user_animal/UserAnimal";
+import IsProfessionnal from "../../components/search_page_components/is_professionnal/isProfessional";
 import NavMenu from "../../components/nav_menu/NavMenu";
 import "./HomeStructureDetails.css";
 
@@ -49,13 +49,13 @@ function HomeStructureDetails() {
               </div>
             </ProfileSection>
             {structures.description !== null && (
-            <ProfileSection
-              title="A propos"
-              additionalStyle="HomeStructureDescription"
-            >
-              <p>{structures.description}</p>
-            </ProfileSection>
-            )} 
+              <ProfileSection
+                title="A propos"
+                additionalStyle="HomeStructureDescription"
+              >
+                <p>{structures.description}</p>
+              </ProfileSection>
+            )}
           </div>
           <aside className="reservation">
             <Reservation priceday={structures.price} />
