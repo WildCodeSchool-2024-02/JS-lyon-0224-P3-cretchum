@@ -54,11 +54,11 @@ const edit = async (req, res, next) => {
 // The A of BREAD - Add (Create) operation
 const add = async (req, res, next) => {
   // Extract the user data from the request body
-  const user = req.body;
+  const homeStructure = req.body;
 
   try {
     // Insert the user into the database
-    const insertId = await tables.home_structure.create(user);
+    const insertId = await tables.home_structure.create(homeStructure);
 
     // Respond with HTTP 201 (Created) and the ID of the newly inserted home_structure
     res.status(201).json({ insertId });
@@ -83,6 +83,23 @@ const destroy = async (req, res, next) => {
   }
 };
 
+// *********************************************Ajout code pour test**********************************************
+
+const checkLog = async (req, res, next) => {
+  const homeStructure = req.body;
+
+  try {
+    const log = await tables.home_structure.login(homeStructure);
+
+    if (log.length !== 0) {
+      res.status(200).json();
+    } else {
+      res.status(401).json();
+    }
+  } catch (err) {
+    next(err);
+  }
+};
 // Ready to export the controller functions
 module.exports = {
   browse,
@@ -90,4 +107,5 @@ module.exports = {
   edit,
   add,
   destroy,
+  checkLog,
 };

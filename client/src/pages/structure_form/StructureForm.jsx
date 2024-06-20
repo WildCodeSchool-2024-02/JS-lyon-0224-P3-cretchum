@@ -9,26 +9,21 @@ function StructureForm() {
   const [password, setPassword] = useState("");
   const [passwordConf, setPasswordConf] = useState("");
 
-  const HandleValidateButton = () => {
-    window.location = "/page-recherche";
-  };
-
   return (
     <div id={styles.formContainer}>
       <Form method="post" id={styles.signInForm}>
         <div className={styles.desktopRow}>
           <div className={styles.inputContainer} id={styles.isProfessional}>
             <label className={styles.formLabel} htmlFor="isProfessional">
-              Vous êtes professionnel ?
-              <span className={styles.isRequired}> *</span>
+              Est professionnel ?<span className={styles.isRequired}> *</span>
             </label>
             <select
               className={styles.inputSizeM}
               name="isProfessional"
               required
             >
-              <option value="yes">Oui</option>
-              <option value="no">Non</option>
+              <option value={1}>Oui</option>
+              <option value={0}>Non</option>
             </select>
           </div>
           <div className={styles.inputContainer} id={styles.structureName}>
@@ -39,7 +34,7 @@ function StructureForm() {
             <input
               className={styles.inputSizeM}
               type="text"
-              name="structureName"
+              name="name"
               minLength={2}
               maxLength={55}
               required
@@ -94,7 +89,7 @@ function StructureForm() {
             <input
               className={styles.inputSizeM}
               type="text"
-              name="zipcode"
+              name="postal_code"
               pattern="[0-9]{5}"
               required
             />
@@ -107,7 +102,7 @@ function StructureForm() {
           <input
             className={styles.inputSizeM}
             type="text"
-            name="address"
+            name="location"
             minLength={3}
             maxLength={255}
             required
@@ -147,7 +142,7 @@ function StructureForm() {
             <input
               className={styles.inputSizeM}
               type="number"
-              name="pricePerDay"
+              name="price"
               min={0}
               required
             />
@@ -158,18 +153,18 @@ function StructureForm() {
             <label className={styles.formLabel} htmlFor="acceptsDogs">
               Chien accepté ?<span className={styles.isRequired}> *</span>
             </label>
-            <select className={styles.inputSizeM} name="acceptsDogs" required>
-              <option value="yes">Oui</option>
-              <option value="no">Non</option>
+            <select className={styles.inputSizeM} name="dog" required>
+              <option value={1}>Oui</option>
+              <option value={0}>Non</option>
             </select>
           </div>
           <div className={styles.inputContainer}>
             <label className={styles.formLabel} htmlFor="acceptsCats">
               Chat accepté ?<span className={styles.isRequired}> *</span>
             </label>
-            <select className={styles.inputSizeM} name="acceptsCats" required>
-              <option value="yes">Oui</option>
-              <option value="no">Non</option>
+            <select className={styles.inputSizeM} name="cat" required>
+              <option value={1}>Oui</option>
+              <option value={0}>Non</option>
             </select>
           </div>
         </div>
@@ -220,11 +215,7 @@ function StructureForm() {
         </div>
 
         <div className={styles.buttonContainer}>
-          <button
-            className={styles.accountButton}
-            type="submit"
-            onClick={HandleValidateButton}
-          >
+          <button className={styles.accountButton} type="submit">
             Créer mon compte
           </button>
           <span className={styles.compte}>

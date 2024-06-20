@@ -12,17 +12,22 @@ class HomeStructureRepository extends AbstractRepository {
   async create(structure) {
     // Execute the SQL INSERT query to add a new program to the "program" table
     const [result] = await this.database.query(
-      `insert into ${this.table} (name, city, postal_code, mail, password , is_professional, cat, dog, price) values (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `insert into ${this.table} (is_professional, name, lastname, firstname, phone_number, postal_code, location, mail, capacity, price, cat, dog, password, description) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
+        structure.isProfessional,
         structure.name,
-        structure.city,
-        structure.postal_code,
+        structure.lastname,
+        structure.firstname,
+        structure.phoneNumber,
+        structure.postalCode,
+        structure.location,
         structure.mail,
-        structure.password,
-        structure.is_professional,
+        structure.capacity,
+        structure.price,
         structure.cat,
         structure.dog,
-        structure.price,
+        structure.password,
+        structure.description,
       ]
     );
 
@@ -56,18 +61,23 @@ class HomeStructureRepository extends AbstractRepository {
   async update(structure) {
     // Execute the SQL UPDATE query to update a specific program
     const [result] = await this.database.query(
-      `update ${this.table} set name = ?, city = ?, postal_code = ?, mail = ?, password = ?, is_professional = ?, cat = ?, dog = ?, price =?,  where id = ?`,
+      `update ${this.table} set is_professionnal = ?, name = ?, lastname = ?, firstname = ?, phone_number = ?, postal_code = ?, location = ?, mail = ?, capacity = ?, price = ?, cat = ?, dog = ?, password = ?, description = ?, where id = ?`,
       [
-        structure.name,
-        structure.city,
-        structure.postal_code,
-        structure.mail,
-        structure.password,
         structure.is_professional,
+        structure.name,
+        structure.lastname,
+        structure.firstname,
+        structure.phone_number,
+        structure.postal_code,
+        structure.location,
+        structure.mail,
+        structure.capacity,
+        structure.price,
         structure.cat,
         structure.dog,
-        structure.price,
-        structure.id
+        structure.password,
+        structure.description,
+        structure.id,
       ]
     );
 
@@ -86,6 +96,14 @@ class HomeStructureRepository extends AbstractRepository {
 
     // Return how many rows were affected
     return result.affectedRows;
+  }
+
+  async login(homeStructure) {
+    const [result] = await this.database.query(
+      `SELECT * FROM ${this.table} WHERE mail = ? AND password = ?`,
+      [homeStructure.mail, homeStructure.password]
+    );
+    return result;
   }
 }
 

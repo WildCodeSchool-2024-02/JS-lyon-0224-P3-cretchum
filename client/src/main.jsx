@@ -21,7 +21,64 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: "/", element: <HomePage /> },
-      { path: "/structure-form", element: <StructureForm /> },
+      {
+        path: "/structure-form",
+        element: <StructureForm />,
+        action: async ({ request }) => {
+          try {
+            const formData = await request.formData();
+
+            const isProfessional = formData.get("isProfessional");
+            const name = formData.get("name");
+            const lastname = formData.get("lastname");
+            const firstname = formData.get("firstname");
+            const phoneNumber = formData.get("phonenumber");
+            const postalCode = formData.get("postal_code");
+            const location = formData.get("location");
+            const mail = formData.get("mail");
+            const capacity = formData.get("capacity");
+            const price = formData.get("price");
+            const cat = formData.get("cat");
+            const dog = formData.get("dog");
+            const password = formData.get("password");
+            const description = formData.get("description");
+            const response = await fetch(
+              `http://localhost:3310/api/homestructure`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  isProfessional,
+                  name,
+                  lastname,
+                  firstname,
+                  phoneNumber,
+                  postalCode,
+                  location,
+                  mail,
+                  capacity,
+                  price,
+                  cat,
+                  dog,
+                  password,
+                  description,
+                }),
+              }
+            );
+
+            if (!response.ok) {
+              throw new Error("");
+            }
+          } catch (err) {
+            console.error("Fetch error:", err);
+            return null;
+          }
+          return redirect("/page-recherche");
+        },
+      },
+
       {
         path: "/connexion",
         element: <ConnexionPage />,
@@ -45,7 +102,7 @@ const router = createBrowserRouter([
             if (response.status === 200) {
               return redirect("/page-recherche");
             }
-            return { error: "mail ou mot de passe incorrect" }
+            return { error: "mail ou mot de passe incorrect" };
           } catch (err) {
             console.error("Login error:", err);
             return {
