@@ -7,17 +7,20 @@
 .profilePageContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto 1fr 1fr;
+  grid-template-rows: auto 1fr 0.5fr 0.1fr;
   gap: 0px 0px;
   grid-auto-flow: row;
   grid-template-areas:
     "profile-page-header profile-page-header"
     "profile-section-information profile-section-reservation"
-    "profile-section-description .";
+    "profile-section-description ."
+    ". .";
   min-height: 100vh;
-  margin: 0 10%;
+  margin: 0 15%;
 }
-
+.label {
+  color: grey;
+}
 .profileSectionInformation {
   grid-area: profile-section-information;
 }
@@ -28,6 +31,7 @@
 
 .profileSectionDescription {
   grid-area: profile-section-description;
+  height: 75%;
 }
 
 @media (max-width: 768px) {
@@ -38,7 +42,8 @@
       "profile-page-header"
       "profile-section-information"
       "profile-section-description"
-      "profile-section-reservation";
+      "profile-section-reservation"
+      ". .";
     margin: 0 0;
   }
 }

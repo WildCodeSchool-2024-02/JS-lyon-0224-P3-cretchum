@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   background-color: white;
-  border-radius: 20px;
+  border-radius: 15px;
   padding: 0.5em;
   margin: 1em;
   position: relative;
@@ -46,7 +46,7 @@
   padding: 10px;
   margin: 5px 0;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 15px;
   font-size: 16px;
 }
 
@@ -88,5 +88,8 @@ address {
   .profilePageImg {
     width: 70px;
     height: 70px;
+  }
+  .editButton {
+    font-size: 0.8em;
   }
 }

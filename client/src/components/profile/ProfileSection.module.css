@@ -1,6 +1,6 @@
 .profileSection {
   background-color: white;
-  border-radius: 20px;
+  border-radius: 15px;
   margin: 1em;
 }
 
@@ -8,8 +8,8 @@
   padding: 1em;
   border-bottom: 1px solid #ccc;
   background-color: var(--highlight-color);
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
   color: white;
 }
 
@@ -32,4 +32,5 @@
 
 .profilePageTitle {
   text-align: center;
+  font-size: var(--base-font-size);
 }
