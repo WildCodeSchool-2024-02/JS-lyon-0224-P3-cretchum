@@ -12,15 +12,15 @@ class HomeStructureRepository extends AbstractRepository {
   async create(structure) {
     // Execute the SQL INSERT query to add a new program to the "program" table
     const [result] = await this.database.query(
-      `insert into ${this.table} (postal_code, capacity, is_professional, cat, dog, price, user_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `insert into ${this.table} (postal_code, capacity, is_professional, cat, dog, price, users_id) values (?, ?, ?, ?, ?, ?, ?)`,
       [
-        structure.postal_code,
+        structure.postalCode,
         structure.capacity,
-        structure.is_professional,
+        structure.isProfessional,
         structure.cat,
         structure.dog,
         structure.price,
-        structure.user_id,
+        structure.userId,
       ]
     );
 
@@ -33,7 +33,7 @@ class HomeStructureRepository extends AbstractRepository {
   async read(id) {
     // Execute the SQL SELECT query to retrieve a specific program by its ID
     const [rows] = await this.database.query(
-      `select * from ${this.table} JOIN users ON ${this.table}.users_id = users.id WHERE id = ?`,
+      `select * from ${this.table} JOIN users ON ${this.table}.users_id = users.id WHERE ${this.table}.id = ?`,
       [id]
     );
 
@@ -89,6 +89,24 @@ class HomeStructureRepository extends AbstractRepository {
 
     // Return how many rows were affected
     return result.affectedRows;
+  }
+
+  // includes for the searchBar
+  async includes(search) {
+    const [result] = await this.database.query(
+      `SELECT ${this.table}.id, username, phone_number, location, postal_code, is_professional, cat, dog, price FROM ${this.table} JOIN users ON ${this.table}.users_id = users.id WHERE username like ? OR location like ?`,
+      [`%${search}%`, `%${search}%`]
+    );
+
+    return result;
+  }
+
+  async login(homeStructure) {
+    const [result] = await this.database.query(
+      `SELECT * FROM ${this.table} WHERE mail = ? AND password = ?`,
+      [homeStructure.mail, homeStructure.password]
+    );
+    return result;
   }
 }
 

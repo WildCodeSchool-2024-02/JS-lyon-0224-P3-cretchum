@@ -1,19 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-
 import {
   createBrowserRouter,
   RouterProvider,
   redirect,
 } from "react-router-dom";
-
+import notify from "./utils/notify";
 import App from "./App";
 import HomePage from "./pages/home_page/HomePage";
-
 import StructureForm from "./pages/structure_form/StructureForm";
 import ConnexionPage from "./pages/Connexion_page/ConnexionPage";
 import SignIn from "./pages/signin/SignIn";
-import SearchPage from "./pages/search-page/SearchPage";
+import SearchPage from "./pages/search_page/SearchPage";
+import HomeStructureDetails from "./pages/home_structure_details/HomeStructureDetails";
+import ProfilePage from "./pages/profile_page/ProfilePage";
 
 const URL = import.meta.env.VITE_API_URL;
 const router = createBrowserRouter([
@@ -22,7 +22,59 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: "/", element: <HomePage /> },
-      { path: "/inscription_accueil/:id", element: <StructureForm /> },
+      {
+        path: "/inscription_accueil/:id",
+        element: <StructureForm />,
+        action: async ({ request, params }) => {
+          try {
+            const formData = await request.formData();
+
+            const isProfessional = formData.get("isProfessional");
+            const postalCode = formData.get("postal_code");
+            const capacity = formData.get("capacity");
+            const price = formData.get("price");
+            const cat = formData.get("cat");
+            const dog = formData.get("dog");
+            const userId = params.id;
+            const response = await fetch(
+              `http://localhost:3310/api/homestructure`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  isProfessional,
+                  postalCode,
+                  capacity,
+                  price,
+                  cat,
+                  dog,
+                  userId,
+                }),
+              }
+            );
+
+            if (response.status === 201) {
+              notify("Inscription réussie !", "success");
+              return redirect("/page-recherche");
+            }
+            notify("Erreur lors de l'inscription !", "error");
+            throw new Error("Registration error");
+          } catch (err) {
+            console.error("Fetch error:", err);
+            notify(
+              "Une erreur est survenue lors de l'inscription. Veuillez réessayer plus tard.",
+              "error"
+            );
+            return {
+              error:
+                "An error occurred during registration. Please try again later.",
+            };
+          }
+        },
+      },
+
       {
         path: "/connexion",
         element: <ConnexionPage />,
@@ -41,10 +93,16 @@ const router = createBrowserRouter([
             });
 
             if (response.status === 200) {
+              notify("Connexion réussie !", "success");
               return redirect("/page-recherche");
             }
-            return { error: "mail ou mot de passe incorrect" };
+            notify("Email ou mot de passe incorrect !", "error");
+            return { error: "incorrect mail or password" };
           } catch (err) {
+            notify(
+              "Une erreur est survenue lors de la connexion. Veuillez réessayer plus tard.",
+              "error"
+            );
             console.error("Login error:", err);
             return {
               error: "An error occurred during login. Please try again later.",
@@ -87,28 +145,71 @@ const router = createBrowserRouter([
               }),
             });
 
-            if (!response.ok) {
-              throw new Error("");
-            }
-
-            if (buttonValue === "structure") {
+            if (response.status === 201) {
               const newdata = await response.json();
               const userId = newdata.insertId;
-              return redirect(`/inscription_accueil/${userId}`);
+              if (buttonValue === "structure") {
+                return redirect(`/inscription_accueil/${userId}`);
+              }
+              return redirect("/page-recherche");
             }
-            return redirect("/page-recherche");
+            notify("Erreur lors de l'inscription !", "error");
+            throw new Error("Registration error");
           } catch (err) {
             console.error("Fetch error:", err);
-            return null;
+            notify(
+              "Une erreur est survenue lors de l'inscription. Veuillez réessayer plus tard.",
+              "error"
+            );
+            return {
+              error:
+                "An error occurred during registration. Please try again later.",
+            };
           }
         },
       },
       {
         path: "/page-recherche",
         element: <SearchPage />,
-        loader: async () => {
-          const response = await fetch(`${URL}/homestructure`);
+      },
+      {
+        path: "/profil/:id",
+        element: <ProfilePage />,
+        loader: async ({ params }) => {
+          try {
+            const response = await fetch(`${URL}/users/${params.id}`);
+            if (!response.ok === true) {
+              notify(
+                "Erreur lors de la récupération des données du profil !",
+                "error"
+              );
+              throw new Error("Failed to fetch profile data");
+            }
+            const data = await response.json();
+            notify(
+              "Les données du profil ont été récupérées avec succès.",
+              "success"
+            );
+            return data;
+          } catch (err) {
+            console.error("Fetch profile error:", err);
+            notify(
+              "Une erreur est survenue lors de la récupération des données du profil. Veuillez réessayer plus tard.",
+              "error"
+            );
+            throw err;
+          }
+        },
+      },
+      {
+        path: "/reservation/:id",
+        element: <HomeStructureDetails />,
+        loader: async ({ params }) => {
+          const response = await fetch(`${URL}/homestructure/${params.id}`);
           const data = await response.json();
+          if (!response.ok === true) {
+            throw new Error("erreur lorsde la récupération des données");
+          }
           return data;
         },
       },

@@ -69,14 +69,14 @@ function SignIn() {
         </div>
         <div className={styles.inputContainer}>
           <label className={styles.formLabel} htmlFor="address">
-            Adresse <span className={styles.isRequired}> *</span>
+            Ville <span className={styles.isRequired}> *</span>
           </label>
           <input
             className={styles.inputSizeM}
             type="text"
             name="location"
             minLength={3}
-            maxLength={255}
+            maxLength={55}
             required
           />
         </div>
