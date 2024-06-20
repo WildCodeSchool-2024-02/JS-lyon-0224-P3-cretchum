@@ -68,8 +68,8 @@ function Reservation({ priceday }) {
             <h4 id="resaH4">Pour qui ?</h4>
             <select className="filterInput reservationInput">
               <option value="tous">Tous mes animaux</option>;
-              <option value="annimal1">nom1</option>
-              <option value="annimal2">nom2</option>
+              <option value="animal1">nom1</option>
+              <option value="animal2">nom2</option>
             </select>
           </div>
         </div>
