@@ -20,7 +20,7 @@ function HomePage() {
             <img
               className="homePageLogoPatounes"
               src={LogoPatounes}
-              alt="Visual representing an animal's footprint."
+              alt="Empreinte d'annimal"
             />
             <h1 className="homePageTitle">Cretchom</h1>
           </section>

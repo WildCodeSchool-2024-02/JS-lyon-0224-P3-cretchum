@@ -149,7 +149,7 @@ const router = createBrowserRouter([
         loader: async ({ params }) => {
           const response = await fetch(`${URL}/homestructure/${params.id}`);
           const data = await response.json();
-          if (!response.ok) {
+          if (!response.ok === true) {
             throw new Error("erreur lorsde la récupération des données");
           }
           return data;
