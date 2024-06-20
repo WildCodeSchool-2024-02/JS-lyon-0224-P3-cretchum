@@ -6,10 +6,10 @@ class HomeStructureSeeder extends AbstractSeeder {
   }
 
   run() {
-    for (let i = 0; i < 10; i += 1) {
+    for (let i = 0; i < 1000; i += 1) {
       // Generate fake user data
       const fakeHomeStructure = {
-        name: this.faker.internet.userName(),
+        name: this.faker.internet.userName(20),
         lastname: this.faker.person.lastName(),
         firstname: this.faker.person.firstName(),
         phone_number: this.faker.string.numeric(10),

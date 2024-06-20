@@ -100,14 +100,18 @@ class HomeStructureRepository extends AbstractRepository {
     return result.affectedRows;
   }
 
-  // includes for the searchBar
-  async includes(search) {
+  // research for the searchBar
+  async research(search, limit, offset) {
     const [result] = await this.database.query(
-      `SELECT id, name, phone_number, location, postal_code, is_professional, cat, dog, price FROM ${this.table} WHERE name like ? OR location like ?`,
+      `SELECT id, name, phone_number, location, postal_code, is_professional, cat, dog, price FROM ${this.table} WHERE name like ? OR location like ? LIMIT ${limit} OFFSET ${offset}`,
       [`%${search}%`, `%${search}%`]
     );
-
-    return result;
+    const [count] = await this.database.query(
+      `SELECT COUNT(id) AS total FROM ${this.table} WHERE name like ? OR location like ? `,
+      [`%${search}%`, `%${search}%`]
+    );
+    const totalRow = count[0];
+    return { result, totalRow };
   }
 
   async login(homeStructure) {
