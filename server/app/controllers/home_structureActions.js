@@ -88,23 +88,6 @@ const destroy = async (req, res, next) => {
   }
 };
 
-// *********************************************Ajout code pour test**********************************************
-
-const checkLog = async (req, res, next) => {
-  const homeStructure = req.body;
-
-  try {
-    const log = await tables.home_structure.login(homeStructure);
-
-    if (log.length !== 0) {
-      res.status(200).json();
-    } else {
-      res.status(401).json();
-    }
-  } catch (err) {
-    next(err);
-  }
-};
 // Ready to export the controller functions
 module.exports = {
   browse,
@@ -112,5 +95,4 @@ module.exports = {
   edit,
   add,
   destroy,
-  checkLog,
 };
