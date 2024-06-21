@@ -40,7 +40,7 @@
 
 @media (min-width: 768px) {
   .profilePageContainer :nth-child(3) {
-    height: 80%;
+    height: 75%;
   }
 }
 
