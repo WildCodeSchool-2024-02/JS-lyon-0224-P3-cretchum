@@ -14,7 +14,8 @@
 }
 
 .profileSectionContent {
-  padding: 1em;
+  padding-left: 1em;
+  padding-top: 1em;
   background-color: white;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
@@ -38,7 +39,7 @@
 .profileSection {
   background-color: white;
   border-radius: 15px;
-  margin: 1em;
+  margin: 5px;
 }
 
 .profileSectionContent label {
@@ -52,7 +53,7 @@
   display: block;
   width: 100%;
   padding: 10px;
-  margin: 5px 0;
+  margin: 10px 0;
   border-radius: 5px;
 }
 
@@ -63,11 +64,11 @@
   }
 
   .profileSectionContent input {
-    width: calc(100% - 130px);
+    width: calc(100%);
   }
 }
 
-@media (min-width: 1100px) {
+@media (min-width: 1280px) {
   .profileSectionContent label {
     display: inline-block;
     width: 150px;
