@@ -8,9 +8,9 @@ function EditableField({ label, value, isEditMode, onChange, labelClass }) {
       <input
         type="text"
         defaultValue={value}
-        readOnly={!isEditMode}
-        onChange={isEditMode ? onChange : undefined}
-        className={`${styles.input} ${!isEditMode ? styles.readOnlyInput : ""}`}
+        readOnly={!isEditMode === true}
+        onChange={isEditMode === true ? onChange : undefined}
+        className={`${styles.input} ${!isEditMode === true ? styles.readOnlyInput : ""}`}
       />
     </div>
   );

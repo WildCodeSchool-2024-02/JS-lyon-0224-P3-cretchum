@@ -3,9 +3,10 @@ import { useLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import styles from "./ProfilePage.module.css";
-import ProfileHeader from "../../components/profile/ProfileHeader";
-import ProfileSection from "../../components/profile/ProfileSection";
-import EditableField from "../../components/profile/EditableField";
+import ProfileHeader from "../../components/profile/profile_header/ProfileHeader";
+import ProfileSection from "../../components/profile/profile_section/ProfileSection";
+import EditableField from "../../components/profile/editable_field/EditableField";
+import EditableTextarea from "../../components/profile/editable_text_area/EditableTextarea";
 import NavMenu from "../../components/nav_menu/NavMenu";
 
 function ProfilePage() {
@@ -67,7 +68,10 @@ function ProfilePage() {
           </address>
         </ProfileSection>
         <ProfileSection title="Description">
-          <EditableField value={customer.description} isEditMode={isEditMode} />
+          <EditableTextarea
+            value={customer.description}
+            isEditMode={isEditMode}
+          />
         </ProfileSection>
         <ProfileSection title="Vos réservations">
           <ul className={styles.noBullets}>

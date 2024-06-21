@@ -1,7 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 
-import ProfileHeader from "../../components/profile/ProfileHeader";
-import ProfileSection from "../../components/profile/ProfileSection";
+import ProfileHeader from "../../components/profile/profile_header/ProfileHeader";
+import ProfileSection from "../../components/profile/profile_section/ProfileSection";
 import Reservation from "../../components/home_structure_details/Reservation";
 import UserAnimal from "../../components/search_page_components/user_animal/UserAnimal";
 import IsProfessionnal from "../../components/search_page_components/is_professionnal/isProfessional";
