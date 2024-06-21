@@ -18,9 +18,11 @@
   min-height: 100vh;
   margin: 0 15%;
 }
+
 .label {
   color: grey;
 }
+
 .profileSectionInformation {
   grid-area: profile-section-information;
   overflow: hidden;
@@ -36,8 +38,10 @@
   overflow: hidden;
 }
 
-.profilePageContainer :nth-child(3) {
-  height: 80%;
+@media (min-width: 768px) {
+  .profilePageContainer :nth-child(3) {
+    height: 80%;
+  }
 }
 
 @media (max-width: 768px) {
@@ -51,8 +55,5 @@
       "profile-section-reservation"
       ". .";
     margin: 0 0;
-  }
-  .profilePageContainer :nth-child(3) {
-    height: auto;
   }
 }
