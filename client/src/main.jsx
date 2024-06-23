@@ -11,10 +11,12 @@ import HomeStructureDetails from "./pages/home_structure_details/HomeStructureDe
 import ProfilePage from "./pages/profile_page/ProfilePage";
 
 import structureFormAction from "../handlers/actions/structure_form_action/structureFormAction";
+import AnimalsForm from "./pages/animals_form_page/AnimalsForm";
 import connexionAction from "../handlers/actions/connexion_action/connexionAction";
 import signInAction from "../handlers/actions/sign_in_action/signInAction";
 import profileLoader from "../handlers/loader/profile_loader/profileLoader";
 import homeStructureLoader from "../handlers/loader/home_structure_loader/homeStructureLoader";
+import animalsFormAction from "../handlers/animals_form_actions/animalsFormActions";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,11 @@ const router = createBrowserRouter([
         path: "/connexion",
         element: <ConnexionPage />,
         action: connexionAction,
+      },
+      {
+        path: "/formulaire-animal/:id",
+        element: <AnimalsForm />,
+        action: animalsFormAction,
       },
       {
         path: "/inscription",

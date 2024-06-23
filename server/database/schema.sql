@@ -27,3 +27,19 @@ CREATE TABLE home_structure (
   price INT(11) NOT NULL, 
   description TEXT
 );
+
+CREATE TABLE animals (
+  id INT(11) unsigned PRIMARY KEY auto_increment NOT NULL,
+  name VARCHAR(55) NOT NULL, 
+  age INT NOT NULL,
+  is_sterilized TINYINT NOT NULL,
+  breed VARCHAR(255) NOT NULL,
+  species ENUM('chien', 'chat') NOT NULL,
+  user_id INT(11) unsigned NOT NULL
+);
+
+-- CREATE TABLE race (
+--   id INT(11) unsigned PRIMARY KEY auto_increment NOT NULL,
+--   is_cat TINYINT, 
+--   is_dog TINYINT
+-- );

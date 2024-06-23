@@ -1,10 +1,9 @@
-#signInForm {
+#signInForm,
+#signInAnimal {
   margin-top: 30px;
   margin-bottom: 30px;
   display: flex;
-  flex-direction: column;
   background-color: white;
-  background-image: url(../../assets/images/2patounes.png);
   background-size: 317px 510px;
   background-position: center;
   background-repeat: repeat-y;
@@ -18,20 +17,32 @@
   overflow: auto;
   min-width: 240px;
 }
+
+#signInAnimal {
+  justify-content: space-evenly;
+  flex-direction: column;
+}
 .inputContainer {
   display: flex;
   flex-direction: column;
   width: 90%;
   padding-top: 0.4em;
 }
-#formContainer {
-  width: 100vw;
 
+#formContainer,
+#formContainerAnimal {
+  width: 100vw;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: (var(--main-color));
 }
+
+#formContainerAnimal {
+  height: auto;
+}
+
 #firstInput {
   padding-top: 0.8em;
 }
