@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
-import PropTypes from "prop-types";
 import styles from "./ProfilePage.module.css";
 import ProfileHeader from "../../components/profile/ProfileHeader";
 import ProfileSection from "../../components/profile/ProfileSection";
@@ -9,7 +8,7 @@ import EditableField from "../../components/profile/EditableField";
 import NavMenu from "../../components/nav_menu/NavMenu";
 
 function ProfilePage() {
-  const customer = useLoaderData();
+  const [customer, setCustomer] = useState(useLoaderData());
   const [isEditMode, setIsEditMode] = useState(false);
 
   const handleSave = () => {
@@ -22,7 +21,6 @@ function ProfilePage() {
       handleSave();
     }
   };
-
   return (
     <>
       <NavMenu />
@@ -31,43 +29,56 @@ function ProfilePage() {
           username={customer.username}
           isEditMode={isEditMode}
           handleEditClick={handleEditClick}
+          valueName="username"
+          setCustomer={setCustomer}
         />
         <ProfileSection title="Informations générales">
           <EditableField
             label="Nom :"
             value={customer.lastname}
             isEditMode={isEditMode}
-            labelClass={styles.label}
+            valueName="lastname"
+            setCustomer={setCustomer}
           />
           <EditableField
             label="Prénom :"
             value={customer.firstname}
             isEditMode={isEditMode}
-            labelClass={styles.label}
+            valueName="firstname"
+            setCustomer={setCustomer}
           />
           <EditableField
             label="Localisation :"
             value={customer.location}
             isEditMode={isEditMode}
-            labelClass={styles.label}
+            valueName="location"
+            setCustomer={setCustomer}
           />
           <address className={styles.profileAddressContainer}>
             <EditableField
               label="Téléphone :"
               value={customer.phone_number}
               isEditMode={isEditMode}
-              labelClass={styles.label}
+              valueName="phone_number"
+              setCustomer={setCustomer}
             />
             <EditableField
               label="Email :"
               value={customer.mail}
               isEditMode={isEditMode}
-              labelClass={styles.label}
+              valueName="mail"
+              setCustomer={setCustomer}
             />
           </address>
         </ProfileSection>
         <ProfileSection title="Description">
-          <EditableField value={customer.description} isEditMode={isEditMode} />
+          <EditableField
+            label=""
+            value={customer.description}
+            isEditMode={isEditMode}
+            valueName="description"
+            setCustomer={setCustomer}
+          />
         </ProfileSection>
         <ProfileSection title="Vos réservations">
           <ul className={styles.noBullets}>
@@ -78,17 +89,5 @@ function ProfilePage() {
     </>
   );
 }
-
-ProfilePage.propTypes = {
-  customer: PropTypes.shape({
-    username: PropTypes.string.isRequired,
-    lastname: PropTypes.string.isRequired,
-    firstname: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
-    phone_number: PropTypes.string.isRequired,
-    mail: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 export default ProfilePage;

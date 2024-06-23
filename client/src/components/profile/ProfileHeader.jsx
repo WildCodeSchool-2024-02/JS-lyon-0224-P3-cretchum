@@ -3,7 +3,16 @@ import Pen from "../../assets/images/penblue.png";
 import LogoCicorne from "../../assets/logo/cicorne.png";
 import styles from "./ProfileHeader.module.css";
 
-function ProfileHeader({ username, isEditMode, handleEditClick }) {
+function ProfileHeader({
+  username,
+  isEditMode,
+  handleEditClick,
+  valueName,
+  setCustomer,
+}) {
+  const onChange = (e, champ) => {
+    setCustomer((user) => ({ ...user, [champ]: e.target.value }));
+  };
   return (
     <header className={styles.profilePageHeader}>
       <img
@@ -18,6 +27,8 @@ function ProfileHeader({ username, isEditMode, handleEditClick }) {
               type="text"
               defaultValue={username}
               className={styles.input}
+              readOnly={!isEditMode}
+              onChange={isEditMode ? (e) => onChange(e, valueName) : undefined}
             />
           ) : (
             username
@@ -46,6 +57,8 @@ ProfileHeader.propTypes = {
   username: PropTypes.string.isRequired,
   isEditMode: PropTypes.bool,
   handleEditClick: PropTypes.func,
+  valueName: PropTypes.string.isRequired,
+  setCustomer: PropTypes.func.isRequired,
 };
 
 ProfileHeader.defaultProps = {
