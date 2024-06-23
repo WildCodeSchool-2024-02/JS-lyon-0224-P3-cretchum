@@ -42,6 +42,7 @@ body {
 .buttonType1 {
   background: var(--secondary-color);
   color: white;
+  border: none;
 }
 
 .buttonType1:hover {
