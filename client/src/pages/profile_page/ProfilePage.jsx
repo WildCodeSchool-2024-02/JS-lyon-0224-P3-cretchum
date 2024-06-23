@@ -6,20 +6,45 @@ import ProfileHeader from "../../components/profile/ProfileHeader";
 import ProfileSection from "../../components/profile/ProfileSection";
 import EditableField from "../../components/profile/EditableField";
 import NavMenu from "../../components/nav_menu/NavMenu";
+import notify from "../../utils/notify";
 
 function ProfilePage() {
   const [customer, setCustomer] = useState(useLoaderData());
   const [isEditMode, setIsEditMode] = useState(false);
-
+  const beforeChange = useLoaderData();
   const handleSave = () => {
     toast.success("Informations mises à jour avec succès !", "success");
   };
+  const URL = import.meta.env.VITE_API_URL;
+  const handleEditClick = async () => {
+    if (isEditMode === true && beforeChange !== customer) {
+      setIsEditMode(!isEditMode);
+      try {
+        const response = await fetch(`${URL}/users/${customer.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(customer),
+        });
 
-  const handleEditClick = () => {
-    setIsEditMode(!isEditMode);
-    if (isEditMode === true) {
-      handleSave();
+        if (response.status === 204) {
+          return handleSave();
+        }
+        throw new Error("Registration error");
+      } catch (err) {
+        console.error("Fetch error:", err);
+        notify(
+          "Erreur lors de la modification du profil. Veuillez réessayer plus tard.",
+          "error"
+        );
+        return {
+          error:
+            "An error occurred during registration. Please try again later.",
+        };
+      }
     }
+    return setIsEditMode(!isEditMode);
   };
   return (
     <>

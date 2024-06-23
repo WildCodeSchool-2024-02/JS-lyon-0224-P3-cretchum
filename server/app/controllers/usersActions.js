@@ -38,7 +38,6 @@ const read = async (req, res, next) => {
 const edit = async (req, res, next) => {
   // Extract the user data from the request body and params
   const users = { ...req.body, id: req.params.id };
-
   try {
     // Update the user in the database
     await tables.users.update(users);

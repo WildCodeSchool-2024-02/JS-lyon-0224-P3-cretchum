@@ -13,10 +13,10 @@ const {
   edit,
   add,
   destroy,
-  checkLog
+  checkLog,
 } = require("../../../controllers/usersActions");
 
-const validateLogin = require("../../../services/ValidateLogin")
+const validateLogin = require("../../../services/ValidateLogin");
 
 const validateSignIn = require("../../../services/validateSignIn");
 
@@ -27,7 +27,7 @@ router.get("/", browse);
 router.get("/:id", read);
 
 // Route to edit an existing user
-router.put("/:id", validateSignIn, edit);
+router.put("/:id", edit);
 
 // Route to add a new user
 router.post("/", validateSignIn, add);
