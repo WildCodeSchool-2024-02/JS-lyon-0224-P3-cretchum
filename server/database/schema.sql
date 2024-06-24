@@ -29,8 +29,8 @@ CREATE TABLE animal (
   age INT NOT NULL,
   is_sterilized TINYINT NOT NULL,
   species VARCHAR(255) NOT NULL,
-  breed ENUM('chat', 'chien'),
-  user_id INT(11) unsigned NOT NULL,
+  breed ENUM('chat', 'chien') NOT NULL,
+  users_id INT(11) unsigned NOT NULL,
   FOREIGN KEY (users_id) REFERENCES users(id)
 );
 
