@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import Pen from "../../assets/images/penblue.png";
-import LogoCicorne from "../../assets/logo/cicorne.png";
+import Pen from "../../../assets/images/penblue.png";
+import LogoCicorne from "../../../assets/logo/cicorne.png";
 import styles from "./ProfileHeader.module.css";
 
 function ProfileHeader({ username, isEditMode, handleEditClick }) {
