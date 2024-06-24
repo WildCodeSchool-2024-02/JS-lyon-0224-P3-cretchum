@@ -35,8 +35,10 @@ CREATE TABLE animal (
 );
 
 CREATE TABLE reservation (
-  id INT(11) unsigned PRIMARY KEY auto_increment NOT NULL,
-  reservation_dates VARCHAR(255) NOT NULL,
-  home_structure_id INT NOT NULL,
-  animal_id INT(11) unsigned NOT NULL
+  id INT(11) UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  reservation_date DATE NOT NULL,
+  home_structure_id INT(11) unsigned NOT NULL, 
+  animal_id INT(11) unsigned NOT NULL, 
+  FOREIGN KEY (animal_id) REFERENCES animal(id),
+  FOREIGN KEY (home_structure_id) REFERENCES home_structure(id)
 );
