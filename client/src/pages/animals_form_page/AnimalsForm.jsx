@@ -15,7 +15,6 @@ function AnimalsForm() {
       <>
        <hr id={styles.line}/>
         <AnimalsFormComponent key={index} />
-        {/* {animalNumber > 1 && <hr id={styles.line}/>} */}
       </>
     ));
 
