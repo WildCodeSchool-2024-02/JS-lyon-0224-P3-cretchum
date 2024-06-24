@@ -6,7 +6,7 @@ const URL = import.meta.env.VITE_API_URL;
 const animalsFormAction = async ({ request, params }) => {
   try {
     const formData = await request.formData();
-
+    const number = formData.get("NombreAn");
     const names = formData.getAll("name");
     const ages = formData.getAll("age");
     const breeds = formData.getAll("breed");
@@ -15,7 +15,7 @@ const animalsFormAction = async ({ request, params }) => {
     const isTattooedChipped = formData.getAll("isTattooedChipped");
     const userId = params.id;
 
-    const animals = names.map((_, index) => ({
+    const animals = Array.from({ length: number }, (_, index) => ({
       name: names[index],
       age: ages[index],
       breed: breeds[index],
@@ -24,6 +24,7 @@ const animalsFormAction = async ({ request, params }) => {
       isTattooedChipped: isTattooedChipped[index],
       userId,
     }));
+
 
     const response = await fetch(`${URL}/animal`, {
       method: "POST",
