@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
-import Pen from "../../assets/images/penblue.png";
-import LogoCicorne from "../../assets/logo/cicorne.png";
+import Pen from "../../../assets/images/penblue.png";
+import LogoCicorne from "../../../assets/logo/cicorne.png";
 import styles from "./ProfileHeader.module.css";
-import DeleteProfile from "./DeleteProfile";
+import DeleteProfile from "../DeleteProfile";
 
 function ProfileHeader({
   username,

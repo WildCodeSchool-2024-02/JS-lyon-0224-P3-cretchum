@@ -1,33 +1,16 @@
-import { Link, Form, useNavigate } from "react-router-dom";
+import { Link, Form } from "react-router-dom";
 import { useState } from "react";
-import notify from "../../utils/notify";
 import Patoune from "../../assets/logo/1patounes.png";
 import "./ConnexionPage.css";
 
 function ConnexionPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
   const handleInputChange = (event, setState) => {
     setState(event.target.value);
   };
 
-  const validateForm = () => {
-    if (!email.trim() === true || !password.trim() === true) {
-      notify("Tous les champs sont requis !", "error");
-      return false;
-    }
-    return true;
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (validateForm() === true) {
-      notify("Connexion réussie !", "success");
-      navigate("/page-recherche");
-    }
-  };
   return (
     <>
       <section id="headerConnexionPage">
@@ -36,7 +19,7 @@ function ConnexionPage() {
       </section>
 
       <section id="connexionBody">
-        <Form method="post" id="connexionPageDiv" onSubmit={handleSubmit}>
+        <Form method="post" id="connexionPageDiv">
           <label htmlFor="mail">Adresse mail</label>
           <input
             className="connexionPageInput"

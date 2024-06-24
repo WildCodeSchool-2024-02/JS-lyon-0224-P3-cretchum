@@ -2,9 +2,10 @@ import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
 import styles from "./ProfilePage.module.css";
-import ProfileHeader from "../../components/profile/ProfileHeader";
-import ProfileSection from "../../components/profile/ProfileSection";
-import EditableField from "../../components/profile/EditableField";
+import ProfileHeader from "../../components/profile/profile_header/ProfileHeader";
+import ProfileSection from "../../components/profile/profile_section/ProfileSection";
+import EditableField from "../../components/profile/editable_field/EditableField";
+import EditableTextarea from "../../components/profile/editable_text_area/EditableTextarea";
 import NavMenu from "../../components/nav_menu/NavMenu";
 import notify from "../../utils/notify";
 
@@ -98,7 +99,7 @@ function ProfilePage() {
           </address>
         </ProfileSection>
         <ProfileSection title="Description">
-          <EditableField
+          <EditableTextarea
             label=""
             value={customer.description}
             isEditMode={isEditMode}

@@ -1,4 +1,5 @@
 // Import access to database tables
+const bcrypt = require('bcryptjs');
 const tables = require("../../database/tables");
 
 // The B of BREAD - Browse (Read All) operation
@@ -55,6 +56,16 @@ const add = async (req, res, next) => {
   // Extract the user data from the request body
   const user = req.body;
   try {
+    // Hachage password
+    // Set the number of rounds to generate the salt used in the hash
+    const saltRounds = 10;
+
+    // Hide user password with bcrypt and number of saltRounds
+    const hashedPassword = await bcrypt.hash(user.password, saltRounds);
+
+    // Replace plaintext password with hashed password
+    user.password = hashedPassword;
+
     // Insert the user into the database
     const insertId = await tables.users.create(user);
 
@@ -82,12 +93,15 @@ const destroy = async (req, res, next) => {
 };
 
 const checkLog = async (req, res, next) => {
-  const user = req.body;
+  // Retrieve user email and password from HTTP request body
+  const { mail, password } = req.body;
 
   try {
-    const log = await tables.users.login(user);
+    // Retrieve user information from the database according to email address
+    const user = await tables.users.login(mail);
 
-    if (log.length !== 0) {
+    // Check that the user exists and that the password is correct
+    if (user !== null && user !== undefined && await bcrypt.compare(password, user.password)) {
       res.status(200).json();
     } else {
       res.status(401).json();

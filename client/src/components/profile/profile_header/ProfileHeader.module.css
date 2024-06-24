@@ -24,21 +24,17 @@
   left: 50%;
   transform: translateX(-50%);
 }
-.editProfile {
+
+.editButton {
   position: absolute;
   bottom: 10px;
   right: 10px;
-  display: flex;
-  flex-direction: column;
-}
-.editButton {
   color: #08256e;
   border: none;
   background-color: white;
   font-size: 1.25em;
-  padding-right: 5px;
-  cursor: pointer;
 }
+
 .profilePagePen {
   width: 16px;
   height: 16px;

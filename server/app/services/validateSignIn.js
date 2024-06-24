@@ -17,7 +17,7 @@ const signInSchema = Joi.object({
     .min(10)
     .max(10)
     .required(),
-  location: Joi.string().min(3).max(255).required(),
+  location: Joi.string().min(3).max(55).required(),
   mail: Joi.string().email().required(),
   password: Joi.string().min(12).required(),
   description: Joi.string().min(0).max(800),

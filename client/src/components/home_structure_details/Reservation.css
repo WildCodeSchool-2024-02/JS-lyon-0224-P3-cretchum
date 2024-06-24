@@ -1,10 +1,10 @@
 #resaH4 {
   font-weight: bold;
+  margin-right: 2%;
 }
 
 #totalPrice {
   font-size: 2em;
-  margin-bottom: 5%;
 }
 
 #reservation {
@@ -14,17 +14,22 @@
   min-height: 15vh;
   display: flex;
   margin: 1em;
-  padding: 2em;
 }
 
 #userChoice {
-  width: 55%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 #reservationPets {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 5%;
 }
 
 #reservationForm {
@@ -43,7 +48,6 @@
 
 #datesChoice {
   display: flex;
-  margin: 0 0 10% 0;
   flex-wrap: wrap;
 }
 
@@ -53,19 +57,26 @@
 }
 
 .reservationDate {
+  display: flex;
   margin: 0 2% 0 2%;
   border: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+}
+
+.reservationInput,
+.datesInput {
+  text-align: center;
+  padding: 0.9em;
+  margin-top: 3%;
+  flex-direction: row;
 }
 
 .reservationInput {
-  width: 25vw;
-  text-align: center;
-  padding: 0.9em;
+  width: 50vw;
 }
 
+.datesInput {
+  width: 25vw;
+}
 #detailsLine {
   margin: 3% 0% 5% 0;
 }
@@ -74,14 +85,18 @@
   display: none;
 }
 
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 1100px) {
+  #resaH4 {
+    margin-right: 2%;
+  }
+
   #reservationDetails {
     display: block;
     text-align: left;
+    margin-top: 20%;
   }
 
   #reservation {
-    width: 20vw;
     min-height: 53vh;
     flex-direction: column;
     text-align: center;
@@ -96,11 +111,13 @@
     text-align: center;
     margin-bottom: 15%;
     flex-direction: column;
+    justify-content: space-between;
     height: 8vh;
-    margin: 15% 0 15% 0;
+    margin: 5% 0 13% 0;
   }
 
-  .reservationInput {
+  .reservationInput,
+  .datesInput {
     width: 16vw;
   }
   #reservationButton {
@@ -111,5 +128,11 @@
   }
   #datesChoice {
     justify-content: center;
+  }
+  #totalPrice {
+    margin-bottom: 5%;
+  }
+  #reservation {
+    padding: 2em 1em;
   }
 }

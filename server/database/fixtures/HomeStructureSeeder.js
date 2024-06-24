@@ -6,26 +6,39 @@ class HomeStructureSeeder extends AbstractSeeder {
   }
 
   run() {
-    for (let i = 0; i < 10; i += 1) {
-      // Generate fake user data
-      const fakeHomeStructure = {
-        name: this.faker.internet.userName(),
-        lastname: this.faker.person.lastName(),
-        firstname: this.faker.person.firstName(),
-        phone_number: this.faker.string.numeric(10),
-        location: this.faker.location.city(),
-        postal_code: this.faker.number.bigInt({ min: 69000, max: 69999 }),
-        mail: this.faker.internet.email(), // Generate a fake email using faker library
-        password: this.faker.internet.password(), // Generate a fake password using faker library
-        capacity: this.faker.number.int({ min: 0, max: 30 }),
-        is_professional: this.faker.datatype.boolean({ probability: 0.5 }),
-        cat: this.faker.datatype.boolean({ probability: 0.3 }),
-        dog: this.faker.datatype.boolean({ probability: 0.6 }),
-        price: this.faker.number.bigInt({ min: 10, max: 100 }),
-      };
-      // Insert the fakeUser data into the 'user' table
-      this.insert(fakeHomeStructure); // insert into user(email, password) values (?, ?)
-    }
+    const homeStructure = [
+      {
+        postal_code: 69008,
+        capacity: 25,
+        is_professional: true,
+        cat: true,
+        dog: true,
+        price: 25,
+        users_id: 13,
+      },
+      {
+        postal_code: 69100,
+        capacity: 4,
+        is_professional: false,
+        cat: true,
+        dog: false,
+        price: 18,
+        users_id: 14,
+      },
+      {
+        postal_code: 69006,
+        capacity: 3,
+        is_professional: false,
+        cat: false,
+        dog: true,
+        price: 18,
+        users_id: 1,
+      },
+    ];
+
+    homeStructure.forEach((structure) => {
+      this.insert(structure);
+    });
   }
 }
 

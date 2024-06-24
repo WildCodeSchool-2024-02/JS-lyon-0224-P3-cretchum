@@ -5,14 +5,14 @@ import App from "./App";
 import HomePage from "./pages/home_page/HomePage";
 import StructureForm from "./pages/structure_form/StructureForm";
 import ConnexionPage from "./pages/Connexion_page/ConnexionPage";
-import SingIn from "./pages/signin/SignIn";
+import SignUp from "./pages/sign_up/SignUp";
 import SearchPage from "./pages/search_page/SearchPage";
 import HomeStructureDetails from "./pages/home_structure_details/HomeStructureDetails";
 import ProfilePage from "./pages/profile_page/ProfilePage";
 
 import structureFormAction from "../handlers/actions/structure_form_action/structureFormAction";
 import connexionAction from "../handlers/actions/connexion_action/connexionAction";
-import signInAction from "../handlers/actions/sign_in_action/signInAction";
+import signUpAction from "../handlers/actions/sign_up_action/signUpAction";
 import profileLoader from "../handlers/loader/profile_loader/profileLoader";
 import homeStructureLoader from "../handlers/loader/home_structure_loader/homeStructureLoader";
 
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <HomePage /> },
       {
-        path: "/structure-form",
+        path: "/inscription_accueil/:id",
         element: <StructureForm />,
         action: structureFormAction,
       },
@@ -34,8 +34,8 @@ const router = createBrowserRouter([
       },
       {
         path: "/inscription",
-        element: <SingIn />,
-        action: signInAction,
+        element: <SignUp />,
+        action: signUpAction,
       },
       {
         path: "/page-recherche",
