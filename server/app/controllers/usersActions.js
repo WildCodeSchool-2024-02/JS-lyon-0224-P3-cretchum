@@ -1,4 +1,5 @@
 // Import access to database tables
+// const jwt = require("jsonwebtoken");
 const tables = require("../../database/tables");
 
 // The B of BREAD - Browse (Read All) operation
@@ -82,21 +83,47 @@ const destroy = async (req, res, next) => {
   }
 };
 
-const checkLog = async (req, res, next) => {
-  const user = req.body;
+// const checkLog = async (req, res, next) => {
+//   const user = req.body;
 
-  try {
-    const log = await tables.users.login(user);
 
-    if (log.length !== 0) {
-      res.status(200).json();
-    } else {
-      res.status(401).json();
-    }
-  } catch (err) {
-    next(err);
-  }
-};
+//   try {
+//     const log = await tables.users.login(user);
+
+//     if (log.length === 0) {
+//       res.sendStatus(422);
+//       return;
+//     }
+
+//       const verified = await argon2.verify(
+//         user.hashed_password,
+//         req.body.password
+//       );
+  
+//       if (verified) {
+//         delete user.hashed_password;
+  
+//         const token = await jwt.sign(
+//           { sub: user.id, isAdmin: user.is_admin },
+//           process.env.APP_SECRET,
+//           {
+//             expiresIn: "1h",
+//           }
+//         );
+  
+//         res.json({
+//           token,
+//           user,
+//         });
+        
+//     } else {
+//       res.status(401).json();}
+//     }
+//   }, catch (err) {
+//     next(err);
+//   }
+
+// };
 
 // Ready to export the controller functions
 module.exports = {
@@ -105,5 +132,5 @@ module.exports = {
   edit,
   add,
   destroy,
-  checkLog,
+  // checkLog,
 };
