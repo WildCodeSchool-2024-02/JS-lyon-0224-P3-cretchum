@@ -20,11 +20,10 @@ function Reservation({ priceday }) {
 
   // calculating the number of days difference between the start and end date
   const dateDiffInDays = (start, end) => {
-    const startDate = new Date(start);
-    const endDate = new Date(end);
-    const diffInTime = endDate.getTime() - startDate.getTime();
-    const diffInDays = diffInTime / (1000 * 3600 * 24);
-    return Math.round(diffInDays) + 1;
+    const startDate = dayjs(start);
+    const endDate = dayjs(end);
+    const diffInDays = endDate.diff(startDate, "day") + 1;
+    return diffInDays;
   };
 
   const datediff = dateDiffInDays(startingDate, endingDate);
@@ -34,17 +33,16 @@ function Reservation({ priceday }) {
 
   // avoiding ending date to go before startingDate
   useEffect(() => {
-    if (new Date(endingDate) < new Date(startingDate)) {
+    if (dayjs(endingDate) < dayjs(startingDate)) {
       setEndingDate(startingDate);
     }
 
-    if (new Date(startingDate) < new Date(todayDate)) {
+    if (dayjs(startingDate) < dayjs(todayDate)) {
       setStartingDate(todayDate);
     }
   }, [startingDate, endingDate, todayDate]);
 
   return (
-
     <section id="reservation">
       <Form method="post" id="reservationForm">
         <div id="userChoice">
@@ -72,20 +70,18 @@ function Reservation({ priceday }) {
               </div>
             </LocalizationProvider>
           </div>
-        <div id="reservationPets">
+          <div id="reservationPets">
             <h4 id="resaH4">Pour qui ?</h4>
             <select className="filterInput reservationInput">
               <option value="tous">Tous mes animaux</option>;
               <option value="animal1">nom1</option>
               <option value="animal2">nom2</option>
             </select>
+          </div>
+          <button type="submit" className="searchBtn buttonType1">
+            Réserver
+          </button>
         </div>
-        <button type="submit" className="searchBtn buttonType1">
-          Réserver
-        </button>
-        </div>
-
-
       </Form>
       <div id="reservationDetails">
         <h3>Détails</h3>
