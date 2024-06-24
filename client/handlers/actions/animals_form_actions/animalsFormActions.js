@@ -1,5 +1,5 @@
 import { redirect } from "react-router-dom";
-import notify from "../../src/utils/notify";
+import notify from "../../../src/utils/notify";
 
 const URL = import.meta.env.VITE_API_URL;
 

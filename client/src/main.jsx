@@ -16,7 +16,7 @@ import connexionAction from "../handlers/actions/connexion_action/connexionActio
 import signUpAction from "../handlers/actions/sign_up_action/signUpAction";
 import profileLoader from "../handlers/loader/profile_loader/profileLoader";
 import homeStructureLoader from "../handlers/loader/home_structure_loader/homeStructureLoader";
-import animalsFormAction from "../handlers/animals_form_actions/animalsFormActions";
+import animalsFormAction from "../handlers/actions/animals_form_actions/animalsFormActions";
 
 const router = createBrowserRouter([
   {
