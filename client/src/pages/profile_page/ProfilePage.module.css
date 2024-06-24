@@ -46,7 +46,7 @@
       "profile-section-information"
       "profile-section-description"
       "profile-section-reservation";
-    margin: 0 15%;
+    margin: 0 8%;
   }
 }
 
@@ -60,6 +60,7 @@
       "profile-section-description"
       "profile-section-reservation";
     margin: 0 5%;
+    font-size: 1.15em;
   }
   .profilePageContainer :nth-child(3) {
     height: auto;

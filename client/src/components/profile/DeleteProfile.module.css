@@ -34,12 +34,13 @@
   /* padding-bottom: 5px; */
 }
 .confirmButton button {
-  font-size: 1.3rem;
+  font-size: 0.9em;
 }
 
 @media (min-width: 768px) {
   .confirmBox {
     width: 40vw;
     left: 30%;
+    height: 175px;
   }
 }

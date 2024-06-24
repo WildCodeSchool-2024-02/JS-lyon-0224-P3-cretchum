@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import Pen from "../../../assets/images/penblue.png";
+// import Pen from "../../../assets/images/penblue.png";
 import LogoCicorne from "../../../assets/logo/cicorne.png";
 import styles from "./ProfileHeader.module.css";
 import DeleteProfile from "../DeleteProfile";
@@ -44,11 +44,11 @@ function ProfileHeader({
             onClick={handleEditClick}
           >
             {isEditMode === true ? "Sauvegarder" : "Modifier"}
-            <img
+            {/* <img
               className={styles.profilePagePen}
               src={Pen}
               alt="Crayon pour la modification des informations du compte"
-            />
+            /> */}
           </button>
           <DeleteProfile />
         </div>

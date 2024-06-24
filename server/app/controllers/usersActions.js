@@ -1,5 +1,5 @@
 // Import access to database tables
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 const tables = require("../../database/tables");
 
 // The B of BREAD - Browse (Read All) operation
@@ -101,7 +101,11 @@ const checkLog = async (req, res, next) => {
     const user = await tables.users.login(mail);
 
     // Check that the user exists and that the password is correct
-    if (user !== null && user !== undefined && await bcrypt.compare(password, user.password)) {
+    if (
+      user !== null &&
+      user !== undefined &&
+      (await bcrypt.compare(password, user.password))
+    ) {
       res.status(200).json();
     } else {
       res.status(401).json();

@@ -12,12 +12,11 @@ import notify from "../../utils/notify";
 function ProfilePage() {
   const [customer, setCustomer] = useState(useLoaderData());
   const [isEditMode, setIsEditMode] = useState(false);
-  const beforeChange = useLoaderData();
+  const [beforeChange, setBeforeChange] = useState(customer);
   const handleSave = () => {
     toast.success("Informations mises à jour avec succès !", "success");
   };
   const URL = import.meta.env.VITE_API_URL;
-
   const handleEditClick = async () => {
     if (isEditMode === true && beforeChange !== customer) {
       setIsEditMode(!isEditMode);
@@ -31,6 +30,7 @@ function ProfilePage() {
         });
 
         if (response.status === 204) {
+          setBeforeChange(customer);
           return handleSave();
         }
         throw new Error("Registration error");
@@ -100,7 +100,6 @@ function ProfilePage() {
         </ProfileSection>
         <ProfileSection title="Description">
           <EditableTextarea
-            label=""
             value={customer.description}
             isEditMode={isEditMode}
             valueName="description"

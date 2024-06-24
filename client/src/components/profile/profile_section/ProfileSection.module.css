@@ -18,6 +18,7 @@
   background-color: white;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
+  height: 80%;
 }
 
 .profileSectionContent > p {
@@ -60,10 +61,6 @@
   .profileSectionContent label {
     width: 120px;
     margin-right: 10px;
-  }
-
-  .profileSectionContent input {
-    width: calc(100% - 130px);
   }
 }
 

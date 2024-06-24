@@ -43,7 +43,9 @@ class HomeStructureRepository extends AbstractRepository {
 
   async readAll() {
     // Execute the SQL SELECT query to retrieve all programs from the "program" table
-    const [rows] = await this.database.query(`select * from ${this.table} JOIN users ON ${this.table}.users_id = users.id ORDER BY capacity DESC`);
+    const [rows] = await this.database.query(
+      `select * from ${this.table} JOIN users ON ${this.table}.users_id = users.id ORDER BY capacity DESC`
+    );
 
     // Return the array of programs
     return rows;
