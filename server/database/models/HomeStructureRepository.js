@@ -54,16 +54,8 @@ class HomeStructureRepository extends AbstractRepository {
   async update(structure) {
     // Execute the SQL UPDATE query to update a specific program
     const [result] = await this.database.query(
-      `update ${this.table} JOIN users ON ${this.table}.users_id = users.id set users.lastname = ?, users.firstname = ?, users.username =?, users.phone_number = ?, users.location = ?, users.mail = ?, users.password = ?, users.description = ?, ${this.table}.postal_code = ?, ${this.table}.capacity = ?, ${this.table}.is_professional = ?, ${this.table}.cat = ?, ${this.table}.dog = ?, ${this.table}.price =?  where id = ?`,
+      `update ${this.table} set postal_code = ?,capacity = ?,is_professional = ?cat = ?, dog = ?, price =?  where id = ?`,
       [
-        structure.lastname,
-        structure.firstname,
-        structure.username,
-        structure.phone_number,
-        structure.location,
-        structure.mail,
-        structure.password,
-        structure.description,
         structure.postal_code,
         structure.capacity,
         structure.is_professional,
