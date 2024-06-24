@@ -1,4 +1,3 @@
-// Import access to database tables
 // const jwt = require("jsonwebtoken");
 const tables = require("../../database/tables");
 
@@ -86,7 +85,6 @@ const destroy = async (req, res, next) => {
 // const checkLog = async (req, res, next) => {
 //   const user = req.body;
 
-
 //   try {
 //     const log = await tables.users.login(user);
 
@@ -95,35 +93,33 @@ const destroy = async (req, res, next) => {
 //       return;
 //     }
 
-//       const verified = await argon2.verify(
-//         user.hashed_password,
-//         req.body.password
+//     const verified = await argon2.verify(
+//       log.hashed_password,
+//       req.body.password
+//     );
+
+//     if (verified) {
+//       delete log.hashed_password;
+//       const token = await jwt.sign(
+//         { sub: log.id, isAdmin: log.is_admin },
+//         process.env.APP_SECRET,
+//         {
+//           expiresIn: "1h",
+//         }
 //       );
-  
-//       if (verified) {
-//         delete user.hashed_password;
-  
-//         const token = await jwt.sign(
-//           { sub: user.id, isAdmin: user.is_admin },
-//           process.env.APP_SECRET,
-//           {
-//             expiresIn: "1h",
-//           }
-//         );
-  
-//         res.json({
-//           token,
-//           user,
-//         });
-        
+
+//       res.json({
+//         token,
+//         user: log,
+//       });
 //     } else {
-//       res.status(401).json();}
+//       res.status(401).json();
 //     }
-//   }, catch (err) {
+//   } catch (err) {
 //     next(err);
 //   }
-
 // };
+
 
 // Ready to export the controller functions
 module.exports = {
