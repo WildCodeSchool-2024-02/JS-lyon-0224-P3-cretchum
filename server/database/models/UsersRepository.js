@@ -86,13 +86,16 @@ class UserRepository extends AbstractRepository {
     return result.affectedRows;
   }
 
-  async login(user) {
-    const [result] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE mail = ? AND password = ?`,
-      [user.mail, user.password]
+  async Login(user) {
+    // Execute the SQL SELECT query to retrieve a specific user by its email
+    const [rows] = await this.database.query(
+      `select * from ${this.table} where email = ?`,
+      [user.mail]
     );
-      return result;
-    }
+
+    // Return the first row of the result, which represents the user
+    return rows[0];
   }
+}
 
 module.exports = UserRepository;
