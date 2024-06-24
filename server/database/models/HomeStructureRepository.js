@@ -12,22 +12,15 @@ class HomeStructureRepository extends AbstractRepository {
   async create(structure) {
     // Execute the SQL INSERT query to add a new program to the "program" table
     const [result] = await this.database.query(
-      `insert into ${this.table} (is_professional, name, lastname, firstname, phone_number, postal_code, location, mail, capacity, price, cat, dog, password, description) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `insert into ${this.table} (postal_code, capacity, is_professional, cat, dog, price, users_id) values (?, ?, ?, ?, ?, ?, ?)`,
       [
-        structure.isProfessional,
-        structure.name,
-        structure.lastname,
-        structure.firstname,
-        structure.phoneNumber,
         structure.postalCode,
-        structure.location,
-        structure.mail,
         structure.capacity,
-        structure.price,
+        structure.isProfessional,
         structure.cat,
         structure.dog,
-        structure.password,
-        structure.description,
+        structure.price,
+        structure.userId,
       ]
     );
 
@@ -40,7 +33,7 @@ class HomeStructureRepository extends AbstractRepository {
   async read(id) {
     // Execute the SQL SELECT query to retrieve a specific program by its ID
     const [rows] = await this.database.query(
-      `select * from ${this.table} where id = ?`,
+      `select * from ${this.table} JOIN users ON ${this.table}.users_id = users.id WHERE ${this.table}.id = ?`,
       [id]
     );
 
@@ -50,9 +43,7 @@ class HomeStructureRepository extends AbstractRepository {
 
   async readAll() {
     // Execute the SQL SELECT query to retrieve all programs from the "program" table
-    const [rows] = await this.database.query(
-      `select * from ${this.table} ORDER BY capacity DESC`
-    );
+    const [rows] = await this.database.query(`select * from ${this.table} JOIN users ON ${this.table}.users_id = users.id ORDER BY capacity DESC`);
 
     // Return the array of programs
     return rows;
@@ -63,22 +54,14 @@ class HomeStructureRepository extends AbstractRepository {
   async update(structure) {
     // Execute the SQL UPDATE query to update a specific program
     const [result] = await this.database.query(
-      `update ${this.table} set is_professionnal = ?, name = ?, lastname = ?, firstname = ?, phone_number = ?, postal_code = ?, location = ?, mail = ?, capacity = ?, price = ?, cat = ?, dog = ?, password = ?, description = ?, where id = ?`,
+      `update ${this.table} set postal_code = ?,capacity = ?,is_professional = ?, cat = ?, dog = ?, price =?  where id = ?`,
       [
-        structure.is_professional,
-        structure.name,
-        structure.lastname,
-        structure.firstname,
-        structure.phone_number,
         structure.postal_code,
-        structure.location,
-        structure.mail,
         structure.capacity,
-        structure.price,
+        structure.is_professional,
         structure.cat,
         structure.dog,
-        structure.password,
-        structure.description,
+        structure.price,
         structure.id,
       ]
     );

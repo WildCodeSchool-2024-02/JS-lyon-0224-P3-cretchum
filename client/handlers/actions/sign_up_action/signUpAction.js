@@ -3,7 +3,7 @@ import notify from "../../../src/utils/notify";
 
 const URL = import.meta.env.VITE_API_URL;
 
-const signInAction = async ({ request }) => {
+const signUpAction = async ({ request }) => {
   try {
     const formData = await request.formData();
 
@@ -15,6 +15,8 @@ const signInAction = async ({ request }) => {
     const mail = formData.get("mail");
     const password = formData.get("password");
     const description = formData.get("description");
+
+    const buttonValue = formData.get("submitButton");
 
     const response = await fetch(`${URL}/users`, {
       method: "POST",
@@ -33,8 +35,12 @@ const signInAction = async ({ request }) => {
       }),
     });
 
-    if (response.status === 201) {
-      notify("Inscription réussie !", "success");
+    if (response.status === 201) {      
+      const newdata = await response.json();
+      const userId = newdata.insertId;
+      if (buttonValue === "structure") {
+        return redirect(`/inscription_accueil/${userId}`);
+      }
       return redirect("/page-recherche");
     }
     notify("Erreur lors de l'inscription !", "error");
@@ -49,7 +55,6 @@ const signInAction = async ({ request }) => {
       error:
         "An error occurred during registration. Please try again later.",
     };
-  }
-};
+  }};
 
-export default signInAction;
+export default signUpAction;

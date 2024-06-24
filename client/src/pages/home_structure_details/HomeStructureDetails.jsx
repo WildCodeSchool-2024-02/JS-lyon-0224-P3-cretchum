@@ -16,7 +16,7 @@ function HomeStructureDetails() {
       <NavMenu />
       <div id="HomeStructurePage">
         <header id="homeStructureHeader">
-          <ProfileHeader username={structures.name} />
+          <ProfileHeader username={structures.username} />
         </header>
         <section id="HomeStructureInfo">
           <div id="gobalInfo">
@@ -48,7 +48,7 @@ function HomeStructureDetails() {
                 <p id="hsPrice">{structures.price} €</p>
               </div>
             </ProfileSection>
-            {structures.description !== null && (
+            {structures.description !== "" && (
               <ProfileSection
                 title="A propos"
                 additionalStyle="HomeStructureDescription"
