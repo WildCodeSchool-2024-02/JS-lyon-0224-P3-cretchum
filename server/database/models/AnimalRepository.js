@@ -43,12 +43,12 @@ class AnimalRepository extends AbstractRepository {
   async read(id) {
     // Execute the SQL SELECT query to retrieve a specific program by its ID
     const [rows] = await this.database.query(
-      `select * from ${this.table} JOIN users ON ${this.table}.users_id = users.id where users.id = ?`,
+      `select name, species, is_sterilized, is_tattooed_chipped, breed from ${this.table} JOIN users ON ${this.table}.users_id = users.id WHERE ${this.table}.users_id = ?`,
       [id]
     );
 
     // Return the first row of the result, which represents the program
-    return rows[0];
+    return rows;
   }
 
   // The D of CRUD - Delete operation

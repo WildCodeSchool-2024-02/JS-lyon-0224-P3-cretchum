@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useLoaderData, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import styles from "./ProfilePage.module.css";
@@ -10,8 +10,11 @@ import EditableTextarea from "../../components/profile/editable_text_area/Editab
 import NavMenu from "../../components/nav_menu/NavMenu";
 
 function ProfilePage() {
+  const URL = import.meta.env.VITE_API_URL;
   const customer = useLoaderData();
   const [isEditMode, setIsEditMode] = useState(false);
+  const { id } = useParams();
+  const [animalData, setAnimalData] = useState([]);
 
   const handleSave = () => {
     toast.success("Informations mises à jour avec succès !", "success");
@@ -23,6 +26,19 @@ function ProfilePage() {
       handleSave();
     }
   };
+
+  useEffect(() => {
+    const fetchAnimals = async () => {
+      try {
+        const response = await fetch(`${URL}/animal/${id}`);
+        const data = await response.json();
+        setAnimalData(data);
+      } catch (err) {
+        console.error("Fetch profile error:", err);
+      }
+    };
+    fetchAnimals();
+  }, [URL, id]);
 
   return (
     <>
@@ -78,6 +94,20 @@ function ProfilePage() {
             <li className={styles.profileLiReservation}>Aucune réservations</li>
           </ul>
         </ProfileSection>
+
+        {animalData.length > 0 && (
+          <ProfileSection title="animaux">
+            {animalData.map((animal) => (
+              <li key={animal.id}>{animal.name} supprimer</li>
+            ))}
+            <p>Ajouter des animaux</p>
+          </ProfileSection>
+        )}
+                {/* {structureData.length > 0 && ( */}
+          <ProfileSection title="Les informations de votre structure">
+            <p> Boup</p>
+          </ProfileSection>
+        {/* )} */}
       </div>
     </>
   );
