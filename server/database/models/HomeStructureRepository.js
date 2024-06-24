@@ -86,12 +86,12 @@ class HomeStructureRepository extends AbstractRepository {
   // research for the searchBar limits the number of results and returns the results from the offset
   async research(search, limit, offset) {
     const [result] = await this.database.query(
-      `SELECT id, name, phone_number, location, postal_code, is_professional, cat, dog, price FROM ${this.table} WHERE name like ? OR location like ? LIMIT ${limit} OFFSET ${offset}`,
+      `SELECT ${this.table}.id, username, phone_number, location, postal_code, is_professional, cat, dog, price FROM ${this.table} JOIN users ON ${this.table}.users_id = users.id WHERE username like ? OR location like ? LIMIT ${limit} OFFSET ${offset}`,
       [`%${search}%`, `%${search}%`]
     );
     // count number of total rows
     const [count] = await this.database.query(
-      `SELECT COUNT(id) AS total FROM ${this.table} WHERE name like ? OR location like ? `,
+      `SELECT COUNT(${this.table}.id) AS total FROM ${this.table} JOIN users ON ${this.table}.users_id = users.id WHERE username like ? OR location like ? `,
       [`%${search}%`, `%${search}%`]
     );
     const totalRow = count[0];
