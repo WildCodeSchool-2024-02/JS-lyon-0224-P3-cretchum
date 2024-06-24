@@ -29,14 +29,9 @@ CREATE TABLE animal (
   age INT NOT NULL,
   is_sterilized TINYINT NOT NULL,
   species VARCHAR(255) NOT NULL,
-  race_id INT(11) unsigned NOT NULL,
-  user_id INT(11) unsigned NOT NULL
-);
-
-CREATE TABLE race (
-  id INT(11) unsigned PRIMARY KEY auto_increment NOT NULL,
-  is_cat TINYINT, 
-  is_dog TINYINT
+  breed ENUM('chat', 'chien'),
+  user_id INT(11) unsigned NOT NULL,
+  FOREIGN KEY (users_id) REFERENCES users(id)
 );
 
 CREATE TABLE reservation (
