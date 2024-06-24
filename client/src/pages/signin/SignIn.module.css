@@ -29,6 +29,13 @@
   padding-top: 0.4em;
 }
 
+#line {
+  border: none;
+  border-top: 1px solid var(--main-color);
+  width: 100%;
+  margin: 3% 0;
+}
+
 #formContainer,
 #formContainerAnimal {
   width: 100vw;

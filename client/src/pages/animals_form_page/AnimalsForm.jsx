@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {  Form } from "react-router-dom";
+import { Form } from "react-router-dom";
 import styles from "../signin/SignIn.module.css";
 import AnimalsFormComponent from "../../components/animals_form_components/AnimalsFormComponents";
 
@@ -10,9 +10,14 @@ function AnimalsForm() {
     SetAnimalsNumber(e.target.value);
   };
 
-  const renderAnimals = () => Array.from({ length: animalNumber }, (index) => (
-    <AnimalsFormComponent key={index} />
-  ));
+  const renderAnimals = () =>
+    Array.from({ length: animalNumber }, (index) => (
+      <>
+       <hr id={styles.line}/>
+        <AnimalsFormComponent key={index} />
+        {/* {animalNumber > 1 && <hr id={styles.line}/>} */}
+      </>
+    ));
 
   return (
     <div id={styles.formContainerAnimal}>
