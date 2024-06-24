@@ -4,31 +4,39 @@ class AnimalRepository extends AbstractRepository {
   constructor() {
     // Call the constructor of the parent class (AbstractRepository)
     // and pass the table name "program" as configuration
-    super({ table: "animals" });
+    super({ table: "animal" });
   }
 
   // The C of CRUD - Create operation
 
   async create(structure) {
-    // Execute the SQL INSERT query to add a new program to the "program" table
-
     const allValues = structure.map((value) => [
       value.name,
       value.age,
       value.breed,
-      value.species,
+      value.specie,
       value.isSterilized,
+      value.isTattooedChipped,
       value.userId,
     ]);
 
     const [result] = await this.database.query(
-      `insert into ${this.table} (name, age, breed, species, is_sterilized, user_id) values ?`,
+      `INSERT INTO ${this.table} (name, age, breed, species, is_sterilized, is_tattooed_chipped, users_id) VALUES ?`,
       [allValues]
     );
 
     // Return the ID of the newly inserted program
     return result.insertId;
+  }  
+
+  async readAll() {
+    // Execute the SQL SELECT query to retrieve all programs from the "program" table
+    const [rows] = await this.database.query(`select * from ${this.table} JOIN users ON ${this.table}.users_id = users.id`);
+
+    // Return the array of programs
+    return rows;
   }
+
 
   // The Rs of CRUD - Read operations
 

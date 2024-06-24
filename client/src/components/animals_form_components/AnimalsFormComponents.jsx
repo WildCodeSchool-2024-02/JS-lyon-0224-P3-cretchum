@@ -1,4 +1,4 @@
-import styles from "../../pages/signin/SignIn.module.css";
+import styles from "../../pages/sign_up/SignUp.module.css";
 
 function AnimalsFormComponent() {
   return (
@@ -69,10 +69,10 @@ function AnimalsFormComponent() {
         </select>
       </div>
       <div className={styles.inputContainer}>
-        <label className={styles.formLabel} htmlFor="isSterilized">
+        <label className={styles.formLabel} htmlFor="isTattooed/chipped">
           Est tatoué(e) / pucé(e) ?<span className={styles.isRequired}> *</span>
         </label>
-        <select className={styles.inputSizeM} name="isSterilized" required>
+        <select className={styles.inputSizeM} name="isTattooedChipped" required>
           <option value={1}>Oui</option>
           <option value={0}>Non</option>
         </select>

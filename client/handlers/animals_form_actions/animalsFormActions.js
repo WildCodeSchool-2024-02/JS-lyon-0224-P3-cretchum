@@ -7,25 +7,30 @@ const animalsFormAction = async ({ request, params }) => {
   try {
     const formData = await request.formData();
 
-    const name = formData.get("name");
-    const age = formData.get("age");
-    const breed = formData.get("breed");
-    const species = formData.get("species");
-    const isSterilized = formData.get("isSterilized");
+    const names = formData.getAll("name");
+    const ages = formData.getAll("age");
+    const breeds = formData.getAll("breed");
+    const species = formData.getAll("species");
+    const isSterilized = formData.getAll("isSterilized");
+    const isTattooedChipped = formData.getAll("isTattooedChipped");
     const userId = params.id;
-    const response = await fetch(`${URL}/animals`, {
+
+    const animals = names.map((_, index) => ({
+      name: names[index],
+      age: ages[index],
+      breed: breeds[index],
+      specie: species[index],
+      isSterilized: isSterilized[index],
+      isTattooedChipped: isTattooedChipped[index],
+      userId,
+    }));
+
+    const response = await fetch(`${URL}/animal`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        name,
-        age,
-        breed,
-        species,
-        isSterilized,
-        userId,
-      }),
+      body: JSON.stringify(animals),
     });
 
     if (response.status === 201) {

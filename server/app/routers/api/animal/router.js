@@ -9,17 +9,21 @@ const router = express.Router();
 // Import users-related actions
 const {
   read,
+  browse,
   add,
   destroy,
-} = require("../../../controllers/animalsActions");
+} = require("../../../controllers/animalActions");
 
-const validateAnimals = require("../../../services/validateAnimals")
+// const validateAnimals = require("../../../services/validateAnimals")
+
+// Route to get a list of categories
+router.get("/", browse);
 
 // Route to get a specific user by ID
 router.get("/:id", read);
 
 // Route to add a new user
-router.post("/", validateAnimals, add);
+router.post("/", add);
 
 // Route to edit an existing user
 router.delete("/:id", destroy);

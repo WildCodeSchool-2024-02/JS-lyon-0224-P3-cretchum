@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Form, Link } from "react-router-dom";
-import styles from "./SignIn.module.css";
+import styles from "./SignUp.module.css";
 
 function SignIn() {
   function handleInputChange(event, setState) {
@@ -43,7 +43,7 @@ function SignIn() {
         <div className={styles.desktopRow}>
           <div className={styles.inputContainer}>
             <label className={styles.formLabel} htmlFor="username">
-              Pseudo <span className={styles.isRequired}> *</span>
+              Pseudo ou nom de votre organisme<span className={styles.isRequired}> *</span>
             </label>
             <input
               className={styles.inputSizeM}
@@ -69,14 +69,14 @@ function SignIn() {
         </div>
         <div className={styles.inputContainer}>
           <label className={styles.formLabel} htmlFor="address">
-            Adresse <span className={styles.isRequired}> *</span>
+            Ville <span className={styles.isRequired}> *</span>
           </label>
           <input
             className={styles.inputSizeM}
             type="text"
             name="location"
             minLength={3}
-            maxLength={255}
+            maxLength={55}
             required
           />
         </div>
@@ -86,7 +86,7 @@ function SignIn() {
           </label>
           <input
             className={styles.inputSizeM}
-            type="mail"
+            type="email"
             name="mail"
             placeholder="exemple@mail.com"
             minLength={6}
@@ -144,16 +144,29 @@ function SignIn() {
         </div>
 
         <div className={styles.buttonContainer}>
-          <button
-            className={styles.accountButton}
-            type="submit"
-            disabled={password !== passwordConf}
-          >
-            Créer mon compte
-          </button>
-          <span className={styles.compte}>
+          <div className={styles.buttonsContainer}>
+            <button
+              className={styles.accountButton}
+              type="submit"
+              name="submitButton"
+              value="animal"
+              disabled={password !== passwordConf}
+            >
+              Je veux faire garder
+            </button>
+            <button
+              className={styles.accountButton}
+              type="submit"
+              name="submitButton"
+              value="structure"
+              disabled={password !== passwordConf}
+            >
+              Je veux accueillir
+            </button>
+          </div>
+          <p className={styles.compte}>
             Déjà un compte ? <Link to="/connexion">se connecter</Link>
-          </span>
+          </p>
         </div>
       </Form>
     </div>

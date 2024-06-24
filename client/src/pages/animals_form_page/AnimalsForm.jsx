@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Form } from "react-router-dom";
-import styles from "../signin/SignIn.module.css";
+import styles from "../sign_up/SignUp.module.css";
 import AnimalsFormComponent from "../../components/animals_form_components/AnimalsFormComponents";
 
 function AnimalsForm() {
