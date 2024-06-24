@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import Pen from "../../assets/images/penblue.png";
 import LogoCicorne from "../../assets/logo/cicorne.png";
 import styles from "./ProfileHeader.module.css";
+import DeleteProfile from "./DeleteProfile";
 
 function ProfileHeader({
   username,
@@ -36,18 +37,21 @@ function ProfileHeader({
         </h1>
       </section>
       {handleEditClick !== undefined && (
-        <button
-          type="button"
-          className={styles.editButton}
-          onClick={handleEditClick}
-        >
-          {isEditMode === true ? "Sauvegarder" : "Modifier"}
-          <img
-            className={styles.profilePagePen}
-            src={Pen}
-            alt="Crayon pour la modification des informations du compte"
-          />
-        </button>
+        <div className={styles.editProfile}>
+          <button
+            type="button"
+            className={styles.editButton}
+            onClick={handleEditClick}
+          >
+            {isEditMode === true ? "Sauvegarder" : "Modifier"}
+            <img
+              className={styles.profilePagePen}
+              src={Pen}
+              alt="Crayon pour la modification des informations du compte"
+            />
+          </button>
+          <DeleteProfile />
+        </div>
       )}
     </header>
   );

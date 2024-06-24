@@ -16,6 +16,7 @@ function ProfilePage() {
     toast.success("Informations mises à jour avec succès !", "success");
   };
   const URL = import.meta.env.VITE_API_URL;
+
   const handleEditClick = async () => {
     if (isEditMode === true && beforeChange !== customer) {
       setIsEditMode(!isEditMode);
