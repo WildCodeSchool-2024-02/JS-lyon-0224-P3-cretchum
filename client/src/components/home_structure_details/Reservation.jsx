@@ -38,7 +38,7 @@ function Reservation({ priceday }) {
       setEndingDate(startingDate);
     }
 
-    if (new Date(endingDate) < new Date(todayDate)) {
+    if (new Date(startingDate) < new Date(todayDate)) {
       setStartingDate(todayDate);
     }
   }, [startingDate, endingDate, todayDate]);

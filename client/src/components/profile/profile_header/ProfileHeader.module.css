@@ -83,7 +83,7 @@ address {
 @media (max-width: 480px) {
   .profilePageHeader {
     padding: 0.5em;
-    margin: 0.5em;
+    margin: 1em;
   }
 
   .profilePageImg {
