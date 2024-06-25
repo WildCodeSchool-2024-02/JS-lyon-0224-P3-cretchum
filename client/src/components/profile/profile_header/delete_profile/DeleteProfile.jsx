@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./DeleteProfile.module.css";
-import notify from "../../utils/notify";
+import notify from "../../../../utils/notify";
 
 function DeleteProfile() {
   const [confirmBox, setConfirmBox] = useState(false);
