@@ -5,11 +5,11 @@ const tables = require("../../database/tables");
 // The B of BREAD - Browse (Read All) operation
 const browse = async (req, res, next) => {
   try {
-    // Fetch all users from the database
-    const users = await tables.users.readAll();
+    // Fetch all user from the database
+    const user = await tables.user.readAll();
 
-    // Respond with the users in JSON format
-    res.status(200).json(users);
+    // Respond with the user in JSON format
+    res.status(200).json(user);
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);
@@ -20,18 +20,17 @@ const browse = async (req, res, next) => {
 const read = async (req, res, next) => {
   try {
     // Fetch a specific user from the database based on the provided ID
-    const users = await tables.users.read(req.params.id);
+    const user = await tables.user.read(req.params.id);
 
     // If the user is not found, respond with HTTP 404 (Not Found)
-    // Otherwise, respond with the users in JSON format
-    if (users == null) {
+    // Otherwise, respond with the user in JSON format
+    if (user == null) {
       res.sendStatus(404).json({ error: "User not found" });
     } else {
-      res.status(200).json(users);
+      res.status(200).json(user);
     }
   } catch (err) {
     // Pass any errors to the error-handling middleware
-    console.error("Error in read controller:", err);
     next(err);
   }
 };
@@ -39,11 +38,11 @@ const read = async (req, res, next) => {
 // The E of BREAD - Edit (Update) operation
 const edit = async (req, res, next) => {
   // Extract the user data from the request body and params
-  const users = { ...req.body, id: req.params.id };
+  const user = { ...req.body, id: req.params.id };
 
   try {
     // Update the user in the database
-    await tables.users.update(users);
+    await tables.user.update(user);
 
     // Respond with HTTP 204 (No Content)
     res.sendStatus(204);
@@ -69,7 +68,7 @@ const add = async (req, res, next) => {
     user.password = hashedPassword;
 
     // Insert the user into the database
-    const insertId = await tables.users.create(user);
+    const insertId = await tables.user.create(user);
 
     // Respond with HTTP 201 (Created) and the ID of the newly inserted user
     res.status(201).json({ insertId });
@@ -84,7 +83,7 @@ const destroy = async (req, res, next) => {
   try {
     // Delete the user from the database
 
-    await tables.users.delete(req.params.id);
+    await tables.user.delete(req.params.id);
 
     // Respond with HTTP 204 (No Content)
     res.sendStatus(204);
@@ -100,7 +99,7 @@ const checkLog = async (req, res, next) => {
 
   try {
     // Retrieve user information from the database according to email address
-    const user = await tables.users.login(mail);
+    const user = await tables.user.login(mail);
 
     // Check that the user exists and that the password is correct
     if (user !== null && user !== undefined && await bcrypt.compare(password, user.password)) {
