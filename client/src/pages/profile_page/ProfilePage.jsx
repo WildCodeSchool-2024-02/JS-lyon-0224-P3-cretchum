@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import PropTypes from "prop-types";
 import notify from "../../utils/notify";
 import styles from "./ProfilePage.module.css";
 import ProfileHeader from "../../components/profile/profile_header/ProfileHeader";
@@ -82,17 +81,5 @@ function ProfilePage() {
     </>
   );
 }
-
-ProfilePage.propTypes = {
-  customer: PropTypes.shape({
-    username: PropTypes.string.isRequired,
-    lastname: PropTypes.string.isRequired,
-    firstname: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
-    phone_number: PropTypes.string.isRequired,
-    mail: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 export default ProfilePage;
