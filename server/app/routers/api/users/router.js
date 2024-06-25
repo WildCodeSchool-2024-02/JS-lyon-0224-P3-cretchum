@@ -18,7 +18,9 @@ const {
 
 const validateLogin = require("../../../services/ValidateLogin");
 
-const validateSignIn = require("../../../services/validateSignIn");
+const validateSignUp = require("../../../services/validateSignUp");
+
+const validateProfileEdit = require("../../../services/ValidateProfileEdit");
 
 // Route to get a list of categories
 router.get("/", browse);
@@ -27,15 +29,15 @@ router.get("/", browse);
 router.get("/:id", read);
 
 // Route to edit an existing user
-router.put("/:id", edit);
+router.put("/:id", validateProfileEdit, edit);
 
 // Route to add a new user
-router.post("/", validateSignIn, add);
+router.post("/", validateSignUp, add);
 
 // Route to check the login
 router.post("/login", validateLogin, checkLog);
 
-// Route to edit an existing user
+// Route to delete an existing users
 router.delete("/:id", destroy);
 
 /* ************************************************************************* */

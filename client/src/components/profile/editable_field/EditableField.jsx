@@ -6,7 +6,7 @@ function EditableField({ label, value, isEditMode, valueName, setCustomer }) {
     setCustomer((user) => ({ ...user, [champ]: e.target.value }));
   };
   return (
-    <div>
+    <div className={styles.field}>
       <label>{label}</label>
       <input
         type="text"
