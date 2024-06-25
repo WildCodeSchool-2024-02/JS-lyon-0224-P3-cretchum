@@ -44,7 +44,7 @@ function Filter({ onFilterChange, setSearch, setCountPage, setOffset }) {
           className="filterInput"
           id="seachInput"
           maxLength={255}
-          placeholder="Rehercher par nom"
+          placeholder="Rehercher par nom ou ville"
           onChange={(e) => onSearchChange(e)}
           onKeyDown={handleInputKeyDown}
         />
