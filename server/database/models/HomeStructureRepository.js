@@ -12,7 +12,7 @@ class HomeStructureRepository extends AbstractRepository {
   async create(structure) {
     // Execute the SQL INSERT query to add a new program to the "program" table
     const [result] = await this.database.query(
-      `insert into ${this.table} (postal_code, capacity, is_professional, cat, dog, price, users_id) values (?, ?, ?, ?, ?, ?, ?)`,
+      `insert into ${this.table} (postal_code, capacity, is_professional, cat, dog, price, user_id) values (?, ?, ?, ?, ?, ?, ?)`,
       [
         structure.postalCode,
         structure.capacity,
@@ -33,7 +33,7 @@ class HomeStructureRepository extends AbstractRepository {
   async read(id) {
     // Execute the SQL SELECT query to retrieve a specific program by its ID
     const [rows] = await this.database.query(
-      `select * from ${this.table} JOIN users ON ${this.table}.users_id = users.id WHERE ${this.table}.id = ?`,
+      `select * from ${this.table} JOIN user ON ${this.table}.user_id = user.id WHERE ${this.table}.id = ?`,
       [id]
     );
 
@@ -43,7 +43,7 @@ class HomeStructureRepository extends AbstractRepository {
 
   async readAll() {
     // Execute the SQL SELECT query to retrieve all programs from the "program" table
-    const [rows] = await this.database.query(`select * from ${this.table} JOIN users ON ${this.table}.users_id = users.id ORDER BY capacity DESC`);
+    const [rows] = await this.database.query(`select * from ${this.table} JOIN user ON ${this.table}.user_id = user.id ORDER BY capacity DESC`);
 
     // Return the array of programs
     return rows;
@@ -86,14 +86,32 @@ class HomeStructureRepository extends AbstractRepository {
   // research for the searchBar limits the number of results and returns the results from the offset
   async research(search, limit, offset) {
     const [result] = await this.database.query(
-      `SELECT id, name, phone_number, location, postal_code, is_professional, cat, dog, price FROM ${this.table} WHERE name like ? OR location like ? LIMIT ${limit} OFFSET ${offset}`,
+      `SELECT 
+         hs.id, 
+         u.firstname AS name, 
+         u.phone_number, 
+         u.location, 
+         hs.postal_code, 
+         hs.is_professional, 
+         hs.cat, 
+         hs.dog, 
+         hs.price 
+       FROM ${this.table} hs 
+       JOIN user u ON hs.user_id = u.id 
+       WHERE u.firstname LIKE ? OR u.location LIKE ? 
+       LIMIT ${limit} OFFSET ${offset}`,
       [`%${search}%`, `%${search}%`]
     );
+  
     // count number of total rows
     const [count] = await this.database.query(
-      `SELECT COUNT(id) AS total FROM ${this.table} WHERE name like ? OR location like ? `,
+      `SELECT COUNT(hs.id) AS total 
+       FROM ${this.table} hs 
+       JOIN user u ON hs.user_id = u.id 
+       WHERE u.firstname LIKE ? OR u.location LIKE ?`,
       [`%${search}%`, `%${search}%`]
     );
+  
     const totalRow = count[0];
     return { result, totalRow };
   }
