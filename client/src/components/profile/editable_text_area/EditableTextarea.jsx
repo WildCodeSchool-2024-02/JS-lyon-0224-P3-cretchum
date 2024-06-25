@@ -7,7 +7,7 @@ function EditableTextarea({ label, value, isEditMode, onChange, labelClass }) {
       <label className={labelClass}>{label}</label>
       <textarea
         defaultValue={value}
-        readOnly={!isEditMode === true}
+        readOnly={isEditMode !== true}
         onChange={isEditMode === true ? onChange : undefined}
         className={`${styles.textarea} ${!isEditMode ? styles.readOnlyTextarea : ""}`}
       />
