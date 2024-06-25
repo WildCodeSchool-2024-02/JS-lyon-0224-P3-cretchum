@@ -1,4 +1,6 @@
-// const jwt = require("jsonwebtoken");
+// Import access to database tables
+const jwt = require("jsonwebtoken");
+const bcrypt = require('bcryptjs');
 const tables = require("../../database/tables");
 
 // The B of BREAD - Browse (Read All) operation
@@ -21,6 +23,9 @@ const read = async (req, res, next) => {
     // Fetch a specific user from the database based on the provided ID
     const users = await tables.users.read(req.params.id);
 
+      // Réponse avec les données de l'utilisateur
+  
+// Permet l'envoi de cookies
     // If the user is not found, respond with HTTP 404 (Not Found)
     // Otherwise, respond with the users in JSON format
     if (users == null) {
@@ -56,11 +61,24 @@ const add = async (req, res, next) => {
   // Extract the user data from the request body
   const user = req.body;
   try {
+    // Hachage password
+    // Set the number of rounds to generate the salt used in the hash
+    const saltRounds = 10;
+
+    // Hide user password with bcrypt and number of saltRounds
+    const hashedPassword = await bcrypt.hash(user.password, saltRounds);
+
+    // Replace plaintext password with hashed password
+    user.password = hashedPassword;
+
     // Insert the user into the database
     const insertId = await tables.users.create(user);
 
+    delete req.body.password;
+
     // Respond with HTTP 201 (Created) and the ID of the newly inserted user
     res.status(201).json({ insertId });
+
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);
@@ -82,43 +100,46 @@ const destroy = async (req, res, next) => {
   }
 };
 
-// const checkLog = async (req, res, next) => {
-//   const user = req.body;
+const checkLog = async (req, res, next) => {
+  // Retrieve user email and password from HTTP request body
+  const { mail, password } = req.body;
 
-//   try {
-//     const log = await tables.users.login(user);
+  try {
+    // Retrieve user information from the database according to email address
+    const user = await tables.users.login(mail);
 
-//     if (log.length === 0) {
-//       res.sendStatus(422);
-//       return;
-//     }
+    // Check that the user exists and that the password is correct
+    if (user && await bcrypt.compare(password, user.password)) {
+      let hasAnimals = true;
+      if (user.users_id === null) {
+        hasAnimals = false;
+      }
 
-//     const verified = await argon2.verify(
-//       log.hashed_password,
-//       req.body.password
-//     );
+      // Generate JWT token
+      const token = jwt.sign(
+        { sub: user.id, hasAnimals },
+        process.env.APP_SECRET,
+        { expiresIn: '1h' }
+      );
 
-//     if (verified) {
-//       delete log.hashed_password;
-//       const token = await jwt.sign(
-//         { sub: log.id, isAdmin: log.is_admin },
-//         process.env.APP_SECRET,
-//         {
-//           expiresIn: "1h",
-//         }
-//       );
+      // Remove password from request body
+      delete req.body.password;
 
-//       res.json({
-//         token,
-//         user: log,
-//       });
-//     } else {
-//       res.status(401).json();
-//     }
-//   } catch (err) {
-//     next(err);
-//   }
-// };
+      const userResponse = { id: user.id, hasAnimals };
+
+      // Set the token in cookie
+      res.cookie("cookie", token, { httpOnly: true });
+      res.status(200).json(userResponse);
+
+    } else {
+      res.status(401).json({ error: 'Invalid credentials' });
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+
 
 
 // Ready to export the controller functions
@@ -128,5 +149,5 @@ module.exports = {
   edit,
   add,
   destroy,
-  // checkLog,
+  checkLog,
 };

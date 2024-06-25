@@ -3,13 +3,7 @@ import PropTypes from "prop-types";
 import "./Filter.css";
 import Patoune from "../../../assets/logo/1patounes.png";
 
-function Filter({
-  onFilterChange,
-  setSearch,
-  setCountPage,
-  setPageLim,
-  setPageLimSup,
-}) {
+function Filter({ onFilterChange, setSearch, setCountPage, setOffset }) {
   const [postalCode, setPostalCode] = useState("");
   const [animal, setAnimal] = useState("tous");
   const [structureType, setStructureType] = useState("tous");
@@ -26,8 +20,7 @@ function Filter({
     };
     onFilterChange(filters);
     setCountPage(1);
-    setPageLim(0);
-    setPageLimSup(30);
+    setOffset(0);
   };
 
   // Handle Input Key Down if the key Enter it press, it send Input and filter values to parent component
@@ -122,8 +115,7 @@ Filter.propTypes = {
   onFilterChange: PropTypes.func.isRequired,
   setSearch: PropTypes.func.isRequired,
   setCountPage: PropTypes.func.isRequired,
-  setPageLim: PropTypes.func.isRequired,
-  setPageLimSup: PropTypes.func.isRequired,
+  setOffset: PropTypes.func.isRequired,
 };
 
 export default Filter;

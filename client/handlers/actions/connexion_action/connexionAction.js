@@ -17,6 +17,7 @@ const connexionAction = async ({ request }) => {
       body: JSON.stringify({ mail, password }),
     });
 
+    
     if (response.status === 200) {
       notify("Connexion réussie !", "success");
       return redirect("/page-recherche");

@@ -4,7 +4,10 @@ const URL = import.meta.env.VITE_API_URL;
 
 const profileLoader = async ({ params }) => {
   try {
-    const response = await fetch(`${URL}/users/${params.id}`);
+    const response = await fetch(`${URL}/users/${params.id}`, {
+      method: 'GET',
+      credentials: 'include',
+    });
     if (!response.ok) {
       notify(
         "Erreur lors de la récupération des données du profil !",

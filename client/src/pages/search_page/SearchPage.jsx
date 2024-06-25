@@ -13,28 +13,34 @@ function SearchPage() {
   const [filters, setFilters] = useState({});
   const [filteredStructures, setFilteredStructures] = useState(allStructures);
   const [search, setSearch] = useState("");
-  const [pageLim, setPageLim] = useState(0);
-  const [pageLimSup, setPageLimSup] = useState(30);
+  const [limit] = useState(30);
+  const [offset, setOffset] = useState(0);
   const [countPage, setCountPage] = useState(1);
+  const [reponseNumber, setReponseNumber] = useState();
   const URL = import.meta.env.VITE_API_URL;
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${URL}/homestructure?q=${search}`);
+        const response = await fetch(
+          `${URL}/homestructure?search=${search}&limit=${limit}&offset=${offset}`,
+          {
+            method: 'GET',
+          })
         if (!response.ok === true) {
           throw new Error("Erreur lors de la récupération des données.");
         }
         const jsonData = await response.json();
-        setAllStructures(jsonData);
+        setAllStructures(jsonData.result);
+        setReponseNumber(jsonData.totalRow.total);
       } catch (error) {
         notify("Erreur de réseau. Veuillez vérifier votre connexion.", "error");
         console.error("Fetch error:", error);
       }
     };
     fetchData();
-  }, [search, URL]);
-
+  }, [search, URL, offset, limit]);
   useEffect(() => {
     const applyFilters = () => {
       // Start with all structures
@@ -99,16 +105,13 @@ function SearchPage() {
     // Update the filters state with the new filters
     setFilters(newFilters);
   };
-
+  // button for next and prev page
   const next = () => {
-    setPageLim(pageLim + 30);
-    setPageLimSup(pageLimSup + 30);
+    setOffset(offset + limit);
     setCountPage(countPage + 1);
   };
-
   const prev = () => {
-    setPageLim(pageLim - 30);
-    setPageLimSup(pageLimSup - 30);
+    setOffset(offset - limit);
     setCountPage(countPage - 1);
   };
 
@@ -119,14 +122,13 @@ function SearchPage() {
         onFilterChange={handleFilterChange}
         setSearch={setSearch}
         setCountPage={setCountPage}
-        setPageLim={setPageLim}
-        setPageLimSup={setPageLimSup}
+        setOffset={setOffset}
       />
       {allStructures.length < 1 && search.length < 1 ? (
         <p className="loading">Chargement ...</p>
       ) : (
         <ul id="peopleMap">
-          {filteredStructures.slice(pageLim, pageLimSup).map((structure) => (
+          {filteredStructures.map((structure) => (
             <li key={structure.id} id="peopleList">
               <Link to={`/reservation/${structure.id}`}>
                 <HomeStructureList structure={structure} />
@@ -149,13 +151,13 @@ function SearchPage() {
         </button>
 
         <p
-          hidden={Math.ceil(filteredStructures.length / 30) <= 1}
-        >{`page ${countPage} sur ${Math.ceil(filteredStructures.length / 30)}`}</p>
+          hidden={Math.ceil(reponseNumber / limit) <= 1}
+        >{`page ${countPage} sur ${Math.ceil(reponseNumber / limit)}`}</p>
 
         <button
           type="button"
           onClick={next}
-          hidden={pageLimSup >= filteredStructures.length}
+          hidden={reponseNumber <= limit}
           className="buttonNextPrev"
         >
           <img className="buttonImg" src={BtnNext} alt="bouton suivant" />

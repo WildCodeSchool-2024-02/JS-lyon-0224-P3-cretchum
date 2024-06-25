@@ -79,15 +79,6 @@
   bottom: 0;
   color: black;
 }
-.additionalLink {
-  font-size: 1em;
-  text-decoration: underline;
-  color: #804980;
-}
-
-#additionalDiv {
-  margin-top: 2em;
-}
 
 @media screen and (min-width: 580px) {
   .homePageLogoCicorne {
