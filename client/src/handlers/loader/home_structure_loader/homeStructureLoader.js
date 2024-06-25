@@ -3,7 +3,7 @@ const URL = import.meta.env.VITE_API_URL;
 const homeStructureLoader = async ({ params }) => {
   const response = await fetch(`${URL}/reservation/${params.id}`);
   const data = await response.json();
-  if (response.ok !== 200) {
+  if (response.status !== 200) {
     throw new Error("erreur lors de la récupération des données");
   }
   return data;
