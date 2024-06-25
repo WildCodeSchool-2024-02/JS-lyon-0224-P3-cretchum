@@ -3,7 +3,7 @@ import Pen from "../../../assets/images/penblue.png";
 import LogoCicorne from "../../../assets/logo/cicorne.png";
 import styles from "./ProfileHeader.module.css";
 
-function ProfileHeader({ username, isEditMode, handleEditClick }) {
+function ProfileHeader({ username, isEditMode = false, handleEditClick = undefined }) {
   return (
     <header className={styles.profilePageHeader}>
       <img
