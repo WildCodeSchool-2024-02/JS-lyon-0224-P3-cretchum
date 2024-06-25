@@ -103,7 +103,6 @@ const destroy = async (req, res, next) => {
 const checkLog = async (req, res, next) => {
   // Retrieve user email and password from HTTP request body
   const { mail, password } = req.body;
-
   try {
     // Retrieve user information from the database according to email address
     const user = await tables.users.login(mail);
@@ -125,11 +124,13 @@ const checkLog = async (req, res, next) => {
       // Remove password from request body
       delete req.body.password;
 
-      const userResponse = { id: user.id, hasAnimals };
+      // const userResponse = { id: user.id, hasAnimals };
 
       // Set the token in cookie
+      res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+      res.set('Access-Control-Allow-Credentials', 'true');
       res.cookie("cookie", token, { httpOnly: true });
-      res.status(200).json(userResponse);
+      res.status(200).json();
 
     } else {
       res.status(401).json({ error: 'Invalid credentials' });

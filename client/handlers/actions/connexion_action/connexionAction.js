@@ -15,6 +15,8 @@ const connexionAction = async ({ request }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ mail, password }),
+      credentials: 'include',
+      
     });
 
     
