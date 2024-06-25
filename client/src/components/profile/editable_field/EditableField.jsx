@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import styles from "./EditableField.module.css";
 
-function EditableField({ label, value, isEditMode, onChange, labelClass }) {
+function EditableField({ label, value, isEditMode, onChange = () => {}, labelClass = "" }) {
   return (
     <div>
       <label className={labelClass}>{label}</label>
