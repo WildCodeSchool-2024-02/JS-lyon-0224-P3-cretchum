@@ -10,7 +10,6 @@ const homeStructureLoader = async ({ params }) => {
       throw new Error("Erreur lors de la récupération des données");
     }
     const data = await response.json();
-    notify("Les données de la structure ont été récupérées avec succès.", "success");
     return data;
   } catch (err) {
     console.error("Fetch structure error:", err);
