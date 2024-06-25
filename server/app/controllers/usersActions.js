@@ -25,12 +25,13 @@ const read = async (req, res, next) => {
     // If the user is not found, respond with HTTP 404 (Not Found)
     // Otherwise, respond with the users in JSON format
     if (users == null) {
-      res.sendStatus(404);
+      res.sendStatus(404).json({ error: "User not found" });
     } else {
       res.status(200).json(users);
     }
   } catch (err) {
     // Pass any errors to the error-handling middleware
+    console.error("Error in read controller:", err);
     next(err);
   }
 };
