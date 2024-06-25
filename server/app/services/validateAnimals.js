@@ -5,8 +5,8 @@ const animalSchema = Joi.object({
   age: Joi.number().required(),
   breed: Joi.string().min(2).max(55).required(),
   specie: Joi.string().valid('chien', 'chat').required(),
-  isSterilized: Joi.number().integer().valid(1, 2).required(),
-  isTattooedChipped: Joi.number().integer().valid(1, 2).required(),
+  isSterilized: Joi.number().integer().valid(0, 1).required(),
+  isTattooedChipped: Joi.number().integer().valid(0, 1).required(),
   userId:Joi.number().integer().required(),
 });
 
