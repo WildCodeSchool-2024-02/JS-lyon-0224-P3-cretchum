@@ -1,5 +1,5 @@
 {
-  "name": ".",
+  "name": "cretchom",
   "version": "0.0.1",
   "private": true,
   "description": "",
@@ -25,9 +25,9 @@
     "lint": "lint-staged",
     "test": "npm run test --workspaces --if-present",
     "clean": "cross-env-shell \"rm -rf ./client/node_modules ./server/node_modules ./node_modules ./package-lock.json\"",
-    "test:fullstack": "jest",
-    "test:frontend": "cd frontend && npm test",
-    "test:backend": "cd backend && npm test"
+    "test:server": "cd server && npm jest",
+    "test:client": "cd client && npm test",
+    "test:fullstack": "npm run test:client && npm run test:server"
   },
   "keywords": [],
   "author": "WildCodeSchool",
