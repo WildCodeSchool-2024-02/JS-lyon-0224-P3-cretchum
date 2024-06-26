@@ -30,7 +30,7 @@ const cors = require("cors");
   app.use(
     cors({
       origin: [
-        process.env.CLIENT_URL, // Origine spécifiée dans votre environnement// Ajouter localhost:3000 comme origine autorisée
+        process.env.CLIENT_URL, // keep this one, after checking the value in `server/.env`
       ],
       credentials: true
     })
