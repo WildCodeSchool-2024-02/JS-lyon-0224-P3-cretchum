@@ -67,7 +67,7 @@ function Filter({ onFilterChange, setSearch, setCountPage, setOffset }) {
               value={animal}
               onChange={(e) => setAnimal(e.target.value)}
             >
-              <option value="tous">Tous les Animal</option>
+              <option value="tous">Tous les animaux</option>
               <option value="chat">Chat</option>
               <option value="chien">Chien</option>
             </select>
@@ -79,7 +79,7 @@ function Filter({ onFilterChange, setSearch, setCountPage, setOffset }) {
               value={structureType}
               onChange={(e) => setStructureType(e.target.value)}
             >
-              <option value="tous">Tous les Structures</option>            
+              <option value="tous">Toutes les structures</option>            
               <option value="particulier">Particulier</option>
               <option value="professionnel">Professionnel</option>
             </select>
