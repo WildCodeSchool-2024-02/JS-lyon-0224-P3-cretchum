@@ -22,10 +22,7 @@ const read = async (req, res, next) => {
   try {
     // Fetch a specific user from the database based on the provided ID
     const user = await tables.user.read(req.params.id);
-
-      // Réponse avec les données de l'utilisateur
-  
-// Permet l'envoi de cookies
+    
     // If the user is not found, respond with HTTP 404 (Not Found)
     // Otherwise, respond with the user in JSON format
     if (user == null) {
