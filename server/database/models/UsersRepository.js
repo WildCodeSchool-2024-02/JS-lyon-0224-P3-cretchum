@@ -76,13 +76,23 @@ class UserRepository extends AbstractRepository {
 
   async delete(id) {
     // Execute the SQL DELETE query to delete a specific program
-    const [result] = await this.database.query(
+    const [homeStructure] = await this.database.query(
+      "delete from home_structure where user_id = ?",
+      [id]
+    );
+
+    const [anim] = await this.database.query(
+      `delete from animal where user_id = ?`,
+      [id]
+    );
+
+    const [user] = await this.database.query(
       `delete from ${this.table} where id = ?`,
       [id]
     );
 
     // Return how many rows were affected
-    return result.affectedRows;
+    return [user.affectedRows, anim.affectedRows, homeStructure.affectedRows];
   }
 
   async login(mail) {
