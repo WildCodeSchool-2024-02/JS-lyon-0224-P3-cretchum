@@ -15,17 +15,20 @@ const animalsFormAction = async ({ request, params }) => {
     const isTattooedChipped = formData.getAll("isTattooedChipped");
     const userId = params.id;
 
-    const animals = Array.from({ length: number }, (_, index) => ({
-      name: names[index],
-      age: ages[index],
-      breed: breeds[index],
-      specie: species[index],
-      isSterilized: isSterilized[index],
-      isTattooedChipped: isTattooedChipped[index],
-      userId,
-    }));
+    const animals = [];
 
-
+    for (let i = 0; i < number; i += 1) {
+      const animal = {
+        name: names[i],
+        age: ages[i],
+        breed: breeds[i],
+        specie: species[i],
+        isSterilized: isSterilized[i],
+        isTattooedChipped: isTattooedChipped[i],
+        userId,
+      };
+      animals.push(animal);
+    }
     const response = await fetch(`${URL}/animal`, {
       method: "POST",
       headers: {
