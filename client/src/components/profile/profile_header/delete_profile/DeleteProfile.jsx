@@ -9,16 +9,16 @@ function DeleteProfile() {
   const deletePop = () => {
     setConfirmBox(!confirmBox);
   };
-  const Id = useParams();
+  const urlId = useParams();
   const navigate = useNavigate();
   const deleteprofile = async () => {
     try {
-      const response = await fetch(`${URL}/users/${Id.id}`, {
+      const response = await fetch(`${URL}/users/${urlId.id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(Id),
+        body: JSON.stringify(urlId),
       });
 
       if (response.status === 204) {

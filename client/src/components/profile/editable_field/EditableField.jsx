@@ -6,14 +6,13 @@ function EditableField({ label, value, isEditMode, valueName, setCustomer }) {
     setCustomer((user) => ({ ...user, [champ]: e.target.value }));
   };
 
-  // function EditableField({ label, value, isEditMode, onChange = () => {}, labelClass = "" }) {
   return (
     <div className={styles.field}>
       <label>{label}</label>
       <input
         type="text"
         defaultValue={value}
-        readOnly={!isEditMode === true}
+        readOnly={isEditMode === false}
         onChange={
           isEditMode === true ? (e) => onChange(e, valueName) : undefined
         }

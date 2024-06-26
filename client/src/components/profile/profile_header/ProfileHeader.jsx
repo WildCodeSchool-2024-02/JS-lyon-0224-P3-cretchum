@@ -28,8 +28,10 @@ function ProfileHeader({
               type="text"
               defaultValue={username}
               className={styles.input}
-              readOnly={!isEditMode}
-              onChange={isEditMode ? (e) => onChange(e, valueName) : undefined}
+              readOnly={isEditMode === false}
+              onChange={
+                isEditMode === true ? (e) => onChange(e, valueName) : undefined
+              }
             />
           ) : (
             username
