@@ -3,8 +3,8 @@ const jwt = require('jsonwebtoken');
 const validatecookie = (req, res, next) => {
   const token = req.cookies.cookie;
 
-  if (!token) {
-    return res.status(401).json({ error: 'No token provided' });
+  if (token === undefined) {
+    return res.status(401).json({ error: 'Accès refusé' });
   }
 
   try {

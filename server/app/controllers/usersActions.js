@@ -108,7 +108,8 @@ const checkLog = async (req, res, next) => {
     const user = await tables.users.login(mail);
 
     // Check that the user exists and that the password is correct
-    if (user && await bcrypt.compare(password, user.password)) {
+    if (user !== null && user !== undefined && await bcrypt.compare(password, user.password)) {
+      // Check if the user has any animals
       let hasAnimals = true;
       if (user.users_id === null) {
         hasAnimals = false;
@@ -118,22 +119,18 @@ const checkLog = async (req, res, next) => {
       const token = jwt.sign(
         { sub: user.id, hasAnimals },
         process.env.APP_SECRET,
-        { expiresIn: '1h' }
+        { expiresIn: '1d' }
       );
 
       // Remove password from request body
       delete req.body.password;
 
-      // const userResponse = { id: user.id, hasAnimals };
-
       // Set the token in cookie
-      res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
-      res.set('Access-Control-Allow-Credentials', 'true');
-      res.cookie("cookie", token, { httpOnly: true });
+      res.cookie("cookie", token, { httpOnly: true }, { maxAge: 24 * 60 * 60 * 1000 });
       res.status(200).json();
 
     } else {
-      res.status(401).json({ error: 'Invalid credentials' });
+      res.status(401).json({ error: 'accès non autorisé' });
     }
   } catch (err) {
     next(err);
