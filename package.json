@@ -25,7 +25,7 @@
     "lint": "lint-staged",
     "test": "npm run test --workspaces --if-present",
     "clean": "cross-env-shell \"rm -rf ./client/node_modules ./server/node_modules ./node_modules ./package-lock.json\"",
-    "test:server": "cd server && npm jest",
+    "test:server": "cd server && npm test",
     "test:client": "cd client && npm test",
     "test:fullstack": "npm run test:client && npm run test:server"
   },
