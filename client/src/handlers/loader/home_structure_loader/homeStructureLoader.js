@@ -5,7 +5,7 @@ const URL = import.meta.env.VITE_API_URL;
 const homeStructureLoader = async ({ params }) => {
   try {
     const response = await fetch(`${URL}/homestructure/${params.id}`);
-    if (!response.ok) {
+    if (response.status !== 200) {
       notify("Erreur lors de la récupération des données de la structure !", "error");
       throw new Error("Erreur lors de la récupération des données");
     }
