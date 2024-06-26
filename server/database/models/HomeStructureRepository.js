@@ -85,6 +85,9 @@ class HomeStructureRepository extends AbstractRepository {
 
   // research for the searchBar limits the number of results and returns the results from the offset
   async research(search, limit, offset) {
+    const parsedLimit = parseInt(limit, 10);
+    const parsedOffset = parseInt(offset, 10);
+
     const [result] = await this.database.query(
       `SELECT 
          hs.id, 
@@ -99,8 +102,8 @@ class HomeStructureRepository extends AbstractRepository {
        FROM ${this.table} hs 
        JOIN user u ON hs.user_id = u.id 
        WHERE u.firstname LIKE ? OR u.location LIKE ? 
-       LIMIT ${limit} OFFSET ${offset}`,
-      [`%${search}%`, `%${search}%`]
+       LIMIT ? OFFSET ? `,
+      [`%${search}%`, `%${search}%`, parsedLimit, parsedOffset]
     );
   
     // count number of total rows
