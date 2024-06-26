@@ -15,8 +15,11 @@ const connexionAction = async ({ request }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ mail, password }),
+      credentials: 'include',
+      
     });
 
+    
     if (response.status === 200) {
       notify("Connexion réussie !", "success");
       return redirect("/page-recherche");

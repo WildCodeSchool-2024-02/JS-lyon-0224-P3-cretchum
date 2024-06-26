@@ -88,7 +88,7 @@ class UserRepository extends AbstractRepository {
 
   async login(mail) {
     const [result] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE mail = ?`,
+      `SELECT ${this.table}.id, ${this.table}.password, ${this.table}.mail, animal.user_id FROM ${this.table} LEFT JOIN animal ON animal.user_id = user.id WHERE mail = ?`,
       [mail]
     );
     

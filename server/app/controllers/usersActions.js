@@ -1,5 +1,6 @@
 // Import access to database tables
-const bcrypt = require('bcryptjs');
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 const tables = require("../../database/tables");
 
 // The B of BREAD - Browse (Read All) operation
@@ -70,6 +71,8 @@ const add = async (req, res, next) => {
     // Insert the user into the database
     const insertId = await tables.user.create(user);
 
+    delete req.body.password;
+
     // Respond with HTTP 201 (Created) and the ID of the newly inserted user
     res.status(201).json({ insertId });
   } catch (err) {
@@ -96,16 +99,41 @@ const destroy = async (req, res, next) => {
 const checkLog = async (req, res, next) => {
   // Retrieve user email and password from HTTP request body
   const { mail, password } = req.body;
-
   try {
     // Retrieve user information from the database according to email address
     const user = await tables.user.login(mail);
 
     // Check that the user exists and that the password is correct
-    if (user !== null && user !== undefined && await bcrypt.compare(password, user.password)) {
+    if (
+      user !== null &&
+      user !== undefined &&
+      (await bcrypt.compare(password, user.password) === true)
+    ) {
+      // Check if the user has any animals
+      let hasAnimals = true;
+      if (user.user_id === null) {
+        hasAnimals = false;
+      }
+
+      // Generate JWT token
+      const token = jwt.sign(
+        { sub: user.id, hasAnimals },
+        process.env.APP_SECRET,
+        { expiresIn: "1d" }
+      );
+
+      // Remove password from request body
+      delete req.body.password;
+
+      // Set the token in cookie
+      res.cookie("cookie", token, {
+        httpOnly: true,
+        sameSite: "Strict",
+        maxAge: 24 * 60 * 60 * 1000,
+      });
       res.status(200).json();
     } else {
-      res.status(401).json();
+      res.status(401).json({ error: "accès non autorisé" });
     }
   } catch (err) {
     next(err);
