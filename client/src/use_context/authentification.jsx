@@ -6,7 +6,8 @@ const URL = import.meta.env.VITE_API_URL;
 const AuthentificationContext = createContext();
 
 function AuthentificationProvider({ children }) {
-  const [auth, setAuth] = useState("");
+  const [auth, setAuth] = useState(null);
+  const [update, setUpdate] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -16,20 +17,18 @@ function AuthentificationProvider({ children }) {
       if (response.status === 200) {
         const data = await response.json();
         setAuth(data);
-      } else if (response.status === 401) {
-        setAuth(null);
+      } 
       }
-    } catch (error) {
+    catch (error) {
       console.error("Error fetching data:", error);
-    }
-  };
+    }}
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [update]);
 
 
-  const value = useMemo(() => ({ auth }), [auth]);
+  const value = useMemo(() => ({ auth, update, setUpdate}), [auth, update]);
 
   return (
     <AuthentificationContext.Provider value={value}>
@@ -42,4 +41,4 @@ AuthentificationProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export { AuthentificationProvider, AuthentificationContext,  };
+export { AuthentificationProvider, AuthentificationContext };

@@ -7,6 +7,7 @@ import Filter from "../../components/search_page_components/filter/Filter";
 import HomeStructureList from "../../components/search_page_components/home_strucutre_list/HomeStructureList";
 import BtnPrev from "../../assets/images/Btn-prev.png";
 import BtnNext from "../../assets/images/Btn-next.png";
+import UseRefresh from "../../hooks/UseRefresh";
 
 function SearchPage() {
   const [allStructures, setAllStructures] = useState([]);
@@ -18,6 +19,7 @@ function SearchPage() {
   const [countPage, setCountPage] = useState(1);
   const [reponseNumber, setReponseNumber] = useState(0);
   const URL = import.meta.env.VITE_API_URL;
+  UseRefresh();
 
   useEffect(() => {
     const fetchData = async () => {
