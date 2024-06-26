@@ -34,7 +34,7 @@ class UserRepository extends AbstractRepository {
   async read(id) {
     // Execute the SQL SELECT query to retrieve a specific program by its ID
     const [rows] = await this.database.query(
-      `select * from ${this.table} where id = ?`,
+      `select ${this.table}.id, lastname, firstname, username, phone_number, location, mail, description from ${this.table} where id = ?`,
       [id]
     );
 
@@ -55,7 +55,7 @@ class UserRepository extends AbstractRepository {
   async update(user) {
     // Execute the SQL UPDATE query to update a specific program
     const [result] = await this.database.query(
-      `update ${this.table} set lastname = ?, firstname = ?, username = ?, phone_number = ?, location = ?, mail = ?, password = ?, description = ?  where id = ?`,
+      `update ${this.table} set lastname = ?, firstname = ?, username = ?, phone_number = ?, location = ?, mail = ?, description = ?  where id = ?`,
       [
         user.lastname,
         user.firstname,
@@ -63,7 +63,6 @@ class UserRepository extends AbstractRepository {
         user.phone_number,
         user.location,
         user.mail,
-        user.password,
         user.description,
         user.id,
       ]
@@ -91,10 +90,10 @@ class UserRepository extends AbstractRepository {
       `SELECT * FROM ${this.table} WHERE mail = ?`,
       [mail]
     );
-    
-      // Return the first row of the result, which represents the user
-      return result[0];
-    }
+
+    // Return the first row of the result, which represents the user
+    return result[0];
   }
+}
 
 module.exports = UserRepository;

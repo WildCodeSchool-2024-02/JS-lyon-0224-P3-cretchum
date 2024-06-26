@@ -1,6 +1,7 @@
 const Joi = require("joi");
 
 const profileSchema = Joi.object({
+  id: Joi.number().required(),
   lastname: Joi.string()
     .pattern(/^[a-zA-ZÀ-ÿ\s']+$/)
     .min(2)
@@ -12,7 +13,7 @@ const profileSchema = Joi.object({
     .max(55)
     .required(),
   username: Joi.string().min(3).max(20).required(),
-  phoneNumber: Joi.string()
+  phone_number: Joi.string()
     .pattern(/[0-9]/, { name: "numbers" })
     .min(10)
     .max(10)
