@@ -16,11 +16,10 @@ const {
 } = require("../../../controllers/home_structureActions");
 
 const validateHomeStructure = require("../../../services/ValidateHomeStructure");
-const validatecookie = require("../../../services/validatecookie")
 
 
 // Route to get a list of categories
-router.get("/", validatecookie, browse);
+router.get("/", browse);
 
 // Route to get a specific user by ID
 router.get("/:id", read);

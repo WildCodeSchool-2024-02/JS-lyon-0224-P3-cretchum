@@ -24,10 +24,7 @@ function SearchPage() {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `${URL}/homestructure?search=${search}&limit=${limit}&offset=${offset}`,
-          {
-            method: 'GET',
-          })
+          `${URL}/homestructure?search=${search}&limit=${limit}&offset=${offset}`)
         if (!response.ok === true) {
           throw new Error("Erreur lors de la récupération des données.");
         }
