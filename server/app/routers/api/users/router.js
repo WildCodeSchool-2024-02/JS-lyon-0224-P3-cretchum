@@ -13,12 +13,14 @@ const {
   edit,
   add,
   destroy,
-  checkLog
+  checkLog,
 } = require("../../../controllers/usersActions");
 
-const validateLogin = require("../../../services/ValidateLogin")
+const validateLogin = require("../../../services/ValidateLogin");
 
-const validateSignIn = require("../../../services/validateSignIn");
+const validateSignUp = require("../../../services/validateSignUp");
+
+const validateProfileEdit = require("../../../services/ValidateProfileEdit");
 
 const validatecookie = require("../../../services/validatecookie");
 
@@ -29,15 +31,15 @@ router.get("/", browse);
 router.get("/:id", validatecookie , read);
 
 // Route to edit an existing user
-router.put("/:id", validateSignIn, edit);
+router.put("/:id", validateProfileEdit, edit);
 
 // Route to add a new user
-router.post("/", validateSignIn, add);
+router.post("/", validateSignUp, add);
 
 // Route to check the login
 router.post("/login", validateLogin, checkLog);
 
-// Route to edit an existing user
+// Route to delete an existing users
 router.delete("/:id", destroy);
 
 /* ************************************************************************* */

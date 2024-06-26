@@ -1,16 +1,22 @@
 import PropTypes from "prop-types";
 import styles from "./EditableField.module.css";
 
-function EditableField({ label, value, isEditMode, onChange = () => {}, labelClass = "" }) {
+function EditableField({ label, value, isEditMode, valueName, setCustomer }) {
+  const onChange = (e, champ) => {
+    setCustomer((user) => ({ ...user, [champ]: e.target.value }));
+  };
+
   return (
-    <div>
-      <label className={labelClass}>{label}</label>
+    <div className={styles.field}>
+      <label>{label}</label>
       <input
         type="text"
         defaultValue={value}
-        readOnly={isEditMode !== true}
-        onChange={isEditMode === true ? onChange : undefined}
-        className={`${styles.input} ${isEditMode !== true ? styles.readOnlyInput : ""}`}
+        readOnly={isEditMode === false}
+        onChange={
+          isEditMode === true ? (e) => onChange(e, valueName) : undefined
+        }
+        className={`${styles.input} ${isEditMode === false ? styles.readOnlyInput : ""}`}
       />
     </div>
   );
@@ -20,13 +26,8 @@ EditableField.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   isEditMode: PropTypes.bool.isRequired,
-  onChange: PropTypes.func,
-  labelClass: PropTypes.string,
-};
-
-EditableField.defaultProps = {
-  onChange: () => {},
-  labelClass: "",
+  valueName: PropTypes.string.isRequired,
+  setCustomer: PropTypes.func.isRequired,
 };
 
 export default EditableField;

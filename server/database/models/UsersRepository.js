@@ -34,7 +34,7 @@ class UserRepository extends AbstractRepository {
   async read(id) {
     // Execute the SQL SELECT query to retrieve a specific program by its ID
     const [rows] = await this.database.query(
-      `select * from ${this.table} where id = ?`,
+      `select ${this.table}.id, lastname, firstname, username, phone_number, location, mail, description from ${this.table} where id = ?`,
       [id]
     );
 
@@ -55,7 +55,7 @@ class UserRepository extends AbstractRepository {
   async update(user) {
     // Execute the SQL UPDATE query to update a specific program
     const [result] = await this.database.query(
-      `update ${this.table} set lastname = ?, firstname = ?, username = ?, phone_number = ?, location = ?, mail = ?, password = ?, description = ?  where id = ?`,
+      `update ${this.table} set lastname = ?, firstname = ?, username = ?, phone_number = ?, location = ?, mail = ?, description = ?  where id = ?`,
       [
         user.lastname,
         user.firstname,
@@ -63,7 +63,6 @@ class UserRepository extends AbstractRepository {
         user.phone_number,
         user.location,
         user.mail,
-        user.password,
         user.description,
         user.id,
       ]
@@ -77,13 +76,23 @@ class UserRepository extends AbstractRepository {
 
   async delete(id) {
     // Execute the SQL DELETE query to delete a specific program
-    const [result] = await this.database.query(
+    const [homeStructure] = await this.database.query(
+      "delete from home_structure where user_id = ?",
+      [id]
+    );
+
+    const [anim] = await this.database.query(
+      `delete from animal where user_id = ?`,
+      [id]
+    );
+
+    const [user] = await this.database.query(
       `delete from ${this.table} where id = ?`,
       [id]
     );
 
     // Return how many rows were affected
-    return result.affectedRows;
+    return [user.affectedRows, anim.affectedRows, homeStructure.affectedRows];
   }
 
   async login(mail) {
@@ -91,10 +100,10 @@ class UserRepository extends AbstractRepository {
       `SELECT ${this.table}.id, ${this.table}.password, ${this.table}.mail, animal.user_id FROM ${this.table} LEFT JOIN animal ON animal.user_id = user.id WHERE mail = ?`,
       [mail]
     );
-    
-      // Return the first row of the result, which represents the user
-      return result[0];
-    }
+
+    // Return the first row of the result, which represents the user
+    return result[0];
   }
+}
 
 module.exports = UserRepository;
