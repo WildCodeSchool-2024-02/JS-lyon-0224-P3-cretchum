@@ -107,7 +107,7 @@ const checkLog = async (req, res, next) => {
     if (
       user !== null &&
       user !== undefined &&
-      (await bcrypt.compare(password, user.password))
+      (await bcrypt.compare(password, user.password) === true)
     ) {
       // Check if the user has any animals
       let hasAnimals = true;
