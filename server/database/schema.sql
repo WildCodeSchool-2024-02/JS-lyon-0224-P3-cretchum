@@ -1,4 +1,4 @@
-CREATE TABLE users (
+CREATE TABLE user (
   id INT(11) unsigned PRIMARY KEY auto_increment NOT NULL,
   lastname VARCHAR(55) NOT NULL,
   firstname VARCHAR(55) NOT NULL,
@@ -18,8 +18,8 @@ CREATE TABLE home_structure (
   cat TINYINT NOT NULL, 
   dog TINYINT NOT NULL, 
   price INT(11) NOT NULL, 
-  users_id INT(11) unsigned NOT NULL, 
-  FOREIGN KEY (users_id) REFERENCES users(id)
+  user_id INT(11) unsigned NOT NULL, 
+  FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
 
@@ -30,8 +30,8 @@ CREATE TABLE animal (
   is_sterilized TINYINT NOT NULL,
   species VARCHAR(255) NOT NULL,
   breed ENUM('chat', 'chien') NOT NULL,
-  users_id INT(11) unsigned NOT NULL,
-  FOREIGN KEY (users_id) REFERENCES users(id)
+  user_id INT(11) unsigned NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
 CREATE TABLE reservation (

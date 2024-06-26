@@ -7,7 +7,7 @@ function NavMenu() {
       <div className="navMenu-container">
         <div className="navMenu-item">
           <NavLink id="searchPage" to="/page-recherche">
-            SearchPage
+            Page de recherche
           </NavLink>
         </div>
         <div className="navMenu-item">

@@ -44,7 +44,7 @@ function Filter({ onFilterChange, setSearch, setCountPage, setOffset }) {
           className="filterInput"
           id="seachInput"
           maxLength={255}
-          placeholder="Rehercher par nom"
+          placeholder="Rehercher par nom ou ville"
           onChange={(e) => onSearchChange(e)}
           onKeyDown={handleInputKeyDown}
         />
@@ -64,12 +64,10 @@ function Filter({ onFilterChange, setSearch, setCountPage, setOffset }) {
           <li className="filter">
             <select
               className="filterInput pointer"
+              value={animal}
               onChange={(e) => setAnimal(e.target.value)}
             >
-              <option value="tous" disabled selected>
-                Animal
-              </option>
-              <option value="tous">Tous</option>
+              <option value="tous">Tous les animaux</option>
               <option value="chat">Chat</option>
               <option value="chien">Chien</option>
             </select>
@@ -78,12 +76,10 @@ function Filter({ onFilterChange, setSearch, setCountPage, setOffset }) {
           <li className="filter">
             <select
               className="filterInput pointer"
+              value={structureType}
               onChange={(e) => setStructureType(e.target.value)}
             >
-              <option value="tous" disabled selected>
-                Structures
-              </option>
-              <option value="tous">Tous</option>
+              <option value="tous">Toutes les structures</option>            
               <option value="particulier">Particulier</option>
               <option value="professionnel">Professionnel</option>
             </select>
@@ -92,11 +88,9 @@ function Filter({ onFilterChange, setSearch, setCountPage, setOffset }) {
           <li className="filter">
             <select
               className="filterInput pointer"
+              value={priceRange}
               onChange={(e) => setPriceRange(e.target.value)}
             >
-              <option value="tous" disabled selected>
-                Prix
-              </option>
               <option value="tous">Tous les prix</option>
               <option value="fourchette1">de 10 à 20 €</option>
               <option value="fourchette2">de 20 à 30 €</option>
