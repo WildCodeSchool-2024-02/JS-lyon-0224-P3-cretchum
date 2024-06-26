@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Form } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./Reservation.css";
@@ -9,7 +9,10 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import "dayjs/locale/fr";
 
+import { AuthentificationContext } from "../../use_context/authentification";
+
 function Reservation({ priceday }) {
+  const { auth } = useContext(AuthentificationContext);
   // Get today date
 
   const todayDate = dayjs();
@@ -69,15 +72,21 @@ function Reservation({ priceday }) {
               </div>
             </LocalizationProvider>
           </div>
-          <div id="reservationPets">
-            <h4 id="resaH4">Pour qui ?</h4>
-            <select className="filterInput reservationInput">
-              <option value="tous">Tous mes animaux</option>;
-              <option value="animal1">nom1</option>
-              <option value="animal2">nom2</option>
-            </select>
-          </div>
-          <button type="submit" className="searchBtn buttonType1">
+          {auth === null || auth.user.hasAnimals === false ? (
+            <p>Vous devez avoir au moins un animal enregistré pour réserver</p>
+          ) : (
+            <div id="reservationPets">
+              <h4 id="resaH4">Pour qui ?</h4>
+              <select className="filterInput reservationInput">
+                <option value="tous">Tous mes animaux</option>;
+                <option value="animal1">nom1</option>
+                <option value="animal2">nom2</option>
+              </select>
+            </div>
+          )}
+
+          <button type="submit" className="searchBtn buttonType1"
+          disabled={auth === null || auth.user.hasAnimals === false} >
             Réserver
           </button>
         </div>

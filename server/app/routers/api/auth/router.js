@@ -3,16 +3,18 @@ const express = require("express");
 const router = express.Router();
 
 /* ************************************************************************* */
-// Import And Use Routers Here
+// Define Your API Routes Here
 /* ************************************************************************* */
 
-const usersRouter = require("./users/router");
-const HomeStructureRouter = require("./home_structure/router");
-const authAction = require("./auth/router");
+// Import users-related actions
+const { authActions } = require("../../../controllers/auth_actions");
 
-router.use("/users", usersRouter);
-router.use("/homestructure", HomeStructureRouter);
-router.use("/auth", authAction )
+router.get("/", authActions);
+
+router.put("/:id", authActions);
+
+router.post("/", authActions);
+
 /* ************************************************************************* */
 
 module.exports = router;

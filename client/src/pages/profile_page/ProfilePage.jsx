@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import notify from "../../utils/notify";
+
 import styles from "./ProfilePage.module.css";
 import ProfileHeader from "../../components/profile/profile_header/ProfileHeader";
 import ProfileSection from "../../components/profile/profile_section/ProfileSection";
@@ -11,6 +12,7 @@ import NavMenu from "../../components/nav_menu/NavMenu";
 function ProfilePage() {
   const customer = useLoaderData();
   const [isEditMode, setIsEditMode] = useState(false);
+
 
   const handleSave = () => {
     notify("Informations mises à jour avec succès !", "success");

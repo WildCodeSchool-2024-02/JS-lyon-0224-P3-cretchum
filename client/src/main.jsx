@@ -11,7 +11,7 @@ import HomeStructureDetails from "./pages/home_structure_details/HomeStructureDe
 import ProfilePage from "./pages/profile_page/ProfilePage";
 
 import structureFormAction from "./handlers/actions/structure_form_action/structureFormAction";
-import connexionAction from "./handlers/actions/connexion_action/connexionAction";
+import ConnexionAction from "./handlers/actions/connexion_action/connexionAction";
 import signUpAction from "./handlers/actions/sign_up_action/signUpAction";
 import profileLoader from "./handlers/loader/profile_loader/profileLoader";
 import homeStructureLoader from "./handlers/loader/home_structure_loader/homeStructureLoader";
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
       {
         path: "/connexion",
         element: <ConnexionPage />,
-        action: connexionAction,
+        action: ConnexionAction,
       },
       {
         path: "/inscription",

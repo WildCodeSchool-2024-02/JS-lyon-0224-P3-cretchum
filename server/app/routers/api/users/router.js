@@ -20,13 +20,11 @@ const validateLogin = require("../../../services/ValidateLogin")
 
 const validateSignIn = require("../../../services/validateSignIn");
 
-const validatecookie = require("../../../services/validatecookie");
-
 // Route to get a list of categories
 router.get("/", browse);
 
 // Route to get a specific user by ID
-router.get("/:id", validatecookie , read);
+router.get("/:id", read);
 
 // Route to edit an existing user
 router.put("/:id", validateSignIn, edit);
