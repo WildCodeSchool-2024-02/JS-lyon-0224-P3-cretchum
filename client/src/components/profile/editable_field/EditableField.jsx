@@ -16,7 +16,7 @@ function EditableField({ label, value, isEditMode, valueName, setCustomer }) {
         onChange={
           isEditMode === true ? (e) => onChange(e, valueName) : undefined
         }
-        className={`${styles.input} ${!isEditMode ? styles.readOnlyInput : ""}`}
+        className={`${styles.input} ${isEditMode === false ? styles.readOnlyInput : ""}`}
       />
     </div>
   );

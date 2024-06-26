@@ -17,6 +17,7 @@ const {
 
 const validateHomeStructure = require("../../../services/ValidateHomeStructure");
 
+
 // Route to get a list of categories
 router.get("/", browse);
 
