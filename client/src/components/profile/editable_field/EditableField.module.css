@@ -3,9 +3,13 @@
   align-items: center;
   margin-bottom: 10px;
 }
-
+.field {
+  display: flex;
+  flex-direction: column;
+  padding-left: 15px;
+}
 .input {
-  width: calc(100% - 20px);
+  width: 100%;
   padding: 10px;
   margin: 5px 0;
   border: 1px solid #ccc;

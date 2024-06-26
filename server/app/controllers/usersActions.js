@@ -40,7 +40,6 @@ const read = async (req, res, next) => {
 const edit = async (req, res, next) => {
   // Extract the user data from the request body and params
   const user = { ...req.body, id: req.params.id };
-
   try {
     // Update the user in the database
     await tables.user.update(user);
@@ -107,7 +106,7 @@ const checkLog = async (req, res, next) => {
     if (
       user !== null &&
       user !== undefined &&
-      (await bcrypt.compare(password, user.password) === true)
+      (await bcrypt.compare(password, user.password)) === true
     ) {
       // Check if the user has any animals
       let hasAnimals = true;

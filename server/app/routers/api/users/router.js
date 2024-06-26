@@ -22,6 +22,7 @@ const {
   validateSignup,
   uniqueEmailandUsername,
 } = require("../../../services/validateSignup");
+const validateProfileEdit = require("../../../services/ValidateProfileEdit");
 
 const validatecookie = require("../../../services/validatecookie");
 
@@ -32,7 +33,8 @@ router.get("/", browse);
 router.get("/:id", validatecookie, read);
 
 // Route to edit an existing user
-router.put("/:id", validateSignup, edit);
+
+router.put("/:id", validateProfileEdit, edit);
 
 // Route to add a new user
 router.post("/", validateSignup, uniqueEmailandUsername, add);
@@ -40,7 +42,7 @@ router.post("/", validateSignup, uniqueEmailandUsername, add);
 // Route to check the login
 router.post("/login", validateLogin, checkLog);
 
-// Route to edit an existing user
+// Route to delete an existing users
 router.delete("/:id", destroy);
 
 /* ************************************************************************* */

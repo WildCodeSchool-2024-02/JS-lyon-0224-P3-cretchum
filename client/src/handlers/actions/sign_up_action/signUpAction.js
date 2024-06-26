@@ -40,6 +40,7 @@ const signUpAction = async ({ request }) => {
       if (buttonValue === "structure") {
         return redirect(`/inscription_accueil/${userId}`);
       }
+      notify("Votre compte à bien été créer", "success");
       return redirect("/page-recherche");
     }
     if (response.status !== 201) {

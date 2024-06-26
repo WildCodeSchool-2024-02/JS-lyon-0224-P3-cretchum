@@ -8,12 +8,13 @@
 }
 
 #reservation {
+  display: flex;
   background-color: white;
   border-radius: 20px;
-  padding: 1em;
   min-height: 15vh;
   display: flex;
-  margin: 1em;
+  width: 100%;
+  max-width: 530px;
 }
 
 #userChoice {
@@ -22,6 +23,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  padding-top: 4px;
 }
 
 #reservationPets {
@@ -76,6 +78,7 @@
 
 .datesInput {
   width: 25vw;
+  min-width: 150px;
 }
 #detailsLine {
   margin: 3% 0% 5% 0;
@@ -85,7 +88,7 @@
   display: none;
 }
 
-@media screen and (min-width: 1100px) {
+@media screen and (min-width: 1000px) {
   #resaH4 {
     margin-right: 2%;
   }
@@ -101,6 +104,12 @@
     flex-direction: column;
     text-align: center;
     justify-content: space-evenly;
+    margin-right: 1em;
+    width: 80%;
+    min-width: 310px;
+  }
+  .reservation {
+    min-width: 385px;
   }
 
   #reservationForm {
@@ -115,10 +124,13 @@
     height: 8vh;
     margin: 5% 0 13% 0;
   }
-
-  .reservationInput,
+  .reservationInput {
+    padding: 0;
+    max-width: 200px;
+  }
   .datesInput {
-    width: 16vw;
+    width: 70%;
+    max-width: 215px;
   }
   #reservationButton {
     width: 50%;

@@ -42,8 +42,10 @@ class HomeStructureRepository extends AbstractRepository {
   }
 
   async readAll() {
-    // Execute the SQL SELECT query to retrieve all programs from the "program" table
-    const [rows] = await this.database.query(`select * from ${this.table} JOIN user ON ${this.table}.user_id = user.id ORDER BY capacity DESC`);
+    // Execute the SQL SELECT query to retrieve all homes strutures from the "home_structure" table
+    const [rows] = await this.database.query(
+      `select * from ${this.table} JOIN user ON ${this.table}.user_id = user.id ORDER BY capacity DESC`
+    );
 
     // Return the array of programs
     return rows;
@@ -105,7 +107,7 @@ class HomeStructureRepository extends AbstractRepository {
        LIMIT ? OFFSET ? `,
       [`%${search}%`, `%${search}%`, parsedLimit, parsedOffset]
     );
-  
+
     // count number of total rows
     const [count] = await this.database.query(
       `SELECT COUNT(hs.id) AS total 
@@ -114,7 +116,7 @@ class HomeStructureRepository extends AbstractRepository {
        WHERE u.firstname LIKE ? OR u.location LIKE ?`,
       [`%${search}%`, `%${search}%`]
     );
-  
+
     const totalRow = count[0];
     return { result, totalRow };
   }
