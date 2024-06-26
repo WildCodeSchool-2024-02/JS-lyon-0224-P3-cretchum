@@ -15,7 +15,8 @@
     "profile-section-information profile-section-reservation"
     "profile-section-description .";
   min-height: 100vh;
-  margin: 0 15%;
+  margin: 0 auto;
+  max-width: 1140px;
 }
 
 .label {
@@ -37,20 +38,39 @@
   height: 75%;
 }
 
-@media (max-width: 805px) {
+.profilAnimalsList {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2%;
+}
+
+.deleteAnimalsButton {
+  border: none;
+  background-color: transparent;
+  text-decoration: underline;
+  color: rgb(194, 27, 27);
+}
+
+.addLink {
+  display: block;
+  text-align: center;
+  margin-top: 5%;
+}
+
+@media (max-width: 1000px) {
   .profilePageContainer {
-    grid-template-columns: 1fr;
+    grid-template-columns: 530px;
     grid-template-rows: auto;
     grid-template-areas:
       "profile-page-header"
       "profile-section-information"
       "profile-section-description"
       "profile-section-reservation";
-    margin: 0 15%;
+    margin: 0 calc((100vw - 530px) / 2);
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 550px) {
   .profilePageContainer {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
@@ -59,7 +79,8 @@
       "profile-section-information"
       "profile-section-description"
       "profile-section-reservation";
-    margin: 0 5%;
+    margin: 0;
+    font-size: 1.15em;
   }
   .profilePageContainer :nth-child(3) {
     height: auto;

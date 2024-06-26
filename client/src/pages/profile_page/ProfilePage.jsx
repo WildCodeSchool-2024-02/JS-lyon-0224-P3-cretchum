@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { useLoaderData, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import PropTypes from "prop-types";
+import { useLoaderData, useParams, Link } from "react-router-dom";
+import notify from "../../utils/notify";
 import styles from "./ProfilePage.module.css";
 import ProfileHeader from "../../components/profile/profile_header/ProfileHeader";
 import ProfileSection from "../../components/profile/profile_section/ProfileSection";
@@ -10,22 +9,77 @@ import EditableTextarea from "../../components/profile/editable_text_area/Editab
 import NavMenu from "../../components/nav_menu/NavMenu";
 
 function ProfilePage() {
-  const URL = import.meta.env.VITE_API_URL;
-  const customer = useLoaderData();
+  const [customer, setCustomer] = useState(useLoaderData());
   const [isEditMode, setIsEditMode] = useState(false);
+  const [beforeChange, setBeforeChange] = useState(customer);
   const { id } = useParams();
   const [animalData, setAnimalData] = useState([]);
 
   const handleSave = () => {
-    toast.success("Informations mises à jour avec succès !", "success");
+    notify("Informations mises à jour avec succès !", "success");
+  };
+  const URL = import.meta.env.VITE_API_URL;
+
+  const handleEditClick = async () => {
+    if (isEditMode === true && beforeChange !== customer) {
+      setIsEditMode(!isEditMode);
+      try {
+        const response = await fetch(`${URL}/users/${customer.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(customer),
+        });
+
+        if (response.status === 204) {
+          setBeforeChange(customer);
+          return handleSave();
+        }
+        throw new Error("Registration error");
+      } catch (err) {
+        console.error("Fetch error:", err);
+        notify(
+          "Erreur lors de la modification du profil. Veuillez réessayer plus tard.",
+          "error"
+        );
+        return {
+          error:
+            "An error occurred during registration. Please try again later.",
+        };
+      }
+    }
+    return setIsEditMode(!isEditMode);
   };
 
-  const handleEditClick = () => {
-    setIsEditMode(!isEditMode);
-    if (isEditMode === true) {
-      handleSave();
+  const handleDeleteAnimals = async (animalId, animalName) => {
+    try {
+      const response = await fetch(`${URL}/animal/${animalId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ animalId }),
+      });
+  
+      if (response.status !== 204) {
+        throw new Error("Une erreur s'est produite, merci de réessayer plus tard");
+      }
+  
+      notify(`${animalName} a bien été supprimé`, "success");
+      return { success: true };
+    } catch (err) {
+      console.error("Fetch error:", err);
+      notify(
+        "Erreur lors de la suppression du profil. Veuillez réessayer plus tard.",
+        "error"
+      );
+      return {
+        error: "An error occurred during deletion. Please try again later.",
+      };
     }
   };
+  
 
   useEffect(() => {
     const fetchAnimals = async () => {
@@ -38,7 +92,7 @@ function ProfilePage() {
       }
     };
     fetchAnimals();
-  }, [URL, id]);
+  }, [URL, id, animalData]);
 
   return (
     <>
@@ -48,38 +102,45 @@ function ProfilePage() {
           username={customer.username}
           isEditMode={isEditMode}
           handleEditClick={handleEditClick}
+          valueName="username"
+          setCustomer={setCustomer}
         />
         <ProfileSection title="Informations générales">
           <EditableField
             label="Nom :"
             value={customer.lastname}
             isEditMode={isEditMode}
-            labelClass={styles.label}
+            valueName="lastname"
+            setCustomer={setCustomer}
           />
           <EditableField
             label="Prénom :"
             value={customer.firstname}
             isEditMode={isEditMode}
-            labelClass={styles.label}
+            valueName="firstname"
+            setCustomer={setCustomer}
           />
           <EditableField
             label="Localisation :"
             value={customer.location}
             isEditMode={isEditMode}
-            labelClass={styles.label}
+            valueName="location"
+            setCustomer={setCustomer}
           />
           <address className={styles.profileAddressContainer}>
             <EditableField
               label="Téléphone :"
               value={customer.phone_number}
               isEditMode={isEditMode}
-              labelClass={styles.label}
+              valueName="phone_number"
+              setCustomer={setCustomer}
             />
             <EditableField
               label="Email :"
               value={customer.mail}
               isEditMode={isEditMode}
-              labelClass={styles.label}
+              valueName="mail"
+              setCustomer={setCustomer}
             />
           </address>
         </ProfileSection>
@@ -87,6 +148,8 @@ function ProfilePage() {
           <EditableTextarea
             value={customer.description}
             isEditMode={isEditMode}
+            valueName="description"
+            setCustomer={setCustomer}
           />
         </ProfileSection>
         <ProfileSection title="Vos réservations">
@@ -95,34 +158,37 @@ function ProfilePage() {
           </ul>
         </ProfileSection>
 
-        {animalData.length > 0 && (
-          <ProfileSection title="animaux">
-            {animalData.map((animal) => (
-              <li key={animal.id}>{animal.name} supprimer</li>
-            ))}
-            <p>Ajouter des animaux</p>
-          </ProfileSection>
-        )}
-                {/* {structureData.length > 0 && ( */}
-          <ProfileSection title="Les informations de votre structure">
-            <p> Boup</p>
-          </ProfileSection>
-        {/* )} */}
+        <ProfileSection title="Vos animaux">
+          {animalData.length > 0 && (
+            <ul>
+              {animalData.map((animal) => (
+                <li className={styles.profilAnimalsList} key={animal.id}>
+                  {animal.name}{" "}
+                  <button
+                    type="submit"
+                    onClick={() => handleDeleteAnimals(animal.id, animal.name)}
+                    className={styles.deleteAnimalsButton}
+                  >
+                    Supprimer
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+          <Link to={`/formulaire-animal/${id}`} className={styles.addLink}>
+            Ajouter des animaux
+          </Link>
+        </ProfileSection>
+
+        {/* A faire avec PR 40 useContext */}
+        {/*         
+        <ProfileSection title="Les informations de votre structure">
+          {structureData.length > 0 ? : }
+        <Link to={`/inscription_accueil/${id}`}>Devenir structure d'accueil</Link>
+        </ProfileSection> */}
       </div>
     </>
   );
 }
-
-ProfilePage.propTypes = {
-  customer: PropTypes.shape({
-    username: PropTypes.string.isRequired,
-    lastname: PropTypes.string.isRequired,
-    firstname: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
-    phone_number: PropTypes.string.isRequired,
-    mail: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 export default ProfilePage;

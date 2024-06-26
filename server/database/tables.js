@@ -11,7 +11,7 @@ const tables = {};
 /* ************************************************************************* */
 
 // Register each repository as data access point for its table
-tables.users = new UsersRepository();
+tables.user = new UsersRepository();
 tables.home_structure = new HomeStructureRepository();
 tables.animal = new AnimalRepository();
 

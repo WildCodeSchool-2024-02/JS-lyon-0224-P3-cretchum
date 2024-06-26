@@ -51,7 +51,6 @@ const add = async (req, res, next) => {
 const destroy = async (req, res, next) => {
   try {
     // Delete the user from the database
-
     await tables.animal.delete(req.params.id);
 
     // Respond with HTTP 204 (No Content)

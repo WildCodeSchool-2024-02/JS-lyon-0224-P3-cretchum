@@ -1,5 +1,5 @@
 import { redirect } from "react-router-dom";
-import notify from "../../../src/utils/notify";
+import notify from "../../../utils/notify";
 
 const URL = import.meta.env.VITE_API_URL;
 
@@ -15,8 +15,11 @@ const connexionAction = async ({ request }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ mail, password }),
+      credentials: 'include',
+      
     });
 
+    
     if (response.status === 200) {
       notify("Connexion réussie !", "success");
       return redirect("/page-recherche");

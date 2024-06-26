@@ -10,12 +10,12 @@ import SearchPage from "./pages/search_page/SearchPage";
 import HomeStructureDetails from "./pages/home_structure_details/HomeStructureDetails";
 import ProfilePage from "./pages/profile_page/ProfilePage";
 
-import structureFormAction from "../handlers/actions/structure_form_action/structureFormAction";
+import structureFormAction from "./handlers/actions/structure_form_action/structureFormAction";
 import AnimalsForm from "./pages/animals_form_page/AnimalsForm";
-import connexionAction from "../handlers/actions/connexion_action/connexionAction";
-import signUpAction from "../handlers/actions/sign_up_action/signUpAction";
-import profileLoader from "../handlers/loader/profile_loader/profileLoader";
-import homeStructureLoader from "../handlers/loader/home_structure_loader/homeStructureLoader";
+import connexionAction from "./handlers/actions/connexion_action/connexionAction";
+import signUpAction from "./handlers/actions/sign_up_action/signUpAction";
+import profileLoader from "./handlers/loader/profile_loader/profileLoader";
+import homeStructureLoader from "./handlers/loader/home_structure_loader/homeStructureLoader";
 import animalsFormAction from "../handlers/actions/animals_form_actions/animalsFormActions";
 
 const router = createBrowserRouter([
