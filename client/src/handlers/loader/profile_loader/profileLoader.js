@@ -1,4 +1,4 @@
-import notify from "../../../src/utils/notify";
+import notify from "../../../utils/notify";
 
 const URL = import.meta.env.VITE_API_URL;
 
@@ -8,7 +8,7 @@ const profileLoader = async ({ params }) => {
       method: 'GET',
       credentials: 'include',
     });
-    if (!response.ok) {
+    if (response.status !== 200) {
       notify(
         "Erreur lors de la récupération des données du profil !",
         "error"

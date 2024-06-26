@@ -16,16 +16,20 @@ function SearchPage() {
   const [limit] = useState(30);
   const [offset, setOffset] = useState(0);
   const [countPage, setCountPage] = useState(1);
-  const [reponseNumber, setReponseNumber] = useState();
+  const [reponseNumber, setReponseNumber] = useState(0);
   const URL = import.meta.env.VITE_API_URL;
-
 
   useEffect(() => {
     const fetchData = async () => {
+      if (search.length < 3 && search.length > 0) {
+        // Do not search if search string is less than 3 characters but not empty
+        return;
+      }
       try {
         const response = await fetch(
-          `${URL}/homestructure?search=${search}&limit=${limit}&offset=${offset}`)
-        if (!response.ok === true) {
+          `${URL}/homestructure?search=${search}&limit=${limit}&offset=${offset}`
+        );
+        if (response.status !== 200) {
           throw new Error("Erreur lors de la récupération des données.");
         }
         const jsonData = await response.json();
@@ -38,6 +42,7 @@ function SearchPage() {
     };
     fetchData();
   }, [search, URL, offset, limit]);
+
   useEffect(() => {
     const applyFilters = () => {
       // Start with all structures
@@ -134,7 +139,7 @@ function SearchPage() {
           ))}
         </ul>
       )}
-      {filteredStructures.length < 1 && search.length >= 1 && (
+      {filteredStructures.length < 1 && search.length >= 3 && (
         <p className="loading">Aucun résultat</p>
       )}
       <div className="nextPrev">

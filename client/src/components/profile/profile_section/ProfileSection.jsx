@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import styles from "./ProfileSection.module.css";
 
-function ProfileSection({ title, children, additionalStyle }) {
+function ProfileSection({ title, children, additionalStyle = null}) {
   return (
     <section className={styles.profileSection}>
       <header className={styles.profileSectionHeader}>

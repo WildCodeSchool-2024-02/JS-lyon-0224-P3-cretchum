@@ -4,7 +4,7 @@ class UserRepository extends AbstractRepository {
   constructor() {
     // Call the constructor of the parent class (AbstractRepository)
     // and pass the table name "program" as configuration
-    super({ table: "users" });
+    super({ table: "user" });
   }
 
   // The C of CRUD - Create operation
@@ -88,7 +88,7 @@ class UserRepository extends AbstractRepository {
 
   async login(mail) {
     const [result] = await this.database.query(
-      `SELECT ${this.table}.id, ${this.table}.password, ${this.table}.mail, animal.users_id FROM ${this.table} LEFT JOIN animal ON animal.users_id = users.id WHERE mail = ?`,
+      `SELECT ${this.table}.id, ${this.table}.password, ${this.table}.mail, animal.user_id FROM ${this.table} LEFT JOIN animal ON animal.user_id = user.id WHERE mail = ?`,
       [mail]
     );
     
