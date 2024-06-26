@@ -5,6 +5,8 @@ function EditableField({ label, value, isEditMode, valueName, setCustomer }) {
   const onChange = (e, champ) => {
     setCustomer((user) => ({ ...user, [champ]: e.target.value }));
   };
+
+  // function EditableField({ label, value, isEditMode, onChange = () => {}, labelClass = "" }) {
   return (
     <div className={styles.field}>
       <label>{label}</label>
@@ -28,10 +30,5 @@ EditableField.propTypes = {
   valueName: PropTypes.string.isRequired,
   setCustomer: PropTypes.func.isRequired,
 };
-
-// EditableField.defaultProps = {
-//   onChange: () => {},
-//   labelClass: "",
-// };
 
 export default EditableField;

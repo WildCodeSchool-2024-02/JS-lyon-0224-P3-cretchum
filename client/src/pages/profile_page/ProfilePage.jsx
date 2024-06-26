@@ -1,22 +1,22 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import { toast } from "react-toastify";
+import notify from "../../utils/notify";
 import styles from "./ProfilePage.module.css";
 import ProfileHeader from "../../components/profile/profile_header/ProfileHeader";
 import ProfileSection from "../../components/profile/profile_section/ProfileSection";
 import EditableField from "../../components/profile/editable_field/EditableField";
 import EditableTextarea from "../../components/profile/editable_text_area/EditableTextarea";
 import NavMenu from "../../components/nav_menu/NavMenu";
-import notify from "../../utils/notify";
 
 function ProfilePage() {
   const [customer, setCustomer] = useState(useLoaderData());
   const [isEditMode, setIsEditMode] = useState(false);
   const [beforeChange, setBeforeChange] = useState(customer);
   const handleSave = () => {
-    toast.success("Informations mises à jour avec succès !", "success");
+    notify("Informations mises à jour avec succès !", "success");
   };
   const URL = import.meta.env.VITE_API_URL;
+
   const handleEditClick = async () => {
     if (isEditMode === true && beforeChange !== customer) {
       setIsEditMode(!isEditMode);

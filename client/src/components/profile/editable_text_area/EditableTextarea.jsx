@@ -5,6 +5,7 @@ function EditableTextarea({ value, isEditMode, valueName, setCustomer }) {
   const onChange = (e, champ) => {
     setCustomer((user) => ({ ...user, [champ]: e.target.value }));
   };
+
   return (
     <div className={styles.textareaContainer}>
       <textarea
@@ -12,10 +13,10 @@ function EditableTextarea({ value, isEditMode, valueName, setCustomer }) {
           isEditMode === false ? styles.readOnlyTextarea : styles.textarea
         }
         defaultValue={value}
-        readOnly={!isEditMode === true}
         onChange={
           isEditMode === true ? (e) => onChange(e, valueName) : undefined
         }
+        readOnly={isEditMode !== true}
       />
     </div>
   );

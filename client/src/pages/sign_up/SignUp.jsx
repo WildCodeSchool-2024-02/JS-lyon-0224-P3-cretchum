@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Form, Link } from "react-router-dom";
 import styles from "./SignUp.module.css";
 
-function SignIn() {
+function SignUp() {
   function handleInputChange(event, setState) {
     setState(event.target.value);
   }
@@ -96,7 +96,7 @@ function SignIn() {
         </div>
         <div className={styles.inputContainer}>
           <label className={styles.formLabel} htmlFor="password">
-            Mot de passe <span className={styles.isRequired}> *</span>
+            Mot de passe <span className={styles.isRequired}>**</span>
           </label>
           <input
             className={styles.inputSizeM}
@@ -104,9 +104,16 @@ function SignIn() {
             name="password"
             value={password}
             minLength={12}
+            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}" 
             onChange={(event) => handleInputChange(event, setPassword)}
             required
           />
+          <section className={styles.passwordSmall}>
+            <small>
+              ** Le mot de passe doit comprendre une majuscule, une minuscule, un
+              chiffre et un caractère spécial.
+            </small>
+          </section>
         </div>
         <div className={styles.inputContainer}>
           <label className={styles.formLabel} htmlFor="adress">
@@ -118,6 +125,7 @@ function SignIn() {
             type="password"
             name="passwordConf"
             minLength={12}
+            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}"
             value={passwordConf}
             onChange={(event) => handleInputChange(event, setPasswordConf)}
             required
@@ -173,4 +181,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default SignUp;

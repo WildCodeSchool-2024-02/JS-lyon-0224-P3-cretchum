@@ -11,10 +11,10 @@ function HomeStructureList({ structure }) {
     <div id="userCard" className="userCard">
       <div id="userGeneral">
         <div id="userImg">
-          <img id="userPicture" src={PersonImage} alt={structure.username} />
+          <img id="userPicture" src={PersonImage} alt={structure.name} />
         </div>
         <div id="userInfo">
-          <h3 id="userName">{structure.username}</h3>
+          <h3 id="userName">{structure.name}</h3>
           <p id="userLocation">
             {structure.postal_code} {structure.location}
           </p>
@@ -32,12 +32,10 @@ function HomeStructureList({ structure }) {
   );
 }
 
-export default HomeStructureList;
-
 HomeStructureList.propTypes = {
   structure: PropTypes.shape({
-    username: PropTypes.string.isRequired,
-    postal_code: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    postal_code: PropTypes.string.isRequired,
     is_professional: PropTypes.number.isRequired,
     cat: PropTypes.number.isRequired,
     dog: PropTypes.number.isRequired,
@@ -45,3 +43,5 @@ HomeStructureList.propTypes = {
     location: PropTypes.string.isRequired,
   }).isRequired,
 };
+
+export default HomeStructureList;

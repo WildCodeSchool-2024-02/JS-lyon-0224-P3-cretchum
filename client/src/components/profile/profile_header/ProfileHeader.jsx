@@ -13,6 +13,7 @@ function ProfileHeader({
   const onChange = (e, champ) => {
     setCustomer((user) => ({ ...user, [champ]: e.target.value }));
   };
+
   return (
     <header className={styles.profilePageHeader}>
       <img
