@@ -91,10 +91,20 @@ class UserRepository extends AbstractRepository {
       `SELECT ${this.table}.id, ${this.table}.password, ${this.table}.mail, animal.user_id FROM ${this.table} LEFT JOIN animal ON animal.user_id = user.id WHERE mail = ?`,
       [mail]
     );
-    
-      // Return the first row of the result, which represents the user
-      return result[0];
-    }
+
+    // Return the first row of the result, which represents the user
+    return result[0];
   }
+
+  // For check if an email address or username is already in use
+  async finder(column, element) {
+    const [result] = await this.database.query(
+      // column can be only mail or username, it is defined in the middleware validateSignUp
+      `SELECT COUNT(id) AS count FROM user WHERE ${column} = ?`,
+      [element]
+    );
+    return result[0].count;
+  }
+}
 
 module.exports = UserRepository;

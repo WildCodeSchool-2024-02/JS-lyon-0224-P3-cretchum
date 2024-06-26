@@ -15,7 +15,6 @@ const signUpAction = async ({ request }) => {
     const mail = formData.get("mail");
     const password = formData.get("password");
     const description = formData.get("description");
-
     const buttonValue = formData.get("submitButton");
 
     const response = await fetch(`${URL}/users`, {
@@ -35,7 +34,7 @@ const signUpAction = async ({ request }) => {
       }),
     });
 
-    if (response.status === 201) {      
+    if (response.status === 201) {
       const newdata = await response.json();
       const userId = newdata.insertId;
       if (buttonValue === "structure") {
@@ -43,18 +42,17 @@ const signUpAction = async ({ request }) => {
       }
       return redirect("/page-recherche");
     }
-    notify("Erreur lors de l'inscription !", "error");
+    if (response.status !== 201) {
+      const data = await response.json();
+      notify(data.validationErrors[0].message, "error");
+    }
     throw new Error("Registration error");
   } catch (err) {
-    console.error("Fetch error:", err);
-    notify(
-      "Une erreur est survenue lors de l'inscription. Veuillez réessayer plus tard.",
-      "error"
-    );
+    notify("Une erreur est survenue lors de l'inscription.", "error");
     return {
-      error:
-        "An error occurred during registration. Please try again later.",
+      error: "An error occurred during registration.",
     };
-  }};
+  }
+};
 
 export default signUpAction;
