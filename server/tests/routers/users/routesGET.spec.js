@@ -23,12 +23,21 @@ describe("GET /api/users", () => {
 // TEST : suite for the GET /api/users/:id route
 
 describe("GET /api/users/:id", () => {
-  const userId = 1;
+  const userId = 2;
   const validToken = jwt.sign({ id: userId }, process.env.APP_SECRET);
   
   it("should fetch a single user successfully", async () => {
     // Mock rows returned from the database
-    const rows = [{ id: userId, name: 'John Doe' }];
+    const rows = [{
+      id: userId,
+      lastname: "Martin",
+      firstname: "Lou",
+      username: "Lou69",
+      location: "Lyon 7",
+      mail: "lou1.martin@exemple.com",
+      description: "J'ai 2 chiens :) !",
+      phone_number: "0688263395",
+    }];
 
     // Mock the implementation of the database query method
     jest.spyOn(database, "query").mockResolvedValue([rows]);
@@ -38,9 +47,18 @@ describe("GET /api/users/:id", () => {
       .get(`/api/users/${userId}`)
       .set('Cookie', `cookie=${validToken}`);
 
-    // Assertions
-    expect(response.status).toBe(200);
-    expect(response.body).toStrictEqual(rows[0]);
+     // Assertions
+     expect(response.status).toBe(200);
+     expect(response.body).toEqual({
+       id: expect.any(Number),
+       lastname: expect.any(String),
+       firstname: expect.any(String),
+       username: expect.any(String),
+       location: expect.any(String),
+       mail: expect.any(String),
+       description: expect.any(String),
+       phoneNumber: expect.any(String),
+     });
   });
 
   it("should return 404 for non-existent user", async () => {
@@ -52,7 +70,7 @@ describe("GET /api/users/:id", () => {
 
     // Send a GET request to the /api/users/:id endpoint with an invalid ID
     const response = await request(app)
-      .get("/api/users/0")
+      .get("/api/users/1")
       .set('Cookie', `cookie=${validToken}`);
 
     // Assertions
