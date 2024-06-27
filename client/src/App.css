@@ -3,7 +3,7 @@
   --secondary-color: #007864;
   --highlight-color: #bf525d;
   --hover-color: #0078644d;
-  --base-font-size: 1.5rem;
+  --base-font-size: 1.25rem;
   --header-font-size: 2.5rem;
   --subheader-font-size: 2rem;
   --body-font-size: 1rem;
@@ -42,6 +42,7 @@ body {
 .buttonType1 {
   background: var(--secondary-color);
   color: white;
+  border: none;
 }
 
 .buttonType1:hover {

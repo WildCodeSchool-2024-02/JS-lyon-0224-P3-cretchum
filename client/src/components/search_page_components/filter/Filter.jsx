@@ -3,13 +3,7 @@ import PropTypes from "prop-types";
 import "./Filter.css";
 import Patoune from "../../../assets/logo/1patounes.png";
 
-function Filter({
-  onFilterChange,
-  setSearch,
-  setCountPage,
-  setPageLim,
-  setPageLimSup,
-}) {
+function Filter({ onFilterChange, setSearch, setCountPage, setOffset }) {
   const [postalCode, setPostalCode] = useState("");
   const [animal, setAnimal] = useState("tous");
   const [structureType, setStructureType] = useState("tous");
@@ -26,8 +20,7 @@ function Filter({
     };
     onFilterChange(filters);
     setCountPage(1);
-    setPageLim(0);
-    setPageLimSup(30);
+    setOffset(0);
   };
 
   // Handle Input Key Down if the key Enter it press, it send Input and filter values to parent component
@@ -51,7 +44,7 @@ function Filter({
           className="filterInput"
           id="seachInput"
           maxLength={255}
-          placeholder="Rehercher par nom"
+          placeholder="Rehercher par nom ou ville"
           onChange={(e) => onSearchChange(e)}
           onKeyDown={handleInputKeyDown}
         />
@@ -71,12 +64,10 @@ function Filter({
           <li className="filter">
             <select
               className="filterInput pointer"
+              value={animal}
               onChange={(e) => setAnimal(e.target.value)}
             >
-              <option value="tous" disabled selected>
-                Animal
-              </option>
-              <option value="tous">Tous</option>
+              <option value="tous">Tous les animaux</option>
               <option value="chat">Chat</option>
               <option value="chien">Chien</option>
             </select>
@@ -85,12 +76,10 @@ function Filter({
           <li className="filter">
             <select
               className="filterInput pointer"
+              value={structureType}
               onChange={(e) => setStructureType(e.target.value)}
             >
-              <option value="tous" disabled selected>
-                Structures
-              </option>
-              <option value="tous">Tous</option>
+              <option value="tous">Toutes les structures</option>            
               <option value="particulier">Particulier</option>
               <option value="professionnel">Professionnel</option>
             </select>
@@ -99,11 +88,9 @@ function Filter({
           <li className="filter">
             <select
               className="filterInput pointer"
+              value={priceRange}
               onChange={(e) => setPriceRange(e.target.value)}
             >
-              <option value="tous" disabled selected>
-                Prix
-              </option>
               <option value="tous">Tous les prix</option>
               <option value="fourchette1">de 10 à 20 €</option>
               <option value="fourchette2">de 20 à 30 €</option>
@@ -122,8 +109,7 @@ Filter.propTypes = {
   onFilterChange: PropTypes.func.isRequired,
   setSearch: PropTypes.func.isRequired,
   setCountPage: PropTypes.func.isRequired,
-  setPageLim: PropTypes.func.isRequired,
-  setPageLimSup: PropTypes.func.isRequired,
+  setOffset: PropTypes.func.isRequired,
 };
 
 export default Filter;

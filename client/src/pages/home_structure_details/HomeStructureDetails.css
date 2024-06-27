@@ -1,6 +1,7 @@
 .hsDetailH4 {
   color: #656060;
   font-size: 1.3em;
+  margin-right: 7%;
 }
 
 .hsHrLine {
@@ -15,6 +16,7 @@
   width: 90%;
   align-items: center;
   padding: 1.3em;
+  flex-wrap: wrap;
 }
 
 #HomeStructurePage {
@@ -40,22 +42,16 @@
 
 #HomeStructureInfo,
 #gobalInfo,
+#homeStructureHeader,
 .reservation {
-  width: 90%;
+  width: 90vw;
 }
-
-#homeStructureHeader {
-  width: 80%;
+.reservation {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
-
-#hsAnimalId {
-  margin: 0;
-}
-
-#infoDiv {
-  margin: 0;
-}
-
 #userParticulier,
 #userChenil {
   margin: 4% 0 0 0;
@@ -69,42 +65,50 @@
   font-weight: bold;
   font-size: 1.3em;
 }
-
-@media screen and (min-width: 900px) {
+#homeStructureHeader {
+  display: flex;
+  justify-content: center;
+}
+#gobalInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#homeStructureHeader header {
+  width: 100%;
+}
+#gobalInfo section {
+  width: 100%;
+}
+@media screen and (min-width: 1000px) {
   #HomeStructureInfo {
     display: flex;
     justify-content: center;
     flex-direction: row;
   }
 
-  #HomeStructureInfo {
-    width: 65%;
+  #gobalInfo {
+    margin-right: 5%;
+    margin-left: 1em;
   }
 
+  #HomeStructureInfo,
   #homeStructureHeader {
-    width: 65%;
-  }
-  #gobalInfo {
-    width: 70%;
-    margin-right: 8%;
+    width: 70vw;
+    max-width: 1100px;
   }
   #infoDiv {
-    min-height: 45vh;
+    min-height: 60vh;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    padding-left: 5em;
+    padding-right: 3em;
   }
 
   #HomeStructureDescription {
     min-height: 15vh;
     text-align: center;
-  }
-
-  #infoDiv {
-    padding-left: 5em;
-    padding-right: 3em;
-  }
-  .reservation {
-    width: unset;
   }
 }

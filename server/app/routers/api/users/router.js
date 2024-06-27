@@ -13,29 +13,35 @@ const {
   edit,
   add,
   destroy,
-  checkLog
+  checkLog,
 } = require("../../../controllers/usersActions");
 
-const validateLogin = require("../../../services/ValidateLogin")
+const validateLogin = require("../../../services/ValidateLogin");
 
-const validateSignIn = require("../../../services/validateSignIn");
+const {
+  validateSignup,
+  validateProfileEdit,
+} = require("../../../services/validateUser");
+const uniqueEmailandUsername = require("../../../services/uniqueEmailAndUsername");
+const validatecookie = require("../../../services/validatecookie");
 
 // Route to get a list of categories
 router.get("/", browse);
 
 // Route to get a specific user by ID
-router.get("/:id", read);
+router.get("/:id", validatecookie, read);
 
 // Route to edit an existing user
-router.put("/:id", validateSignIn, edit);
+
+router.put("/:id", validateProfileEdit, uniqueEmailandUsername, edit);
 
 // Route to add a new user
-router.post("/", validateSignIn, add);
+router.post("/", validateSignup, uniqueEmailandUsername, add);
 
 // Route to check the login
 router.post("/login", validateLogin, checkLog);
 
-// Route to edit an existing user
+// Route to delete an existing users
 router.delete("/:id", destroy);
 
 /* ************************************************************************* */

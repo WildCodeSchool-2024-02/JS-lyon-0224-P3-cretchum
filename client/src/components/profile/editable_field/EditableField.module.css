@@ -1,0 +1,28 @@
+.fieldContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  padding-left: 15px;
+}
+.input {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  font-size: 16px;
+}
+
+.readOnlyInput {
+  border: none;
+  background-color: transparent;
+  color: inherit;
+  padding: 0;
+  margin: 15px;
+  font-size: inherit;
+  cursor: default;
+}

@@ -32,12 +32,10 @@ function HomeStructureList({ structure }) {
   );
 }
 
-export default HomeStructureList;
-
 HomeStructureList.propTypes = {
   structure: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    postal_code: PropTypes.number.isRequired,
+    postal_code: PropTypes.string.isRequired,
     is_professional: PropTypes.number.isRequired,
     cat: PropTypes.number.isRequired,
     dog: PropTypes.number.isRequired,
@@ -45,3 +43,5 @@ HomeStructureList.propTypes = {
     location: PropTypes.string.isRequired,
   }).isRequired,
 };
+
+export default HomeStructureList;

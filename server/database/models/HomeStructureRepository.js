@@ -12,22 +12,15 @@ class HomeStructureRepository extends AbstractRepository {
   async create(structure) {
     // Execute the SQL INSERT query to add a new program to the "program" table
     const [result] = await this.database.query(
-      `insert into ${this.table} (is_professional, name, lastname, firstname, phone_number, postal_code, location, mail, capacity, price, cat, dog, password, description) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `insert into ${this.table} (postal_code, capacity, is_professional, cat, dog, price, user_id) values (?, ?, ?, ?, ?, ?, ?)`,
       [
-        structure.isProfessional,
-        structure.name,
-        structure.lastname,
-        structure.firstname,
-        structure.phoneNumber,
         structure.postalCode,
-        structure.location,
-        structure.mail,
         structure.capacity,
-        structure.price,
+        structure.isProfessional,
         structure.cat,
         structure.dog,
-        structure.password,
-        structure.description,
+        structure.price,
+        structure.userId,
       ]
     );
 
@@ -40,7 +33,7 @@ class HomeStructureRepository extends AbstractRepository {
   async read(id) {
     // Execute the SQL SELECT query to retrieve a specific program by its ID
     const [rows] = await this.database.query(
-      `select * from ${this.table} where id = ?`,
+      `select * from ${this.table} JOIN user ON ${this.table}.user_id = user.id WHERE ${this.table}.id = ?`,
       [id]
     );
 
@@ -49,9 +42,9 @@ class HomeStructureRepository extends AbstractRepository {
   }
 
   async readAll() {
-    // Execute the SQL SELECT query to retrieve all programs from the "program" table
+    // Execute the SQL SELECT query to retrieve all homes strutures from the "home_structure" table
     const [rows] = await this.database.query(
-      `select * from ${this.table} ORDER BY capacity DESC`
+      `select * from ${this.table} JOIN user ON ${this.table}.user_id = user.id ORDER BY capacity DESC`
     );
 
     // Return the array of programs
@@ -63,22 +56,14 @@ class HomeStructureRepository extends AbstractRepository {
   async update(structure) {
     // Execute the SQL UPDATE query to update a specific program
     const [result] = await this.database.query(
-      `update ${this.table} set is_professionnal = ?, name = ?, lastname = ?, firstname = ?, phone_number = ?, postal_code = ?, location = ?, mail = ?, capacity = ?, price = ?, cat = ?, dog = ?, password = ?, description = ?, where id = ?`,
+      `update ${this.table} set postal_code = ?,capacity = ?,is_professional = ?, cat = ?, dog = ?, price =?  where id = ?`,
       [
-        structure.is_professional,
-        structure.name,
-        structure.lastname,
-        structure.firstname,
-        structure.phone_number,
         structure.postal_code,
-        structure.location,
-        structure.mail,
         structure.capacity,
-        structure.price,
+        structure.is_professional,
         structure.cat,
         structure.dog,
-        structure.password,
-        structure.description,
+        structure.price,
         structure.id,
       ]
     );
@@ -100,14 +85,40 @@ class HomeStructureRepository extends AbstractRepository {
     return result.affectedRows;
   }
 
-  // includes for the searchBar
-  async includes(search) {
+  // research for the searchBar limits the number of results and returns the results from the offset
+  async research(search, limit, offset) {
+    const parsedLimit = parseInt(limit, 10);
+    const parsedOffset = parseInt(offset, 10);
+
     const [result] = await this.database.query(
-      `SELECT id, name, phone_number, location, postal_code, is_professional, cat, dog, price FROM ${this.table} WHERE name like ? OR location like ?`,
+      `SELECT 
+         hs.id, 
+         u.firstname AS name, 
+         u.phone_number, 
+         u.location, 
+         hs.postal_code, 
+         hs.is_professional, 
+         hs.cat, 
+         hs.dog, 
+         hs.price 
+       FROM ${this.table} hs 
+       JOIN user u ON hs.user_id = u.id 
+       WHERE u.firstname LIKE ? OR u.location LIKE ? 
+       LIMIT ? OFFSET ? `,
+      [`%${search}%`, `%${search}%`, parsedLimit, parsedOffset]
+    );
+
+    // count number of total rows
+    const [count] = await this.database.query(
+      `SELECT COUNT(hs.id) AS total 
+       FROM ${this.table} hs 
+       JOIN user u ON hs.user_id = u.id 
+       WHERE u.firstname LIKE ? OR u.location LIKE ?`,
       [`%${search}%`, `%${search}%`]
     );
 
-    return result;
+    const totalRow = count[0];
+    return { result, totalRow };
   }
 
   async login(homeStructure) {

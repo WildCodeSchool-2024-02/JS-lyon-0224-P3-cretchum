@@ -2,7 +2,7 @@ const AbstractSeeder = require("./AbstractSeeder");
 
 class UserSeeder extends AbstractSeeder {
   constructor() {
-    super({ table: "users", truncate: true });
+    super({ table: "user", truncate: true });
   }
 
   run() {
@@ -23,9 +23,28 @@ class UserSeeder extends AbstractSeeder {
         username: "Lou69",
         phone_number: "0688263395",
         location: "Lyon 7",
-        mail: "lou.martin@exemple.com",
+        mail: "lou1.martin@exemple.com",
         password: "password",
         description: "J'ai 2 chiens :) !",
+      },
+      {
+        lastname: "Pedro",
+        firstname: "pascal",
+        username: "Pedro",
+        phone_number: "0688263395",
+        location: "Lyon 7",
+        mail: "lou2.martin@exemple.com",
+        password: "password",
+        description: "J'ai 2 chiens :) !",
+      },
+      {
+        lastname: "Mike",
+        firstname: "Mike",
+        username: "Au Bonheur du chien",
+        phone_number: "0688263395",
+        location: "Lyon 7",
+        mail: "lou3.martin@exemple.com",
+        password: "password",
       },
     ];
 

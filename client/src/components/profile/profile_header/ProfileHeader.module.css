@@ -1,0 +1,109 @@
+.profilePageHeader {
+  grid-area: profile-page-header;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 15px;
+  padding: 0.5em;
+  margin: 1em;
+  position: relative;
+  max-width: 1100px;
+}
+
+.profilePageImg {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-left: 15px;
+}
+
+.profilePageH1Container {
+  flex-grow: 1;
+  text-align: center;
+}
+.editProfile {
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.editButton {
+  bottom: 10px;
+  right: 10px;
+  color: #08256e;
+  border: none;
+  background-color: white;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.profilePagePen {
+  width: 16px;
+  height: 16px;
+  margin-left: 5px;
+}
+
+.input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  font-size: 16px;
+}
+
+.label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+address {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .profilePageH1Container {
+    position: static;
+    transform: none;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .profilePageHeader {
+    align-items: center;
+  }
+
+  .profilePageImg {
+    margin: 0;
+  }
+}
+
+@media (max-width: 550px) {
+  .profilePageHeader {
+    padding: 0.5em;
+    margin: 1em;
+  }
+
+  .profilePageImg {
+    width: 70px;
+    height: 70px;
+  }
+  .editProfile {
+    font-size: 0.9em;
+    flex-direction: row;
+    position: absolute;
+    gap: 5px;
+    background-color: transparent;
+    transform: translateY(6px);
+  }
+}
+
+@media (max-width: 1000px) {
+  .profilePageHeader {
+    max-width: 530px;
+  }
+}
