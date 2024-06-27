@@ -19,7 +19,7 @@ function HomeStructureDetails() {
           <ProfileHeader
             username={structures.username}
             isEditMode={false}
-            handleEditClick={() => {}}
+            handleEditClick={undefined}
             valueName=""
             setCustomer={() => {}}
           />
