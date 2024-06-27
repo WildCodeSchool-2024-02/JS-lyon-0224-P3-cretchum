@@ -7,15 +7,17 @@ const signUpAction = async ({ request }) => {
   try {
     const formData = await request.formData();
 
-    const lastname = formData.get("lastname");
-    const firstname = formData.get("firstname");
-    const username = formData.get("username");
-    const phoneNumber = formData.get("phone_number");
-    const location = formData.get("location");
-    const mail = formData.get("mail");
-    const password = formData.get("password");
-    const description = formData.get("description");
-    const buttonValue = formData.get("submitButton");
+    const {
+      lastname,
+      firstname,
+      username,
+      phone_number: phoneNumber,
+      location,
+      mail,
+      password,
+      description,
+      submitButton: buttonValue,
+    } = Object.fromEntries(formData.entries());
 
     const response = await fetch(`${URL}/users`, {
       method: "POST",
