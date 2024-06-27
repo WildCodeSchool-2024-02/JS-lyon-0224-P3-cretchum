@@ -139,6 +139,10 @@ const checkLog = async (req, res, next) => {
   }
 };
 
+const disconect = async (req, res) => {
+  res.cookie("cookie", "none", { expire: new Date(Date.now()) });
+  res.status(200).json();
+};
 // Ready to export the controller functions
 module.exports = {
   browse,
@@ -147,4 +151,5 @@ module.exports = {
   add,
   destroy,
   checkLog,
+  disconect,
 };
