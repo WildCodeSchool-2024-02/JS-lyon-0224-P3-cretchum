@@ -1,12 +1,11 @@
-import { useContext} from "react";
+import { useContext } from "react";
 
 import "./NavMenu.css";
 import { NavLink } from "react-router-dom";
 import { AuthentificationContext } from "../../use_context/authentification";
 
-
 function NavMenu() {
-  const {auth}= useContext(AuthentificationContext)
+  const { auth } = useContext(AuthentificationContext);
 
   return (
     <nav className="navMenu">
@@ -16,11 +15,20 @@ function NavMenu() {
             Page de recherche
           </NavLink>
         </div>
-        {auth === null ? <div className="navMenu-item">
-          <NavLink to="/connexion">Connexion</NavLink>
-        </div>:<div className="navMenu-item">
-          <NavLink to={`/profil/${auth.user.sub}`}>Profil</NavLink>
-        </div>}
+        {auth === null ? (
+          <>
+            <div className="navMenu-item">
+              <NavLink to="/connexion">Connexion</NavLink>
+            </div>
+            <div className="navMenu-item">
+              <NavLink to="/inscription">Inscription</NavLink>
+            </div>
+          </>
+        ) : (
+          <div className="navMenu-item">
+            <NavLink to={`/profil/${auth.user.sub}`}>Profil</NavLink>
+          </div>
+        )}
       </div>
     </nav>
   );

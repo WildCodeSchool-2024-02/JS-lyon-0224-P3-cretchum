@@ -33,6 +33,7 @@ const signUpAction = async ({ request }) => {
         password,
         description,
       }),
+      credentials: "include"
     });
 
     if (response.status === 201) {      

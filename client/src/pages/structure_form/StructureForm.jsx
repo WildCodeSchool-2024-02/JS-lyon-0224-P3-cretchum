@@ -1,10 +1,7 @@
 import { Form, Link } from "react-router-dom";
 import styles from "./StructureForm.module.css";
-import UseRefresh from "../../hooks/UseRefresh";
 
 function StructureForm() {
-  UseRefresh();
-
   return (
     <div id={styles.formContainer}>
       <Form method="post" id={styles.signInForm}>

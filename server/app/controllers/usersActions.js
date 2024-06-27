@@ -75,19 +75,19 @@ const add = async (req, res, next) => {
 
     const hasAnimals = false;
 
-    // Generate JWT token
-    const token = jwt.sign(
-      { sub: user.id, hasAnimals },
-      process.env.APP_SECRET,
-      { expiresIn: "1d" }
-    );
+          // Generate JWT token
+          const token = jwt.sign(
+            { sub: user.insertId, hasAnimals },
+            process.env.APP_SECRET,
+            { expiresIn: "1d" }
+          );
 
-    // Set the token in cookie
-    res.cookie("cookie", token, {
-      httpOnly: true,
-      sameSite: "Strict",
-      maxAge: 24 * 60 * 60 * 1000,
-    });
+          // Set the token in cookie
+          res.cookie("cookie", token, {
+            httpOnly: true,
+            sameSite: "Strict",
+            maxAge: 24 * 60 * 60 * 1000,
+          });
 
     // Respond with HTTP 201 (Created) and the ID of the newly inserted user
     res.status(201).json({ insertId });
