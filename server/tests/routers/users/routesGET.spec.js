@@ -1,6 +1,5 @@
-// Import required dependencies
 const jwt = require('jsonwebtoken');
-const { app, request, database } = require("../config");
+const { app, request, database } = require("../../config");
 
 // TEST : suite for the GET /api/users route
 
@@ -59,40 +58,5 @@ describe("GET /api/users/:id", () => {
     // Assertions
     expect(response.status).toBe(404);
     expect(response.body).toEqual({ error: "User not found" });
-  });
-});
-
-// TEST : suite for PUT Route to edit an existing user
-
-
-
-// TEST : suite for the POST /api/users route
-describe("POST /api/users", () => {
-  it("should add a new users successfully", async () => {
-    // Mock result of the database query
-    const result = [{ insertId: 1 }];
-
-    // Mock the implementation of the database query method
-    jest.spyOn(database, "query").mockImplementation(() => [result]);
-
-    // Fake user data
-    const fakeItem = {
-      lastname: 'Doe',
-      firstname: 'John',
-      username: 'johndoe',
-      phoneNumber: '0123456789',
-      location: 'Somewhere',
-      mail: 'john.doe@example.com',
-      password: 'strongpassword1234',
-      description: 'A description about John Doe',
-    };
-
-    // Send a POST request to the /api/users endpoint with a test user
-    const response = await request(app).post("/api/users").send(fakeItem);
-
-    // Assertions
-    expect(response.status).toBe(201);
-    expect(response.body).toBeInstanceOf(Object);
-    expect(response.body.insertId).toBe(result.insertId);
   });
 });
