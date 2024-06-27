@@ -38,6 +38,25 @@
   height: 75%;
 }
 
+.profilAnimalsList {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2%;
+}
+
+.deleteAnimalsButton {
+  border: none;
+  background-color: transparent;
+  text-decoration: underline;
+  color: rgb(194, 27, 27);
+}
+
+.addLink {
+  display: block;
+  text-align: center;
+  margin-top: 5%;
+}
+
 @media (max-width: 1000px) {
   .profilePageContainer {
     grid-template-columns: 530px;

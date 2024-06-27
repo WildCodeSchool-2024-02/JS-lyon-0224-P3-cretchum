@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useLoaderData, useParams, Link } from "react-router-dom";
 import notify from "../../utils/notify";
 import styles from "./ProfilePage.module.css";
 import ProfileHeader from "../../components/profile/profile_header/ProfileHeader";
@@ -12,6 +12,9 @@ function ProfilePage() {
   const [customer, setCustomer] = useState(useLoaderData());
   const [isEditMode, setIsEditMode] = useState(false);
   const [beforeChange, setBeforeChange] = useState(customer);
+  const { id } = useParams();
+  const [animalData, setAnimalData] = useState([]);
+
   const handleSave = () => {
     notify("Informations mises à jour avec succès !", "success");
   };
@@ -51,6 +54,49 @@ function ProfilePage() {
     }
     return setIsEditMode(!isEditMode);
   };
+
+  const handleDeleteAnimals = async (animalId, animalName) => {
+    try {
+      const response = await fetch(`${URL}/animal/${animalId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ animalId }),
+      });
+  
+      if (response.status !== 204) {
+        throw new Error("an error occured, try againt later");
+      }
+  
+      notify(`${animalName} a bien été supprimé`, "success");
+      return { success: true };
+    } catch (err) {
+      console.error("Fetch error:", err);
+      notify(
+        "Erreur lors de la suppression du profil. Veuillez réessayer plus tard.",
+        "error"
+      );
+      return {
+        error: "An error occurred during deletion. Please try again later.",
+      };
+    }
+  };
+  
+
+  useEffect(() => {
+    const fetchAnimals = async () => {
+      try {
+        const response = await fetch(`${URL}/animal/${id}`);
+        const data = await response.json();
+        setAnimalData(data);
+      } catch (err) {
+        console.error("Fetch profile error:", err);
+      }
+    };
+    fetchAnimals();
+  }, [URL, id, animalData]);
+
   return (
     <>
       <NavMenu />
@@ -113,6 +159,28 @@ function ProfilePage() {
           <ul className={styles.noBullets}>
             <li className={styles.profileLiReservation}>Aucune réservations</li>
           </ul>
+        </ProfileSection>
+
+        <ProfileSection title="Mes animaux">
+          {animalData.length > 0 && (
+            <ul>
+              {animalData.map((animal) => (
+                <li className={styles.profilAnimalsList} key={animal.id}>
+                  {animal.name}{" "}
+                  <button
+                    type="submit"
+                    onClick={() => handleDeleteAnimals(animal.id, animal.name)}
+                    className={styles.deleteAnimalsButton}
+                  >
+                    Supprimer
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+          <Link to={`/formulaire-animal/${id}`} className={styles.addLink}>
+            Ajouter des animaux
+          </Link>
         </ProfileSection>
       </div>
     </>

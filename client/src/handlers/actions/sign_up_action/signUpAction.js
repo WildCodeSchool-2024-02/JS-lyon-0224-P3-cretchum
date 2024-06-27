@@ -43,7 +43,7 @@ const signUpAction = async ({ request }) => {
         return redirect(`/inscription_accueil/${userId}`);
       }
       notify("Votre compte à bien été créer", "success");
-      return redirect("/page-recherche");
+      return redirect(`/formulaire-animal/${userId}`);
     }
     if (response.status !== 201) {
       const data = await response.json();

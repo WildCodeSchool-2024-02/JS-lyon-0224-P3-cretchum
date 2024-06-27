@@ -1,4 +1,5 @@
-#signInForm {
+#signInForm,
+#signInAnimal {
   margin-top: 30px;
   margin-bottom: 30px;
   display: flex;
@@ -14,19 +15,38 @@
   overflow: auto;
   min-width: 240px;
 }
+
+#signInAnimal {
+  justify-content: space-evenly;
+}
 .inputContainer {
   display: flex;
   flex-direction: column;
   width: 90%;
   padding-top: 0.4em;
 }
-#formContainer {
+
+#line {
+  border: none;
+  border-top: 1px solid var(--main-color);
+  width: 100%;
+  margin: 3% 0;
+}
+
+#formContainer,
+#formContainerAnimal {
   width: 100vw;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: (var(--main-color));
 }
+
+#formContainerAnimal {
+  height: auto;
+}
+
 #firstInput {
   padding-top: 0.8em;
 }

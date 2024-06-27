@@ -7,10 +7,12 @@ const router = express.Router();
 /* ************************************************************************* */
 
 const usersRouter = require("./users/router");
-const HomeStructureRouter = require("./home_structure/router")
+const HomeStructureRouter = require("./home_structure/router");
+const animalRouter = require("./animal/router");
 
 router.use("/users", usersRouter);
 router.use("/homestructure", HomeStructureRouter);
+router.use("/animal", animalRouter);
 
 /* ************************************************************************* */
 
