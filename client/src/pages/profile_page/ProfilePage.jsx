@@ -158,7 +158,7 @@ function ProfilePage() {
           </ul>
         </ProfileSection>
 
-        <ProfileSection title="Vos animaux">
+        <ProfileSection title="Mes animaux">
           {animalData.length > 0 && (
             <ul>
               {animalData.map((animal) => (
@@ -179,13 +179,6 @@ function ProfilePage() {
             Ajouter des animaux
           </Link>
         </ProfileSection>
-
-        {/* A faire avec PR 40 useContext */}
-        {/*         
-        <ProfileSection title="Les informations de votre structure">
-          {structureData.length > 0 ? : }
-        <Link to={`/inscription_accueil/${id}`}>Devenir structure d'accueil</Link>
-        </ProfileSection> */}
       </div>
     </>
   );
