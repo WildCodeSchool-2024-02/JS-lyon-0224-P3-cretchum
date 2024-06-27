@@ -41,7 +41,7 @@ const signUpAction = async ({ request }) => {
       if (buttonValue === "structure") {
         return redirect(`/inscription_accueil/${userId}`);
       }
-      return redirect("/page-recherche");
+      return redirect(`/formulaire-animal/${userId}`);
     }
     notify("Erreur lors de l'inscription !", "error");
     throw new Error("Registration error");
