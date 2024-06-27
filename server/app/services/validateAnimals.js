@@ -15,7 +15,7 @@ const animalsSchema = Joi.array().items(animalSchema);
 const validateAnimals = (req, res, next) => {
   const { error } = animalsSchema.validate(req.body, { abortEarly: true });
 
-  if (!error === true) {
+  if (error !== true) {
     next();
   } else {
     res.status(400).json({ validationErrors: error.details });

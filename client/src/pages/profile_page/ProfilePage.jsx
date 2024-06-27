@@ -63,7 +63,7 @@ function ProfilePage() {
       });
   
       if (response.status !== 204) {
-        throw new Error("Une erreur s'est produite, merci de réessayer plus tard");
+        throw new Error("an error occured, try againt later");
       }
   
       notify(`${animalName} a bien été supprimé`, "success");
