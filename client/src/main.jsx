@@ -9,6 +9,7 @@ import SignUp from "./pages/sign_up/SignUp";
 import SearchPage from "./pages/search_page/SearchPage";
 import HomeStructureDetails from "./pages/home_structure_details/HomeStructureDetails";
 import ProfilePage from "./pages/profile_page/ProfilePage";
+import NotFoundPage from "./pages/not_found_page/NotFoundPage";
 
 import structureFormAction from "./handlers/actions/structure_form_action/structureFormAction";
 import connexionAction from "./handlers/actions/connexion_action/connexionAction";
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
         path: "/reservation/:id",
         element: <HomeStructureDetails />,
         loader: homeStructureLoader,
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />,
       },
     ],
   },
