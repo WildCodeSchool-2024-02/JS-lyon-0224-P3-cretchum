@@ -23,7 +23,6 @@ function SignUp() {
               name="lastname"
               minLength={2}
               maxLength={55}
-              // pattern="^[a-zA-ZÀ-ÿ\s']+$"
               required
             />
           </div>
@@ -37,7 +36,6 @@ function SignUp() {
               name="firstname"
               minLength={2}
               maxLength={55}
-              pattern="^[a-zA-ZÀ-ÿ\s']+$"
               required
             />
           </div>
