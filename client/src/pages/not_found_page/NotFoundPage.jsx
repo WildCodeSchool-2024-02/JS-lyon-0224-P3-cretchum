@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import styles from "./NotFoundPage.module.css";
-import Chienchock from "../../assets/images/chienchock.png";
+import dogFriends from "../../assets/images/dogFriends.png";
 import NavMenu from "../../components/nav_menu/NavMenu";
 
 function NotFoundPage() {
@@ -15,7 +15,7 @@ function NotFoundPage() {
             Retour à la page d'accueil
           </button>
         </NavLink>
-        <img src={Chienchock} alt="trois chiens surpris" />
+        <img src={dogFriends} alt="trois chiens surpris" />
       </div>
     </>
   );
