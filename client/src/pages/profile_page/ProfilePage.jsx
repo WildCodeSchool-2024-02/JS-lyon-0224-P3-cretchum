@@ -19,7 +19,6 @@ function ProfilePage() {
     notify("Informations mises à jour avec succès !", "success");
   };
   const URL = import.meta.env.VITE_API_URL;
-
   const handleEditClick = async () => {
     if (isEditMode === true && beforeChange !== customer) {
       setIsEditMode(!isEditMode);
@@ -35,6 +34,10 @@ function ProfilePage() {
         if (response.status === 204) {
           setBeforeChange(customer);
           return handleSave();
+        }
+        if (response.status !== 201) {
+          const data = await response.json();
+          notify(data.validationErrors[0].message, "error");
         }
         throw new Error("Registration error");
       } catch (err) {
@@ -130,9 +133,9 @@ function ProfilePage() {
           <address className={styles.profileAddressContainer}>
             <EditableField
               label="Téléphone :"
-              value={customer.phone_number}
+              value={customer.phoneNumber}
               isEditMode={isEditMode}
-              valueName="phone_number"
+              valueName="phoneNumber"
               setCustomer={setCustomer}
             />
             <EditableField

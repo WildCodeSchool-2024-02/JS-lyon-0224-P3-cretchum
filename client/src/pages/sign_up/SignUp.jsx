@@ -43,7 +43,8 @@ function SignUp() {
         <div className={styles.desktopRow}>
           <div className={styles.inputContainer}>
             <label className={styles.formLabel} htmlFor="username">
-              Pseudo ou nom de votre organisme<span className={styles.isRequired}> *</span>
+              Pseudo ou nom de votre organisme
+              <span className={styles.isRequired}> *</span>
             </label>
             <input
               className={styles.inputSizeM}
@@ -62,7 +63,7 @@ function SignUp() {
               className={styles.inputSizeM}
               type="tel"
               name="phone_number"
-              pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"
+              placeholder="0612345678"
               required
             />
           </div>
@@ -104,14 +105,14 @@ function SignUp() {
             name="password"
             value={password}
             minLength={12}
-            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}" 
+            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}"
             onChange={(event) => handleInputChange(event, setPassword)}
             required
           />
           <section className={styles.passwordSmall}>
             <small>
-              ** Le mot de passe doit comprendre une majuscule, une minuscule, un
-              chiffre et un caractère spécial.
+              ** Le mot de passe doit comprendre une majuscule, une minuscule,
+              un chiffre et un caractère spécial.
             </small>
           </section>
         </div>

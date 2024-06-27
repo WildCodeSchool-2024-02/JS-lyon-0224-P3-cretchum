@@ -18,23 +18,25 @@ const {
 
 const validateLogin = require("../../../services/ValidateLogin");
 
-const validateSignUp = require("../../../services/validateSignUp");
-
-const validateProfileEdit = require("../../../services/ValidateProfileEdit");
-
+const {
+  validateSignup,
+  validateProfileEdit,
+} = require("../../../services/validateUser");
+const uniqueEmailandUsername = require("../../../services/uniqueEmailAndUsername");
 const validatecookie = require("../../../services/validatecookie");
 
 // Route to get a list of categories
 router.get("/", browse);
 
 // Route to get a specific user by ID
-router.get("/:id", validatecookie , read);
+router.get("/:id", validatecookie, read);
 
 // Route to edit an existing user
-router.put("/:id", validateProfileEdit, edit);
+
+router.put("/:id", validateProfileEdit, uniqueEmailandUsername, edit);
 
 // Route to add a new user
-router.post("/", validateSignUp, add);
+router.post("/", validateSignup, uniqueEmailandUsername, add);
 
 // Route to check the login
 router.post("/login", validateLogin, checkLog);

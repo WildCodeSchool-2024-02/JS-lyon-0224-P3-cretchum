@@ -7,16 +7,17 @@ const signUpAction = async ({ request }) => {
   try {
     const formData = await request.formData();
 
-    const lastname = formData.get("lastname");
-    const firstname = formData.get("firstname");
-    const username = formData.get("username");
-    const phoneNumber = formData.get("phone_number");
-    const location = formData.get("location");
-    const mail = formData.get("mail");
-    const password = formData.get("password");
-    const description = formData.get("description");
-
-    const buttonValue = formData.get("submitButton");
+    const {
+      lastname,
+      firstname,
+      username,
+      phone_number: phoneNumber,
+      location,
+      mail,
+      password,
+      description,
+      submitButton: buttonValue,
+    } = Object.fromEntries(formData.entries());
 
     const response = await fetch(`${URL}/users`, {
       method: "POST",
@@ -35,26 +36,26 @@ const signUpAction = async ({ request }) => {
       }),
     });
 
-    if (response.status === 201) {      
+    if (response.status === 201) {
       const newdata = await response.json();
       const userId = newdata.insertId;
       if (buttonValue === "structure") {
         return redirect(`/inscription_accueil/${userId}`);
       }
+      notify("Votre compte à bien été créer", "success");
       return redirect(`/formulaire-animal/${userId}`);
     }
-    notify("Erreur lors de l'inscription !", "error");
+    if (response.status !== 201) {
+      const data = await response.json();
+      notify(data.validationErrors[0].message, "error");
+    }
     throw new Error("Registration error");
   } catch (err) {
-    console.error("Fetch error:", err);
-    notify(
-      "Une erreur est survenue lors de l'inscription. Veuillez réessayer plus tard.",
-      "error"
-    );
+    notify("Une erreur est survenue lors de l'inscription.", "error");
     return {
-      error:
-        "An error occurred during registration. Please try again later.",
+      error: "An error occurred during registration.",
     };
-  }};
+  }
+};
 
 export default signUpAction;
