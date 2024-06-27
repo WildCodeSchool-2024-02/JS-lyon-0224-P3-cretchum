@@ -6,6 +6,7 @@ import AnimalsFormComponent from "../../components/animals_form_components/Anima
 function AnimalsForm() {
   const [animalNumber, SetAnimalsNumber] = useState(1);
   const [renderAnimals, SetRenderAnimals] = useState([]);
+  const numberAnimal = [1, 2, 3, 4, 5];
 
   const handleInputChange = (e) => {
     SetAnimalsNumber(e.target.value);
@@ -33,11 +34,9 @@ function AnimalsForm() {
             onChange={handleInputChange}
             required
           >
-            <option value={1}>1</option>
-            <option value={2}>2</option>
-            <option value={3}>3</option>
-            <option value={4}>4</option>
-            <option value={5}>5</option>
+             {numberAnimal.map((number) => (
+            <option key={number} value={number}>{number}</option>
+          ))}
           </select>
         </div>
 
