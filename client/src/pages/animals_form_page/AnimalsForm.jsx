@@ -19,17 +19,6 @@ function AnimalsForm() {
     SetRenderAnimals(an);
   }, [animalNumber]);
 
-  // Celui du dessous il vient d'un blog indien que j'ai trouvé, il a l'air plus propre mais peut être plus compliqué à expliquer
-  // je vous laisse dessider quel renderAniamls on garde
-
-  // const renderAnimals = () =>
-  //   Array.from({ length: animalNumber }, (index) => (
-  //     <>
-  //      <hr id={styles.line}/>
-  //       <AnimalsFormComponent key={index} />
-  //     </>
-  // ));
-
   return (
     <div id={styles.formContainerAnimal}>
       <Form method="post" id={styles.signInAnimal}>

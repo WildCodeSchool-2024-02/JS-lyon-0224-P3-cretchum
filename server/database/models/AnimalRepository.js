@@ -3,7 +3,7 @@ const AbstractRepository = require("./AbstractRepository");
 class AnimalRepository extends AbstractRepository {
   constructor() {
     // Call the constructor of the parent class (AbstractRepository)
-    // and pass the table name "program" as configuration
+    // and pass the table name "animal" as configuration
     super({ table: "animal" });
   }
 
@@ -25,15 +25,15 @@ class AnimalRepository extends AbstractRepository {
       [allValues]
     );
 
-    // Return the ID of the newly inserted program
+    // Return the ID of the newly inserted animal
     return result.insertId;
   }  
 
   async readAll() {
-    // Execute the SQL SELECT query to retrieve all programs from the "program" table
+    // Execute the SQL SELECT query to retrieve all animals from the "animal" table
     const [rows] = await this.database.query(`select * from ${this.table} JOIN user ON ${this.table}.user_id = user.id`);
 
-    // Return the array of programs
+    // Return the array of animals
     return rows;
   }
 
@@ -41,20 +41,20 @@ class AnimalRepository extends AbstractRepository {
   // The Rs of CRUD - Read operations
 
   async read(id) {
-    // Execute the SQL SELECT query to retrieve a specific program by its ID
+    // Execute the SQL SELECT query to retrieve a specific animal by its ID
     const [rows] = await this.database.query(
       `select ${this.table}.id, name, species, is_sterilized, is_tattooed_chipped, breed from ${this.table} JOIN user ON ${this.table}.user_id = user.id WHERE ${this.table}.user_id = ?`,
       [id]
     );
 
-    // Return the first row of the result, which represents the program
+    // Return the first row of the result, which represents the animal
     return rows;
   }
 
   // The D of CRUD - Delete operation
 
   async delete(id) {
-    // Execute the SQL DELETE query to delete a specific program
+    // Execute the SQL DELETE query to delete a specific animal
     const [result] = await this.database.query(
       `delete from ${this.table} where id = ?`,
       [id]
