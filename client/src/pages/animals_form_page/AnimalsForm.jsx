@@ -12,11 +12,11 @@ function AnimalsForm() {
   };
 
   useEffect(() => {
-    const an = [];
+    const animalArray = [];
     for (let i = 0; i < animalNumber; i += 1) {
-      an.push(<hr id={styles.line} />, <AnimalsFormComponent key={i} />);
+      animalArray.push(<hr id={styles.line} />, <AnimalsFormComponent key={i} />);
     }
-    SetRenderAnimals(an);
+    SetRenderAnimals(animalArray);
   }, [animalNumber]);
 
   return (
