@@ -16,6 +16,7 @@ const {
 } = require("../../../controllers/home_structureActions");
 
 const validateHomeStructure = require("../../../services/ValidateHomeStructure");
+const validateCookie = require("../../../services/validatecookie");
 
 
 // Route to get a list of categories
@@ -28,7 +29,7 @@ router.get("/:id", read);
 router.put("/:id", edit);
 
 // Route to add a new user
-router.post("/", validateHomeStructure, add);
+router.post("/", validateHomeStructure, validateCookie, add);
 
 // Route to edit an existing user
 router.delete("/:id", destroy);
