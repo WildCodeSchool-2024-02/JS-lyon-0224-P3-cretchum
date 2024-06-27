@@ -1,32 +1,32 @@
 import PropTypes from "prop-types";
 import styles from "./EditableTextarea.module.css";
 
-function EditableTextarea({ label, value, isEditMode, onChange = () => {}, labelClass = "" }) {
+function EditableTextarea({ value, isEditMode, valueName, setCustomer }) {
+  const onChange = (e, champ) => {
+    setCustomer((user) => ({ ...user, [champ]: e.target.value }));
+  };
+
   return (
-    <div>
-      <label className={labelClass}>{label}</label>
+    <div className={styles.textareaContainer}>
       <textarea
+        className={
+          isEditMode === false ? styles.readOnlyTextarea : styles.textarea
+        }
         defaultValue={value}
+        onChange={
+          isEditMode === true ? (e) => onChange(e, valueName) : undefined
+        }
         readOnly={isEditMode !== true}
-        onChange={isEditMode === true ? onChange : undefined}
-        className={`${styles.textarea} ${!isEditMode ? styles.readOnlyTextarea : ""}`}
       />
     </div>
   );
 }
 
 EditableTextarea.propTypes = {
-  label: PropTypes.string,
   value: PropTypes.string.isRequired,
   isEditMode: PropTypes.bool.isRequired,
-  onChange: PropTypes.func,
-  labelClass: PropTypes.string,
-};
-
-EditableTextarea.defaultProps = {
-  onChange: () => {},
-  label: "",
-  labelClass: "",
+  setCustomer: PropTypes.func.isRequired,
+  valueName: PropTypes.string.isRequired,
 };
 
 export default EditableTextarea;

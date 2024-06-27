@@ -8,21 +8,13 @@ const router = express.Router();
 
 // Import users-related actions
 const {
-  browse,
   read,
-  edit,
+  browse,
   add,
   destroy,
-  checkLog,
-} = require("../../../controllers/usersActions");
+} = require("../../../controllers/animalActions");
 
-const validateLogin = require("../../../services/ValidateLogin");
-
-const {
-  validateSignup,
-  validateProfileEdit,
-} = require("../../../services/validateUser");
-const uniqueEmailandUsername = require("../../../services/uniqueEmailAndUsername");
+const validateAnimals = require("../../../services/validateAnimals")
 
 // Route to get a list of categories
 router.get("/", browse);
@@ -30,17 +22,10 @@ router.get("/", browse);
 // Route to get a specific user by ID
 router.get("/:id", read);
 
-// Route to edit an existing user
-
-router.put("/:id", validateProfileEdit, uniqueEmailandUsername, edit);
-
 // Route to add a new user
-router.post("/", validateSignup, uniqueEmailandUsername, add);
+router.post("/",validateAnimals, add);
 
-// Route to check the login
-router.post("/login", validateLogin, checkLog);
-
-// Route to delete an existing users
+// Route to edit an existing user
 router.delete("/:id", destroy);
 
 /* ************************************************************************* */

@@ -16,7 +16,13 @@ function HomeStructureDetails() {
       <NavMenu />
       <div id="HomeStructurePage">
         <header id="homeStructureHeader">
-          <ProfileHeader username={structures.username} />
+          <ProfileHeader
+            username={structures.username}
+            isEditMode={false}
+            handleEditClick={undefined}
+            valueName=""
+            setCustomer={() => {}}
+          />
         </header>
         <section id="HomeStructureInfo">
           <div id="gobalInfo">

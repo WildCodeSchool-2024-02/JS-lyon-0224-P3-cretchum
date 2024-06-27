@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import LogoCicorne from "../../../assets/logo/cicorne.png";
 import styles from "./ProfileHeader.module.css";
+import DeleteProfile from "./delete_profile/DeleteProfile";
 
 function ProfileHeader({
   username,
@@ -46,7 +47,7 @@ function ProfileHeader({
           >
             {isEditMode === true ? "Sauvegarder" : "Modifier"}
           </button>
-
+          <DeleteProfile />
         </div>
       )}
     </header>
