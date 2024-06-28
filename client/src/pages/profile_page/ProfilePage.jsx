@@ -19,9 +19,10 @@ function ProfilePage() {
     notify("Informations mises à jour avec succès !", "success");
   };
   const URL = import.meta.env.VITE_API_URL;
+
   const handleEditClick = async () => {
     if (isEditMode === true && beforeChange !== customer) {
-      setIsEditMode(!isEditMode);
+      // setIsEditMode(!isEditMode);
       try {
         const response = await fetch(`${URL}/users/${customer.id}`, {
           method: "PUT",
@@ -33,6 +34,7 @@ function ProfilePage() {
 
         if (response.status === 204) {
           setBeforeChange(customer);
+          setIsEditMode(!isEditMode);
           return handleSave();
         }
         if (response.status !== 201) {
@@ -64,11 +66,11 @@ function ProfilePage() {
         },
         body: JSON.stringify({ animalId }),
       });
-  
+
       if (response.status !== 204) {
         throw new Error("an error occured, try againt later");
       }
-  
+
       notify(`${animalName} a bien été supprimé`, "success");
       return { success: true };
     } catch (err) {
@@ -82,7 +84,6 @@ function ProfilePage() {
       };
     }
   };
-  
 
   useEffect(() => {
     const fetchAnimals = async () => {
