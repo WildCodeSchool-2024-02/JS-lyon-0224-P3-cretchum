@@ -38,10 +38,6 @@ class UserRepository extends AbstractRepository {
       [id]
     );
 
-    if (!rows[0]) {
-      return null;
-    }
-
     // Return the first row of the result, which represents the user
     const phoneNumber = rows[0].phone_number;
     rows[0].phoneNumber = phoneNumber;
