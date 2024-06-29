@@ -29,12 +29,13 @@ const animalsFormAction = async ({ request, params }) => {
       };
       animals.push(animal);
     }
-    const response = await fetch(`${URL}/animal`, {
+    const response = await fetch(`${URL}/animal/${userId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(animals),
+      credentials: 'include',
     });
 
     if (response.status === 201) {

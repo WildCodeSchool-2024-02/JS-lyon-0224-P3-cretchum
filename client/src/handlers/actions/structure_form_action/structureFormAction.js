@@ -15,7 +15,7 @@ const structureFormAction = async ({ request, params }) => {
       const dog = formData.get("dog");
       const userId = params.id;
       const response = await fetch(
-        `${URL}/homestructure`,
+        `${URL}/homestructure/${userId}`,
         {
           method: "POST",
           headers: {
@@ -30,6 +30,7 @@ const structureFormAction = async ({ request, params }) => {
             dog,
             userId,
           }),
+          credentials: 'include',
         }
       );
 

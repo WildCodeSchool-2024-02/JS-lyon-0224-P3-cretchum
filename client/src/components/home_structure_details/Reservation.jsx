@@ -1,5 +1,5 @@
-import { useEffect, useState, useContext } from "react";
-import { Form } from "react-router-dom";
+import { useEffect, useState, useMemo } from "react";
+import { Form, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./Reservation.css";
 
@@ -9,13 +9,31 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import "dayjs/locale/fr";
 
-import { AuthentificationContext } from "../../use_context/authentification";
+const URL = import.meta.env.VITE_API_URL;
 
-function Reservation({ priceday }) {
-  const { auth } = useContext(AuthentificationContext);
+function Reservation({ priceday, auth }) {
+  const [animalData, setAnimalData] = useState([]);
+  useEffect(() => {
+    if (auth !== null && (auth !== false && auth.user.hasAnimals !== false)) {
+      const fetchAnimals = async () => {
+        try {
+          const response = await fetch(`${URL}/animal/${auth.user.sub}`);
+          if (response.status === 200) {
+            const data = await response.json();
+            setAnimalData(data);
+          } else {
+            console.error("Fetch profile error:", response.statusText);
+          }
+        } catch (err) {
+          console.error("Fetch profile error:", err);
+        }
+      };
+      fetchAnimals();
+    }
+  }, [auth]);
+
   // Get today date
-
-  const todayDate = dayjs();
+  const todayDate = useMemo(() => dayjs(), []);
 
   const [startingDate, setStartingDate] = useState(todayDate);
   const [endingDate, setEndingDate] = useState(todayDate);
@@ -49,46 +67,64 @@ function Reservation({ priceday }) {
       <Form method="post" id="reservationForm">
         <div id="userChoice">
           <h2 id="totalPrice">TOTAL {price} €</h2>
-          <div id="datesChoice">
-            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="fr">
-              <div className="datesInput">
-                <DatePicker
-                  label="Début"
-                  name="startingDate"
-                  value={startingDate}
-                  onChange={(newValue) => setStartingDate(newValue)}
-                  minDate={todayDate}
-                />
-              </div>
 
-              <div className="datesInput">
-                <DatePicker
-                  label="Fin"
-                  name="endingDate"
-                  value={endingDate}
-                  onChange={(newValue) => setEndingDate(newValue)}
-                  minDate={startingDate}
-                />
-              </div>
-            </LocalizationProvider>
-          </div>
-          {auth === null || auth.user.hasAnimals === false ? (
-            <p>Vous devez avoir au moins un animal enregistré pour réserver</p>
+          {auth !== null && (auth === false || auth.user.hasAnimals === false) ? (
+            <>
+              <p id="authDenied">
+                Vous devez avoir au moins un animal enregistré pour réserver
+              </p>
+              <Link to="/connexion" id="deniedLink">
+                Me Connecter
+              </Link>
+            </>
           ) : (
-            <div id="reservationPets">
-              <h4 id="resaH4">Pour qui ?</h4>
-              <select className="filterInput reservationInput">
-                <option value="tous">Tous mes animaux</option>;
-                <option value="animal1">nom1</option>
-                <option value="animal2">nom2</option>
-              </select>
-            </div>
-          )}
+            <>
+              <div id="datesChoice">
+                <LocalizationProvider
+                  dateAdapter={AdapterDayjs}
+                  adapterLocale="fr"
+                >
+                  <div className="datesInput">
+                    <DatePicker
+                      label="Début"
+                      name="startingDate"
+                      value={startingDate}
+                      onChange={(newValue) => setStartingDate(newValue)}
+                      minDate={todayDate}
+                    />
+                  </div>
 
-          <button type="submit" className="searchBtn buttonType1"
-          disabled={auth === null || auth.user.hasAnimals === false} >
-            Réserver
-          </button>
+                  <div className="datesInput">
+                    <DatePicker
+                      label="Fin"
+                      name="endingDate"
+                      value={endingDate}
+                      onChange={(newValue) => setEndingDate(newValue)}
+                      minDate={startingDate}
+                    />
+                  </div>
+                </LocalizationProvider>
+              </div>
+              <div id="reservationPets">
+                <h4 id="resaH4">Pour qui ?</h4>
+                <select className="filterInput reservationInput">
+                  <option value="tous">Tous mes animaux</option>;
+                  {animalData.map((animal) => (
+                    <option key={animal.id} value={animal.name}>
+                      {animal.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <button
+                type="submit"
+                className="searchBtn buttonType1"
+                disabled={auth !== null || auth !== false || auth.user.hasAnimals === false}
+              >
+                Réserver
+              </button>
+            </>
+          )}
         </div>
       </Form>
       <div id="reservationDetails">
@@ -104,6 +140,12 @@ function Reservation({ priceday }) {
 
 Reservation.propTypes = {
   priceday: PropTypes.number.isRequired,
+  auth: PropTypes.shape({ 
+    user: PropTypes.shape({
+      hasAnimals: PropTypes.bool.isRequired,
+      sub : PropTypes.number.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default Reservation;

@@ -76,7 +76,7 @@ const add = async (req, res, next) => {
 
           // Generate JWT token
           const token = jwt.sign(
-            { sub: user.insertId, hasAnimals },
+            { sub: insertId, hasAnimals },
             process.env.APP_SECRET,
             { expiresIn: "1d" }
           );
@@ -89,7 +89,7 @@ const add = async (req, res, next) => {
           });
 
     // Respond with HTTP 201 (Created) and the ID of the newly inserted user
-    res.status(201).json({ insertId });
+    res.status(201).json({ insertId, token});
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);

@@ -1,4 +1,5 @@
 import { useLoaderData } from "react-router-dom";
+import { useContext } from "react";
 
 import ProfileHeader from "../../components/profile/profile_header/ProfileHeader";
 import ProfileSection from "../../components/profile/profile_section/ProfileSection";
@@ -7,9 +8,12 @@ import UserAnimal from "../../components/search_page_components/user_animal/User
 import IsProfessionnal from "../../components/search_page_components/is_professionnal/isProfessional";
 import NavMenu from "../../components/nav_menu/NavMenu";
 import "./HomeStructureDetails.css";
+import { AuthentificationContext } from "../../use_context/authentification";
+
 
 function HomeStructureDetails() {
   const structures = useLoaderData();
+  const { auth } = useContext(AuthentificationContext);
 
   return (
     <>
@@ -64,7 +68,7 @@ function HomeStructureDetails() {
             )}
           </div>
           <aside className="reservation">
-            <Reservation priceday={structures.price} />
+            <Reservation priceday={structures.price} auth={auth} />
           </aside>
         </section>
       </div>

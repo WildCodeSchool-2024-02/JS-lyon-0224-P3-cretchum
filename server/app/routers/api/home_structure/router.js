@@ -17,6 +17,8 @@ const {
 
 const validateHomeStructure = require("../../../services/ValidateHomeStructure");
 
+const deniedAccess = require("../../../services/deniedAccess");
+
 
 // Route to get a list of categories
 router.get("/", browse);
@@ -28,7 +30,7 @@ router.get("/:id", read);
 router.put("/:id", edit);
 
 // Route to add a new user
-router.post("/", validateHomeStructure, add);
+router.post("/:id", validateHomeStructure, deniedAccess, add);
 
 // Route to edit an existing user
 router.delete("/:id", destroy);

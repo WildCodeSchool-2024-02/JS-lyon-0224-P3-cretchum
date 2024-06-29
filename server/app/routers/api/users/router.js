@@ -18,7 +18,7 @@ const {
 
 const validateLogin = require("../../../services/ValidateLogin");
 
-const deniedAcces = require("../../../services/deniedAccess");
+const deniedAccess = require("../../../services/deniedAccess");
 
 const {
   validateSignup,
@@ -30,7 +30,7 @@ const uniqueEmailandUsername = require("../../../services/uniqueEmailAndUsername
 router.get("/", browse);
 
 // Route to get a specific user by ID
-router.get("/:id", deniedAcces, read);
+router.get("/:id", deniedAccess, read);
 
 // Route to edit an existing user
 

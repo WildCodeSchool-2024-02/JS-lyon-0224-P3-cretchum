@@ -20,7 +20,7 @@ function App() {
         theme="colored"
       />
       <AuthentificationProvider>
-      <Outlet />
+        <Outlet />
       </AuthentificationProvider>
     </>
   );

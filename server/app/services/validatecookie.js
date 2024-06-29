@@ -3,10 +3,6 @@ const jwt = require('jsonwebtoken');
 const validatecookie = (req, res, next) => {
   const token = req.cookies.cookie;
 
-  if (token === undefined) {
-    return res.status(401).json({ error: 'Accès refusé' });
-  }
-
   try {
     const decoded = jwt.verify(token, process.env.APP_SECRET);
     res.setHeader('Access-Control-Allow-Credentials', 'true');

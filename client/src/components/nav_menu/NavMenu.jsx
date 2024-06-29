@@ -11,22 +11,22 @@ function NavMenu() {
     <nav className="navMenu">
       <div className="navMenu-container">
         <div className="navMenu-item">
-          <NavLink id="searchPage" to="/page-recherche">
+          <NavLink className="linkItem" to="/page-recherche">
             Page de recherche
           </NavLink>
         </div>
-        {auth === null ? (
+        {auth === null || auth === false ? (
           <>
             <div className="navMenu-item">
               <NavLink to="/connexion">Connexion</NavLink>
             </div>
             <div className="navMenu-item">
-              <NavLink to="/inscription">Inscription</NavLink>
+              <NavLink to="/inscription" >Inscription</NavLink>
             </div>
           </>
         ) : (
           <div className="navMenu-item">
-            <NavLink to={`/profil/${auth.user.sub}`}>Profil</NavLink>
+            <NavLink to={`/profil/${auth.user.sub}`} className="linkItem">Profil</NavLink>
           </div>
         )}
       </div>

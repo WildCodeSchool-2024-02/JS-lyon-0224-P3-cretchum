@@ -18,6 +18,7 @@ import signUpAction from "./handlers/actions/sign_up_action/signUpAction";
 import profileLoader from "./handlers/loader/profile_loader/profileLoader";
 import homeStructureLoader from "./handlers/loader/home_structure_loader/homeStructureLoader";
 import animalsFormAction from "./handlers/actions/animals_form_actions/animalsFormActions";
+import ProtectedPage from "./pages/protected_page/ProtectedPage"
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
         path: "/reservation/:id",
         element: <HomeStructureDetails />,
         loader: homeStructureLoader,
+      },
+      {
+        path: "acces_refuse",
+        element: <ProtectedPage />,
       },
       {
         path: "*",
