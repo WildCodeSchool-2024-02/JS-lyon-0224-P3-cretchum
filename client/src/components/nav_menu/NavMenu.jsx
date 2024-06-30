@@ -6,7 +6,7 @@ import notify from "../../utils/notify";
 import { AuthentificationContext } from "../../use_context/authentification";
 
 function NavMenu() {
-  const { auth } = useContext(AuthentificationContext);
+  const { auth, update, setUpdate } = useContext(AuthentificationContext);
 
   const URL = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
@@ -19,6 +19,7 @@ function NavMenu() {
         credentials: "include",
       });
       if (response.status === 200) {
+        setUpdate(!update)
         notify("Déconnecté avec succes", "success");
         setTimeout(navigate("/"), 5000);
       }

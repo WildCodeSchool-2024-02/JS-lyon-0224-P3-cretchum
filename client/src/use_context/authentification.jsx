@@ -26,7 +26,7 @@ function AuthentificationProvider({ children }) {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [update]);
 
 
   const value = useMemo(() => ({ auth, update, setUpdate}), [auth, update]);
