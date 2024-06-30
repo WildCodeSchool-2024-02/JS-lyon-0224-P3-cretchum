@@ -60,13 +60,13 @@ const add = async (req, res, next) => {
     // Hachage password
     // Set the number of rounds to generate the salt used in the hash
     const saltRounds = 10;
-
+    
     // Hide user password with bcrypt and number of saltRounds
     const hashedPassword = await bcrypt.hash(user.password, saltRounds);
-
+    
     // Replace plaintext password with hashed password
     user.password = hashedPassword;
-
+    
     // Insert the user into the database
     const insertId = await tables.user.create(user);
 

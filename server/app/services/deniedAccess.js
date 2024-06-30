@@ -8,7 +8,8 @@ const deniedAccess = (req, res, next) => {
     req.user = decoded;
 
     const userId = req.params.id;
-    if (req.user.sub !== parseInt(userId, 10)) {
+
+    if (parseInt(req.user.sub, 10) !== parseInt(userId, 10)) {
       return res.sendStatus(403);
     }
     return next();

@@ -6,9 +6,9 @@ function DeniedAccess() {
     const { auth } = useContext(AuthentificationContext);
     const { id } = useParams();
     const navigate = useNavigate();
-
+    
     useEffect(() => {
-        if (auth !== null && (auth === false || auth.user.sub !== parseInt(id, 10))) {
+        if (auth !== null && (auth === false || parseInt(auth.user.sub, 10) !== parseInt(id, 10))) {
             navigate("/acces_refuse");
         }
     }, [auth, id, navigate]);
