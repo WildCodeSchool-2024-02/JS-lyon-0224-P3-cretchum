@@ -1,12 +1,31 @@
 import { useContext } from "react";
 
+import { NavLink, useNavigate } from "react-router-dom";
 import "./NavMenu.css";
-import { NavLink } from "react-router-dom";
+import notify from "../../utils/notify";
 import { AuthentificationContext } from "../../use_context/authentification";
 
 function NavMenu() {
   const { auth } = useContext(AuthentificationContext);
 
+  const URL = import.meta.env.VITE_API_URL;
+  const navigate = useNavigate();
+
+  const disconnect = async () => {
+    try {
+      const response = await fetch(`${URL}/users/logout`, {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        credentials: "include",
+      });
+      if (response.status === 200) {
+        notify("Déconnecté avec succes", "success");
+        setTimeout(navigate("/"), 5000);
+      }
+    } catch (error) {
+      notify("Erreur", "error");
+    }
+  };
   return (
     <nav className="navMenu">
       <div className="navMenu-container">
@@ -29,6 +48,13 @@ function NavMenu() {
             <NavLink to={`/profil/${auth.user.sub}`} className="linkItem">Profil</NavLink>
           </div>
         )}
+        <button
+          className="navMenu-item disconnect"
+          type="button"
+          onClick={disconnect}
+        >
+          Déconnexion
+        </button>
       </div>
     </nav>
   );

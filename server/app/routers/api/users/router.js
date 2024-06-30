@@ -14,6 +14,7 @@ const {
   add,
   destroy,
   checkLog,
+  disconect,
 } = require("../../../controllers/usersActions");
 
 const validateLogin = require("../../../services/ValidateLogin");
@@ -41,6 +42,9 @@ router.post("/", validateSignup, uniqueEmailandUsername, add);
 
 // Route to check the login
 router.post("/login", validateLogin, checkLog);
+
+// Route to logout
+router.post("/logout", disconect);
 
 // Route to delete an existing users
 router.delete("/:id", destroy);
