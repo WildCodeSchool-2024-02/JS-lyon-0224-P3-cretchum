@@ -40,21 +40,27 @@ function NavMenu() {
               <NavLink to="/connexion">Connexion</NavLink>
             </div>
             <div className="navMenu-item">
-              <NavLink to="/inscription" >Inscription</NavLink>
+              <NavLink to="/inscription">Inscription</NavLink>
             </div>
           </>
         ) : (
-          <div className="navMenu-item">
-            <NavLink to={`/profil/${auth.user.sub}`} className="linkItem">Profil</NavLink>
-          </div>
+          <>
+            <div className="navMenu-item">
+              <NavLink to={`/profil/${auth.user.sub}`} className="linkItem">
+                Profil
+              </NavLink>
+            </div>
+            <div className="navMenu-item">
+              <button
+                className="navMenu-item disconnect"
+                type="button"
+                onClick={disconnect}
+              >
+                Déconnexion
+              </button>
+            </div>
+          </>
         )}
-        <button
-          className="navMenu-item disconnect"
-          type="button"
-          onClick={disconnect}
-        >
-          Déconnexion
-        </button>
       </div>
     </nav>
   );

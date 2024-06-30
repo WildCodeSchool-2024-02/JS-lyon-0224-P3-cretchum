@@ -16,15 +16,15 @@
 .navMenu-item {
   font-size: var(--base-font-size);
   cursor: pointer;
-  margin-bottom: 10px;
-  margin-left: 5%;
+  margin-left: 2%;
 }
 
 nav a {
   text-decoration: none;
   color: black;
 }
-.linkItem.active {
+.navMenu-item.active,
+.navMenu-item > .linkItem.active {
   display: none;
 }
 .disconnect {
