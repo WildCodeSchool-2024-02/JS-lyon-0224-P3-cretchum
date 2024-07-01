@@ -82,8 +82,7 @@ function AnimalsForm() {
     const animalArray = [];
     for (let i = 0; i < animalNumber; i += 1) {
       animalArray.push(
-        <hr id={styles.line} key={`hr${i}`} />,
-        <AnimalsFormComponent key={`animal${i}`} />
+        <AnimalsFormComponent key={i} />
       );
     }
     SetRenderAnimals(animalArray);
