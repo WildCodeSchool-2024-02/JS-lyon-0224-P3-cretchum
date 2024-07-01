@@ -9,6 +9,11 @@ const deniedAccess = (req, res, next) => {
 
     const userId = req.params.id;
 
+
+  if (token === undefined) {
+    return res.status(401).json({ error: 'Accès refusé' });
+  }
+
     if (parseInt(req.user.sub, 10) !== parseInt(userId, 10)) {
       return res.status(403).json({
         validationErrors: [{ message: "Vous n'êtes pas autorisé à effectuer cette action" }],

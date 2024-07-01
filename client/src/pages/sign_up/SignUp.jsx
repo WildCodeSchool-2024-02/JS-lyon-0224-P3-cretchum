@@ -127,7 +127,7 @@ function SignUp() {
           </div>
         </div>
         <div className={styles.inputContainer}>
-          <label className={styles.formLabel} htmlFor="location">
+          <label className={styles.formLabel} htmlFor="address">
             Ville <span className={styles.isRequired}> *</span>
           </label>
           <input
@@ -196,11 +196,12 @@ function SignUp() {
           </div>
         </div>
         <div className={`${styles.inputContainer} ${styles.description}`}>
-          <label className={styles.formLabel} htmlFor="description">
+          <label className={styles.formLabel} htmlFor="Description">
             Description
           </label>
           <textarea
             className={styles.inputDesc}
+            type="text"
             name="description"
             maxLength={800}
           />

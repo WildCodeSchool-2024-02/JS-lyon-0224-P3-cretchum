@@ -23,7 +23,7 @@ nav a {
   text-decoration: none;
   color: black;
 }
-.navMenu-item.active,
+
 .navMenu-item > .linkItem.active {
   display: none;
 }
