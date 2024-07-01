@@ -22,7 +22,6 @@ function ProfilePage() {
 
   const handleEditClick = async () => {
     if (isEditMode === true && beforeChange !== customer) {
-      // setIsEditMode(!isEditMode);
       try {
         const response = await fetch(`${URL}/users/${customer.id}`, {
           method: "PUT",
