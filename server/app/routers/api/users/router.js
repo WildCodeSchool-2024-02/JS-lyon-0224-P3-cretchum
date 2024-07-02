@@ -19,18 +19,19 @@ const {
 
 const validateLogin = require("../../../services/ValidateLogin");
 
+const deniedAccess = require("../../../services/deniedAccess");
+
 const {
   validateSignup,
   validateProfileEdit,
 } = require("../../../services/validateUser");
 const uniqueEmailandUsername = require("../../../services/uniqueEmailAndUsername");
-const validatecookie = require("../../../services/validatecookie");
 
 // Route to get a list of categories
 router.get("/", browse);
 
 // Route to get a specific user by ID
-router.get("/:id", validatecookie, read);
+router.get("/:id", deniedAccess, read);
 
 // Route to edit an existing user
 

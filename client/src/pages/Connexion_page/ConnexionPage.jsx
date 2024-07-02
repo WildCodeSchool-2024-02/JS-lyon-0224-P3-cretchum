@@ -1,14 +1,55 @@
-import { Link, Form } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate} from "react-router-dom";
+import { useState, useContext } from "react";
 import Patoune from "../../assets/logo/1patounes.png";
 import "./ConnexionPage.css";
+import notify from "../../utils/notify";
+import { AuthentificationContext } from "../../use_context/authentification";
+
 
 function ConnexionPage() {
+  const URL = import.meta.env.VITE_API_URL;
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [passwordform, setPasswordform] = useState("");
+  const navigate = useNavigate();
+  const { update, setUpdate } = useContext(AuthentificationContext);
 
   const handleInputChange = (event, setState) => {
     setState(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const formData = new FormData(event.target);
+      const mail = formData.get("mail");
+      const password = formData.get("password");
+
+      const response = await fetch(`${URL}/users/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ mail, password }),
+        credentials: "include",
+      });
+
+      if (response.status === 200) {
+        setUpdate(!update)
+        notify("Connexion réussie !", "success");
+        return navigate("/page-recherche");
+      }
+      notify("Email ou mot de passe incorrect !", "error");
+      return { error: "incorrect mail or password" };
+    } catch (err) {
+      notify(
+        "Une erreur est survenue lors de la connexion. Veuillez réessayer plus tard.",
+        "error"
+      );
+      console.error("Login error:", err);
+      return {
+        error: "An error occurred during login. Please try again later.",
+      };
+    }
   };
 
   return (
@@ -19,7 +60,7 @@ function ConnexionPage() {
       </section>
 
       <section id="connexionBody">
-        <Form method="post" id="connexionPageDiv">
+        <form method="post" id="connexionPageDiv" onSubmit={handleSubmit}>
           <label htmlFor="mail">Adresse mail</label>
           <input
             className="connexionPageInput"
@@ -38,8 +79,8 @@ function ConnexionPage() {
             type="password"
             name="password"
             minLength={12}
-            value={password}
-            onChange={(event) => handleInputChange(event, setPassword)}
+            value={passwordform}
+            onChange={(event) => handleInputChange(event, setPasswordform)}
             required
           />
 
@@ -48,7 +89,7 @@ function ConnexionPage() {
           </button>
 
           <p>Mot de passe oublié ?</p>
-        </Form>
+        </form>
       </section>
 
       <section id="connexionFooter">
