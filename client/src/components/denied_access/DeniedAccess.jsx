@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { AuthentificationContext } from "../use_context/authentification";
+import { AuthentificationContext } from "../../use_context/authentification";
 
 function DeniedAccess() {
     const { auth } = useContext(AuthentificationContext);

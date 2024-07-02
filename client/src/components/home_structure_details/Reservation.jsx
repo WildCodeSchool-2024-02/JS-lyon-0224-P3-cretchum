@@ -9,9 +9,9 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import "dayjs/locale/fr";
 
-const URL = import.meta.env.VITE_API_URL;
 
 function Reservation({ priceday, auth }) {
+  const URL = import.meta.env.VITE_API_URL;
   const [animalData, setAnimalData] = useState([]);
   useEffect(() => {
     if (auth !== null && (auth !== false && auth.user.hasAnimals !== false)) {
@@ -30,7 +30,7 @@ function Reservation({ priceday, auth }) {
       };
       fetchAnimals();
     }
-  }, [auth]);
+  }, [URL, auth]);
 
   // Get today date
   const todayDate = useMemo(() => dayjs(), []);
