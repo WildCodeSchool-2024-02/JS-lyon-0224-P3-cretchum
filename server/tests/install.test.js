@@ -27,7 +27,7 @@ describe("Installation", () => {
 
   // Test: Check if the database migration and seeding scripts have been executed
   test("You have executed the db:migrate and db:seed scripts", async () => {
-    // Query the 'users' table to check if any data has been inserted
+    // Query the 'user' table to check if any data has been inserted
     const [rows] = await database.query(`select * from user`);
 
     // Expecting at least one row to be returned, indicating successful migration and seeding
