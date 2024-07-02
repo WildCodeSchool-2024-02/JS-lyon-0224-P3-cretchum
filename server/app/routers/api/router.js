@@ -9,12 +9,10 @@ const router = express.Router();
 const usersRouter = require("./users/router");
 const HomeStructureRouter = require("./home_structure/router");
 const animalRouter = require("./animal/router");
-const authAction = require("./auth/router");
 
 router.use("/users", usersRouter);
 router.use("/homestructure", HomeStructureRouter);
 router.use("/animal", animalRouter);
-router.use("/auth", authAction);
 
 /* ************************************************************************* */
 

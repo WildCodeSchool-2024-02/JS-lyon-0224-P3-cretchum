@@ -2,7 +2,6 @@ import "./App.css";
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { AuthentificationProvider } from "./use_context/authentification";
 
 function App() {
   return (
@@ -19,9 +18,7 @@ function App() {
         pauseOnHover
         theme="colored"
       />
-      <AuthentificationProvider>
-        <Outlet />
-      </AuthentificationProvider>
+      <Outlet />
     </>
   );
 }

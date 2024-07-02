@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLoaderData, useParams, Link } from "react-router-dom";
 import notify from "../../utils/notify";
-
 import styles from "./ProfilePage.module.css";
 import ProfileHeader from "../../components/profile/profile_header/ProfileHeader";
 import ProfileSection from "../../components/profile/profile_section/ProfileSection";
@@ -15,7 +14,6 @@ function ProfilePage() {
   const [beforeChange, setBeforeChange] = useState(customer);
   const { id } = useParams();
   const [animalData, setAnimalData] = useState([]);
-
 
   const handleSave = () => {
     notify("Informations mises à jour avec succès !", "success");

@@ -3,7 +3,6 @@ import styles from "../../pages/sign_up/SignUp.module.css";
 function AnimalsFormComponent() {
   return (
     <>
-    <hr id={styles.line} />
       <div className={styles.desktopRow}>
         <div className={styles.inputContainer} id={styles.firstInput}>
           <label className={styles.formLabel} htmlFor="name">

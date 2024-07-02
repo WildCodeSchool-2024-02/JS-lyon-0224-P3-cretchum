@@ -88,16 +88,6 @@
   display: none;
 }
 
-#authDenied {
-  color: red;
-  margin: 5% 0;
-  width: 80%;
-}
-
-#deniedLink {
-  margin-bottom: 5%;
-}
-
 @media screen and (min-width: 1000px) {
   #resaH4 {
     margin-right: 2%;
@@ -156,10 +146,5 @@
   }
   #reservation {
     padding: 2em 1em;
-  }
-  #authDenied {
-    color: red;
-    margin: 13% 0px 14% 0;
-    width: 80%;
   }
 }

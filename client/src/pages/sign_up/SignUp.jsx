@@ -1,72 +1,17 @@
-import { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Form, Link } from "react-router-dom";
 import styles from "./SignUp.module.css";
-import notify from "../../utils/notify";
-import { AuthentificationContext } from "../../use_context/authentification";
-
 
 function SignUp() {
-  const URL = import.meta.env.VITE_API_URL;
+  function handleInputChange(event, setState) {
+    setState(event.target.value);
+  }
   const [password, setPassword] = useState("");
   const [passwordConf, setPasswordConf] = useState("");
-  const navigate = useNavigate();
-  const { update, setUpdate } = useContext(AuthentificationContext);
-
-  const handleInputChange = (event, setState) => {
-    setState(event.target.value);
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const formData = new FormData(event.target);
-      const data = {
-        lastname: formData.get("lastname"),
-        firstname: formData.get("firstname"),
-        username: formData.get("username"),
-        phoneNumber: formData.get("phone_number"),
-        location: formData.get("location"),
-        mail: formData.get("mail"),
-        password: formData.get("password"),
-        description: formData.get("description"),
-      };
-      const buttonValue = event.nativeEvent.submitter.value;
-
-      const response = await fetch(`${URL}/users`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-        credentials: "include",
-      });
-
-      if (response.status === 201) {
-        const newData = await response.json();
-        const userId = newData.insertId;
-
-        setUpdate(!update);
-        if (buttonValue === "structure") {
-          notify("Votre compte à bien été créé", "success");
-          return navigate(`/inscription_accueil/${userId}`);
-        }
-        notify("Votre compte à bien été créé", "success");
-        return navigate(`/formulaire-animal/${userId}`);
-      }
-
-      if (response.status !== 201) {
-        const errorData = await response.json();
-        return notify(errorData.validationErrors[0].message, "error");
-      }
-      throw new Error("Registration error");
-    } catch (err) {
-      return notify("Une erreur est survenue lors de l'inscription.", "error");
-    }
-  };
 
   return (
     <div id={styles.formContainer}>
-      <form method="post" id={styles.signInForm} onSubmit={handleSubmit}>
+      <Form method="post" id={styles.signInForm}>
         <div className={styles.desktopRow}>
           <div className={styles.inputContainer} id={styles.firstInput}>
             <label className={styles.formLabel} htmlFor="lastname">
@@ -111,7 +56,7 @@ function SignUp() {
             />
           </div>
           <div className={styles.inputContainer}>
-            <label className={styles.formLabel} htmlFor="phone_number">
+            <label className={styles.formLabel} htmlFor="phonenumber">
               Téléphone <span className={styles.isRequired}> *</span>
             </label>
             <input
@@ -172,7 +117,7 @@ function SignUp() {
           </section>
         </div>
         <div className={styles.inputContainer}>
-          <label className={styles.formLabel} htmlFor="passwordConf">
+          <label className={styles.formLabel} htmlFor="adress">
             Confirmer le mot de passe
             <span className={styles.isRequired}> *</span>
           </label>
@@ -188,7 +133,7 @@ function SignUp() {
           />
           <div className={styles.passwordSmall}>
             {password !== passwordConf && (
-              <small>Les mots de passe ne sont pas identiques</small>
+              <small>les mots de passes ne sont pas identiques</small>
             )}
           </div>
         </div>
@@ -206,6 +151,7 @@ function SignUp() {
         <div className={styles.containerSmall}>
           <small>* champs requis</small>
         </div>
+
         <div className={styles.buttonContainer}>
           <div className={styles.buttonsContainer}>
             <button
@@ -231,7 +177,7 @@ function SignUp() {
             Déjà un compte ? <Link to="/connexion">se connecter</Link>
           </p>
         </div>
-      </form>
+      </Form>
     </div>
   );
 }

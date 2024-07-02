@@ -1,19 +1,10 @@
-import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./homePage.css";
 
 import LogoPatounes from "../../assets/logo/1patounes.png";
 import LogoCicorne from "../../assets/logo/cicorne.png";
-import { AuthentificationContext } from "../../use_context/authentification";
 
 function HomePage() {
-  const {auth} = useContext(AuthentificationContext)
-  const navigate = useNavigate();
-
-    if (auth !== null && auth !== false) {
-      navigate("/page-recherche");
-    }
-
   return (
     <div className="homePage">
       <header className="homePageHeader">

@@ -11,10 +11,13 @@ import HomeStructureDetails from "./pages/home_structure_details/HomeStructureDe
 import ProfilePage from "./pages/profile_page/ProfilePage";
 import NotFoundPage from "./pages/not_found_page/NotFoundPage";
 
+import structureFormAction from "./handlers/actions/structure_form_action/structureFormAction";
 import AnimalsForm from "./pages/animals_form_page/AnimalsForm";
+import connexionAction from "./handlers/actions/connexion_action/connexionAction";
+import signUpAction from "./handlers/actions/sign_up_action/signUpAction";
 import profileLoader from "./handlers/loader/profile_loader/profileLoader";
 import homeStructureLoader from "./handlers/loader/home_structure_loader/homeStructureLoader";
-import ProtectedPage from "./pages/protected_page/ProtectedPage"
+import animalsFormAction from "./handlers/actions/animals_form_actions/animalsFormActions";
 
 const router = createBrowserRouter([
   {
@@ -25,18 +28,22 @@ const router = createBrowserRouter([
       {
         path: "/inscription_accueil/:id",
         element: <StructureForm />,
+        action: structureFormAction,
       },
       {
         path: "/connexion",
         element: <ConnexionPage />,
+        action: connexionAction,
       },
       {
         path: "/formulaire-animal/:id",
         element: <AnimalsForm />,
+        action: animalsFormAction,
       },
       {
         path: "/inscription",
         element: <SignUp />,
+        action: signUpAction,
       },
       {
         path: "/page-recherche",
@@ -51,10 +58,6 @@ const router = createBrowserRouter([
         path: "/reservation/:id",
         element: <HomeStructureDetails />,
         loader: homeStructureLoader,
-      },
-      {
-        path: "acces_refuse",
-        element: <ProtectedPage />,
       },
       {
         path: "*",

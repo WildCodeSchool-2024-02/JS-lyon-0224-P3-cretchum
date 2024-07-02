@@ -1,4 +1,3 @@
-import { redirect } from "react-router-dom";
 import notify from "../../../utils/notify";
 
 const URL = import.meta.env.VITE_API_URL;
@@ -9,9 +8,6 @@ const profileLoader = async ({ params }) => {
       method: 'GET',
       credentials: 'include',
     });
-    if (response.status === 401 || response.status === 403) {
-      return redirect("/acces_refuse");
-    }
     if (response.status !== 200) {
       notify(
         "Erreur lors de la récupération des données du profil !",
