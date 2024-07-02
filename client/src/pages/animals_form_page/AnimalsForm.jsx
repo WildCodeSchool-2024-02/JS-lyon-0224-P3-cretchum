@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { Form, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styles from "../sign_up/SignUp.module.css";
 import AnimalsFormComponent from "../../components/animals_form_components/AnimalsFormComponents";
 import notify from "../../utils/notify";
@@ -23,7 +23,7 @@ function AnimalsForm() {
     event.preventDefault();
     try {
       const formData = new FormData(event.target);
-      const number = formData.get("NombreAn");
+      const number = formData.get("NumberAnimals");
       const names = formData.getAll("name");
       const ages = formData.getAll("age");
       const breeds = formData.getAll("breed");
@@ -91,7 +91,7 @@ function AnimalsForm() {
   return (
     
       <div id={styles.formContainerAnimal}>
-        <Form method="post" id={styles.signInAnimal} onSubmit={handleSubmit}>
+        <form method="post" id={styles.signInAnimal} onSubmit={handleSubmit}>
           <div className={`${styles.inputContainer}`}>
             <label className={styles.formLabel} htmlFor="number of animals">
               Nombre d'animaux que vous souhaitez inscrire
@@ -99,7 +99,7 @@ function AnimalsForm() {
             </label>
             <select
               className={styles.inputSizeM}
-              name="NombreAn"
+              name="NumberAnimals"
               onChange={handleInputChange}
               required
             >
@@ -118,7 +118,7 @@ function AnimalsForm() {
               Ajouter un animal
             </button>
           </div>
-        </Form>
+        </form>
       </div>
     
   );

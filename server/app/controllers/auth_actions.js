@@ -3,11 +3,10 @@ const jwt = require('jsonwebtoken');
 const authActions = async (req, res) => {
   const token = req.cookies.cookie;
 
-  if (token === undefined) {
-    return res.status(401).json({ error: 'Invalid token' });
-  }
-
-  try {
+   try {
+    if (token === undefined) {
+      return res.status(401).json({ error: 'Invalid token' });
+    }
     const decoded = jwt.verify(token, process.env.APP_SECRET);
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     req.user = decoded;

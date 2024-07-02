@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./homePage.css";
 
@@ -10,11 +10,9 @@ function HomePage() {
   const {auth} = useContext(AuthentificationContext)
   const navigate = useNavigate();
 
-  useEffect(() => {
     if (auth !== null && auth !== false) {
       navigate("/page-recherche");
     }
-  }, [auth, navigate]);
 
   return (
     <div className="homePage">

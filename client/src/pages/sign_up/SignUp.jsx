@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { Form, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./SignUp.module.css";
 import notify from "../../utils/notify";
 import { AuthentificationContext } from "../../use_context/authentification";
@@ -48,13 +48,10 @@ function SignUp() {
         setUpdate(!update);
         if (buttonValue === "structure") {
           notify("Votre compte à bien été créé", "success");
-          return setTimeout(
-            () => navigate(`/inscription_accueil/${userId}`),
-            100
-          );
+          return navigate(`/inscription_accueil/${userId}`);
         }
         notify("Votre compte à bien été créé", "success");
-        return setTimeout(() => navigate(`/formulaire-animal/${userId}`), 100);
+        return navigate(`/formulaire-animal/${userId}`);
       }
 
       if (response.status !== 201) {
@@ -69,7 +66,7 @@ function SignUp() {
 
   return (
     <div id={styles.formContainer}>
-      <Form method="post" id={styles.signInForm} onSubmit={handleSubmit}>
+      <form method="post" id={styles.signInForm} onSubmit={handleSubmit}>
         <div className={styles.desktopRow}>
           <div className={styles.inputContainer} id={styles.firstInput}>
             <label className={styles.formLabel} htmlFor="lastname">
@@ -234,7 +231,7 @@ function SignUp() {
             Déjà un compte ? <Link to="/connexion">se connecter</Link>
           </p>
         </div>
-      </Form>
+      </form>
     </div>
   );
 }

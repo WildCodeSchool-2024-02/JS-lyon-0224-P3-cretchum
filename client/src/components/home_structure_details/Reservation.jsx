@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Form, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./Reservation.css";
@@ -9,12 +9,12 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import "dayjs/locale/fr";
 
-
 function Reservation({ priceday, auth }) {
   const URL = import.meta.env.VITE_API_URL;
   const [animalData, setAnimalData] = useState([]);
+
   useEffect(() => {
-    if (auth !== null && (auth !== false && auth.user.hasAnimals !== false)) {
+    if (auth !== null && auth !== false && auth.user.hasAnimals !== false) {
       const fetchAnimals = async () => {
         try {
           const response = await fetch(`${URL}/animal/${auth.user.sub}`);
@@ -32,8 +32,7 @@ function Reservation({ priceday, auth }) {
     }
   }, [URL, auth]);
 
-  // Get today date
-  const todayDate = useMemo(() => dayjs(), []);
+  const todayDate = useRef(dayjs()).current;
 
   const [startingDate, setStartingDate] = useState(todayDate);
   const [endingDate, setEndingDate] = useState(todayDate);
@@ -68,7 +67,8 @@ function Reservation({ priceday, auth }) {
         <div id="userChoice">
           <h2 id="totalPrice">TOTAL {price} €</h2>
 
-          {auth !== null && (auth === false || auth.user.hasAnimals === false) ? (
+          {auth !== null &&
+          (auth === false || auth.user.hasAnimals === false) ? (
             <>
               <p id="authDenied">
                 Vous devez avoir au moins un animal enregistré pour réserver
@@ -119,7 +119,11 @@ function Reservation({ priceday, auth }) {
               <button
                 type="submit"
                 className="searchBtn buttonType1"
-                disabled={auth !== null || auth !== false || auth.user.hasAnimals === false}
+                disabled={
+                  auth !== null ||
+                  auth !== false ||
+                  auth.user.hasAnimals === false
+                }
               >
                 Réserver
               </button>
@@ -140,10 +144,10 @@ function Reservation({ priceday, auth }) {
 
 Reservation.propTypes = {
   priceday: PropTypes.number.isRequired,
-  auth: PropTypes.shape({ 
+  auth: PropTypes.shape({
     user: PropTypes.shape({
       hasAnimals: PropTypes.bool.isRequired,
-      sub : PropTypes.number.isRequired,
+      sub: PropTypes.number.isRequired,
     }).isRequired,
   }).isRequired,
 };

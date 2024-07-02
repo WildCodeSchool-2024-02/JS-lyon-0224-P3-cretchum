@@ -1,4 +1,4 @@
-import { Link, Form, useNavigate} from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import { useState, useContext } from "react";
 import Patoune from "../../assets/logo/1patounes.png";
 import "./ConnexionPage.css";
@@ -60,7 +60,7 @@ function ConnexionPage() {
       </section>
 
       <section id="connexionBody">
-        <Form method="post" id="connexionPageDiv" onSubmit={handleSubmit}>
+        <form method="post" id="connexionPageDiv" onSubmit={handleSubmit}>
           <label htmlFor="mail">Adresse mail</label>
           <input
             className="connexionPageInput"
@@ -89,7 +89,7 @@ function ConnexionPage() {
           </button>
 
           <p>Mot de passe oublié ?</p>
-        </Form>
+        </form>
       </section>
 
       <section id="connexionFooter">

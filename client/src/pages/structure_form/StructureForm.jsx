@@ -1,4 +1,4 @@
-import { Form, Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import styles from "./StructureForm.module.css";
 import notify from "../../utils/notify";
@@ -8,9 +8,11 @@ function StructureForm() {
   const URL = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
   const { update, setUpdate } = useContext(AuthentificationContext);
-  const paramsID = useParams();
+  const paramsId = useParams();
+  const userId = paramsId.id;
 
   const handleSubmit = async (event) => {
+    event.preventDefault();
     try {
       const formData = new FormData(event.target);
       const data = {
@@ -20,10 +22,10 @@ function StructureForm() {
         price: formData.get("price"),
         cat: formData.get("cat"),
         dog: formData.get("dog"),
-        userId: paramsID.id,
+        userId : paramsId.id,
       };
 
-      const response = await fetch(`${URL}/homestructure/${data.userId}`, {
+      const response = await fetch(`${URL}/homestructure/${userId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -61,7 +63,7 @@ function StructureForm() {
 
   return (
     <div id={styles.formContainer}>
-      <Form method="post" id={styles.signInForm} onSubmit={handleSubmit}>
+      <form method="post" id={styles.signInForm} onSubmit={handleSubmit}>
         <div className={styles.desktopRow}>
           <div className={styles.inputContainer} id={styles.isProfessional}>
             <label className={styles.formLabel} htmlFor="isProfessional">
@@ -149,7 +151,7 @@ function StructureForm() {
             Déjà un compte ? <Link to="/connect"> se connecter</Link>
           </p>
         </div>
-      </Form>
+      </form>
     </div>
   );
 }
