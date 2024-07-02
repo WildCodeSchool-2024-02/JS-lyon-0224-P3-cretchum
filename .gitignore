@@ -1,5 +1,63 @@
-.yarn
-node_modules
+# Backup files
+*.bak
+*.tmp
+*.swp
+
+# OS files
 .DS_Store
-.idea
-.vscode
+Thumbs.db
+
+# Dependency directories
+node_modules/
+vendor/
+
+# Construction files
+dist/
+build/
+bin/
+coverage/
+
+# IDE-specific configuration files
+.idea/
+*.sublime-workspace
+*.sublime-project
+.vscode/
+*.code-workspace
+*.xcworkspace
+*.swiftpm/
+*.user
+*.userprefs
+*.suo
+*.sln.docstates
+
+# Package and lock files (depends on the package manager used)
+package-lock.json
+yarn.lock
+composer.lock
+Gemfile.lock
+Pipfile.lock
+
+# Log files
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# Certificate files
+*.pem
+*.cert
+*.key
+
+# Environment configuration folders and files
+.env
+.env.local
+.env.*.local
+
+# Database files
+*.sqlite
+*.sqlite3
+*.db
+
+# Folders and cache files
+.cache/
+*.pyc
+__pycache__/
