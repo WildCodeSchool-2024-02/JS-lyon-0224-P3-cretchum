@@ -10,6 +10,7 @@ import SearchPage from "./pages/search_page/SearchPage";
 import HomeStructureDetails from "./pages/home_structure_details/HomeStructureDetails";
 import ProfilePage from "./pages/profile_page/ProfilePage";
 import NotFoundPage from "./pages/not_found_page/NotFoundPage";
+import LegalMentions from "./pages/legal_mentions/LegalMentions";
 
 import structureFormAction from "./handlers/actions/structure_form_action/structureFormAction";
 import AnimalsForm from "./pages/animals_form_page/AnimalsForm";
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
         path: "/reservation/:id",
         element: <HomeStructureDetails />,
         loader: homeStructureLoader,
+      },
+      {
+        path: "/mentions-legales",
+        element: <LegalMentions />
       },
       {
         path: "*",
