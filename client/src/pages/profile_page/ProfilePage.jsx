@@ -14,12 +14,14 @@ function ProfilePage() {
   const [beforeChange, setBeforeChange] = useState(customer);
   const { id } = useParams();
   const [animalData, setAnimalData] = useState([]);
+  const [changeAvatar, setChangeAvatar] = useState(false);
 
   const handleSave = () => {
     notify("Informations mises à jour avec succès !", "success");
   };
   const URL = import.meta.env.VITE_API_URL;
 
+  // Update profile informations in BDD
   const handleEditClick = async () => {
     if (isEditMode === true && beforeChange !== customer) {
       try {
@@ -43,10 +45,7 @@ function ProfilePage() {
         throw new Error("Registration error");
       } catch (err) {
         console.error("Fetch error:", err);
-        notify(
-          "Erreur lors de la modification du profil. Veuillez réessayer plus tard.",
-          "error"
-        );
+        notify("Erreur lors de la modification du profil", "error");
         return {
           error:
             "An error occurred during registration. Please try again later.",
@@ -97,16 +96,57 @@ function ProfilePage() {
     fetchAnimals();
   }, [URL, id, animalData]);
 
+  // Profile picture update
+  const imageHandler = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+
+    try {
+      const response = await fetch(`${URL}/image/${customer.id}`, {
+        method: "PUT",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Erreur lors du téléchargement de l'image");
+      }
+
+      if (response.status === 204) {
+        notify("Image téléchargée avec succès", "success");
+      }
+      if (response.status !== 204) {
+        const data = await response.json();
+        notify(data.validationErrors[0].message, "error");
+      }
+    } catch (error) {
+      console.error("Erreur:", error);
+    }
+  };
   return (
     <>
       <NavMenu />
       <div className={styles.profilePageContainer}>
+        {changeAvatar === true ? (
+          <form
+            onSubmit={imageHandler}
+            encType="multipart/form-data"
+            method="post"
+          >
+            <input type="file" name="avatar" />
+            <button type="submit">Télécharger</button>
+          </form>
+        ) : (
+          ""
+        )}
         <ProfileHeader
           username={customer.username}
           isEditMode={isEditMode}
           handleEditClick={handleEditClick}
           valueName="username"
           setCustomer={setCustomer}
+          changeAvatar={changeAvatar}
+          setChangeAvatar={setChangeAvatar}
         />
         <ProfileSection title="Informations générales">
           <EditableField

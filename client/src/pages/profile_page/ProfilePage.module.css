@@ -1,5 +1,9 @@
 @import "../../App.css";
-
+#fileInput {
+  position: fixed;
+  top: 40vh;
+  left: 40vw;
+}
 .profilePageContainer {
   font-size: var(--base-font-size);
 }

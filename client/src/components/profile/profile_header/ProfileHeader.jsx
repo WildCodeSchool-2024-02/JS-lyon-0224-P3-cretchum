@@ -9,9 +9,15 @@ function ProfileHeader({
   handleEditClick,
   valueName,
   setCustomer,
+  setChangeAvatar,
+  changeAvatar,
 }) {
   const onChange = (e, champ) => {
     setCustomer((user) => ({ ...user, [champ]: e.target.value }));
+  };
+
+  const changeProfilePicture = () => {
+    setChangeAvatar(!changeAvatar);
   };
 
   return (
@@ -43,6 +49,13 @@ function ProfileHeader({
           <button
             type="button"
             className={styles.editButton}
+            onClick={changeProfilePicture}
+          >
+            Changer d'image
+          </button>
+          <button
+            type="button"
+            className={styles.editButton}
             onClick={handleEditClick}
           >
             {isEditMode === true ? "Sauvegarder" : "Modifier"}
@@ -60,6 +73,8 @@ ProfileHeader.propTypes = {
   handleEditClick: PropTypes.func,
   valueName: PropTypes.string.isRequired,
   setCustomer: PropTypes.func.isRequired,
+  setChangeAvatar: PropTypes.func.isRequired,
+  changeAvatar: PropTypes.bool.isRequired,
 };
 
 ProfileHeader.defaultProps = {
