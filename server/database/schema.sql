@@ -7,7 +7,7 @@ CREATE TABLE user (
   location VARCHAR(55) NOT NULL,
   mail VARCHAR(254) NOT NULL UNIQUE,
   password TEXT NOT NULL,
-  description TEXT,  image LONGBLOB
+  description TEXT,  avatar VARCHAR(254)
 );
 
 CREATE TABLE home_structure (

@@ -139,6 +139,32 @@ const checkLog = async (req, res, next) => {
   }
 };
 
+// Edit profile picture
+
+const editPicture = async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const filePath = req.file.path;
+    if (req.file !== null || req.file !== undefined) {
+      await tables.user.editImagePath(userId, filePath);
+      res.status(204).json({
+        message: "Image téléchargée avec succès",
+        filePath,
+      });
+    } else {
+      res.status(400).json({
+        validationErrors: [{ message: "Aucun fichier téléchargé." }],
+      });
+    }
+    res.status(204).json({
+      message: "Image téléchargée avec succès",
+      filePath,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 const disconect = async (req, res) => {
   res.clearCookie("cookie");
   res.status(200).json();
@@ -152,4 +178,5 @@ module.exports = {
   destroy,
   checkLog,
   disconect,
+  editPicture,
 };

@@ -10,7 +10,7 @@ const storage = multer.diskStorage({
     const userId = req.params.id;
     cb(
       null,
-      //   `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
+      // Give user ID name to the image and keep the original extension.
       `${userId}${path.extname(file.originalname)}`
     );
   },

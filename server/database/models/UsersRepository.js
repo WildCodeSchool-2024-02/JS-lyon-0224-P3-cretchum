@@ -126,6 +126,14 @@ class UserRepository extends AbstractRepository {
     );
     return result[0].count;
   }
+
+  async editImagePath(userId, filePath) {
+    const result = await this.database.query(
+      `UPDATE ${this.table} set avatar = ? WHERE id = ?`,
+      [filePath, userId]
+    );
+    return result.affectedRows;
+  }
 }
 
 module.exports = UserRepository;
