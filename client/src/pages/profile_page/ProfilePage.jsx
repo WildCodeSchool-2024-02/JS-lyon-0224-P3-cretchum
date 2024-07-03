@@ -17,7 +17,6 @@ function ProfilePage() {
   const [animalData, setAnimalData] = useState([]);
   const [changeAvatar, setChangeAvatar] = useState(false);
 
-
   const handleSave = () => {
     notify("Informations mises à jour avec succès !", "success");
   };
@@ -147,6 +146,7 @@ function ProfilePage() {
           handleEditClick={handleEditClick}
           valueName="username"
           setCustomer={setCustomer}
+          avatar={customer.avatar}
           changeAvatar={changeAvatar}
           setChangeAvatar={setChangeAvatar}
         />

@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+// import { useEffect, useState } from "react";
 import LogoCicorne from "../../../assets/logo/cicorne.png";
 import styles from "./ProfileHeader.module.css";
 import DeleteProfile from "./delete_profile/DeleteProfile";
@@ -9,9 +10,11 @@ function ProfileHeader({
   handleEditClick,
   valueName,
   setCustomer,
+  avatar,
   setChangeAvatar,
   changeAvatar,
 }) {
+  const URL = import.meta.env.VITE_API_URL;
   const onChange = (e, champ) => {
     setCustomer((user) => ({ ...user, [champ]: e.target.value }));
   };
@@ -20,11 +23,26 @@ function ProfileHeader({
     setChangeAvatar(!changeAvatar);
   };
 
+  // useEffect(() => {
+  //   const fetchProfileImage = async () => {
+  //     try {
+  //       const userId = 5; // Remplacez par l'ID de l'utilisateur actuel
+  //       const res = await fetch(`http://localhost:3310/api/image/5`, {
+  //         method: "GET",
+  //       });
+  //       const data = await res.json();
+  //       setAvatar(data.avatar);
+  //     } catch (err) {
+  //       console.error(err);
+  //     }
+  //   };
+  //   fetchProfileImage();
+  // }, []);
   return (
     <header className={styles.profilePageHeader}>
       <img
         className={styles.profilePageImg}
-        src={LogoCicorne}
+        src={avatar !== null ? `${URL}/${avatar}` : LogoCicorne}
         alt="Utilisateur"
       />
       <section className={styles.profilePageH1Container}>
@@ -75,6 +93,7 @@ ProfileHeader.propTypes = {
   setCustomer: PropTypes.func.isRequired,
   setChangeAvatar: PropTypes.func.isRequired,
   changeAvatar: PropTypes.bool.isRequired,
+  avatar: PropTypes.string.isRequired,
 };
 
 ProfileHeader.defaultProps = {

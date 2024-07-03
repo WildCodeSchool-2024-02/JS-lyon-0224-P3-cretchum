@@ -60,13 +60,13 @@ const add = async (req, res, next) => {
     // Hachage password
     // Set the number of rounds to generate the salt used in the hash
     const saltRounds = 10;
-    
+
     // Hide user password with bcrypt and number of saltRounds
     const hashedPassword = await bcrypt.hash(user.password, saltRounds);
-    
+
     // Replace plaintext password with hashed password
     user.password = hashedPassword;
-    
+
     // Insert the user into the database
     const insertId = await tables.user.create(user);
 
@@ -74,19 +74,19 @@ const add = async (req, res, next) => {
 
     const hasAnimals = false;
 
-          // Generate JWT token
-          const token = jwt.sign(
-            { sub: insertId, hasAnimals },
-            process.env.APP_SECRET,
-            { expiresIn: "1d" }
-          );
+    // Generate JWT token
+    const token = jwt.sign(
+      { sub: insertId, hasAnimals },
+      process.env.APP_SECRET,
+      { expiresIn: "1d" }
+    );
 
-          // Set the token in cookie
-          res.cookie("cookie", token, {
-            httpOnly: true,
-            sameSite: "Strict",
-            maxAge: 24 * 60 * 60 * 1000,
-          });
+    // Set the token in cookie
+    res.cookie("cookie", token, {
+      httpOnly: true,
+      sameSite: "Strict",
+      maxAge: 24 * 60 * 60 * 1000,
+    });
 
     // Respond with HTTP 201 (Created) and the ID of the newly inserted user
     res.status(201).json({ insertId });
@@ -180,7 +180,20 @@ const editPicture = async (req, res, next) => {
     next(err);
   }
 };
+const readPicture = async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const userAvatar = await tables.user.readAvatar(userId);
 
+    if (userAvatar !== null) {
+      res.status(200).json(userAvatar);
+    } else {
+      res.sendStatus(404).json({ error: "User not found" });
+    }
+  } catch (err) {
+    next(err);
+  }
+};
 const disconect = async (req, res) => {
   res.clearCookie("cookie");
   res.status(200).json();
@@ -195,4 +208,5 @@ module.exports = {
   checkLog,
   disconect,
   editPicture,
+  readPicture,
 };

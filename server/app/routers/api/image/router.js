@@ -6,10 +6,13 @@ const router = express.Router();
 /* ************************************************************************* */
 const upload = require("../../../services/uploadImage");
 // Import users-related actions
-const { editPicture } = require("../../../controllers/usersActions");
+const {
+  editPicture,
+  readPicture,
+} = require("../../../controllers/usersActions");
 
 // Route to get a specific user by ID
-
+router.get("/:id", readPicture);
 // Route to add a new user
 router.put("/:id", upload.single("avatar"), editPicture);
 
