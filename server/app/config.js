@@ -30,7 +30,7 @@ const cors = require("cors");
   app.use(
     cors({
       origin: [
-        process.env.CLIENT_URL, // keep this one, after checking the value in `server/.env`
+        process.env.CLIENT_URL,
       ],
       credentials: true
     })

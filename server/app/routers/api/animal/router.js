@@ -14,7 +14,8 @@ const {
   destroy,
 } = require("../../../controllers/animalActions");
 
-const validateAnimals = require("../../../services/validateAnimals")
+const validateAnimals = require("../../../services/validateAnimals");
+const deniedAccess = require("../../../services/deniedAccess");
 
 // Route to get a list of categories
 router.get("/", browse);
@@ -23,7 +24,7 @@ router.get("/", browse);
 router.get("/:id", read);
 
 // Route to add a new user
-router.post("/",validateAnimals, add);
+router.post("/:id", validateAnimals, deniedAccess,  add);
 
 // Route to edit an existing user
 router.delete("/:id", destroy);

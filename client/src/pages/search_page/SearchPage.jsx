@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import notify from "../../utils/notify";
 import "./SearchPage.css";
@@ -42,6 +42,7 @@ function SearchPage() {
     };
     fetchData();
   }, [search, URL, offset, limit]);
+
 
   useEffect(() => {
     const applyFilters = () => {
