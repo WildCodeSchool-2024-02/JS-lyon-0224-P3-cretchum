@@ -1,6 +1,8 @@
 .profilePageHeader {
   grid-area: profile-page-header;
   display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
   background-color: white;
   border-radius: 15px;
@@ -8,6 +10,12 @@
   margin: 1em;
   position: relative;
   max-width: 1100px;
+}
+.headerContainer {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 }
 .avatarContainer {
   width: 90px;
@@ -93,6 +101,7 @@ address {
   .profilePageHeader {
     padding: 0.5em;
     margin: 1em;
+    max-width: 530px;
   }
 
   .profilePageImg {
@@ -103,13 +112,13 @@ address {
     font-size: 0.9em;
     flex-direction: row;
     position: absolute;
+    transform: translateY(-103px);
     gap: 5px;
     background-color: transparent;
-    transform: translateY(6px);
   }
 }
 
-@media (max-width: 1000px) {
+@media (min-width: 550px) and (max-width: 1000px) {
   .profilePageHeader {
     max-width: 530px;
   }

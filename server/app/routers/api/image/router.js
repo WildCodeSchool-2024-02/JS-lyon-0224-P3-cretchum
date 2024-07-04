@@ -11,10 +11,12 @@ const {
   readPicture,
 } = require("../../../controllers/usersActions");
 
+const deniedAccess = require("../../../services/deniedAccess");
+
 // Route to get a specific user by ID
 router.get("/:id", readPicture);
 // Route to add a new user
-router.put("/:id", upload.single("avatar"), editPicture);
+router.put("/:id", deniedAccess, upload.single("avatar"), editPicture);
 
 // Route to edit an existing user
 

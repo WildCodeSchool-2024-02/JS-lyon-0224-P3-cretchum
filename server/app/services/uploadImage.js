@@ -4,7 +4,7 @@ const path = require("path");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/");
+    cb(null, "public/assets/avatars/");
   },
   filename: (req, file, cb) => {
     const userId = req.params.id;
@@ -15,7 +15,6 @@ const storage = multer.diskStorage({
     );
   },
 });
-// const upload = multer({ storage });
 function checkFileType(file, cb) {
   const filetypes = /jpeg|jpg|png|gif/;
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
@@ -29,7 +28,7 @@ function checkFileType(file, cb) {
 }
 const upload = multer({
   storage,
-  limits: { fileSize: 1000000 }, // Limite de 1Mo
+  limits: { fileSize: 1000000 }, // max size = 1Mo
   fileFilter: (req, file, cb) => {
     checkFileType(file, cb);
   },

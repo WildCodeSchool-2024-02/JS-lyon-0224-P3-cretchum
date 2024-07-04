@@ -8,8 +8,8 @@ const router = express.Router();
 /* ************************************************************************* */
 
 router.use(
-  "/uploads",
-  express.static(path.join(__dirname, "../../../uploads"))
+  "/avatars",
+  express.static(path.join(__dirname, "../../../public/assets/avatars"))
 );
 const usersRouter = require("./users/router");
 const HomeStructureRouter = require("./home_structure/router");

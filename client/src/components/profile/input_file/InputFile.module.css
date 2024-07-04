@@ -1,0 +1,22 @@
+.avatarForm {
+  display: flex;
+  flex-direction: column;
+  width: 88%;
+  background-color: white;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.inputFile {
+  display: flex;
+  flex-direction: row;
+  padding-top: 5px;
+}
+
+.avatarButton {
+  /* background-color: transparent; */
+  /* color: #08256e; */
+  /* border: 1px solid;
+  border-radius: 5px; */
+  font-size: 1em;
+}

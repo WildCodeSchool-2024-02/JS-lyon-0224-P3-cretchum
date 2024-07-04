@@ -160,7 +160,8 @@ const checkLog = async (req, res, next) => {
 const editPicture = async (req, res, next) => {
   try {
     const userId = req.params.id;
-    const filePath = req.file.path;
+    // Give the path which will be stored in the database
+    const filePath = `avatars/${req.file.filename}`;
     if (req.file !== null || req.file !== undefined) {
       await tables.user.editImagePath(userId, filePath);
       res.status(204).json(filePath);
@@ -169,9 +170,6 @@ const editPicture = async (req, res, next) => {
         validationErrors: [{ message: "Aucun fichier téléchargé." }],
       });
     }
-    res.status(204).json({
-      message: "Image téléchargée avec succès",
-    });
   } catch (err) {
     next(err);
   }
