@@ -1,9 +1,6 @@
 import PropTypes from "prop-types";
-
 import IsProfessionnal from "../is_professionnal/isProfessional";
 import UserAnimal from "../user_animal/UserAnimal";
-import PersonImage from "../../../assets/images/person.jpg";
-
 import "./HomeStructureList.css";
 
 function HomeStructureList({ structure }) {
@@ -11,7 +8,7 @@ function HomeStructureList({ structure }) {
     <div id="userCard" className="userCard">
       <div id="userGeneral">
         <div id="userImg">
-          <img id="userPicture" src={PersonImage} alt={structure.name} />
+          <img id="userPicture" src={structure.avatar} alt={structure.name} />
         </div>
         <div id="userInfo">
           <h3 id="userName">{structure.name}</h3>
@@ -41,6 +38,7 @@ HomeStructureList.propTypes = {
     dog: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
     location: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
   }).isRequired,
 };
 

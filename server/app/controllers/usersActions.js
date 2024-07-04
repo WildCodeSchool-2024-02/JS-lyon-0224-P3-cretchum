@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const tables = require("../../database/tables");
 
+const URL = `http://${process.env.DB_HOST}:${process.env.APP_PORT}/api`;
+
 // The B of BREAD - Browse (Read All) operation
 const browse = async (req, res, next) => {
   try {
@@ -161,7 +163,7 @@ const editPicture = async (req, res, next) => {
   try {
     const userId = req.params.id;
     // Give the path which will be stored in the database
-    const filePath = `avatars/${req.file.filename}`;
+    const filePath = `${URL}/avatars/${req.file.filename}`;
     if (req.file !== null || req.file !== undefined) {
       await tables.user.editImagePath(userId, filePath);
       res.status(204).json(filePath);
