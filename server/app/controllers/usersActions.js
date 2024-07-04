@@ -163,10 +163,7 @@ const editPicture = async (req, res, next) => {
     const filePath = req.file.path;
     if (req.file !== null || req.file !== undefined) {
       await tables.user.editImagePath(userId, filePath);
-      res.status(204).json({
-        message: "Image téléchargée avec succès",
-        filePath,
-      });
+      res.status(204).json(filePath);
     } else {
       res.status(400).json({
         validationErrors: [{ message: "Aucun fichier téléchargé." }],
@@ -174,7 +171,6 @@ const editPicture = async (req, res, next) => {
     }
     res.status(204).json({
       message: "Image téléchargée avec succès",
-      filePath,
     });
   } catch (err) {
     next(err);

@@ -23,28 +23,15 @@ function ProfileHeader({
     setChangeAvatar(!changeAvatar);
   };
 
-  // useEffect(() => {
-  //   const fetchProfileImage = async () => {
-  //     try {
-  //       const userId = 5; // Remplacez par l'ID de l'utilisateur actuel
-  //       const res = await fetch(`http://localhost:3310/api/image/5`, {
-  //         method: "GET",
-  //       });
-  //       const data = await res.json();
-  //       setAvatar(data.avatar);
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
-  //   fetchProfileImage();
-  // }, []);
   return (
     <header className={styles.profilePageHeader}>
-      <img
-        className={styles.profilePageImg}
-        src={avatar !== null ? `${URL}/${avatar}` : LogoCicorne}
-        alt="Utilisateur"
-      />
+      <div className={styles.avatarContainer}>
+        <img
+          className={styles.profilePageImg}
+          src={avatar !== null ? `${URL}/${avatar}` : LogoCicorne}
+          alt="Utilisateur"
+        />
+      </div>
       <section className={styles.profilePageH1Container}>
         <h1 className={styles.profilePageH1}>
           {isEditMode === true ? (

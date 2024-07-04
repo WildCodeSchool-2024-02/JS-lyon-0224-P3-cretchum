@@ -102,19 +102,22 @@ function ProfilePage() {
     event.preventDefault();
 
     const formData = new FormData(event.target);
-
     try {
       const response = await fetch(`${URL}/image/${customer.id}`, {
         method: "PUT",
         body: formData,
       });
-
       if (!response.ok) {
         throw new Error("Erreur lors du téléchargement de l'image");
       }
 
       if (response.status === 204) {
+        // setCustomer({... , avatar: "test"} )
         notify("Image téléchargée avec succès", "success");
+        setChangeAvatar(!changeAvatar);
+        setTimeout(() => {
+          window.location.reload();
+        }, "2000");
       }
       if (response.status !== 204) {
         const data = await response.json();
@@ -124,6 +127,7 @@ function ProfilePage() {
       console.error("Erreur:", error);
     }
   };
+
   return (
     <>
       <NavMenu />
