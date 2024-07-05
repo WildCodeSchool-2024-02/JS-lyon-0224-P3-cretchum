@@ -25,7 +25,7 @@ function ProfilePage() {
   const handleEditClick = async () => {
     if (isEditMode === true && beforeChange !== customer) {
       try {
-        const response = await fetch(`${URL}/users/${customer.id}`, {
+        const response = await fetch(`${URL}/user/${customer.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",

@@ -2,10 +2,10 @@
 const bcrypt = require("bcryptjs");
 const { app, request, database } = require("../../config");
 
-// TEST : suite for the POST /api/users route
+// TEST : suite for the POST /api/user route
 
-describe("POST /api/users", () => {
-  it("should add a new users successfully", async () => {
+describe("POST /api/user", () => {
+  it("should add a new user successfully", async () => {
     // Mock result of the database query
     const result = [{ insertId: 1 }];
 
@@ -24,8 +24,8 @@ describe("POST /api/users", () => {
       description: "A description about John Doe",
     };
 
-    // Send a POST request to the /api/users endpoint with a test user
-    const response = await request(app).post("/api/users").send(fakeItem);
+    // Send a POST request to the /api/user endpoint with a test user
+    const response = await request(app).post("/api/user").send(fakeItem);
 
     // Assertions
     expect(response.status).toBe(201);
@@ -34,9 +34,9 @@ describe("POST /api/users", () => {
   });
 });
 
-// TEST : suite for the POST /api/users login
+// TEST : suite for the POST /api/user login
 
-describe("POST /api/users/login", () => {
+describe("POST /api/user/login", () => {
   it("should validate login request body", async () => {
     const invalidCredentials = {
       mail: "invalidemail.com",
@@ -44,7 +44,7 @@ describe("POST /api/users/login", () => {
     };
 
     const response = await request(app)
-      .post("/api/users/login")
+      .post("/api/user/login")
       .send(invalidCredentials);
 
     expect(response.status).toBe(401);
@@ -61,7 +61,7 @@ describe("POST /api/users/login", () => {
     jest.spyOn(database, "query").mockImplementation(() => [[]]);
 
     const response = await request(app)
-      .post("/api/users/login")
+      .post("/api/user/login")
       .send(credentials);
 
     expect(response.status).toBe(401);
@@ -85,7 +85,7 @@ describe("POST /api/users/login", () => {
     jest.spyOn(database, "query").mockImplementation(() => [[user]]);
 
     const response = await request(app)
-      .post("/api/users/login")
+      .post("/api/user/login")
       .send(credentials);
 
     expect(response.status).toBe(200);

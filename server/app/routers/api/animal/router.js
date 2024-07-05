@@ -6,7 +6,7 @@ const router = express.Router();
 // Define Your API Routes Here
 /* ************************************************************************* */
 
-// Import users-related actions
+// Import user-related actions
 const {
   read,
   browse,

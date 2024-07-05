@@ -26,7 +26,7 @@ const read = async (req, res, next) => {
     const homeStructure = await tables.home_structure.read(req.params.id);
 
     // If the user is not found, respond with HTTP 404 (Not Found)
-    // Otherwise, respond with the users in JSON format
+    // Otherwise, respond with the user in JSON format
     if (homeStructure == null) {
       res.sendStatus(404);
     } else {

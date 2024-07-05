@@ -32,7 +32,7 @@ function SignUp() {
       };
       const buttonValue = event.nativeEvent.submitter.value;
 
-      const response = await fetch(`${URL}/users`, {
+      const response = await fetch(`${URL}/user`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

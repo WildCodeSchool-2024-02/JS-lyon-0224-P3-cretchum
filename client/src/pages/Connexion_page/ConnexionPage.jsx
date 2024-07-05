@@ -24,7 +24,7 @@ function ConnexionPage() {
       const mail = formData.get("mail");
       const password = formData.get("password");
 
-      const response = await fetch(`${URL}/users/login`, {
+      const response = await fetch(`${URL}/user/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
