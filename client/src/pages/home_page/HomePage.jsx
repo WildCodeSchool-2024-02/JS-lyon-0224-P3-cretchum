@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./homePage.css";
+import "./HomePage.css";
 
 import LogoPatounes from "../../assets/logo/1patounes.png";
 import LogoCicorne from "../../assets/logo/cicorne.png";
