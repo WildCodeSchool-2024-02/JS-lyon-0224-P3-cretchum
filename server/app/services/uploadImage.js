@@ -4,7 +4,7 @@ const path = require("path");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "public/assets/avatars/"); // Path of the folder where file is storage.
+    cb(null, "public/assets/avatars/"); // Path of the folder where file is store.
   },
   filename: (req, file, cb) => {
     const userId = req.params.id;
