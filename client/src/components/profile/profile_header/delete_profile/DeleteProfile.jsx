@@ -49,8 +49,7 @@ function DeleteProfile() {
         }
       >
         <p>
-          Êtes vous sur de vouloir supprimer votre compte ? <br />
-          Cette action est irréversible
+          Êtes vous sur de vouloir supprimer votre compte ?
         </p>
         <div className={styles.confirmButton}>
           <button type="button" onClick={deletePop}>

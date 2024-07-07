@@ -64,6 +64,10 @@ function AnimalsForm() {
         notify("Inscription réussie !", "success");
         return navigate("/page-recherche");
       }
+      if (response.status !== 201) {
+        const errorData = await response.json();
+        return notify(errorData.validationErrors[0].message, "error");
+      }
       notify("Erreur lors de l'inscription !", "error");
       throw new Error("Registration error");
     } catch (err) {

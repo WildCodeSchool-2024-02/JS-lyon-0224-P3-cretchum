@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import styles from "./EditableField.module.css";
 
-function EditableField({ label, value, isEditMode, valueName, setCustomer }) {
+function EditableField({ label, value, isEditMode = false, valueName, setCustomer }) {
   const onChange = (e, champ) => {
     setCustomer((user) => ({ ...user, [champ]: e.target.value }));
   };

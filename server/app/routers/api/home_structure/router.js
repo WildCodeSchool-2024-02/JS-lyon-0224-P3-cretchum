@@ -20,7 +20,7 @@ const validateHomeStructure = require("../../../services/ValidateHomeStructure")
 const deniedAccess = require("../../../services/deniedAccess");
 
 
-// Route to get a list of categories
+// Route to get a list of home_structure
 router.get("/", browse);
 
 // Route to get a specific user by ID

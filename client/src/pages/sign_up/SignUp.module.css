@@ -70,11 +70,8 @@
   font-size: 1.1em;
   padding: 0.4rem;
   height: 7em;
-  background:
-    linear-gradient(white, white) padding-box,
-    linear-gradient(to right, #e37acc, #08256e) border-box;
   border-radius: 15px;
-  border: 1px solid transparent;
+  border: 1px solid var(--hover-color);
   padding-left: 3%;
 }
 

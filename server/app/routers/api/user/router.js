@@ -27,7 +27,7 @@ const {
 } = require("../../../services/validateUser");
 const uniqueEmailandUsername = require("../../../services/uniqueEmailAndUsername");
 
-// Route to get a list of categories
+// Route to get a list of users
 router.get("/", browse);
 
 // Route to get a specific user by ID

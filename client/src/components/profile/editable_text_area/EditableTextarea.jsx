@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import styles from "./EditableTextarea.module.css";
 
-function EditableTextarea({ value, isEditMode, valueName, setCustomer }) {
+function EditableTextarea({ value, isEditMode = false, valueName, setCustomer }) {
   const onChange = (e, champ) => {
     setCustomer((user) => ({ ...user, [champ]: e.target.value }));
   };

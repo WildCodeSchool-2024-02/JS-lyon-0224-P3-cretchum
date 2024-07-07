@@ -33,7 +33,7 @@ const phoneNumber = Joi.string()
   });
 const location = Joi.string().min(3).max(55).required();
 const mail = Joi.string().email().required();
-const password = Joi.string().min(12).required();
+const password = Joi.string().pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&:;ù#àâäéèêëîïôöùûüÿç])[A-Za-z\d@$!%*?&:;ù#àâäéèêëîïôöùûüÿç]{12,}$/).min(12).required();
 const description = Joi.string().min(0).max(800);
 
 // Schema of SingUp form
@@ -75,7 +75,7 @@ const profileSchema = Joi.object({
 
 const validateProfileEdit = (req, res, next) => {
   const { error } = profileSchema.validate(req.body, { abortEarly: true });
-  if (error !== true) {
+  if (!error === true) {
     next();
   } else {
     res.status(400).json({ validationErrors: error.details });

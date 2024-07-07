@@ -82,7 +82,7 @@ const add = async (req, res, next) => {
           );
 
           // Set the token in cookie
-          res.cookie("cookie", token, {
+          res.cookie("cretchomCookie", token, {
             httpOnly: true,
             sameSite: "Strict",
             maxAge: 24 * 60 * 60 * 1000,
@@ -141,7 +141,7 @@ const checkLog = async (req, res, next) => {
       delete req.body.password;
 
       // Set the token in cookie
-      res.cookie("cookie", token, {
+      res.cookie("cretchomCookie", token, {
         httpOnly: true,
         sameSite: "Strict",
         maxAge: 24 * 60 * 60 * 1000,
@@ -156,7 +156,7 @@ const checkLog = async (req, res, next) => {
 };
 
 const disconect = async (req, res) => {
-  res.clearCookie("cookie");
+  res.clearCookie("cretchomCookie");
   res.status(200).json();
 };
 // Ready to export the controller functions

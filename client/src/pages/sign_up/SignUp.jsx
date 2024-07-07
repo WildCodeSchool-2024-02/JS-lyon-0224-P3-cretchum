@@ -11,6 +11,7 @@ function SignUp() {
   const [passwordConf, setPasswordConf] = useState("");
   const navigate = useNavigate();
   const { update, setUpdate } = useContext(AuthentificationContext);
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&:;ù#àâäéèêëîïôöùûüÿç])[A-Za-z\d@$!%*?&:;ù#àâäéèêëîïôöùûüÿç]{12,}$/;
 
   const handleInputChange = (event, setState) => {
     setState(event.target.value);
@@ -160,16 +161,16 @@ function SignUp() {
             name="password"
             value={password}
             minLength={12}
-            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}"
+            pattern={passwordRegex.source}
             onChange={(event) => handleInputChange(event, setPassword)}
             required
           />
           <section className={styles.passwordSmall}>
-           {/* {({password}).match((?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}) !== true &&
+           {passwordRegex.test(password) !== true &&
             <small>
               ** Le mot de passe doit comprendre une majuscule, une minuscule,
               un chiffre et un caractère spécial.
-            </small>} */}
+            </small>}
           </section>
         </div>
         <div className={styles.inputContainer}>
@@ -182,7 +183,7 @@ function SignUp() {
             type="password"
             name="passwordConf"
             minLength={12}
-            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}"
+            pattern={passwordRegex.source}
             value={passwordConf}
             onChange={(event) => handleInputChange(event, setPasswordConf)}
             required

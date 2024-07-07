@@ -5,8 +5,8 @@ import DeleteProfile from "./delete_profile/DeleteProfile";
 
 function ProfileHeader({
   username,
-  isEditMode,
-  handleEditClick,
+  isEditMode = false,
+  handleEditClick = () => {},
   valueName,
   setCustomer,
 }) {
