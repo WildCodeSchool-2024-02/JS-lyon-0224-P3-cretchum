@@ -11,10 +11,10 @@ function HomeStructureList({ structure }) {
     <div id="userCard" className="userCard">
       <div id="userGeneral">
         <div id="userImg">
-          <img id="userPicture" src={PersonImage} alt={structure.name} />
+          <img id="userPicture" src={PersonImage} alt={structure.username} />
         </div>
         <div id="userInfo">
-          <h3 id="userName">{structure.name}</h3>
+          <h3 id="userName">{structure.username}</h3>
           <p id="userLocation">
             {structure.postal_code} {structure.location}
           </p>
@@ -34,7 +34,7 @@ function HomeStructureList({ structure }) {
 
 HomeStructureList.propTypes = {
   structure: PropTypes.shape({
-    name: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
     postal_code: PropTypes.string.isRequired,
     is_professional: PropTypes.number.isRequired,
     cat: PropTypes.number.isRequired,

@@ -135,7 +135,7 @@
     margin: 5% 0 13% 0;
   }
   .reservationInput {
-    padding: 0;
+    padding: 0.7em;
     max-width: 200px;
   }
   .datesInput {
