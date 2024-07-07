@@ -54,7 +54,7 @@ const signInSchema = Joi.object({
 const validateSignup = (req, res, next) => {
   const { error } = signInSchema.validate(req.body, { abortEarly: true });
 
-  if (!error === true) {
+  if (error === undefined) {
     next();
   } else {
     res.status(400).json({ validationErrors: error.details });
@@ -75,7 +75,8 @@ const profileSchema = Joi.object({
 
 const validateProfileEdit = (req, res, next) => {
   const { error } = profileSchema.validate(req.body, { abortEarly: true });
-  if (!error === true) {
+
+  if (error === undefined) {
     next();
   } else {
     res.status(400).json({ validationErrors: error.details });

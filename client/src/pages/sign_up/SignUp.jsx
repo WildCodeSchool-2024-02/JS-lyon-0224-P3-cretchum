@@ -7,7 +7,7 @@ import { AuthentificationContext } from "../../use_context/authentification";
 
 function SignUp() {
   const URL = import.meta.env.VITE_API_URL;
-  const [password, setPassword] = useState("");
+  const [passwordForm, setPasswordForm] = useState("");
   const [passwordConf, setPasswordConf] = useState("");
   const navigate = useNavigate();
   const { update, setUpdate } = useContext(AuthentificationContext);
@@ -21,16 +21,16 @@ function SignUp() {
     event.preventDefault();
     try {
       const formData = new FormData(event.target);
-      const data = {
-        lastname: formData.get("lastname"),
-        firstname: formData.get("firstname"),
-        username: formData.get("username"),
-        phoneNumber: formData.get("phone_number"),
-        location: formData.get("location"),
-        mail: formData.get("mail"),
-        password: formData.get("password"),
-        description: formData.get("description"),
-      };
+      const {
+        lastname,
+        firstname,
+        username,
+        phone_number: phoneNumber,
+        location,
+        mail,
+        password,
+        description
+      } = Object.fromEntries(formData.entries());
       const buttonValue = event.nativeEvent.submitter.value;
 
       const response = await fetch(`${URL}/user`, {
@@ -38,7 +38,16 @@ function SignUp() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          lastname,
+          firstname,
+          username,
+          phoneNumber,
+          location,
+          mail,
+          password,
+          description,
+        }),
         credentials: "include",
       });
 
@@ -159,14 +168,14 @@ function SignUp() {
             className={styles.inputSizeM}
             type="password"
             name="password"
-            value={password}
+            value={passwordForm}
             minLength={12}
             pattern={passwordRegex.source}
-            onChange={(event) => handleInputChange(event, setPassword)}
+            onChange={(event) => handleInputChange(event, setPasswordForm)}
             required
           />
           <section className={styles.passwordSmall}>
-           {passwordRegex.test(password) !== true &&
+           {passwordRegex.test(passwordForm) !== true &&
             <small>
               ** Le mot de passe doit comprendre une majuscule, une minuscule,
               un chiffre et un caractère spécial.
@@ -189,7 +198,7 @@ function SignUp() {
             required
           />
           <div className={styles.passwordSmall}>
-            {password !== passwordConf && (
+            {passwordForm !== passwordConf && (
               <small>Les mots de passe ne sont pas identiques</small>
             )}
           </div>
@@ -215,7 +224,7 @@ function SignUp() {
               type="submit"
               name="submitButton"
               value="animal"
-              disabled={password !== passwordConf}
+              disabled={passwordForm !== passwordConf}
             >
               Je veux faire garder
             </button>
@@ -224,7 +233,7 @@ function SignUp() {
               type="submit"
               name="submitButton"
               value="structure"
-              disabled={password !== passwordConf}
+              disabled={passwordForm !== passwordConf}
             >
               Je veux accueillir
             </button>

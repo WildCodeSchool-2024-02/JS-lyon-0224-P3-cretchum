@@ -6,7 +6,7 @@ import DeleteProfile from "./delete_profile/DeleteProfile";
 function ProfileHeader({
   username,
   isEditMode = false,
-  handleEditClick = () => {},
+  handleEditClick = null,
   valueName,
   setCustomer,
 }) {
@@ -38,7 +38,7 @@ function ProfileHeader({
           )}
         </h1>
       </section>
-      {handleEditClick !== undefined && (
+      {handleEditClick !== null && (
         <div className={styles.editProfile}>
           <button
             type="button"

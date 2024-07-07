@@ -7,12 +7,16 @@ import LogoCicorne from "../../assets/logo/cicorne.png";
 import { AuthentificationContext } from "../../use_context/authentification";
 
 function HomePage() {
-  const {auth} = useContext(AuthentificationContext)
+  const { auth } = useContext(AuthentificationContext);
   const navigate = useNavigate();
 
+
+  // erreur dans le navigateur si pas de Useeffect
+  // useEffect(() => {
     if (auth !== null && auth !== false) {
       navigate("/page-recherche");
     }
+  // }, [auth, navigate]);
 
   return (
     <div className="homePage">
