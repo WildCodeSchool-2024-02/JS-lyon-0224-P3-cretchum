@@ -26,7 +26,7 @@ const read = async (req, res, next) => {
     // If the user is not found, respond with HTTP 404 (Not Found)
     // Otherwise, respond with the user in JSON format
     if (user == null) {
-      res.sendStatus(404).json({ error: "User not found" });
+      res.status(404).json({ error: "User not found" });
     } else {
       res.status(200).json(user);
     }
@@ -148,7 +148,7 @@ const checkLog = async (req, res, next) => {
       });
       res.status(200).json();
     } else {
-      res.status(401).json({ error: "accès non autorisé" });
+      res.status(401).json({ error: "unauthorized access" });
     }
   } catch (err) {
     next(err);

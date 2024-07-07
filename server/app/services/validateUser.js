@@ -75,7 +75,7 @@ const profileSchema = Joi.object({
 
 const validateProfileEdit = (req, res, next) => {
   const { error } = profileSchema.validate(req.body, { abortEarly: true });
-  if (!error === true) {
+  if (error !== true) {
     next();
   } else {
     res.status(400).json({ validationErrors: error.details });

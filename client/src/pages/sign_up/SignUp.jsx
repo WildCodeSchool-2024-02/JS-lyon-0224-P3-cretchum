@@ -165,10 +165,11 @@ function SignUp() {
             required
           />
           <section className={styles.passwordSmall}>
+           {/* {({password}).match((?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}) !== true &&
             <small>
               ** Le mot de passe doit comprendre une majuscule, une minuscule,
               un chiffre et un caractère spécial.
-            </small>
+            </small>} */}
           </section>
         </div>
         <div className={styles.inputContainer}>

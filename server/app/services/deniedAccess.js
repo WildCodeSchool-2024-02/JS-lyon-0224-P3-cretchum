@@ -5,7 +5,7 @@ const deniedAccess = (req, res, next) => {
 
   try {
     if (token === undefined) {
-      return res.status(401).json({ error: "Accès refusé" });
+      return res.status(401).json({ error: "Access denied" });
     }
     const decoded = jwt.verify(token, process.env.APP_SECRET);
     req.user = decoded;

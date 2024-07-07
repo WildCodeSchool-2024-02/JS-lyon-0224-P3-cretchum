@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useLoaderData, useParams, Link } from "react-router-dom";
 import notify from "../../utils/notify";
 
@@ -7,6 +7,7 @@ import ProfileHeader from "../../components/profile/profile_header/ProfileHeader
 import ProfileSection from "../../components/profile/profile_section/ProfileSection";
 import EditableField from "../../components/profile/editable_field/EditableField";
 import EditableTextarea from "../../components/profile/editable_text_area/EditableTextarea";
+import { AuthentificationContext } from "../../use_context/authentification";
 import NavMenu from "../../components/nav_menu/NavMenu";
 
 function ProfilePage() {
@@ -15,6 +16,8 @@ function ProfilePage() {
   const [beforeChange, setBeforeChange] = useState(customer);
   const { id } = useParams();
   const [animalData, setAnimalData] = useState([]);
+  const {auth} = useContext(AuthentificationContext);
+  const [updateAnimals, setUpdateAnimals] = useState(false);
 
 
   const handleSave = () => {
@@ -71,6 +74,7 @@ function ProfilePage() {
       if (response.status !== 204) {
         throw new Error("an error occured, try againt later");
       }
+      setUpdateAnimals(!updateAnimals)
 
       notify(`${animalName} a bien été supprimé`, "success");
       return { success: true };
@@ -88,6 +92,7 @@ function ProfilePage() {
 
   useEffect(() => {
     const fetchAnimals = async () => {
+      if (auth !== null && (auth !== false && auth.user.hasAnimals === true)) {
       try {
         const response = await fetch(`${URL}/animal/${id}`);
         const data = await response.json();
@@ -95,9 +100,9 @@ function ProfilePage() {
       } catch (err) {
         console.error("Fetch profile error:", err);
       }
-    };
+    }}
     fetchAnimals();
-  }, [URL, id, animalData]);
+  }, [URL, id, auth, updateAnimals]);
 
   return (
     <>
