@@ -122,7 +122,7 @@ function ProfilePage() {
       });
 
       
-      // if something went wrong, notidy user
+      // if something went wrong, notify user
       if (response.status !== 204) {
         throw new Error("an error occured, try againt later");
       }
