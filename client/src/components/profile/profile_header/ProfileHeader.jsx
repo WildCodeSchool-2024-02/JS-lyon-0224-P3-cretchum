@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import LogoCicorne from "../../../assets/logo/cicorne.png";
 import styles from "./ProfileHeader.module.css";
 import DeleteProfile from "./delete_profile/DeleteProfile";
 import InputFile from "../input_file/InputFile";
@@ -25,7 +24,7 @@ function ProfileHeader({
         <div className={styles.avatarContainer}>
           <img
             className={styles.profilePageImg}
-            src={avatar !== null ? `${avatar}` : LogoCicorne}
+            src={avatar}
             alt="Utilisateur"
           />
         </div>

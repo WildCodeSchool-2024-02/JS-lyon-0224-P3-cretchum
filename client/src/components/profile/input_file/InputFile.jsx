@@ -15,7 +15,7 @@ function InputFile({ changeAvatar, setChangeAvatar, customer }) {
         credentials: "include",
         body: formData,
       });
-      if (!response.ok) {
+      if (response.status !== 204) {
         notify(
           "Erreur lors de l'upload de limage, verifier que votre image fait moins de 1 mo et qu'elle est du type jpeg/jpg/png/gif",
           "error"
