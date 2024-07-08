@@ -17,7 +17,7 @@ const {
   disconect,
 } = require("../../../controllers/userActions");
 
-const validateLogin = require("../../../services/ValidateLogin");
+const validateLogin = require("../../../services/validateLogin");
 
 const deniedAccess = require("../../../services/deniedAccess");
 

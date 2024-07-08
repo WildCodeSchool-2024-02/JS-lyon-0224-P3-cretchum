@@ -15,7 +15,7 @@ const {
   destroy,
 } = require("../../../controllers/home_structureActions");
 
-const validateHomeStructure = require("../../../services/ValidateHomeStructure");
+const validateHomeStructure = require("../../../services/validateHomeStructure");
 
 const deniedAccess = require("../../../services/deniedAccess");
 

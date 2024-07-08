@@ -3,7 +3,7 @@ import styles from "../not_found_page/NotFoundPage.module.css";
 import catChock from "../../assets/images/catChock.png";
 import NavMenu from "../../components/nav_menu/NavMenu";
 
-function NotFoundPage() {
+function ProtectedPage() {
   return (
     <>
       <NavMenu />
@@ -21,4 +21,4 @@ function NotFoundPage() {
   );
 }
 
-export default NotFoundPage;
+export default ProtectedPage;
