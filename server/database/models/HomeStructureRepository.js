@@ -33,7 +33,7 @@ class HomeStructureRepository extends AbstractRepository {
   async read(id) {
     // Execute the SQL SELECT query to retrieve a specific home_structure by its ID
     const [rows] = await this.database.query(
-      `select ${this.table}.id, lastname, firstname, username, phone_number, location, mail, description, postal_code, capacity, is_professional, cat, dog, price, user_id from ${this.table} JOIN user ON ${this.table}.user_id = user.id WHERE ${this.table}.id = ?`,
+      `select ${this.table}.id, lastname, firstname, username, phone_number, location, mail, description, postal_code, capacity, is_professional, cat, dog, price, user_id, avatar from ${this.table} JOIN user ON ${this.table}.user_id = user.id WHERE ${this.table}.id = ?`,
       [id]
     );
 
@@ -105,9 +105,9 @@ class HomeStructureRepository extends AbstractRepository {
          hs.price 
        FROM ${this.table} hs 
        JOIN user u ON hs.user_id = u.id 
-       WHERE u.firstname LIKE ? OR u.location LIKE ? OR u.username LIKE ?
+       WHERE u.location LIKE ? OR u.username LIKE ?
        LIMIT ? OFFSET ? `,
-      [`%${search}%`, `%${search}%`, `%${search}%`, parsedLimit, parsedOffset]
+      [`%${search}%`, `%${search}%`, parsedLimit, parsedOffset]
     );
 
     // count number of total rows

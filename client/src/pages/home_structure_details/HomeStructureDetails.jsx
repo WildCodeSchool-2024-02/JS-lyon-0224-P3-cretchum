@@ -21,10 +21,6 @@ function HomeStructureDetails() {
         <header id="homeStructureHeader">
           <ProfileHeader
             username={structures.username}
-            isEditMode={false}
-            handleEditClick={undefined}
-            valueName=""
-            changeAvatar={false}
             customer={structures}
           />
         </header>

@@ -7,11 +7,11 @@ function ProfileHeader({
   username,
   isEditMode = false,
   handleEditClick = null,
-  valueName,
+  valueName = null,
   onChange = null,
   customer,
-  setChangeAvatar,
-  changeAvatar,
+  setChangeAvatar = null,
+  changeAvatar = null,
 }) {
   const { avatar } = customer;
 
@@ -75,9 +75,9 @@ ProfileHeader.propTypes = {
   isEditMode: PropTypes.bool,
   handleEditClick: PropTypes.func,
   onChange: PropTypes.func, 
-  valueName: PropTypes.string.isRequired,
-  setChangeAvatar: PropTypes.func.isRequired,
-  changeAvatar: PropTypes.bool.isRequired,
+  valueName: PropTypes.string,
+  setChangeAvatar: PropTypes.func,
+  changeAvatar: PropTypes.bool,
   customer: PropTypes.shape({
     id: PropTypes.number.isRequired,
     lastname: PropTypes.string.isRequired,
@@ -94,7 +94,10 @@ ProfileHeader.propTypes = {
 ProfileHeader.defaultProps = {
   isEditMode: false,
   handleEditClick: null,
-  onChange: null
+  onChange: null, 
+  setChangeAvatar : null, 
+  changeAvatar : null, 
+  valueName : null
 };
 
 export default ProfileHeader;
