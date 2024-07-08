@@ -10,10 +10,8 @@ function NotFoundPage() {
       <div className={styles.errorPage}>
         <h1>Accès Refusé </h1>
         <h2>Vous n'avez pas l'autorisation d'accéder à ce contenu.</h2>
-        <Link className={styles.navLink} to="/connexion">
-          <button className={`${styles.button} buttonType1`} type="button">
+        <Link className={`${styles.linkredirection} buttonType1`} to="/connexion">
             Cliquez ici pour vous connecter
-          </button>
         </Link>
         <img src={catChock} alt="trois chats surpris" />
       </div>
