@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./homePage.css";
 
 import LogoPatounes from "../../assets/logo/1patounes.png";
@@ -55,6 +55,7 @@ function HomePage() {
         </main>
         <footer className="homePageFooter">
           <p>© 2024 Cretchom. Tous droits réservés.</p>
+          <NavLink to="/mentions-legales" className="navlink">mentions légales</NavLink>
         </footer>
       </div>
     </div>
