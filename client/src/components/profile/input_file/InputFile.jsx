@@ -16,6 +16,11 @@ function InputFile({ changeAvatar, setChangeAvatar, customer }) {
         body: formData,
       });
       if (!response.ok) {
+        notify(
+          "Erreur lors de l'upload de limage, verifier que votre image fait moins de 1 mo et qu'elle est du type jpeg/jpg/png/gif",
+          "error"
+        );
+
         throw new Error("Erreur lors du téléchargement de l'image");
       }
 
@@ -25,10 +30,6 @@ function InputFile({ changeAvatar, setChangeAvatar, customer }) {
         setTimeout(() => {
           window.location.reload();
         }, "2000");
-      }
-      if (response.status !== 204) {
-        const data = await response.json();
-        notify(data.validationErrors[0].message, "error");
       }
     } catch (error) {
       console.error("Erreur:", error);
