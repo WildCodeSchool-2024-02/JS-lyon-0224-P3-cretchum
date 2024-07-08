@@ -80,14 +80,14 @@ ProfileHeader.propTypes = {
   changeAvatar: PropTypes.bool,
   customer: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    lastname: PropTypes.string.isRequired,
-    firstname: PropTypes.string.isRequired,
+    lastname: PropTypes.string,
+    firstname: PropTypes.string,
     username: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
     avatar: PropTypes.string.isRequired,
     description: PropTypes.string,
-    mail: PropTypes.string.isRequired,
-    phoneNumber: PropTypes.string.isRequired,
+    mail: PropTypes.string,
+    phoneNumber: PropTypes.string,
   }).isRequired,
 };
 
