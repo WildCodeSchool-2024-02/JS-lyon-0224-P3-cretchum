@@ -1,0 +1,52 @@
+.container {
+  margin: 20px auto;
+  max-width: 800px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 2em;
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  color: #202020;
+}
+
+.subtitle {
+  font-size: 1.5em;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  color: #3c3c3c;
+}
+
+.titleH3 {
+  text-align: center;
+}
+
+.text {
+  font-size: 1em;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  padding-left: 1%;
+  color: #5c5b5b;
+}
+
+.section {
+  padding: 10px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.link {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
