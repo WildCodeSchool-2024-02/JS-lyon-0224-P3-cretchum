@@ -21,7 +21,7 @@ function HomePage() {
         <img
           className="homePageLogoCicorne"
           src={CatDog}
-          alt="Site logo representing a chimera of a stork and a unicorn"
+          alt="un chat et un chien couchés dans l'herbe"
         />
       </header>
       <div className="homeRightContainer">

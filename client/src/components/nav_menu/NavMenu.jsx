@@ -13,7 +13,7 @@ function NavMenu() {
 
   const disconnect = async () => {
     try {
-      const response = await fetch(`${URL}/user/logout`, {
+      const response = await fetch(`${URL}user/logout`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         credentials: "include",

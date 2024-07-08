@@ -13,7 +13,7 @@ function DeleteProfile() {
   const navigate = useNavigate();
   const deleteprofile = async () => {
     try {
-      const response = await fetch(`${URL}/user/${urlId.id}`, {
+      const response = await fetch(`${URL}user/${urlId.id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
