@@ -15,13 +15,14 @@ function ProfilePage() {
   const [beforeChange, setBeforeChange] = useState(customer);
   const { id } = useParams();
   const [animalData, setAnimalData] = useState([]);
-
+  const [changeAvatar, setChangeAvatar] = useState(false);
 
   const handleSave = () => {
     notify("Informations mises à jour avec succès !", "success");
   };
   const URL = import.meta.env.VITE_API_URL;
 
+  // Update profile informations in BDD
   const handleEditClick = async () => {
     if (isEditMode === true && beforeChange !== customer) {
       try {
@@ -45,16 +46,14 @@ function ProfilePage() {
         throw new Error("Registration error");
       } catch (err) {
         console.error("Fetch error:", err);
-        notify(
-          "Erreur lors de la modification du profil. Veuillez réessayer plus tard.",
-          "error"
-        );
+        notify("Erreur lors de la modification du profil", "error");
         return {
           error:
             "An error occurred during registration. Please try again later.",
         };
       }
     }
+    setChangeAvatar(!changeAvatar);
     return setIsEditMode(!isEditMode);
   };
 
@@ -109,6 +108,9 @@ function ProfilePage() {
           handleEditClick={handleEditClick}
           valueName="username"
           setCustomer={setCustomer}
+          customer={customer}
+          changeAvatar={changeAvatar}
+          setChangeAvatar={setChangeAvatar}
         />
         <ProfileSection title="Informations générales">
           <EditableField

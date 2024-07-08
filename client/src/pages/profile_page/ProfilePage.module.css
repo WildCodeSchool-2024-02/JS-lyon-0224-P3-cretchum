@@ -1,5 +1,9 @@
 @import "../../App.css";
-
+#fileInput {
+  position: fixed;
+  top: 40vh;
+  left: 40vw;
+}
 .profilePageContainer {
   font-size: var(--base-font-size);
 }
@@ -7,7 +11,6 @@
 .profilePageContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: minmax(auto, 150px) 1fr 0.5fr 0.1fr;
   gap: 0px 0px;
   grid-auto-flow: row;
   grid-template-areas:
@@ -60,7 +63,7 @@
 @media (max-width: 1000px) {
   .profilePageContainer {
     grid-template-columns: 530px;
-    grid-template-rows: auto;
+    grid-template-rows: 0.3fr 1fr 1fr 1fr;
     grid-template-areas:
       "profile-page-header"
       "profile-section-information"
@@ -73,7 +76,7 @@
 @media (max-width: 550px) {
   .profilePageContainer {
     grid-template-columns: 1fr;
-    grid-template-rows: auto;
+    grid-template-rows: 0.3fr 1fr 1fr 1fr;
     grid-template-areas:
       "profile-page-header"
       "profile-section-information"

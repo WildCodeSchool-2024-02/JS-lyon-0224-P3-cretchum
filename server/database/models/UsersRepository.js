@@ -34,7 +34,7 @@ class UserRepository extends AbstractRepository {
   async read(id) {
     // Execute the SQL SELECT query to retrieve a specific user by its ID
     const [rows] = await this.database.query(
-      `select ${this.table}.id, lastname, firstname, username, phone_number, location, mail, description from ${this.table} where id = ?`,
+      `select ${this.table}.id, lastname, firstname, username, phone_number, location, mail, avatar, description from ${this.table} where id = ?`,
       [id]
     );
 
@@ -125,6 +125,22 @@ class UserRepository extends AbstractRepository {
       [element, parsedId]
     );
     return result[0].count;
+  }
+
+  async editImagePath(userId, filePath) {
+    const result = await this.database.query(
+      `UPDATE ${this.table} set avatar = ? WHERE id = ?`,
+      [filePath, userId]
+    );
+    return result.affectedRows;
+  }
+
+  async readAvatar(userId) {
+    const [rows] = await this.database.query(
+      `select avatar from ${this.table} where id = ?`,
+      [userId]
+    );
+    return rows[0];
   }
 }
 

@@ -35,7 +35,7 @@ const location = Joi.string().min(3).max(55).required();
 const mail = Joi.string().email().required();
 const password = Joi.string().min(12).required();
 const description = Joi.string().min(0).max(800);
-
+const avatar = Joi.string().min(0).max(254);
 // Schema of SingUp form
 
 const signInSchema = Joi.object({
@@ -71,6 +71,7 @@ const profileSchema = Joi.object({
   location,
   mail,
   description,
+  avatar,
 });
 
 const validateProfileEdit = (req, res, next) => {
