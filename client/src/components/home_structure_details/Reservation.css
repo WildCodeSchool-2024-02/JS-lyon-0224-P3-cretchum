@@ -118,9 +118,6 @@
     width: 80%;
     min-width: 310px;
   }
-  .reservation {
-    min-width: 385px;
-  }
 
   #reservationForm {
     flex-direction: column;
