@@ -91,11 +91,9 @@ function LegalMentions() {
 
         <Section title="Cookies :">
           <p className={styles.text}>
-            Nous utilisons des cookies pour analyser le comportement des
-            internautes, comme leurs navigations, leurs habitudes de
-            consommation, leurs déplacements, etc. Vous êtes informé(e) de
-            l’utilisation des cookies et devez donner votre consentement pour
-            leur utilisation.
+            Nous utilisons des cookies pour la connexion de l'utilisateur. Vous
+            êtes informé(e) de l’utilisation des cookies et devez donner votre
+            consentement pour leur utilisation.
           </p>
         </Section>
 
