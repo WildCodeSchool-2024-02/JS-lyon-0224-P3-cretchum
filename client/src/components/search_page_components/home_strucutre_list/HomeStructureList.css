@@ -42,7 +42,7 @@
   grid-template-columns: auto 1fr;
   justify-items: center;
   align-items: center;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr 0.8fr;
 }
 
 .userCat {

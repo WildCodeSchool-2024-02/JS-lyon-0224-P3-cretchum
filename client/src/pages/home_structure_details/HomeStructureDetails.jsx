@@ -10,7 +10,6 @@ import NavMenu from "../../components/nav_menu/NavMenu";
 import "./HomeStructureDetails.css";
 import { AuthentificationContext } from "../../use_context/authentification";
 
-
 function HomeStructureDetails() {
   const structures = useLoaderData();
   const { auth } = useContext(AuthentificationContext);
@@ -25,7 +24,8 @@ function HomeStructureDetails() {
             isEditMode={false}
             handleEditClick={undefined}
             valueName=""
-            setCustomer={() => {}}
+            changeAvatar={false}
+            customer={structures}
           />
         </header>
         <section id="HomeStructureInfo">

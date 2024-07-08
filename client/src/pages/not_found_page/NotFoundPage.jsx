@@ -10,10 +10,8 @@ function NotFoundPage() {
       <div className={styles.errorPage}>
         <h1>Error 404</h1>
         <h2>La page que vous recherchez n'existe pas.</h2>
-        <Link className={styles.navLink} to="/">
-          <button className={`${styles.button} buttonType1`} type="button">
+        <Link className={`${styles.linkredirection} buttonType1`} to="/">
             Retour à la page d'accueil
-          </button>
         </Link>
         <img src={dogFriends} alt="trois chiens surpris" />
       </div>

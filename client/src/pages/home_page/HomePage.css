@@ -80,6 +80,9 @@
   bottom: 0;
   color: black;
 }
+.navlink {
+  margin-left: 10px;
+}
 
 @media screen and (min-width: 580px) {
   .homePageLogoCicorne {

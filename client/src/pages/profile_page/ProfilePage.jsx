@@ -16,6 +16,7 @@ function ProfilePage() {
   const { auth } = useContext(AuthentificationContext);
   const [animalData, setAnimalData] = useState([]);
   const [updateAnimals, setUpdateAnimals] = useState(false);
+  const [changeAvatar, setChangeAvatar] = useState(false);
 
   // notify the user that their information have been fetch correctly
   const handleSave = () => {
@@ -66,7 +67,7 @@ function ProfilePage() {
           body: JSON.stringify(state.customer),
         });
 
-        // If eevrything is ok, update the before change status and put edit mode in false
+        // If everything is ok, update the before change status and put edit mode in false
         if (response.status === 204) {
           dispatch({ type: "SET_BEFORE_CHANGE", payload: state.customer });
           dispatch({ type: "TOGGLE_EDIT_MODE" });
@@ -81,16 +82,14 @@ function ProfilePage() {
         throw new Error("Registration error");
       } catch (err) {
         console.error("Fetch error:", err);
-        notify(
-          "Erreur lors de la modification du profil. Veuillez réessayer plus tard.",
-          "error"
-        );
+        notify("Erreur lors de la modification du profil", "error");
         return {
           error:
             "An error occurred during registration. Please try again later.",
         };
       }
     }
+    setChangeAvatar(!changeAvatar);
     return dispatch({ type: "TOGGLE_EDIT_MODE" });
   };
 
@@ -121,7 +120,6 @@ function ProfilePage() {
         body: JSON.stringify({ animalId }),
       });
 
-      
       // if something went wrong, notify user
       if (response.status !== 204) {
         throw new Error("an error occured, try againt later");
@@ -155,6 +153,9 @@ function ProfilePage() {
           handleEditClick={handleEditClick}
           valueName="username"
           onChange={onChange}
+          customer={state.customer}
+          changeAvatar={changeAvatar}
+          setChangeAvatar={setChangeAvatar}
         />
         <ProfileSection title="Informations générales">
           <EditableField

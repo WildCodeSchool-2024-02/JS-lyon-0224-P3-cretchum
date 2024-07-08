@@ -97,6 +97,7 @@ class HomeStructureRepository extends AbstractRepository {
          u.username,  
          u.phone_number, 
          u.location, 
+         u.avatar,
          hs.postal_code, 
          hs.is_professional, 
          hs.cat, 
