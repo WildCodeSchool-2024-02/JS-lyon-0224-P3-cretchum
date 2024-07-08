@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-import IsProfessionnal from "../is_professionnal/isProfessional";
+import IsProfessionnal from "../is_professionnal/IsProfessional";
 import UserAnimal from "../user_animal/UserAnimal";
 import PersonImage from "../../../assets/images/person.jpg";
 

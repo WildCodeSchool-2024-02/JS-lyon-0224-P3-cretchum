@@ -11,7 +11,8 @@ import { AuthentificationContext } from "../../use_context/authentification";
 import NavMenu from "../../components/nav_menu/NavMenu";
 
 function ProfilePage() {
-  const [customer, setCustomer] = useState(useLoaderData());
+  const customerdata = useLoaderData();
+  const [customer, setCustomer] = useState(customerdata);
   const [isEditMode, setIsEditMode] = useState(false);
   const [beforeChange, setBeforeChange] = useState(customer);
   const { id } = useParams();
@@ -28,7 +29,7 @@ function ProfilePage() {
   const handleEditClick = async () => {
     if (isEditMode === true && beforeChange !== customer) {
       try {
-        const response = await fetch(`${URL}/user/${customer.id}`, {
+        const response = await fetch(`${URL}user/${customer.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -63,7 +64,7 @@ function ProfilePage() {
 
   const handleDeleteAnimals = async (animalId, animalName) => {
     try {
-      const response = await fetch(`${URL}/animal/${animalId}`, {
+      const response = await fetch(`${URL}animal/${animalId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

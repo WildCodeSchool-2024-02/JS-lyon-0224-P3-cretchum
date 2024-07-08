@@ -13,7 +13,7 @@ const {
   edit,
   add,
   destroy,
-} = require("../../../controllers/home_structureActions");
+} = require("../../../controllers/homestructureActions");
 
 const validateHomeStructure = require("../../../services/validateHomeStructure");
 

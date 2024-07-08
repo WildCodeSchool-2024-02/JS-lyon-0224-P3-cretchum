@@ -2,28 +2,25 @@ import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./HomePage.css";
 
+
 import LogoPatounes from "../../assets/logo/1patounes.png";
-import LogoCicorne from "../../assets/logo/cicorne.png";
+import CatDog from "../../assets/images/catDog.jpg";
 import { AuthentificationContext } from "../../use_context/authentification";
 
 function HomePage() {
   const { auth } = useContext(AuthentificationContext);
   const navigate = useNavigate();
 
-
-  // erreur dans le navigateur si pas de Useeffect
-  // useEffect(() => {
     if (auth !== null && auth !== false) {
       navigate("/page-recherche");
     }
-  // }, [auth, navigate]);
 
   return (
     <div className="homePage">
       <header className="homePageHeader">
         <img
           className="homePageLogoCicorne"
-          src={LogoCicorne}
+          src={CatDog}
           alt="Site logo representing a chimera of a stork and a unicorn"
         />
       </header>
