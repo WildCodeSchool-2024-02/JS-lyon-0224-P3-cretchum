@@ -143,6 +143,19 @@ class UserRepository extends AbstractRepository {
     );
     return rows[0];
   }
+  
+  async readByEmail(email) {
+    const [rows] = await this.database.query(
+      `select ${this.table}.id, lastname, firstname, username, phone_number, location, mail, avatar, description from ${this.table} where mail = ?`,
+      [email]
+    );
+
+    if (rows.length === 0) {
+      return undefined;
+    }
+
+    return rows[0];
+  }
 }
 
 module.exports = UserRepository;
