@@ -12,6 +12,8 @@ const HomeStructureRouter = require("./home_structure/router");
 const animalRouter = require("./animal/router");
 const imageRouter = require("./image/router");
 const authAction = require("./auth/router");
+const forgotPassword = require('../../controllers/forgotPassword');
+const resetPassword = require('../../controllers/resetPassword');
 
 router.use(
   "/avatars",
@@ -22,6 +24,9 @@ router.use("/homestructure", HomeStructureRouter);
 router.use("/animal", animalRouter);
 router.use("/image", imageRouter);
 router.use("/auth", authAction);
+router.post("/forgot-password", forgotPassword);
+router.post('/reset/:token', resetPassword);
+
 
 /* ************************************************************************* */
 
