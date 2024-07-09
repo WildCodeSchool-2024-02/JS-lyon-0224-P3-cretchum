@@ -32,8 +32,26 @@ const add = async (req, res, next) => {
     next(err);
   }
 };
+// Reads reservations received as a home structure
+const received = async (req, res, next) => {
+  const token = req.cookies.cretchomCookie;
+  try {
+    if (token === undefined) {
+      res.status(401).json({ error: "Invalid token" });
+    } else {
+      const decoded = jwt.verify(token, process.env.APP_SECRET);
+      res.setHeader("Access-Control-Allow-Credentials", "true");
+      const userId = decoded.sub;
+      const reservations = await tables.reservation.readReceived(userId);
+      res.status(200).json(reservations);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
 
 module.exports = {
   read,
   add,
+  received,
 };

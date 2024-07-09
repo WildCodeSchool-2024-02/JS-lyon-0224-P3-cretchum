@@ -16,13 +16,36 @@
   border-top-right-radius: 15px;
   color: white;
 }
-.reservationHeader h2 {
+#reservationTitle {
   text-align: center;
+  font-size: 2rem;
 }
 .reservationContent {
   padding: 1em;
   background-color: white;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  height: 80%;
+  height: 85%;
 }
+
+.tableTitle {
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 15px 0px;
+}
+table,
+th,
+td {
+  text-align: center;
+}
+#animalTable {
+  width: 100%;
+}
+.rowOdd,
+.columnName {
+  background-color: #e7e9eb;
+}
+
+/* .columnName {
+  background-color: var(--secondary-color);
+} */

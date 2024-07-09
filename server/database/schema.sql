@@ -42,6 +42,7 @@ CREATE TABLE reservation (
   home_structure_id INT(11) unsigned NOT NULL, 
   animal_id INT(11) unsigned NOT NULL, 
   status ENUM('waiting', 'confirm', 'refuse') DEFAULT 'waiting',
+  priceday INT(11) NOT NULL,
   FOREIGN KEY (animal_id) REFERENCES animal(id),
   FOREIGN KEY (home_structure_id) REFERENCES home_structure(id)
 );

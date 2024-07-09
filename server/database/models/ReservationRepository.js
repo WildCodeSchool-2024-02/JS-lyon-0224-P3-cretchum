@@ -13,10 +13,11 @@ class HomeStructureRepository extends AbstractRepository {
       value.reservation_date_end,
       value.home_structure_id,
       value.animal_id,
+      value.priceday,
     ]);
     // Execute the SQL INSERT query to add a new user to the "useer" table
     const [result] = await this.database.query(
-      `insert into ${this.table} (reservation_date_beginning, reservation_date_end, home_structure_id, animal_id) values ?`,
+      `insert into ${this.table} (reservation_date_beginning, reservation_date_end, home_structure_id, animal_id, priceday) values ?`,
       [allValues]
     );
 
@@ -26,12 +27,23 @@ class HomeStructureRepository extends AbstractRepository {
 
   async read(id) {
     const [rows] = await this.database.query(
-      `SELECT reservation.id, animal.name, username, DATE_FORMAT(reservation_date_beginning, "%d/%m/%Y") AS beginning, DATE_FORMAT(reservation_date_end, "%d/%m/%Y") AS end,  reservation.status FROM ${this.table} JOIN animal on animal_id = animal.id JOIN user ON user_id=user.id     WHERE animal.user_id= ?;
+      `SELECT reservation.id, animal.name, username, DATE_FORMAT(reservation_date_beginning, "%d/%m/%Y") AS beginning, DATE_FORMAT(reservation_date_end, "%d/%m/%Y") AS end, DATEDIFF( reservation_date_end, reservation_date_beginning ) AS day, priceday, reservation.status FROM ${this.table} JOIN animal on animal_id = animal.id JOIN home_structure ON home_structure.id=home_structure_id JOIN user ON home_structure.user_id=user.id    WHERE animal.user_id= ? ORDER BY reservation.id DESC;
       `,
       [id]
     );
 
     // Return the first row of the result, which represents the user
+    return rows;
+  }
+
+  // Reads reservations received as a home structure
+  async readReceived(userId) {
+    const [rows] = await this.database.query(
+      `SELECT reservation.id, animal.name, username, DATE_FORMAT(reservation_date_beginning, "%d/%m/%Y") AS beginning, DATE_FORMAT(reservation_date_end, "%d/%m/%Y") AS end, DATEDIFF( reservation_date_end, reservation_date_beginning ) AS day, priceday, reservation.status FROM ${this.table} JOIN animal on animal_id = animal.id JOIN user ON user_id=user.id JOIN home_structure ON home_structure_id=home_structure.id  WHERE home_structure.user_id= ? ORDER BY reservation.id DESC;
+    `,
+      [userId]
+    );
+
     return rows;
   }
 }

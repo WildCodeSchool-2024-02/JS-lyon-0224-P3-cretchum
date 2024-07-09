@@ -49,7 +49,7 @@ function Reservation({ priceday, auth, structures }) {
   const datediff = dateDiffInDays(startingDate, endingDate);
 
   // calculating price
-  const price = priceday * datediff;
+  const price = priceday * datediff * selectedAnimals.length;
 
   // avoiding ending date to go before startingDate
   useEffect(() => {
@@ -75,6 +75,7 @@ function Reservation({ priceday, auth, structures }) {
             reservation_date_end: dayjs(endingDate).format("YYYY-MM-DD"),
             home_structure_id: structures.id,
             animal_id: animalData[i].id,
+            priceday,
           };
           count += 1;
         }
@@ -87,7 +88,7 @@ function Reservation({ priceday, auth, structures }) {
       });
 
       if (response.status === 201) {
-        return notify("succes", "succes");
+        return notify("Réservation reussi", "success");
       }
       return notify("Une erreur est survenue lors de la réservation", "error");
     } catch (err) {
