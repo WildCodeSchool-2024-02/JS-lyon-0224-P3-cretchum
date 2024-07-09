@@ -6,8 +6,8 @@ const router = express.Router();
 // Define Your API Routes Here
 /* ************************************************************************* */
 
-// Import users-related actions
-const { authActions } = require("../../../controllers/auth_actions");
+// Import user-related actions
+const { authActions } = require("../../../controllers/authactions");
 
 router.get("/", authActions);
 

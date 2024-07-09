@@ -1,5 +1,5 @@
 // Import the repository modules responsible for handling data operations on the tables
-const UsersRepository = require("./models/UsersRepository");
+const UserRepository = require("./models/UserRepository");
 const HomeStructureRepository = require("./models/HomeStructureRepository");
 const AnimalRepository = require("./models/AnimalRepository");
 const ReservationRepository = require("./models/ReservationRepository");
@@ -11,7 +11,7 @@ const tables = {};
 /* ************************************************************************* */
 
 // Register each repository as data access point for its table
-tables.user = new UsersRepository();
+tables.user = new UserRepository();
 tables.home_structure = new HomeStructureRepository();
 tables.animal = new AnimalRepository();
 tables.reservation = new ReservationRepository();

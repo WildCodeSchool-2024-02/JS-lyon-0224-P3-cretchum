@@ -6,7 +6,7 @@ const router = express.Router();
 // Define Your API Routes Here
 /* ************************************************************************* */
 
-// Import users-related actions
+// Import animal-related actions
 const {
   read,
   browse,
@@ -17,16 +17,16 @@ const {
 const validateAnimals = require("../../../services/validateAnimals");
 const deniedAccess = require("../../../services/deniedAccess");
 
-// Route to get a list of categories
+// Route to get a list of animals
 router.get("/", browse);
 
-// Route to get a specific user by ID
+// Route to get a specific animal by ID
 router.get("/:id", read);
 
-// Route to add a new user
+// Route to add a new animal
 router.post("/:id", validateAnimals, deniedAccess,  add);
 
-// Route to edit an existing user
+// Route to edit an existing animal
 router.delete("/:id", destroy);
 
 /* ************************************************************************* */

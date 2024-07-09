@@ -5,7 +5,7 @@ import ProfileHeader from "../../components/profile/profile_header/ProfileHeader
 import ProfileSection from "../../components/profile/profile_section/ProfileSection";
 import Reservation from "../../components/home_structure_details/Reservation";
 import UserAnimal from "../../components/search_page_components/user_animal/UserAnimal";
-import IsProfessionnal from "../../components/search_page_components/is_professionnal/isProfessional";
+import IsProfessionnal from "../../components/search_page_components/is_professionnal/IsProfessional";
 import NavMenu from "../../components/nav_menu/NavMenu";
 import "./HomeStructureDetails.css";
 import { AuthentificationContext } from "../../use_context/authentification";
@@ -21,12 +21,6 @@ function HomeStructureDetails() {
         <header id="homeStructureHeader">
           <ProfileHeader
             username={structures.username}
-            isEditMode={false}
-            handleEditClick={undefined}
-            valueName=""
-            setCustomer={() => {}}
-            setChangeAvatar={() => {}}
-            changeAvatar={false}
             customer={structures}
           />
         </header>

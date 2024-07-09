@@ -1,14 +1,14 @@
 const { app, request, database } = require("../config");
 
 describe("Routes", () => {
-  it("should return 200 for /users route", async () => {
+  it("should return 200 for /user route", async () => {
     // Mock empty rows returned from the database
     const rows = [];
   
     // Mock the implementation of the database query method
     jest.spyOn(database, "query").mockImplementation(() => [rows]);
 
-    const res = await request(app).get("/api/users");
+    const res = await request(app).get("/api/user");
     expect(res.statusCode).toBe(200);
   });
 

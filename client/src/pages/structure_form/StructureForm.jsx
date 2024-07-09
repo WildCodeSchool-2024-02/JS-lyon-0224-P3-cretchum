@@ -15,22 +15,29 @@ function StructureForm() {
     event.preventDefault();
     try {
       const formData = new FormData(event.target);
-      const data = {
-        isProfessional: formData.get("isProfessional"),
-        postalCode: formData.get("postal_code"),
-        capacity: formData.get("capacity"),
-        price: formData.get("price"),
-        cat: formData.get("cat"),
-        dog: formData.get("dog"),
-        userId : paramsId.id,
-      };
+      const {
+        isProfessional,
+        postal_code: postalCode,
+        capacity,
+        price,
+        cat,
+        dog,
+      } = Object.fromEntries(formData.entries());
 
       const response = await fetch(`${URL}/homestructure/${userId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          isProfessional,
+          postalCode,
+          capacity,
+          price,
+          cat,
+          dog,
+          userId,
+        }),
         credentials: "include",
       });
 
@@ -44,11 +51,7 @@ function StructureForm() {
         notify("Inscription réussie !", "success");
         return navigate("/page-recherche");
       }
-      if (response.status !== 201) {
-        notify(info.validationErrors[0].message, "error");
-      }
-      notify("Erreur lors de l'inscription !", "error");
-      throw new Error("Registration error");
+      return notify(info.validationErrors[0].message, "error");
     } catch (err) {
       console.error("Fetch error:", err);
       notify(

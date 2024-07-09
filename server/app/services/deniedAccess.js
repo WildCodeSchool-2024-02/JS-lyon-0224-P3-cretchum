@@ -1,11 +1,11 @@
 const jwt = require("jsonwebtoken");
 
 const deniedAccess = (req, res, next) => {
-  const token = req.cookies.cookie;
+  const token = req.cookies.cretchomCookie;
 
   try {
     if (token === undefined) {
-      return res.status(401).json({ error: "Accès refusé" });
+      return res.status(401).json({ error: "Access denied" });
     }
     const decoded = jwt.verify(token, process.env.APP_SECRET);
     req.user = decoded;
