@@ -16,6 +16,7 @@ import AnimalsForm from "./pages/animals_form_page/AnimalsForm";
 import profileLoader from "./handlers/loader/profile_loader/profileLoader";
 import homeStructureLoader from "./handlers/loader/home_structure_loader/homeStructureLoader";
 import ProtectedPage from "./pages/protected_page/ProtectedPage"
+import ForgotPassword from "./pages/forgot_password/ForgotPassword";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
         path: "/reservation/:id",
         element: <HomeStructureDetails />,
         loader: homeStructureLoader,
+      },
+      {
+        path: "/mot-de-passe-oublie",
+        element: <ForgotPassword />,
       },
       {
         path: "/mentions-legales",
