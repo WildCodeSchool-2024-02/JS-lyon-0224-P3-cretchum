@@ -37,7 +37,8 @@ CREATE TABLE animal (
 
 CREATE TABLE reservation (
   id INT(11) UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  reservation_date DATE NOT NULL,
+  reservation_date_beginning DATE NOT NULL,
+  reservation_date_end DATE NOT NULL,
   home_structure_id INT(11) unsigned NOT NULL, 
   animal_id INT(11) unsigned NOT NULL, 
   FOREIGN KEY (animal_id) REFERENCES animal(id),

@@ -2,7 +2,7 @@
 const UsersRepository = require("./models/UsersRepository");
 const HomeStructureRepository = require("./models/HomeStructureRepository");
 const AnimalRepository = require("./models/AnimalRepository");
-
+const ReservationRepository = require("./models/ReservationRepository");
 // Create an empty object to hold data repositories for different tables
 const tables = {};
 
@@ -14,6 +14,7 @@ const tables = {};
 tables.user = new UsersRepository();
 tables.home_structure = new HomeStructureRepository();
 tables.animal = new AnimalRepository();
+tables.reservation = new ReservationRepository();
 
 /* ************************************************************************* */
 

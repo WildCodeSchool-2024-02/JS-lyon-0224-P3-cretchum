@@ -12,6 +12,7 @@ const HomeStructureRouter = require("./home_structure/router");
 const animalRouter = require("./animal/router");
 const imageRouter = require("./image/router");
 const authAction = require("./auth/router");
+const reservationRouter = require("./reservation/router");
 
 router.use(
   "/avatars",
@@ -22,6 +23,7 @@ router.use("/homestructure", HomeStructureRouter);
 router.use("/animal", animalRouter);
 router.use("/image", imageRouter);
 router.use("/auth", authAction);
+router.use("/reservation", reservationRouter);
 
 /* ************************************************************************* */
 

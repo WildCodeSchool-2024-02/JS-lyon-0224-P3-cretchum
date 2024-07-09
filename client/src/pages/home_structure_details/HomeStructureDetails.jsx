@@ -70,7 +70,11 @@ function HomeStructureDetails() {
             )}
           </div>
           <aside className="reservation">
-            <Reservation priceday={structures.price} auth={auth} />
+            <Reservation
+              priceday={structures.price}
+              auth={auth}
+              structures={structures}
+            />
           </aside>
         </section>
       </div>
