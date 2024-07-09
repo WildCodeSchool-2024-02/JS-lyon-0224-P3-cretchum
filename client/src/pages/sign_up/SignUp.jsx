@@ -4,14 +4,14 @@ import styles from "./SignUp.module.css";
 import notify from "../../utils/notify";
 import { AuthentificationContext } from "../../use_context/authentification";
 
-
 function SignUp() {
   const URL = import.meta.env.VITE_API_URL;
   const [passwordForm, setPasswordForm] = useState("");
   const [passwordConf, setPasswordConf] = useState("");
   const navigate = useNavigate();
   const { update, setUpdate } = useContext(AuthentificationContext);
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&:;ù#àâäéèêëîïôöùûüÿç])[A-Za-z\d@$!%*?&:;ù#àâäéèêëîïôöùûüÿç]{12,}$/;
+  const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&:;ù#àâäéèêëîïôöùûüÿç])[A-Za-z\d@$!%*?&:;ù#àâäéèêëîïôöùûüÿç]{12,}$/;
 
   const handleInputChange = (event, setState) => {
     setState(event.target.value);
@@ -29,7 +29,7 @@ function SignUp() {
         location,
         mail,
         password,
-        description
+        description,
       } = Object.fromEntries(formData.entries());
       const buttonValue = event.nativeEvent.submitter.value;
 
@@ -64,11 +64,8 @@ function SignUp() {
         return navigate(`/formulaire-animal/${userId}`);
       }
 
-      if (response.status !== 201) {
-        const errorData = await response.json();
-        return notify(errorData.validationErrors[0].message, "error");
-      }
-      throw new Error("Registration error");
+      const errorData = await response.json();
+      return notify(errorData.validationErrors[0].message, "error");
     } catch (err) {
       return notify("Une erreur est survenue lors de l'inscription.", "error");
     }
@@ -175,11 +172,12 @@ function SignUp() {
             required
           />
           <section className={styles.passwordSmall}>
-           {passwordRegex.test(passwordForm) !== true &&
-            <small>
-              ** Le mot de passe doit comprendre une majuscule, une minuscule,
-              un chiffre et un caractère spécial.
-            </small>}
+            {passwordRegex.test(passwordForm) !== true && (
+              <small>
+                ** Le mot de passe doit comprendre une majuscule, une minuscule,
+                un chiffre et un caractère spécial.
+              </small>
+            )}
           </section>
         </div>
         <div className={styles.inputContainer}>

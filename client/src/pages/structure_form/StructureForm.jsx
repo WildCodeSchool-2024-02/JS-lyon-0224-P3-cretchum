@@ -51,11 +51,7 @@ function StructureForm() {
         notify("Inscription réussie !", "success");
         return navigate("/page-recherche");
       }
-      if (response.status !== 201) {
-        notify(info.validationErrors[0].message, "error");
-      }
-      notify("Erreur lors de l'inscription !", "error");
-      throw new Error("Registration error");
+      return notify(info.validationErrors[0].message, "error");
     } catch (err) {
       console.error("Fetch error:", err);
       notify(

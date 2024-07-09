@@ -39,10 +39,10 @@ class UserRepository extends AbstractRepository {
     );
 
     // Return the first row of the result, which represents the user
+    if (rows[0] === undefined) { return null; }
     const phoneNumber = rows[0].phone_number;
     rows[0].phoneNumber = phoneNumber;
     delete rows[0].phone_number;
-    if (!rows[0]) { return null; }
     return rows[0];
   }
 
