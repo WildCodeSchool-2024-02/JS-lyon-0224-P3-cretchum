@@ -31,7 +31,8 @@ input,
 textarea,
 label,
 small,
-select {
+select,
+button {
   font-family: "roboto";
 }
 

@@ -6,7 +6,7 @@ const router = express.Router();
 // Define Your API Routes Here
 /* ************************************************************************* */
 
-// Import users-related actions
+// Import user-related actions
 const {
   browse,
   read,
@@ -15,9 +15,9 @@ const {
   destroy,
   checkLog,
   disconect,
-} = require("../../../controllers/usersActions");
+} = require("../../../controllers/userActions");
 
-const validateLogin = require("../../../services/ValidateLogin");
+const validateLogin = require("../../../services/validateLogin");
 
 const deniedAccess = require("../../../services/deniedAccess");
 
@@ -27,7 +27,7 @@ const {
 } = require("../../../services/validateUser");
 const uniqueEmailandUsername = require("../../../services/uniqueEmailAndUsername");
 
-// Route to get a list of categories
+// Route to get a list of users
 router.get("/", browse);
 
 // Route to get a specific user by ID
@@ -46,7 +46,7 @@ router.post("/login", validateLogin, checkLog);
 // Route to logout
 router.post("/logout", disconect);
 
-// Route to delete an existing users
+// Route to delete an existing user
 router.delete("/:id", destroy);
 
 /* ************************************************************************* */

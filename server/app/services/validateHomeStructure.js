@@ -15,7 +15,7 @@ const validateHomeStructure = (req, res, next) => {
     abortEarly: true,
   });
 
-  if (error !== true) {
+  if (error === undefined) {
     next();
   } else {
     res.status(400).json({ validationErrors: error.details });

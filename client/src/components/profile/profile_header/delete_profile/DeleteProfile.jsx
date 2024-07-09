@@ -13,7 +13,7 @@ function DeleteProfile() {
   const navigate = useNavigate();
   const deleteprofile = async () => {
     try {
-      const response = await fetch(`${URL}/users/${urlId.id}`, {
+      const response = await fetch(`${URL}user/${urlId.id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -49,8 +49,7 @@ function DeleteProfile() {
         }
       >
         <p>
-          Êtes vous sur de vouloir supprimer votre compte ? <br />
-          Cette action est irréversible
+          Êtes vous sur de vouloir supprimer votre compte ?
         </p>
         <div className={styles.confirmButton}>
           <button type="button" onClick={deletePop}>

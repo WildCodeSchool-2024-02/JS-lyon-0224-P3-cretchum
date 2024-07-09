@@ -11,7 +11,7 @@ function AuthentificationProvider({ children }) {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(`${URL}/auth`, {
+      const response = await fetch(`${URL}auth`, {
         credentials: "include",
       });
       if (response.status === 200) {

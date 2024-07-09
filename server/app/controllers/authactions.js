@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const authActions = async (req, res) => {
-  const token = req.cookies.cookie;
+  const token = req.cookies.cretchomCookie;
 
    try {
     if (token === undefined) {

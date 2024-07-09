@@ -1,13 +1,14 @@
 import { useContext } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import "./homePage.css";
+import { Link, useNavigate, NavLink } from "react-router-dom";
+import "./HomePage.css";
+
 
 import LogoPatounes from "../../assets/logo/1patounes.png";
-import LogoCicorne from "../../assets/logo/cicorne.png";
+import CatDog from "../../assets/images/catDog.jpg";
 import { AuthentificationContext } from "../../use_context/authentification";
 
 function HomePage() {
-  const {auth} = useContext(AuthentificationContext)
+  const { auth } = useContext(AuthentificationContext);
   const navigate = useNavigate();
 
     if (auth !== null && auth !== false) {
@@ -19,8 +20,8 @@ function HomePage() {
       <header className="homePageHeader">
         <img
           className="homePageLogoCicorne"
-          src={LogoCicorne}
-          alt="Site logo representing a chimera of a stork and a unicorn"
+          src={CatDog}
+          alt="un chat et un chien couchés dans l'herbe"
         />
       </header>
       <div className="homeRightContainer">

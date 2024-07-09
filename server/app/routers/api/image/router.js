@@ -9,7 +9,7 @@ const upload = require("../../../services/uploadImage");
 const {
   editPicture,
   readPicture,
-} = require("../../../controllers/usersActions");
+} = require("../../../controllers/userActions");
 
 const deniedAccess = require("../../../services/deniedAccess");
 

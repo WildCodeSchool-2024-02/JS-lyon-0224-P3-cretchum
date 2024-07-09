@@ -1,10 +1,7 @@
 import PropTypes from "prop-types";
 import styles from "./EditableField.module.css";
 
-function EditableField({ label, value, isEditMode, valueName, setCustomer }) {
-  const onChange = (e, champ) => {
-    setCustomer((user) => ({ ...user, [champ]: e.target.value }));
-  };
+function EditableField({ label, value, isEditMode, valueName, onChange}) {
 
   return (
     <div className={styles.field}>
@@ -27,7 +24,7 @@ EditableField.propTypes = {
   value: PropTypes.string.isRequired,
   isEditMode: PropTypes.bool.isRequired,
   valueName: PropTypes.string.isRequired,
-  setCustomer: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default EditableField;

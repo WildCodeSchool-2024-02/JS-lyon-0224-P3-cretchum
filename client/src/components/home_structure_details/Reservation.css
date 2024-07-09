@@ -118,9 +118,6 @@
     width: 80%;
     min-width: 310px;
   }
-  .reservation {
-    min-width: 385px;
-  }
 
   #reservationForm {
     flex-direction: column;
@@ -135,7 +132,7 @@
     margin: 5% 0 13% 0;
   }
   .reservationInput {
-    padding: 0;
+    padding: 0.7em;
     max-width: 200px;
   }
   .datesInput {

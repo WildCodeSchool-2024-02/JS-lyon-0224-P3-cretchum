@@ -5,17 +5,14 @@ import InputFile from "../input_file/InputFile";
 
 function ProfileHeader({
   username,
-  isEditMode,
-  handleEditClick,
-  valueName,
-  setCustomer,
+  isEditMode = false,
+  handleEditClick = null,
+  valueName = null,
+  onChange = null,
   customer,
-  setChangeAvatar,
-  changeAvatar,
+  setChangeAvatar = null,
+  changeAvatar = null,
 }) {
-  const onChange = (e, champ) => {
-    setCustomer((user) => ({ ...user, [champ]: e.target.value }));
-  };
   const { avatar } = customer;
 
   return (
@@ -39,7 +36,7 @@ function ProfileHeader({
                 onChange={
                   isEditMode === true
                     ? (e) => onChange(e, valueName)
-                    : undefined
+                    : null
                 }
               />
             ) : (
@@ -47,7 +44,7 @@ function ProfileHeader({
             )}
           </h1>
         </section>
-        {handleEditClick !== undefined && (
+        {handleEditClick !== null && (
           <div className={styles.editProfile}>
             <button
               type="button"
@@ -77,26 +74,30 @@ ProfileHeader.propTypes = {
   username: PropTypes.string.isRequired,
   isEditMode: PropTypes.bool,
   handleEditClick: PropTypes.func,
-  valueName: PropTypes.string.isRequired,
-  setCustomer: PropTypes.func.isRequired,
-  setChangeAvatar: PropTypes.func.isRequired,
-  changeAvatar: PropTypes.bool.isRequired,
+  onChange: PropTypes.func, 
+  valueName: PropTypes.string,
+  setChangeAvatar: PropTypes.func,
+  changeAvatar: PropTypes.bool,
   customer: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    lastname: PropTypes.string.isRequired,
-    firstname: PropTypes.string.isRequired,
+    lastname: PropTypes.string,
+    firstname: PropTypes.string,
     username: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
     avatar: PropTypes.string.isRequired,
     description: PropTypes.string,
-    mail: PropTypes.string.isRequired,
-    phoneNumber: PropTypes.string.isRequired,
+    mail: PropTypes.string,
+    phoneNumber: PropTypes.string,
   }).isRequired,
 };
 
 ProfileHeader.defaultProps = {
   isEditMode: false,
-  handleEditClick: undefined,
+  handleEditClick: null,
+  onChange: null, 
+  setChangeAvatar : null, 
+  changeAvatar : null, 
+  valueName : null
 };
 
 export default ProfileHeader;

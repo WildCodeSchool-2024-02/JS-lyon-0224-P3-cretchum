@@ -22,11 +22,11 @@ const browse = async (req, res, next) => {
 // The R of BREAD - Read operation
 const read = async (req, res, next) => {
   try {
-    // Fetch a specific user from the database based on the provided ID
+    // Fetch a specific home_structure from the database based on the provided ID
     const homeStructure = await tables.home_structure.read(req.params.id);
 
-    // If the user is not found, respond with HTTP 404 (Not Found)
-    // Otherwise, respond with the users in JSON format
+    // If the home_structure is not found, respond with HTTP 404 (Not Found)
+    // Otherwise, respond with the home_structure in JSON format
     if (homeStructure == null) {
       res.sendStatus(404);
     } else {
@@ -40,11 +40,11 @@ const read = async (req, res, next) => {
 
 // The E of BREAD - Edit (Update) operation
 const edit = async (req, res, next) => {
-  // Extract the user data from the request body and params
+  // Extract the home_structure data from the request body and params
   const homeStructure = { ...req.body, id: req.params.id };
 
   try {
-    // Update the user in the database
+    // Update the home_structure in the database
     await tables.home_structure.update(homeStructure);
 
     // Respond with HTTP 204 (No Content)
@@ -57,11 +57,11 @@ const edit = async (req, res, next) => {
 
 // The A of BREAD - Add (Create) operation
 const add = async (req, res, next) => {
-  // Extract the user data from the request body
+  // Extract the home_structure data from the request body
   const homeStructure = req.body;
 
   try {
-    // Insert the user into the database
+    // Insert the home_structure into the database
     const insertId = await tables.home_structure.create(homeStructure);
 
     // Respond with HTTP 201 (Created) and the ID of the newly inserted home_structure
@@ -75,7 +75,7 @@ const add = async (req, res, next) => {
 // The D of BREAD - Destroy (Delete) operation
 const destroy = async (req, res, next) => {
   try {
-    // Delete the user from the database
+    // Delete the home_structure from the database
 
     await tables.home_structure.delete(req.params.id);
 

@@ -5,7 +5,7 @@ const URL = import.meta.env.VITE_API_URL;
 
 const profileLoader = async ({ params }) => {
   try {
-    const response = await fetch(`${URL}/users/${params.id}`, {
+    const response = await fetch(`${URL}user/${params.id}`, {
       method: 'GET',
       credentials: 'include',
     });
