@@ -1,32 +1,32 @@
-import { useState } from 'react';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import notify from "../../utils/notify";
 
 function ForgotPassword() {
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
+  const URL = import.meta.env.VITE_API_URL;
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/forgot-password', {
-        method: 'POST',
+      const response = await fetch(`${URL}forgot-password`, {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ email }),
       });
 
-      if (response.ok) {
-        setMessage('Un e-mail de réinitialisation du mot de passe a été envoyé.');
-        setError('');
+      if (response.status === 200) {
+        notify("Un e-mail de réinitialisation du mot de passe a été envoyé.", "success");
+        navigate(`/`);
       } else {
         const errorData = await response.json();
-        setError(errorData.message || 'Une erreur est survenue. Veuillez réessayer.');
-        setMessage('');
+        notify(errorData.message || "Une erreur est survenue. Veuillez réessayer.", "error");
       }
     } catch (err) {
-      setError('Une erreur est survenue. Veuillez réessayer.');
-      setMessage('');
+      notify("Une erreur est survenue. Veuillez réessayer.", "error");
     }
   };
 
@@ -46,10 +46,8 @@ function ForgotPassword() {
         </div>
         <button type="submit">Envoyer</button>
       </form>
-      {message && <p style={{ color: 'green' }}>{message}</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
-};
+}
 
 export default ForgotPassword;
