@@ -25,9 +25,7 @@
   resize: vertical;
   min-height: 100px;
 }
-.caca {
-  color: rebeccapurple;
-}
+
 .readOnlyTextarea {
   border: none;
   background-color: transparent;

@@ -9,6 +9,7 @@
 .homePageLogoCicorne {
   width: 100%;
   height: auto;
+  object-fit: cover;
 }
 .homePageMain {
   display: flex;
@@ -85,11 +86,7 @@
 
 @media screen and (min-width: 580px) {
   .homePageLogoCicorne {
-    width: 580px;
-    height: auto;
-  }
-  .homePageHeader {
-    background-color: white;
+    height: 50vh;
   }
 }
 
@@ -107,8 +104,7 @@
   }
   .homePageLogoCicorne {
     width: 100%;
-    height: auto;
-    max-height: 95vh;
+    height: 100vh;
   }
   .homePageSectionTitle {
     display: flex;

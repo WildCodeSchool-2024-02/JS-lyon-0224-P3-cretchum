@@ -3,14 +3,14 @@ const AbstractRepository = require("./AbstractRepository");
 class HomeStructureRepository extends AbstractRepository {
   constructor() {
     // Call the constructor of the parent class (AbstractRepository)
-    // and pass the table name "program" as configuration
+    // and pass the table name "home_structure" as configuration
     super({ table: "home_structure" });
   }
 
   // The C of CRUD - Create operation
 
   async create(structure) {
-    // Execute the SQL INSERT query to add a new program to the "program" table
+    // Execute the SQL INSERT query to add a new home_structure to the "home_structure" table
     const [result] = await this.database.query(
       `insert into ${this.table} (postal_code, capacity, is_professional, cat, dog, price, user_id) values (?, ?, ?, ?, ?, ?, ?)`,
       [
@@ -24,30 +24,46 @@ class HomeStructureRepository extends AbstractRepository {
       ]
     );
 
-    // Return the ID of the newly inserted program
+    // Return the ID of the newly inserted home_structure
     return result.insertId;
   }
 
   // The Rs of CRUD - Read operations
 
   async read(id) {
-    // Execute the SQL SELECT query to retrieve a specific program by its ID
+    // Execute the SQL SELECT query to retrieve a specific home_structure by its ID
     const [rows] = await this.database.query(
-      `select lastname, firstname, username, phone_number, location, mail, description from ${this.table} JOIN user ON ${this.table}.user_id = user.id WHERE user.id = ?`,
+      `select user.id, lastname, firstname, username, phone_number, location, mail, avatar, description, postal_code, capacity, is_professional, cat, dog, price from ${this.table} RIGHT JOIN user ON ${this.table}.user_id = user.id WHERE user.id = ?`,
       [id]
     );
 
-    // Return the first row of the result, which represents the program
+    // Return the first row of the result, which represents the home_structure
+    if (rows[0] === undefined) { return null; }
+    const phoneNumber = rows[0].phone_number;
+    rows[0].phoneNumber = phoneNumber;
+    delete rows[0].phone_number;
     return rows[0];
   }
+
+  async checkHomeStructure(id) {
+    // Execute the SQL SELECT query to retrieve a specific home_structure by its ID
+    const [rows] = await this.database.query(
+      `select user_id from ${this.table} LEFT JOIN user ON ${this.table}.user_id = user.id WHERE user.id = ?`,
+      [id]
+    );
+
+    // Return the first row of the result, which represents the home_structure
+    return rows;
+  }
+
 
   async readAll() {
     // Execute the SQL SELECT query to retrieve all homes strutures from the "home_structure" table
     const [rows] = await this.database.query(
-      `select id, lastname, firstname, username, location, postal_code, is_professional, cat, dog, price from ${this.table} JOIN user ON ${this.table}.user_id = user.id ORDER BY capacity DESC`
+      `select ${this.table}.id, lastname, firstname, username, phone_number, location, mail, description, postal_code, capacity, is_professional, cat, dog, price, user_id from ${this.table} JOIN user ON ${this.table}.user_id = user.id ORDER BY capacity DESC`
     );
 
-    // Return the array of programs
+    // Return the array of home_structure
     return rows;
   }
 
@@ -61,7 +77,7 @@ class HomeStructureRepository extends AbstractRepository {
         structure.lastname,
         structure.firstname,
         structure.username,
-        structure.phone_number,
+        structure.phoneNumber,
         structure.location,
         structure.mail,
         structure.description,
@@ -89,7 +105,7 @@ class HomeStructureRepository extends AbstractRepository {
   // The D of CRUD - Delete operation
 
   async delete(id) {
-    // Execute the SQL DELETE query to delete a specific program
+    // Execute the SQL DELETE query to delete a specific home_structure
     const [result] = await this.database.query(
       `delete from ${this.table} where id = ?`,
       [id]
@@ -107,7 +123,8 @@ class HomeStructureRepository extends AbstractRepository {
     const [result] = await this.database.query(
       `SELECT 
          hs.id, 
-         u.firstname AS name, 
+         u.firstname AS name,
+         u.username,  
          u.phone_number, 
          u.location, 
          u.avatar,
@@ -118,7 +135,7 @@ class HomeStructureRepository extends AbstractRepository {
          hs.price 
        FROM ${this.table} hs 
        JOIN user u ON hs.user_id = u.id 
-       WHERE u.firstname LIKE ? OR u.location LIKE ? 
+       WHERE u.location LIKE ? OR u.username LIKE ?
        LIMIT ? OFFSET ? `,
       [`%${search}%`, `%${search}%`, parsedLimit, parsedOffset]
     );

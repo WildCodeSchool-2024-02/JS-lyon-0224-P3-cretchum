@@ -10,7 +10,7 @@ class UserRepository extends AbstractRepository {
   // The C of CRUD - Create operation
 
   async create(user) {
-    // Execute the SQL INSERT query to add a new user to the "useer" table
+    // Execute the SQL INSERT query to add a new user to the "user" table
     const [result] = await this.database.query(
       `insert into ${this.table} (lastname, firstname, username, phone_number, location, mail, password, description) values (?, ?, ?, ?, ?, ?, ?, ?)`,
       [
@@ -42,12 +42,13 @@ class UserRepository extends AbstractRepository {
     const phoneNumber = rows[0].phone_number;
     rows[0].phoneNumber = phoneNumber;
     delete rows[0].phone_number;
+    if (!rows[0]) { return null; }
     return rows[0];
   }
 
   async readAll() {
     // Execute the SQL SELECT query to retrieve all user from the "user" table
-    const [rows] = await this.database.query(`select * from ${this.table}`);
+    const [rows] = await this.database.query(`select id, lastname, firstname, username, phone_number, location, mail, description from ${this.table}`);
 
     // Return the array of user
     return rows;

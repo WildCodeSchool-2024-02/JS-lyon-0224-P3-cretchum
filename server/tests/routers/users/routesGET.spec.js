@@ -1,18 +1,18 @@
 const jwt = require('jsonwebtoken');
 const { app, request, database } = require("../../config");
 
-// TEST : suite for the GET /api/users route
+// TEST : suite for the GET /api/user route
 
-describe("GET /api/users", () => {
-  it("should fetch users successfully", async () => {
+describe("GET /api/user", () => {
+  it("should fetch user successfully", async () => {
     // Mock empty rows returned from the database
     const rows = [];
 
     // Mock the implementation of the database query method
     jest.spyOn(database, "query").mockImplementation(() => [rows]);
 
-    // Send a GET request to the /api/users endpoint
-    const response = await request(app).get("/api/users");
+    // Send a GET request to the /api/user endpoint
+    const response = await request(app).get("/api/user");
 
     // Assertions
     expect(response.status).toBe(200);
@@ -20,9 +20,9 @@ describe("GET /api/users", () => {
   });
 });
 
-// TEST : suite for the GET /api/users/:id route
+// TEST : suite for the GET /api/user/:id route
 
-describe("GET /api/users/:id", () => {
+describe("GET /api/user/:id", () => {
   const userId = 2;
   const validToken = jwt.sign({ id: userId }, process.env.APP_SECRET);
   
@@ -42,9 +42,9 @@ describe("GET /api/users/:id", () => {
     // Mock the implementation of the database query method
     jest.spyOn(database, "query").mockResolvedValue([rows]);
 
-    // Send a GET request to the /api/users/:id endpoint
+    // Send a GET request to the /api/user/:id endpoint
     const response = await request(app)
-      .get(`/api/users/${userId}`)
+      .get(`/api/user/${userId}`)
       .set('Cookie', `cookie=${validToken}`);
 
      // Assertions
@@ -68,9 +68,9 @@ describe("GET /api/users/:id", () => {
     // Mock the implementation of the database query method
     jest.spyOn(database, "query").mockResolvedValue([rows]);
 
-    // Send a GET request to the /api/users/:id endpoint with an invalid ID
+    // Send a GET request to the /api/user/:id endpoint with an invalid ID
     const response = await request(app)
-      .get("/api/users/1")
+      .get("/api/user/1")
       .set('Cookie', `cookie=${validToken}`);
 
     // Assertions

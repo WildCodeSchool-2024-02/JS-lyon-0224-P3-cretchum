@@ -6,21 +6,24 @@ const router = express.Router();
 // Define Your API Routes Here
 /* ************************************************************************* */
 
-// Import users-related actions
+// Import user-related actions
 const {
   browse,
   read,
   edit,
   add,
   destroy,
-} = require("../../../controllers/home_structureActions");
+} = require("../../../controllers/homestructureActions");
 
-const validateHomeStructure = require("../../../services/ValidateHomeStructure");
+const validateHomeStructure = require("../../../services/validateHomeStructure");
 
 const deniedAccess = require("../../../services/deniedAccess");
 
+const checkHasAnimalsIsHomeStructure = require("../../../services/checkHasAnimalsIsHomeStructure");
 
-// Route to get a list of categories
+
+
+// Route to get a list of home_structure
 router.get("/", browse);
 
 // Route to get a specific user by ID
@@ -30,7 +33,7 @@ router.get("/:id", read);
 router.put("/:id", edit);
 
 // Route to add a new user
-router.post("/:id", validateHomeStructure, deniedAccess, add);
+router.post("/:id", validateHomeStructure, deniedAccess, checkHasAnimalsIsHomeStructure, add);
 
 // Route to edit an existing user
 router.delete("/:id", destroy);

@@ -52,6 +52,7 @@
   background-color: transparent;
   text-decoration: underline;
   color: rgb(194, 27, 27);
+  cursor: pointer;
 }
 
 .addLink {
