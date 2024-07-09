@@ -152,12 +152,12 @@ function Reservation({ priceday, auth, structures }) {
                 </LocalizationProvider>
               </div>
               <div id="reservationPets">
-                {/* <h4 id="resaH4">Pour qui ?</h4> */}
-                <fieldset>
+                <fieldset className="filterInput reservationInput">
                   <legend id="resaH4">Pour qui ?</legend>
                   {animalData.map((animal) => (
                     <div key={animal.id}>
                       <input
+                        className="test"
                         type="checkbox"
                         onChange={handleCheckedAnimals}
                         value={animal.id}
@@ -176,15 +176,7 @@ function Reservation({ priceday, auth, structures }) {
                   ))}
                 </select> */}
               </div>
-              <button
-                type="submit"
-                className="searchBtn buttonType1"
-                // disabled={
-                //   auth !== null ||
-                //   auth !== false ||
-                //   auth.user.hasAnimals === false
-                // }
-              >
+              <button type="submit" className="searchBtn buttonType1">
                 Réserver
               </button>
             </>
