@@ -39,7 +39,9 @@ class UserRepository extends AbstractRepository {
     );
 
     // Return the first row of the result, which represents the user
-    if (rows[0] === undefined) { return null; }
+    if (rows[0] === undefined) {
+      return null;
+    }
     const phoneNumber = rows[0].phone_number;
     rows[0].phoneNumber = phoneNumber;
     delete rows[0].phone_number;
@@ -48,10 +50,26 @@ class UserRepository extends AbstractRepository {
 
   async readAll() {
     // Execute the SQL SELECT query to retrieve all user from the "user" table
-    const [rows] = await this.database.query(`select id, lastname, firstname, username, phone_number, location, mail, description from ${this.table}`);
+    const [rows] = await this.database.query(
+      `select id, lastname, firstname, username, phone_number, location, mail, description from ${this.table}`
+    );
 
     // Return the array of user
     return rows;
+  }
+
+  // Recovering your email address
+  async readByEmail(email) {
+    const [rows] = await this.database.query(
+      `SELECT id, mail FROM ${this.table} WHERE mail = ?`,
+      [email]
+    );
+
+    if (rows.length === 0) {
+      return undefined;
+    }
+
+    return rows[0];
   }
 
   // The U of CRUD - Update operation
@@ -141,19 +159,6 @@ class UserRepository extends AbstractRepository {
       `select avatar from ${this.table} where id = ?`,
       [userId]
     );
-    return rows[0];
-  }
-  
-  async readByEmail(email) {
-    const [rows] = await this.database.query(
-      `select ${this.table}.id, lastname, firstname, username, phone_number, location, mail, avatar, description from ${this.table} where mail = ?`,
-      [email]
-    );
-
-    if (rows.length === 0) {
-      return undefined;
-    }
-
     return rows[0];
   }
 }
