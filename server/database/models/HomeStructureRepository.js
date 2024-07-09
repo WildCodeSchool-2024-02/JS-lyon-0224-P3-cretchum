@@ -33,7 +33,7 @@ class HomeStructureRepository extends AbstractRepository {
   async read(id) {
     // Execute the SQL SELECT query to retrieve a specific program by its ID
     const [rows] = await this.database.query(
-      `select * from ${this.table} JOIN user ON ${this.table}.user_id = user.id WHERE ${this.table}.id = ?`,
+      `select lastname, firstname, username, phone_number, location, mail, description from ${this.table} JOIN user ON ${this.table}.user_id = user.id WHERE user.id = ?`,
       [id]
     );
 
@@ -44,7 +44,7 @@ class HomeStructureRepository extends AbstractRepository {
   async readAll() {
     // Execute the SQL SELECT query to retrieve all homes strutures from the "home_structure" table
     const [rows] = await this.database.query(
-      `select * from ${this.table} JOIN user ON ${this.table}.user_id = user.id ORDER BY capacity DESC`
+      `select id, lastname, firstname, username, location, postal_code, is_professional, cat, dog, price from ${this.table} JOIN user ON ${this.table}.user_id = user.id ORDER BY capacity DESC`
     );
 
     // Return the array of programs
@@ -54,9 +54,23 @@ class HomeStructureRepository extends AbstractRepository {
   // The U of CRUD - Update operation
 
   async update(structure) {
-    // Execute the SQL UPDATE query to update a specific program
-    const [result] = await this.database.query(
-      `update ${this.table} set postal_code = ?,capacity = ?,is_professional = ?, cat = ?, dog = ?, price =?  where id = ?`,
+    // Execute the SQL UPDATE query to update a specific user
+    const [userResult] = await this.database.query(
+      `UPDATE user SET lastname = ?, firstname = ?, username = ?, phone_number = ?, location = ?, mail = ?, description = ? WHERE id = ?`,
+      [
+        structure.lastname,
+        structure.firstname,
+        structure.username,
+        structure.phone_number,
+        structure.location,
+        structure.mail,
+        structure.description,
+        structure.id
+      ]
+    );
+
+    const [structureResult] = await this.database.query(
+      `UPDATE ${this.table} SET postal_code = ?, capacity = ?, is_professional = ?, cat = ?, dog = ?, price = ? WHERE user_id = ?`,
       [
         structure.postal_code,
         structure.capacity,
@@ -69,8 +83,8 @@ class HomeStructureRepository extends AbstractRepository {
     );
 
     // Return how many rows were affected
-    return result.affectedRows;
-  }
+    return { structureAffectedRows: structureResult.affectedRows, userAffectedRows: userResult.affectedRows };
+}
 
   // The D of CRUD - Delete operation
 

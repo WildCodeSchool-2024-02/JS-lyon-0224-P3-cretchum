@@ -182,8 +182,43 @@ function ProfilePage() {
               ))}
             </ul>
           )}
+
           <Link to={`/formulaire-animal/${id}`} className={styles.addLink}>
             Ajouter des animaux
+          </Link>
+        </ProfileSection>
+
+        <ProfileSection title="Ma structure">
+        <EditableField
+            label="code postale"
+            value=""
+            isEditMode={isEditMode}
+            valueName="codePostale"
+            setCustomer={setCustomer}
+          />
+          <EditableField
+            label="Animaux acceptés"
+            value=""
+            isEditMode={isEditMode}
+            valueName="animals"
+            setCustomer={setCustomer}
+          />
+          <EditableField
+            label="type de structure"
+            value={customer.location}
+            isEditMode={isEditMode}
+            valueName="structure"
+            setCustomer={setCustomer}
+          />
+            <EditableField
+              label="capacité d'accueil"
+              value=""
+              isEditMode={isEditMode}
+              valueName="capacity"
+              setCustomer={setCustomer}
+            />
+        <Link to={`/inscription_accueil/${id}`} className={styles.addLink}>
+            Devenir structure d'accueil
           </Link>
         </ProfileSection>
       </div>
