@@ -8,7 +8,7 @@ const router = express.Router();
 const { read, add } = require("../../../controllers/reservationActions");
 // Import users-related actions
 
-router.get("/:id", read);
+router.get("/", read);
 
 router.post("/", add);
 

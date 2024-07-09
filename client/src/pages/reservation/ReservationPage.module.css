@@ -1,0 +1,28 @@
+#reservationContainer {
+  display: flex;
+  justify-content: center;
+  height: 93vh;
+}
+.reservation {
+  width: 80%;
+  height: 100%;
+  padding-top: 70px;
+}
+.reservationHeader {
+  padding: 1em;
+  border-bottom: 1px solid #ccc;
+  background-color: var(--highlight-color);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  color: white;
+}
+.reservationHeader h2 {
+  text-align: center;
+}
+.reservationContent {
+  padding: 1em;
+  background-color: white;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  height: 80%;
+}

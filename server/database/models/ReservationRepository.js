@@ -26,12 +26,13 @@ class HomeStructureRepository extends AbstractRepository {
 
   async read(id) {
     const [rows] = await this.database.query(
-      `select ${this.table}.id, reservation_date_beginning, reservation_date_end from ${this.table} where id = ?`,
+      `SELECT reservation.id, animal.name, username, DATE_FORMAT(reservation_date_beginning, "%d/%m/%Y") AS beginning, DATE_FORMAT(reservation_date_end, "%d/%m/%Y") AS end,  reservation.status FROM ${this.table} JOIN animal on animal_id = animal.id JOIN user ON user_id=user.id     WHERE animal.user_id= ?;
+      `,
       [id]
     );
 
     // Return the first row of the result, which represents the user
-    return rows[0];
+    return rows;
   }
 }
 module.exports = HomeStructureRepository;

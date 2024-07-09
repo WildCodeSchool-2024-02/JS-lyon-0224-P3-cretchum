@@ -1,19 +1,20 @@
+const jwt = require("jsonwebtoken");
 const tables = require("../../database/tables");
 
 const read = async (req, res, next) => {
-  try {
-    // Fetch a specific user from the database based on the provided ID
-    const user = await tables.reservation.read(req.params.id);
+  const token = req.cookies.cretchomCookie;
 
-    // If the user is not found, respond with HTTP 404 (Not Found)
-    // Otherwise, respond with the user in JSON format
-    if (user == null) {
-      res.sendStatus(404).json({ error: "User not found" });
+  try {
+    if (token === undefined) {
+      res.status(401).json({ error: "Invalid token" });
     } else {
-      res.status(200).json(user);
+      const decoded = jwt.verify(token, process.env.APP_SECRET);
+      res.setHeader("Access-Control-Allow-Credentials", "true");
+      const userId = decoded.sub;
+      const reservations = await tables.reservation.read(userId);
+      res.status(200).json(reservations);
     }
   } catch (err) {
-    // Pass any errors to the error-handling middleware
     next(err);
   }
 };
