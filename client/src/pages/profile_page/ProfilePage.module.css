@@ -47,18 +47,25 @@
   margin-top: 2%;
 }
 
-.deleteAnimalsButton {
+.deleteButton {
   border: none;
   background-color: transparent;
   text-decoration: underline;
-  color: rgb(194, 27, 27);
   cursor: pointer;
+  color: rgb(194, 27, 27);
+}
+
+#deleteHomeStructureButton {
+  width: 100%;
+  text-align: center;
+  font-size: 1em;
 }
 
 .addLink {
   display: block;
   text-align: center;
   margin-top: 5%;
+  font-size: 1em;
 }
 
 @media (max-width: 1000px) {

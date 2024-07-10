@@ -28,9 +28,10 @@ class HomeStructureRepository extends AbstractRepository {
     return result.insertId;
   }
 
-  // The Rs of CRUD - Read operations
+  // The R of CRUD - Read operations
 
-  async read(id) {
+  // read all information except password on user and home_structure
+  async readUserStructure(id) {
     // Execute the SQL SELECT query to retrieve a specific home_structure by its ID
     const [rows] = await this.database.query(
       `select user.id, lastname, firstname, username, phone_number, location, mail, avatar, description, postal_code, capacity, is_professional, cat, dog, price from ${this.table} RIGHT JOIN user ON ${this.table}.user_id = user.id WHERE user.id = ?`,
@@ -38,24 +39,45 @@ class HomeStructureRepository extends AbstractRepository {
     );
 
     // Return the first row of the result, which represents the home_structure
-    if (rows[0] === undefined) { return null; }
+    if (rows[0] === undefined) {
+      return null;
+    }
     const phoneNumber = rows[0].phone_number;
     rows[0].phoneNumber = phoneNumber;
     delete rows[0].phone_number;
+    const postalCode = rows[0].postal_code;
+    rows[0].postalCode = postalCode;
+    delete rows[0].postal_code;
+    const isProfessional = rows[0].is_professional;
+    rows[0].isProfessional = isProfessional;
+    delete rows[0].is_professional;
     return rows[0];
   }
 
-  async checkHomeStructure(id) {
+  // read only public home_structure and user information
+  async readStructure(id) {
     // Execute the SQL SELECT query to retrieve a specific home_structure by its ID
     const [rows] = await this.database.query(
-      `select user_id from ${this.table} LEFT JOIN user ON ${this.table}.user_id = user.id WHERE user.id = ?`,
+      `select username, location, avatar, description, postal_code, capacity, is_professional, cat, dog, price from ${this.table} RIGHT JOIN user ON ${this.table}.user_id = user.id WHERE ${this.table}.id = ?`,
       [id]
     );
 
     // Return the first row of the result, which represents the home_structure
-    return rows;
+    if (rows[0] === undefined) {
+      return null;
+    }
+    return rows[0];
   }
 
+  async checkHomeStructure(mail) {
+    // Execute the SQL SELECT query to retrieve a specific home_structure by its ID
+    const [rows] = await this.database.query(
+      `select user_id from ${this.table} RIGHT JOIN user ON ${this.table}.user_id = user.id WHERE mail = ?`,
+      [mail]
+    );
+    // Return the first row of the result, which represents the home_structure
+    return rows[0];
+  }
 
   async readAll() {
     // Execute the SQL SELECT query to retrieve all homes strutures from the "home_structure" table
@@ -81,16 +103,16 @@ class HomeStructureRepository extends AbstractRepository {
         structure.location,
         structure.mail,
         structure.description,
-        structure.id
+        structure.id,
       ]
     );
 
     const [structureResult] = await this.database.query(
       `UPDATE ${this.table} SET postal_code = ?, capacity = ?, is_professional = ?, cat = ?, dog = ?, price = ? WHERE user_id = ?`,
       [
-        structure.postal_code,
+        structure.postalCode,
         structure.capacity,
-        structure.is_professional,
+        structure.isProfessional,
         structure.cat,
         structure.dog,
         structure.price,
@@ -99,16 +121,24 @@ class HomeStructureRepository extends AbstractRepository {
     );
 
     // Return how many rows were affected
-    return { structureAffectedRows: structureResult.affectedRows, userAffectedRows: userResult.affectedRows };
-}
+    return {
+      structureAffectedRows: structureResult.affectedRows,
+      userAffectedRows: userResult.affectedRows,
+    };
+  }
 
   // The D of CRUD - Delete operation
 
   async delete(id) {
     // Execute the SQL DELETE query to delete a specific home_structure
+    const [userId] = await this.database.query(
+      `select ${this.table}.id from ${this.table} JOIN user ON ${this.table}.user_id = user.id where user.id = ?`,
+      [id]
+    );
+
     const [result] = await this.database.query(
       `delete from ${this.table} where id = ?`,
-      [id]
+      [userId[0].id]
     );
 
     // Return how many rows were affected
@@ -151,14 +181,6 @@ class HomeStructureRepository extends AbstractRepository {
 
     const totalRow = count[0];
     return { result, totalRow };
-  }
-
-  async login(homeStructure) {
-    const [result] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE mail = ? AND password = ?`,
-      [homeStructure.mail, homeStructure.password]
-    );
-    return result;
   }
 }
 

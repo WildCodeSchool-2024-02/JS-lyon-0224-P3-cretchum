@@ -7,13 +7,14 @@ import ProfileHeader from "../../components/profile/profile_header/ProfileHeader
 import ProfileSection from "../../components/profile/profile_section/ProfileSection";
 import EditableField from "../../components/profile/editable_field/EditableField";
 import EditableTextarea from "../../components/profile/editable_text_area/EditableTextarea";
+import EditableDropDown from "../../components/profile/editable_dropdown/EditableDropDown";
 import { AuthentificationContext } from "../../use_context/authentification";
 import NavMenu from "../../components/nav_menu/NavMenu";
 
 function ProfilePage() {
   const customerdata = useLoaderData();
   const { id } = useParams();
-  const { auth } = useContext(AuthentificationContext);
+  const { auth, update, setUpdate } = useContext(AuthentificationContext);
   const [animalData, setAnimalData] = useState([]);
   const [updateAnimals, setUpdateAnimals] = useState(false);
   const [changeAvatar, setChangeAvatar] = useState(false);
@@ -57,54 +58,54 @@ function ProfilePage() {
 
   // Send the users updates
   const handleEditClick = async () => {
-    if (state.isEditMode && state.beforeChange !== state.customer) {
-      const endpoint = auth.user.isHomeStructure === false 
-        ? `user/` 
-        : `homestructure/`;
+    try {
+      if (state.isEditMode && state.beforeChange !== state.customer) {
+        // Determine the endpoint based on user type
+        const endpoint =
+          auth.user.isHomeStructure === false ? "user/" : "homestructure/";
 
-        const values = auth.user.isHomeStructure === false ? {
-          id: state.customer.id,
-          lastname: state.customer.lastname,
-          firstname: state.customer.firstname,
-          username: state.customer.username,
-          phoneNumber: state.customer.phoneNumber,
-          location: state.customer.location,
-          mail: state.customer.mail,
-          description: state.customer.description,
-        } : state.customer
-      try {
-  
-        const response = await fetch(`${URL}${endpoint}/${customerdata.id}`, {
+        // Prepare the values to be sent based on user type
+        const values =
+          auth.user.isHomeStructure === false
+            ? {
+                id: state.customer.id,
+                lastname: state.customer.lastname,
+                firstname: state.customer.firstname,
+                username: state.customer.username,
+                phoneNumber: state.customer.phoneNumber,
+                location: state.customer.location,
+                mail: state.customer.mail,
+                description: state.customer.description,
+              }
+            : state.customer;
+
+        // Send the PUT request to update the customer information
+        const response = await fetch(`${URL}${endpoint}${state.customer.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(values),
+          credentials: "include",
         });
-  
+
         if (response.status === 204) {
           dispatch({ type: "SET_BEFORE_CHANGE", payload: state.customer });
           dispatch({ type: "TOGGLE_EDIT_MODE" });
-          return handleSave();
+          handleSave();
+          setChangeAvatar(!changeAvatar);
+          return;
         }
-  
+
         const data = await response.json();
-        return notify(data.validationErrors[0].message, "error");
-  
-      } catch (err) {
-        console.error("Fetch error:", err);
-        notify("Erreur lors de la modification du profil", "error");
-        return {
-          error:
-            "An error occurred during registration. Please try again later.",
-        };
+        notify(data.validationErrors[0].message, "error");
       }
+    } catch (err) {
+      console.error("Fetch error:", err);
+      notify("Erreur lors de la modification du profil", "error");
     }
-  
-    setChangeAvatar(!changeAvatar);
-    return dispatch({ type: "TOGGLE_EDIT_MODE" });
+    dispatch({ type: "TOGGLE_EDIT_MODE" });
   };
-  
 
   // Check if the user has an animal, if they do, fetch it
   useEffect(() => {
@@ -143,6 +144,41 @@ function ProfilePage() {
       setUpdateAnimals(!updateAnimals);
 
       notify(`${animalName} a bien été supprimé`, "success");
+      return { success: true };
+    } catch (err) {
+      console.error("Fetch error:", err);
+      notify(
+        "Erreur lors de la suppression du profil. Veuillez réessayer plus tard.",
+        "error"
+      );
+      return {
+        error: "An error occurred during deletion. Please try again later.",
+      };
+    }
+  };
+
+  // Delete structure info
+  const handleDeleteStructure = async () => {
+    try {
+      const response = await fetch(`${URL}homestructure/${customerdata.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: customerdata.id }),
+        credentials: "include",
+      });
+
+      // if something went wrong, notify user
+      if (response.status !== 204) {
+        throw new Error("an error occured, try againt later");
+      }
+
+      setUpdate(!update);
+      notify(
+        `les informations de votre structure ont bien été supprimées`,
+        "success"
+      );
       return { success: true };
     } catch (err) {
       console.error("Fetch error:", err);
@@ -227,7 +263,7 @@ function ProfilePage() {
                   <button
                     type="submit"
                     onClick={() => handleDeleteAnimals(animal.id, animal.name)}
-                    className={styles.deleteAnimalsButton}
+                    className={styles.deleteButton}
                   >
                     Supprimer
                   </button>
@@ -247,50 +283,66 @@ function ProfilePage() {
           auth.user.isHomeStructure === true ? (
             <>
               <EditableField
-                label="code postale"
-                value={state.customer.postal_code}
+                label="Code postale"
+                value={state.customer.postalCode}
                 isEditMode={state.isEditMode}
-                valueName="codePostale"
+                valueName="postalCode"
                 onChange={onChange}
               />
-              <EditableField
+              <EditableDropDown
                 label="Chats acceptés"
                 value={state.customer.cat === 1 ? "Oui" : "Non"}
                 isEditMode={state.isEditMode}
                 valueName="cat"
                 onChange={onChange}
+                options={[
+                  { name: "oui", value: 1 },
+                  { name: "non", value: 2 },
+                ]}
               />
-              <EditableField
+              <EditableDropDown
                 label="Chiens acceptés"
                 value={state.customer.dog === 1 ? "Oui" : "Non"}
                 isEditMode={state.isEditMode}
                 valueName="dog"
                 onChange={onChange}
+                options={[
+                  { name: "oui", value: 1 },
+                  { name: "non", value: 2 },
+                ]}
               />
-              <EditableField
-                label="type de structure"
+              <EditableDropDown
+                label="Type de structure"
                 value={
-                  state.customer.is_professional === 1
+                  state.customer.isProfessional === 1
                     ? "professionnel"
                     : "particulier"
                 }
                 isEditMode={state.isEditMode}
-                valueName="structure"
+                valueName="isProfessional"
                 onChange={onChange}
+                options={[
+                  { name: "professionnel", value: 1 },
+                  { name: "particulier", value: 2 },
+                ]}
               />
               <EditableField
-                label="capacité d'accueil"
+                label="Capacité d'accueil"
                 value={state.customer.capacity}
                 isEditMode={state.isEditMode}
                 valueName="capacity"
                 onChange={onChange}
               />
-              <Link
-                to={`/inscription_accueil/${id}`}
-                className={styles.addLink}
-              >
-                Je ne veux plus être structure d'accueil
-              </Link>
+              {state.isEditMode === false && (
+                <button
+                  type="submit"
+                  onClick={handleDeleteStructure}
+                  className={styles.deleteButton}
+                  id={styles.deleteHomeStructureButton}
+                >
+                  Je ne souhaite plus être structure d'accueil
+                </button>
+              )}
             </>
           ) : (
             <Link to={`/inscription_accueil/${id}`} className={styles.addLink}>

@@ -36,17 +36,19 @@ const read = async (req, res, next) => {
 const add = async (req, res, next) => {
   // Extract the animal data from the request body
   const animal = req.body;
-  let { hasAnimals } = req;
-  const { isHomeStructure } = req;
+  
   try {
     // Insert the animal into the database
     const insertId = await tables.animal.create(animal);
+    
+    const {sub, isHomeStructure} = req.user;
+    let {hasAnimals} = req.user;
 
-    hasAnimals = true;
+    hasAnimals = true
 
     // Generate JWT token
     const token = jwt.sign(
-      { sub: req.body[0].userId, hasAnimals, isHomeStructure },
+      { sub, hasAnimals, isHomeStructure },
       process.env.APP_SECRET,
       { expiresIn: "1d" }
     );

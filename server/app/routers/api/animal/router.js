@@ -16,7 +16,6 @@ const {
 
 const validateAnimals = require("../../../services/validateAnimals");
 const deniedAccess = require("../../../services/deniedAccess");
-const checkHasAnimalsIsHomeStructure = require("../../../services/checkHasAnimalsIsHomeStructure");
 
 // Route to get a list of animals
 router.get("/", browse);
@@ -25,7 +24,7 @@ router.get("/", browse);
 router.get("/:id", read);
 
 // Route to add a new animal
-router.post("/:id", validateAnimals, deniedAccess,  checkHasAnimalsIsHomeStructure, add);
+router.post("/:id", validateAnimals, deniedAccess, add);
 
 // Route to edit an existing animal
 router.delete("/:id", destroy);

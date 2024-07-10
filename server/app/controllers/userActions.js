@@ -75,10 +75,11 @@ const add = async (req, res, next) => {
     delete req.body.password;
 
     const hasAnimals = false;
+    const isHomeStructure = false;
 
     // Generate JWT token
     const token = jwt.sign(
-      { sub: insertId, hasAnimals },
+      { sub: insertId, hasAnimals, isHomeStructure },
       process.env.APP_SECRET,
       { expiresIn: "1d" }
     );
@@ -119,9 +120,7 @@ const checkLog = async (req, res, next) => {
   try {
     // Retrieve user information from the database according to email address
     const user = await tables.user.login(mail);
-    const homeStructure = await tables.home_structure.checkHomeStructure(
-      req.params.id
-    );
+    const homeStructure = await tables.home_structure.checkHomeStructure(mail);
 
     // Check that the user exists and that the password is correct
     if (
