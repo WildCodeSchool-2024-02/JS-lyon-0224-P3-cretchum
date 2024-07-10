@@ -39,7 +39,7 @@ const forgotPassword = async (req, res) => {
     };
     
     const info = await transporter.sendMail(mailOptions);
-    if (info === true) {
+    if (info) {
       return res.status(250).json("Recovery email sent");
     }
     console.error("There was an error sending the email");
