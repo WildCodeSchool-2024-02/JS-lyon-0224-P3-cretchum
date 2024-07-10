@@ -1,19 +1,11 @@
-const jwt = require("jsonwebtoken");
 const tables = require("../../database/tables");
 
 const read = async (req, res, next) => {
-  const token = req.cookies.cretchomCookie;
-
   try {
-    if (token === undefined) {
-      res.status(401).json({ error: "Invalid token" });
-    } else {
-      const decoded = jwt.verify(token, process.env.APP_SECRET);
-      res.setHeader("Access-Control-Allow-Credentials", "true");
-      const userId = decoded.sub;
-      const reservations = await tables.reservation.read(userId);
-      res.status(200).json(reservations);
-    }
+    const userId = req.user;
+    const reservations = await tables.reservation.read(userId);
+    res.status(200).json(reservations);
+    // }
   } catch (err) {
     next(err);
   }
@@ -34,16 +26,33 @@ const add = async (req, res, next) => {
 };
 // Reads reservations received as a home structure
 const received = async (req, res, next) => {
-  const token = req.cookies.cretchomCookie;
   try {
-    if (token === undefined) {
-      res.status(401).json({ error: "Invalid token" });
-    } else {
-      const decoded = jwt.verify(token, process.env.APP_SECRET);
-      res.setHeader("Access-Control-Allow-Credentials", "true");
-      const userId = decoded.sub;
-      const reservations = await tables.reservation.readReceived(userId);
-      res.status(200).json(reservations);
+    const userId = req.user;
+    const reservations = await tables.reservation.readReceived(userId);
+    res.status(200).json(reservations);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const edit = async (req, res, next) => {
+  const { type } = req.query;
+  const userId = req.user;
+  const reservationId = req.body.id;
+
+  try {
+    if (type === "cancel") {
+      const verify = await tables.reservation.verifyCancel(
+        userId,
+        reservationId
+      );
+      //   console.log(verify);
+      if (verify === 1) {
+        await tables.reservation.edit(reservationId, type);
+        res.sendStatus(204);
+      } else {
+        res.status(403).json("unauthoriez acces");
+      }
     }
   } catch (err) {
     next(err);
@@ -54,4 +63,5 @@ module.exports = {
   read,
   add,
   received,
+  edit,
 };

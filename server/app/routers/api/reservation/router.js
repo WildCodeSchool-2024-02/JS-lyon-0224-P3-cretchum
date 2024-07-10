@@ -9,12 +9,18 @@ const {
   read,
   add,
   received,
+  edit,
 } = require("../../../controllers/reservationActions");
-// Import users-related actions
 
-router.get("/", read);
+const userIdCookie = require("../../../services/userIdCookie");
 
-router.get("/received", received);
+// Import reservation-related actions
+
+router.get("/", userIdCookie, read);
+
+router.get("/received", userIdCookie, received);
+
+router.put("/status", userIdCookie, edit);
 
 router.post("/", add);
 

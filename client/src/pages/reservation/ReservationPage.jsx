@@ -1,5 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import { useEffect, useState } from "react";
+import notify from "../../utils/notify";
 import NavMenu from "../../components/nav_menu/NavMenu";
 import styles from "./ReservationPage.module.css";
 
@@ -8,9 +9,10 @@ function ReservationPage() {
   const statusMap = {
     waiting: "En attente",
     confirm: "Confirmé",
-    refuse: "Refusé",
+    cancel: "Annulé",
   };
   const URL = import.meta.env.VITE_API_URL;
+  //   const [change, setChange] = useState(false);
 
   // Fetch received Reservation
   const [received, setReceived] = useState([]);
@@ -29,6 +31,32 @@ function ReservationPage() {
     };
     fetchReservation();
   }, [URL]);
+
+  // Cancelation button
+  const editReservation = async (event, id, type) => {
+    event.preventDefault();
+    try {
+      const response = await fetch(`${URL}reservation/status?type=${type}`, {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      });
+      if (response.status !== 204) {
+        notify("Erreur lors de la modification de la réservation", "error");
+      } else {
+        notify("Réservation modifié", "success");
+        setTimeout(() => {
+          window.location.reload();
+        }, "2000");
+      }
+    } catch (err) {
+      console.error("Fetch error");
+    }
+  };
+
   return (
     <>
       <NavMenu />
@@ -38,7 +66,7 @@ function ReservationPage() {
             <h1 id={styles.reservationTitle}>Mes reservation</h1>
           </header>
           <div className={styles.reservationContent}>
-            <h2 className={styles.tableTitle}>Vos annimaux</h2>
+            <h2 className={styles.tableTitle}>Vos animaux</h2>
             <table id={styles.animalTable}>
               <thead>
                 <tr className={styles.columnName}>
@@ -67,10 +95,21 @@ function ReservationPage() {
                     <td>{reservation.end}</td>
                     <td>{reservation.day}</td>
                     <td>{reservation.username}</td>
-                    <td>{reservation.priceday * reservation.day} €</td>
+                    <td>
+                      {reservation.priceday * reservation.day +
+                        reservation.priceday}{" "}
+                      €
+                    </td>
                     <td>{statusMap[reservation.status] || ""}</td>
                     <td>
-                      <button type="button">Annuler</button>
+                      <button
+                        type="button"
+                        onClick={(event) =>
+                          editReservation(event, reservation.id, "cancel")
+                        }
+                      >
+                        Annuler
+                      </button>
                     </td>
                   </tr>
                 ))}

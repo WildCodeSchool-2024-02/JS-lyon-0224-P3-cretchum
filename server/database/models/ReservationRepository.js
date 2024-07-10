@@ -46,5 +46,23 @@ class HomeStructureRepository extends AbstractRepository {
 
     return rows;
   }
+
+  async verifyCancel(userId, reservationId) {
+    const [response] = await this.database.query(
+      `SELECT COUNT( reservation.id) AS verify  FROM reservation  JOIN animal on animal_id = animal.id JOIN user ON animal.user_id=user.id JOIN home_structure ON home_structure_id=home_structure.id  WHERE (user.id= ? and reservation.id= ? ) OR (home_structure.user_id= ? AND reservation.id= ? );
+      `,
+      [userId, reservationId, userId, reservationId]
+    );
+    return response[0].verify;
+  }
+
+  async edit(reservationId, type) {
+    const [result] = await this.database.query(
+      `UPDATE ${this.table} set status= ? where reservation.id= ?;
+      `,
+      [type, reservationId]
+    );
+    return result.affectedRows;
+  }
 }
 module.exports = HomeStructureRepository;
