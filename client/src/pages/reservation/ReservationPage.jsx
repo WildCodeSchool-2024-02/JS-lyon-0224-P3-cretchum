@@ -50,7 +50,7 @@ function ReservationPage() {
         notify("Réservation modifié", "success");
         setTimeout(() => {
           window.location.reload();
-        }, "2000");
+        }, "1000");
       }
     } catch (err) {
       console.error("Fetch error");
@@ -93,7 +93,7 @@ function ReservationPage() {
                     <td>{reservation.name}</td>
                     <td>{reservation.beginning}</td>
                     <td>{reservation.end}</td>
-                    <td>{reservation.day}</td>
+                    <td>{reservation.day + 1}</td>
                     <td>{reservation.username}</td>
                     <td>
                       {reservation.priceday * reservation.day +
@@ -102,14 +102,18 @@ function ReservationPage() {
                     </td>
                     <td>{statusMap[reservation.status] || ""}</td>
                     <td>
-                      <button
-                        type="button"
-                        onClick={(event) =>
-                          editReservation(event, reservation.id, "cancel")
-                        }
-                      >
-                        Annuler
-                      </button>
+                      {reservation.status !== "cancel" ? (
+                        <button
+                          type="button"
+                          onClick={(event) =>
+                            editReservation(event, reservation.id, "cancel")
+                          }
+                        >
+                          Annuler
+                        </button>
+                      ) : (
+                        ""
+                      )}
                     </td>
                   </tr>
                 ))}

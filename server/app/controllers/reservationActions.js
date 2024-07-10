@@ -46,7 +46,6 @@ const edit = async (req, res, next) => {
         userId,
         reservationId
       );
-      //   console.log(verify);
       if (verify === 1) {
         await tables.reservation.edit(reservationId, type);
         res.sendStatus(204);
