@@ -2,7 +2,7 @@ const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 const tables = require("../../database/tables");
 
-const { MAILTRAP_PASSWORD, MAILTRAP_USER } = process.env;
+const { MAIL_FROM, MAILTRAP_PASSWORD, MAILTRAP_USER } = process.env;
 
 const forgotPassword = async (req, res) => {
   try {
@@ -29,17 +29,17 @@ const forgotPassword = async (req, res) => {
     });
 
     const mailOptions = {
-      from: '"Test Email" <test@email.com>',
-      to: 'regnier.jeux@hotmail.com',
+      from: MAIL_FROM,
+      to: user.mail,
       subject: "Réinitialisation du mot de passe",
       text: `Vous recevez cet email car vous (ou quelqu'un d'autre) avez demandé la réinitialisation du mot de passe de votre compte.\n\n
-        Veuillez cliquer sur le lien suivant, ou le copier dans votre navigateur pour compléter le processus :\n\n
-        http://${req.headers.host}/reset/${token}\n\n
-        Si vous n'avez pas demandé cela, veuillez ignorer cet email et votre mot de passe restera inchangé.\n`,
+      Veuillez cliquer sur le lien suivant, ou le copier dans votre navigateur pour compléter le processus :\n\n
+      http://${req.headers.host}/reset/${token}\n\n
+      Si vous n'avez pas demandé cela, veuillez ignorer cet email et votre mot de passe restera inchangé.\n`,
     };
     
     const info = await transporter.sendMail(mailOptions);
-    if (info) {
+    if (info === true) {
       return res.status(250).json("Recovery email sent");
     }
     console.error("There was an error sending the email");
