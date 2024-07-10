@@ -59,9 +59,9 @@ function ProfilePage() {
   // Send the users updates
   const handleEditClick = async () => {
     try {
-      if (state.isEditMode && state.beforeChange !== state.customer) {
+      if (state.isEditMode === true && state.beforeChange !== state.customer) {
         // Determine the endpoint based on user type
-        const endpoint =
+        const accessPoint =
           auth.user.isHomeStructure === false ? "user/" : "homestructure/";
 
         // Prepare the values to be sent based on user type
@@ -80,7 +80,7 @@ function ProfilePage() {
             : state.customer;
 
         // Send the PUT request to update the customer information
-        const response = await fetch(`${URL}${endpoint}${state.customer.id}`, {
+        const response = await fetch(`${URL}${accessPoint}${state.customer.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -93,8 +93,7 @@ function ProfilePage() {
           dispatch({ type: "SET_BEFORE_CHANGE", payload: state.customer });
           dispatch({ type: "TOGGLE_EDIT_MODE" });
           handleSave();
-          setChangeAvatar(!changeAvatar);
-          return;
+          return setChangeAvatar(!changeAvatar);
         }
 
         const data = await response.json();
@@ -103,8 +102,13 @@ function ProfilePage() {
     } catch (err) {
       console.error("Fetch error:", err);
       notify("Erreur lors de la modification du profil", "error");
+      return {
+        error:
+          "An error occurred during registration. Please try again later.",
+      };
     }
-    dispatch({ type: "TOGGLE_EDIT_MODE" });
+    setChangeAvatar(!changeAvatar);
+    return dispatch({ type: "TOGGLE_EDIT_MODE" });
   };
 
   // Check if the user has an animal, if they do, fetch it
@@ -296,8 +300,8 @@ function ProfilePage() {
                 valueName="cat"
                 onChange={onChange}
                 options={[
-                  { name: "oui", value: 1 },
-                  { name: "non", value: 2 },
+                  { name: "Oui", value: 1 },
+                  { name: "Non", value: 2 },
                 ]}
               />
               <EditableDropDown
@@ -307,23 +311,23 @@ function ProfilePage() {
                 valueName="dog"
                 onChange={onChange}
                 options={[
-                  { name: "oui", value: 1 },
-                  { name: "non", value: 2 },
+                  { name: "Oui", value: 1 },
+                  { name: "Non", value: 2 },
                 ]}
               />
               <EditableDropDown
                 label="Type de structure"
                 value={
                   state.customer.isProfessional === 1
-                    ? "professionnel"
-                    : "particulier"
+                    ? "Professionnel"
+                    : "Particulier"
                 }
                 isEditMode={state.isEditMode}
                 valueName="isProfessional"
                 onChange={onChange}
                 options={[
-                  { name: "professionnel", value: 1 },
-                  { name: "particulier", value: 2 },
+                  { name: "Professionnel", value: 1 },
+                  { name: "Particulier", value: 2 },
                 ]}
               />
               <EditableField
