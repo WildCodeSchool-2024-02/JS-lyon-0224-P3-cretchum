@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import notify from "../../utils/notify";
+import Patoune from "../../assets/logo/1patounes.png";
 import "./ForgotPassword.css";
 
 import NavMenu from "../../components/nav_menu/NavMenu";
@@ -42,9 +43,14 @@ function ForgotPassword() {
   return (
     <div>
       <NavMenu />
-      <h2>Réinitialisation du mot de passe</h2>
-      <form method="post" id="forgotPassword" onSubmit={handleSubmit}>
-        <div>
+
+      <section id="headerforgotPasswordPage">
+        <img src={Patoune} alt="orange paw" id="imgPatoune" />
+        <h1>Réinitialisation du mot de passe </h1>
+      </section>
+
+      <section id="forgotPasswordSection">
+        <form method="post" id="forgotPassword" onSubmit={handleSubmit}>
           <label htmlFor="email">Adresse e-mail :</label>
           <input
             className="forgotPasswordInput"
@@ -57,9 +63,16 @@ function ForgotPassword() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </div>
-        <button type="submit" id="forgotPasswordButton" className="buttonType1">Envoyer</button>
-      </form>
+
+          <button
+            type="submit"
+            id="forgotPasswordButton"
+            className="buttonType1"
+          >
+            Envoyer
+          </button>
+        </form>
+      </section>
     </div>
   );
 }
