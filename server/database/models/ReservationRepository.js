@@ -3,7 +3,7 @@ const AbstractRepository = require("./AbstractRepository");
 class HomeStructureRepository extends AbstractRepository {
   constructor() {
     // Call the constructor of the parent class (AbstractRepository)
-    // and pass the table name "program" as configuration
+    // and pass the table name "reservation" as configuration
     super({ table: "reservation" });
   }
 
@@ -27,7 +27,7 @@ class HomeStructureRepository extends AbstractRepository {
 
   async read(id) {
     const [rows] = await this.database.query(
-      `SELECT reservation.id, animal.name, username, DATE_FORMAT(reservation_date_beginning, "%d/%m/%Y") AS beginning, DATE_FORMAT(reservation_date_end, "%d/%m/%Y") AS end, DATEDIFF( reservation_date_end, reservation_date_beginning ) AS day, priceday, reservation.status FROM ${this.table} JOIN animal on animal_id = animal.id JOIN home_structure ON home_structure.id=home_structure_id JOIN user ON home_structure.user_id=user.id    WHERE animal.user_id= ? ORDER BY reservation.id DESC;
+      `SELECT reservation.id, animal.name, username, DATE_FORMAT(reservation_date_beginning, "%d/%m/%Y") AS beginning, DATE_FORMAT(reservation_date_end, "%d/%m/%Y") AS end, DATEDIFF( reservation_date_end, reservation_date_beginning ) AS day, priceday, reservation.status, home_structure.id AS home_structure_id FROM ${this.table} JOIN animal on animal_id = animal.id JOIN home_structure ON home_structure.id=home_structure_id JOIN user ON home_structure.user_id=user.id    WHERE animal.user_id= ? ORDER BY reservation.id DESC;
       `,
       [id]
     );
@@ -52,6 +52,15 @@ class HomeStructureRepository extends AbstractRepository {
       `SELECT COUNT( reservation.id) AS verify  FROM reservation  JOIN animal on animal_id = animal.id JOIN user ON animal.user_id=user.id JOIN home_structure ON home_structure_id=home_structure.id  WHERE (user.id= ? and reservation.id= ? ) OR (home_structure.user_id= ? AND reservation.id= ? );
       `,
       [userId, reservationId, userId, reservationId]
+    );
+    return response[0].verify;
+  }
+
+  async verify(userId, reservationId) {
+    const [response] = await this.database.query(
+      `SELECT COUNT(reservation.id) AS verify  FROM reservation JOIN home_structure ON home_structure_id=home_structure.id JOIN user ON home_structure.user_id = user.id WHERE user.id = ? and reservation.id = ?;
+  `,
+      [userId, reservationId]
     );
     return response[0].verify;
   }

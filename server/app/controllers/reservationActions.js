@@ -42,17 +42,22 @@ const edit = async (req, res, next) => {
   const reservationId = req.body.id;
 
   try {
+    let verify = 0;
     if (type === "cancel") {
-      const verify = await tables.reservation.verifyCancel(
-        userId,
-        reservationId
-      );
-      if (verify === 1) {
-        await tables.reservation.edit(reservationId, type);
-        res.sendStatus(204);
-      } else {
-        res.status(403).json("unauthoriez acces");
-      }
+      verify = await tables.reservation.verifyCancel(userId, reservationId);
+    } else {
+      verify = await tables.reservation.verify(userId, reservationId);
+    }
+    if (verify === 1) {
+      await tables.reservation.edit(reservationId, type);
+      res.sendStatus(204);
+
+      // adapts the values for the notification.
+      req.reservation_id = reservationId;
+      req.body = [req.body];
+      next();
+    } else {
+      res.status(403).json("unauthoriez acces");
     }
   } catch (err) {
     next(err);

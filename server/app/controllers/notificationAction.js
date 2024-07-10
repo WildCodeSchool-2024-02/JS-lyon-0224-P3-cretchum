@@ -3,7 +3,8 @@ const tables = require("../../database/tables");
 const newNotification = async (req, res, next) => {
   const reservations = req.body;
   const reservationId = req.reservation_id;
-  const { type } = req;
+  const { type } = req.query;
+
   try {
     const notification = await tables.notification.create(
       reservations,

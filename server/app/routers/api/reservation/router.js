@@ -22,7 +22,7 @@ router.get("/", userIdCookie, read);
 
 router.get("/received", userIdCookie, received);
 
-router.put("/status", userIdCookie, edit);
+router.put("/status", userIdCookie, edit, newNotification);
 
 router.post("/", add, newNotification);
 

@@ -12,6 +12,7 @@ function ReservationPage() {
     cancel: "Annulé",
   };
   const URL = import.meta.env.VITE_API_URL;
+
   //   const [change, setChange] = useState(false);
 
   // Fetch received Reservation
@@ -33,7 +34,13 @@ function ReservationPage() {
   }, [URL]);
 
   // Cancelation button
-  const editReservation = async (event, id, type) => {
+  const editReservation = async (
+    event,
+    id,
+    homeStructureId,
+    type,
+    username
+  ) => {
     event.preventDefault();
     try {
       const response = await fetch(`${URL}reservation/status?type=${type}`, {
@@ -42,7 +49,11 @@ function ReservationPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id }),
+        body: JSON.stringify({
+          id,
+          home_structure_id: homeStructureId,
+          username,
+        }),
       });
       if (response.status !== 204) {
         notify("Erreur lors de la modification de la réservation", "error");
@@ -106,7 +117,12 @@ function ReservationPage() {
                         <button
                           type="button"
                           onClick={(event) =>
-                            editReservation(event, reservation.id, "cancel")
+                            editReservation(
+                              event,
+                              reservation.id,
+                              reservation.home_structure_id,
+                              "cancel"
+                            )
                           }
                         >
                           Annuler
@@ -148,10 +164,41 @@ function ReservationPage() {
                     <td>{reservation.beginning}</td>
                     <td>{reservation.end}</td>
                     <td>{reservation.day}</td>
-                    <td>{reservation.priceday * reservation.day} €</td>
+                    <td>
+                      {reservation.priceday * reservation.day +
+                        reservation.priceday}{" "}
+                      €
+                    </td>
                     <td>{statusMap[reservation.status] || ""}</td>
                     <td>
-                      <button type="button">Annuler</button>
+                      <button
+                        type="button"
+                        onClick={(event) =>
+                          editReservation(
+                            event,
+                            reservation.id,
+                            reservation.home_structure_id,
+                            "confirm",
+                            reservation.username
+                          )
+                        }
+                      >
+                        Confirmer
+                      </button>
+                      <button
+                        type="button"
+                        onClick={(event) =>
+                          editReservation(
+                            event,
+                            reservation.id,
+                            reservation.home_structure_id,
+                            "cancel",
+                            reservation.username
+                          )
+                        }
+                      >
+                        Annuler
+                      </button>
                     </td>
                   </tr>
                 ))}
