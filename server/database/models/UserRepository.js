@@ -59,16 +59,16 @@ class UserRepository extends AbstractRepository {
   }
 
   // Recovering your email address
-  async readByEmail(email) {
+  async readByEmail({ email }) {
     const [rows] = await this.database.query(
       `SELECT id, mail FROM ${this.table} WHERE mail = ?`,
       [email]
     );
-
+  
     if (rows.length === 0) {
       return undefined;
     }
-
+  
     return rows[0];
   }
 
