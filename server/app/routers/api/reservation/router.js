@@ -12,6 +12,8 @@ const {
   edit,
 } = require("../../../controllers/reservationActions");
 
+const newNotification = require("../../../controllers/notificationAction");
+
 const userIdCookie = require("../../../services/userIdCookie");
 
 // Import reservation-related actions
@@ -22,6 +24,6 @@ router.get("/received", userIdCookie, received);
 
 router.put("/status", userIdCookie, edit);
 
-router.post("/", add);
+router.post("/", add, newNotification);
 
 module.exports = router;

@@ -5,7 +5,6 @@ const read = async (req, res, next) => {
     const userId = req.user;
     const reservations = await tables.reservation.read(userId);
     res.status(200).json(reservations);
-    // }
   } catch (err) {
     next(err);
   }
@@ -18,7 +17,9 @@ const add = async (req, res, next) => {
   try {
     // Insert the user into the database
     const insertId = await tables.reservation.create(reservations);
+    req.reservation_id = insertId;
     res.status(201).json({ insertId });
+    next();
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);
