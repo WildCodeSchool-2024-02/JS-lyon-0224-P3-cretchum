@@ -18,7 +18,7 @@ function ForgotPassword() {
         body: JSON.stringify({ email }),
       });
 
-      if (response.status === 200) {
+      if (response.status === 250) {
         notify("Un e-mail de réinitialisation du mot de passe a été envoyé.", "success");
         navigate(`/`);
       } else {
