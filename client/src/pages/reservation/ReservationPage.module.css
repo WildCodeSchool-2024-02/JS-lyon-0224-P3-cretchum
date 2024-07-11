@@ -16,14 +16,25 @@
   border-top-right-radius: 15px;
   color: white;
 }
+
 #reservationTitle {
   text-align: center;
   font-size: 2rem;
 }
 #readButtonContainer {
   width: 100%;
+  min-height: 16px;
   display: flex;
   flex-direction: row-reverse;
+}
+#deleteNotification {
+  background-color: transparent;
+  border: none;
+  border-bottom: solid 1px blue;
+  color: blue;
+}
+.none {
+  display: none;
 }
 .reservationContent {
   padding: 1em;

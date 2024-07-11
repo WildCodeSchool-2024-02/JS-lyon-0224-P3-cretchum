@@ -152,8 +152,13 @@ function ReservationPage() {
           </header>
           <div className={styles.reservationContent}>
             <span id={styles.readButtonContainer}>
-              <button type="button" onClick={deleteNotification}>
-                Tout marquer comme lue
+              <button
+                type="button"
+                id={styles.deleteNotification}
+                className={notification.length > 0 ? "" : styles.none}
+                onClick={deleteNotification}
+              >
+                Marquer les réservations comme vues
               </button>
             </span>
             <h2 className={styles.tableTitle}>Vos animaux</h2>
