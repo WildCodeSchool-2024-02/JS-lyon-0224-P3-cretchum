@@ -7,13 +7,14 @@ import ProfileHeader from "../../components/profile/profile_header/ProfileHeader
 import ProfileSection from "../../components/profile/profile_section/ProfileSection";
 import EditableField from "../../components/profile/editable_field/EditableField";
 import EditableTextarea from "../../components/profile/editable_text_area/EditableTextarea";
+import EditableDropDown from "../../components/profile/editable_dropdown/EditableDropDown";
 import { AuthentificationContext } from "../../use_context/authentification";
 import NavMenu from "../../components/nav_menu/NavMenu";
 
 function ProfilePage() {
   const customerdata = useLoaderData();
   const { id } = useParams();
-  const { auth } = useContext(AuthentificationContext);
+  const { auth, update, setUpdate } = useContext(AuthentificationContext);
   const [animalData, setAnimalData] = useState([]);
   const [updateAnimals, setUpdateAnimals] = useState(false);
   const [changeAvatar, setChangeAvatar] = useState(false);
@@ -26,8 +27,8 @@ function ProfilePage() {
 
   // Create initial State for the useReducer hook
   const initialState = {
-    customer: customerdata,
-    beforeChange: customerdata,
+    customer: { ...customerdata },
+    beforeChange: { ...customerdata },
     isEditMode: false,
   };
 
@@ -57,37 +58,57 @@ function ProfilePage() {
 
   // Send the users updates
   const handleEditClick = async () => {
-    if (state.isEditMode === true && state.beforeChange !== state.customer) {
-      try {
-        const response = await fetch(`${URL}user/${customerdata.id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(state.customer),
-        });
+    try {
+      if (state.isEditMode === true && state.beforeChange !== state.customer) {
+        // Determine the endpoint based on user type
+        const accessPoint =
+          auth.user.isHomeStructure === false ? "user/" : "homestructure/";
 
-        // If everything is ok, update the before change status and put edit mode in false
-        if (response.status === 204) {
-          dispatch({ type: "SET_BEFORE_CHANGE", payload: state.customer });
-          dispatch({ type: "TOGGLE_EDIT_MODE" });
-          return handleSave();
-        }
+        // Prepare the values to be sent based on user type
+        const values =
+          auth.user.isHomeStructure === false
+            ? {
+                id: state.customer.id,
+                avatar: state.customer.avatar,
+                lastname: state.customer.lastname,
+                firstname: state.customer.firstname,
+                username: state.customer.username,
+                phoneNumber: state.customer.phoneNumber,
+                location: state.customer.location,
+                mail: state.customer.mail,
+                description: state.customer.description,
+              }
+            : state.customer;
 
-        // else notify the user with what went wrong
-        if (response.status !== 201) {
+        // Send the PUT request to update the customer information
+        const response = await fetch(
+          `${URL}${accessPoint}${state.customer.id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values),
+            credentials: "include",
+          }
+        );
+
+        if (response.status !== 204) {
           const data = await response.json();
-          notify(data.validationErrors[0].message, "error");
+          return notify(data.validationErrors[0].message, "error");
         }
-        throw new Error("Registration error");
-      } catch (err) {
-        console.error("Fetch error:", err);
-        notify("Erreur lors de la modification du profil", "error");
-        return {
-          error:
-            "An error occurred during registration. Please try again later.",
-        };
+        dispatch({ type: "SET_BEFORE_CHANGE", payload: state.customer });
+        dispatch({ type: "TOGGLE_EDIT_MODE" });
+        handleSave();
+        return setChangeAvatar(!changeAvatar);
+
       }
+    } catch (err) {
+      console.error("Fetch error:", err);
+      notify("Erreur lors de la modification du profil", "error");
+      return {
+        error: "An error occurred during registration. Please try again later.",
+      };
     }
     setChangeAvatar(!changeAvatar);
     return dispatch({ type: "TOGGLE_EDIT_MODE" });
@@ -98,7 +119,7 @@ function ProfilePage() {
     const fetchAnimals = async () => {
       if (auth !== null && auth !== false && auth.user.hasAnimals === true) {
         try {
-          const response = await fetch(`${URL}/animal/${id}`);
+          const response = await fetch(`${URL}animal/${id}`);
           const data = await response.json();
           setAnimalData(data);
         } catch (err) {
@@ -143,6 +164,41 @@ function ProfilePage() {
     }
   };
 
+  // Delete structure info
+  const handleDeleteStructure = async () => {
+    try {
+      const response = await fetch(`${URL}homestructure/${customerdata.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: customerdata.id }),
+        credentials: "include",
+      });
+
+      // if something went wrong, notify user
+      if (response.status !== 204) {
+        throw new Error("an error occured, try againt later");
+      }
+
+      setUpdate(!update);
+      notify(
+        `les informations de votre structure ont bien été supprimées`,
+        "success"
+      );
+      return { success: true };
+    } catch (err) {
+      console.error("Fetch error:", err);
+      notify(
+        "Erreur lors de la suppression du profil. Veuillez réessayer plus tard.",
+        "error"
+      );
+      return {
+        error: "An error occurred during deletion. Please try again later.",
+      };
+    }
+  };
+
   return (
     <>
       <NavMenu />
@@ -159,21 +215,21 @@ function ProfilePage() {
         />
         <ProfileSection title="Informations générales">
           <EditableField
-            label="Nom :"
+            label="Nom"
             value={state.customer.lastname}
             isEditMode={state.isEditMode}
             valueName="lastname"
             onChange={onChange}
           />
           <EditableField
-            label="Prénom :"
+            label="Prénom"
             value={state.customer.firstname}
             isEditMode={state.isEditMode}
             valueName="firstname"
             onChange={onChange}
           />
           <EditableField
-            label="Localisation :"
+            label="Localisation"
             value={state.customer.location}
             isEditMode={state.isEditMode}
             valueName="location"
@@ -181,14 +237,14 @@ function ProfilePage() {
           />
           <address className={styles.profileAddressContainer}>
             <EditableField
-              label="Téléphone :"
+              label="Téléphone"
               value={state.customer.phoneNumber}
               isEditMode={state.isEditMode}
               valueName="phoneNumber"
               onChange={onChange}
             />
             <EditableField
-              label="Email :"
+              label="Email"
               value={state.customer.mail}
               isEditMode={state.isEditMode}
               valueName="mail"
@@ -204,22 +260,17 @@ function ProfilePage() {
             onChange={onChange}
           />
         </ProfileSection>
-        <ProfileSection title="Vos réservations">
-          <ul className={styles.noBullets}>
-            <li className={styles.profileLiReservation}>Aucune réservations</li>
-          </ul>
-        </ProfileSection>
 
         <ProfileSection title="Mes animaux">
           {animalData.length > 0 && (
             <ul>
               {animalData.map((animal) => (
                 <li className={styles.profilAnimalsList} key={animal.id}>
-                  {animal.name}{" "}
+                  {animal.name}
                   <button
                     type="submit"
                     onClick={() => handleDeleteAnimals(animal.id, animal.name)}
-                    className={styles.deleteAnimalsButton}
+                    className={styles.deleteButton}
                   >
                     Supprimer
                   </button>
@@ -227,9 +278,105 @@ function ProfilePage() {
               ))}
             </ul>
           )}
+
           <Link to={`/formulaire-animal/${id}`} className={styles.addLink}>
             Ajouter des animaux
           </Link>
+        </ProfileSection>
+
+        <ProfileSection title="Ma structure">
+          {auth !== null &&
+          auth !== false &&
+          auth.user.isHomeStructure === true ? (
+            <>
+              <EditableField
+                label="Code postale"
+                value={state.customer.postalCode}
+                isEditMode={state.isEditMode}
+                valueName="postalCode"
+                onChange={onChange}
+              />
+              <EditableDropDown
+                label="Chats acceptés"
+                value={parseInt(state.customer.cat, 10) ? "Oui" : "Non"}
+                isEditMode={state.isEditMode}
+                valueName="cat"
+                onChange={onChange}
+                options={
+                  parseInt(state.customer.cat, 10) === 1
+                    ? [
+                        { name: "Oui", value: parseInt(1, 10) },
+                        { name: "Non", value: parseInt(0, 10) },
+                      ]
+                    : [
+                        { name: "Non", value: parseInt(0, 10) },
+                        { name: "Oui", value: parseInt(1, 10) },
+                      ]
+                }
+              />
+              <EditableDropDown
+                label="Chiens acceptés"
+                value={parseInt(state.customer.dog, 10) === 1 ? "Oui" : "Non"}
+                isEditMode={state.isEditMode}
+                valueName="dog"
+                onChange={onChange}
+                options={
+                  parseInt(state.customer.dog, 10) === 1
+                    ? [
+                        { name: "Oui", value: parseInt(1, 10) },
+                        { name: "Non", value: parseInt(0, 10) },
+                      ]
+                    : [
+                        { name: "Non", value: parseInt(0, 10) },
+                        { name: "Oui", value: parseInt(1, 10) },
+                      ]
+                }
+              />
+              <EditableDropDown
+                label="Type de structure"
+                value={
+                  parseInt(state.customer.isProfessional, 10) === 1
+                    ? "Professionnel"
+                    : "Particulier"
+                }
+                isEditMode={state.isEditMode}
+                valueName="isProfessional"
+                onChange={onChange}
+                options={
+                  parseInt(state.customer.isProfessional, 10) === 1
+                    ? [
+                        { name: "Professionnel", value: parseInt(1, 10) },
+                        { name: "Particulier", value: parseInt(0, 10) },
+                      ]
+                    : [
+                        { name: "Particulier", value: parseInt(0, 10) },
+                        { name: "Professionnel", value: parseInt(1, 10) },
+                      ]
+                }
+              />
+              <EditableField
+                label="Capacité d'accueil"
+                value={state.customer.capacity}
+                isEditMode={state.isEditMode}
+                valueName="capacity"
+                onChange={onChange}
+              />
+              {state.isEditMode === false && (
+                <button
+                  type="submit"
+                  onClick={handleDeleteStructure}
+                  className={styles.deleteButton}
+                  id={styles.deleteHomeStructureButton}
+                >
+                  Je ne souhaite plus être structure d'accueil
+                </button>
+              )}
+            </>
+          ) : (
+            <Link to={`/inscription_accueil/${id}`} className={styles.addLink}>
+              Devenir structure d'accueil
+            </Link>
+          )}
         </ProfileSection>
       </div>
     </>

@@ -2,7 +2,9 @@ const Joi = require("joi");
 
 const homeStructureSchema = Joi.object({
   isProfessional: Joi.number().required(),
-  postalCode: Joi.string().min(5).max(5).required(),
+  postalCode: Joi.string().pattern(/^[0-9]{5}$/).min(5).max(5).required().messages({
+    "string.pattern.base": "Le code postal doit correspondre au format 69000",
+  }),
   capacity: Joi.number().min(1).required(),
   price: Joi.number().required(),
   cat: Joi.number().required(),

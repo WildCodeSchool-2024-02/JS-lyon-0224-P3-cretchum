@@ -75,20 +75,21 @@ const add = async (req, res, next) => {
     delete req.body.password;
 
     const hasAnimals = false;
+    const isHomeStructure = false;
 
     // Generate JWT token
     const token = jwt.sign(
-      { sub: insertId, hasAnimals },
+      { sub: insertId, hasAnimals, isHomeStructure },
       process.env.APP_SECRET,
       { expiresIn: "1d" }
     );
 
-          // Set the token in cookie
-          res.cookie("cretchomCookie", token, {
-            httpOnly: true,
-            sameSite: "Strict",
-            maxAge: 24 * 60 * 60 * 1000,
-          });
+    // Set the token in cookie
+    res.cookie("cretchomCookie", token, {
+      httpOnly: true,
+      sameSite: "Strict",
+      maxAge: 24 * 60 * 60 * 1000,
+    });
 
     // Respond with HTTP 201 (Created) and the ID of the newly inserted user
     res.status(201).json({ insertId });
@@ -119,6 +120,7 @@ const checkLog = async (req, res, next) => {
   try {
     // Retrieve user information from the database according to email address
     const user = await tables.user.login(mail);
+    const homeStructure = await tables.home_structure.checkHomeStructure(mail);
 
     // Check that the user exists and that the password is correct
     if (
@@ -131,10 +133,14 @@ const checkLog = async (req, res, next) => {
       if (user.user_id === null) {
         hasAnimals = false;
       }
+      let isHomeStructure = true;
+      if (homeStructure.user_id === null) {
+        isHomeStructure = false;
+      }
 
       // Generate JWT token
       const token = jwt.sign(
-        { sub: user.id, hasAnimals },
+        { sub: user.id, hasAnimals, isHomeStructure },
         process.env.APP_SECRET,
         { expiresIn: "1d" }
       );

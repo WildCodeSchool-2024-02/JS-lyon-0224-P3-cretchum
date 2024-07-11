@@ -24,7 +24,7 @@ router.get("/", browse);
 router.get("/:id", read);
 
 // Route to add a new animal
-router.post("/:id", validateAnimals, deniedAccess,  add);
+router.post("/:id", validateAnimals, deniedAccess, add);
 
 // Route to edit an existing animal
 router.delete("/:id", destroy);
