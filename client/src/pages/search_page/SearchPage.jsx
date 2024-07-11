@@ -1,4 +1,4 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import notify from "../../utils/notify";
 import "./SearchPage.css";
@@ -42,7 +42,6 @@ function SearchPage() {
     };
     fetchData();
   }, [search, URL, offset, limit]);
-
 
   useEffect(() => {
     const applyFilters = () => {
@@ -133,7 +132,7 @@ function SearchPage() {
         <ul id="peopleMap">
           {filteredStructures.map((structure) => (
             <li key={structure.id} id="peopleList">
-              <Link to={`/reservation/${structure.id}`}>
+              <Link to={`/hote/${structure.id}`}>
                 <HomeStructureList structure={structure} />
               </Link>
             </li>

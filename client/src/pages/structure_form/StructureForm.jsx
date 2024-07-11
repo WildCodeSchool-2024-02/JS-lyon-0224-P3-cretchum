@@ -24,7 +24,7 @@ function StructureForm() {
         dog,
       } = Object.fromEntries(formData.entries());
 
-      const response = await fetch(`${URL}/homestructure/${userId}`, {
+      const response = await fetch(`${URL}homestructure/${userId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

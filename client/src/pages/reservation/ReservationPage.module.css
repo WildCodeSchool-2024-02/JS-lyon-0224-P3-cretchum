@@ -1,0 +1,72 @@
+#reservationContainer {
+  display: flex;
+  justify-content: center;
+  height: 93vh;
+}
+.reservation {
+  width: 80%;
+  height: 100%;
+  padding-top: 70px;
+}
+.reservationHeader {
+  padding: 1em;
+  border-bottom: 1px solid #ccc;
+  background-color: var(--highlight-color);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  color: white;
+}
+
+#reservationTitle {
+  text-align: center;
+  font-size: 2rem;
+}
+#readButtonContainer {
+  width: 100%;
+  min-height: 16px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+#deleteNotification {
+  background-color: transparent;
+  border: none;
+  border-bottom: solid 1px blue;
+  color: blue;
+  cursor: pointer;
+}
+.none {
+  display: none;
+}
+.reservationContent {
+  padding: 1em;
+  background-color: white;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  height: 85%;
+}
+.notify {
+  background-color: #f9f9715b;
+}
+.tableTitle {
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 15px 0px;
+}
+table,
+th,
+td {
+  text-align: center;
+}
+#animalTable {
+  width: 100%;
+}
+
+.row1,
+.columnName {
+  background-color: var(--main-color);
+}
+.tableContainer {
+  max-height: 300px;
+  height: 40%;
+  overflow: auto;
+}

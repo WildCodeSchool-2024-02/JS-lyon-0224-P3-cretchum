@@ -12,10 +12,13 @@ const HomeStructureRouter = require("./home_structure/router");
 const animalRouter = require("./animal/router");
 const imageRouter = require("./image/router");
 const authAction = require("./auth/router");
-const forgotPassword = require("../../controllers/forgotPasswordActions");
-const resetPasswordAction = require("../../controllers/resetPasswordActions");
+const reservationRouter = require("./reservation/router");
+const notificationRouter = require("./notification/router");
 
 const validateForgotPassword = require("../../services/validateForgotPassword");
+
+const forgotPassword = require("../../controllers/forgotPasswordActions");
+const resetPasswordAction = require("../../controllers/resetPasswordActions");
 
 router.use(
   "/avatars",
@@ -26,6 +29,8 @@ router.use("/homestructure", HomeStructureRouter);
 router.use("/animal", animalRouter);
 router.use("/image", imageRouter);
 router.use("/auth", authAction);
+router.use("/reservation", reservationRouter);
+router.use("/notification", notificationRouter);
 router.post("/forgot-password", validateForgotPassword, forgotPassword);
 router.post("/reset", resetPasswordAction);
 

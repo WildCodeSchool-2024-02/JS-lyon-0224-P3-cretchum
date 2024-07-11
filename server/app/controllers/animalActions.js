@@ -1,6 +1,5 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 const tables = require("../../database/tables");
-
 
 const browse = async (req, res, next) => {
   try {
@@ -37,26 +36,29 @@ const read = async (req, res, next) => {
 const add = async (req, res, next) => {
   // Extract the animal data from the request body
   const animal = req.body;
+  
   try {
     // Insert the animal into the database
     const insertId = await tables.animal.create(animal);
-
-    const hasAnimals = true;
-
-             // Generate JWT token
-              const token = jwt.sign(
-                { sub: req.body[0].userId, hasAnimals },
-                process.env.APP_SECRET,
-                { expiresIn: "1d" }
-              );
     
-              // Set the token in cookie
-              res.cookie("cretchomCookie", token, {
-                httpOnly: true,
-                sameSite: "Strict",
-                maxAge: 24 * 60 * 60 * 1000,
-              });
-    
+    const {sub, isHomeStructure} = req.user;
+    let {hasAnimals} = req.user;
+
+    hasAnimals = true
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { sub, hasAnimals, isHomeStructure },
+      process.env.APP_SECRET,
+      { expiresIn: "1d" }
+    );
+
+    // Set the token in cookie
+    res.cookie("cretchomCookie", token, {
+      httpOnly: true,
+      sameSite: "Strict",
+      maxAge: 24 * 60 * 60 * 1000,
+    });
 
     // Respond with HTTP 201 (Created) and the ID of the newly inserted animal
     res.status(201).json({ insertId });

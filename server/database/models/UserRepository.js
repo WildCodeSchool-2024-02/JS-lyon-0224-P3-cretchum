@@ -34,7 +34,7 @@ class UserRepository extends AbstractRepository {
   async read(id) {
     // Execute the SQL SELECT query to retrieve a specific user by its ID
     const [rows] = await this.database.query(
-      `select ${this.table}.id, lastname, firstname, username, phone_number, location, mail, avatar, description from ${this.table} where id = ?`,
+      `select ${this.table}.id, lastname, firstname, username, phone_number AS phoneNumber, location, mail, avatar, description from ${this.table} where ${this.table}.id = ?`,
       [id]
     );
 
@@ -42,9 +42,6 @@ class UserRepository extends AbstractRepository {
     if (rows[0] === undefined) {
       return null;
     }
-    const phoneNumber = rows[0].phone_number;
-    rows[0].phoneNumber = phoneNumber;
-    delete rows[0].phone_number;
     return rows[0];
   }
 
