@@ -42,6 +42,7 @@ const edit = async (req, res, next) => {
   const reservationId = req.body.id;
 
   try {
+    // Verify if user can edit this reservation
     let verify = 0;
     if (type === "cancel") {
       verify = await tables.reservation.verifyCancel(userId, reservationId);

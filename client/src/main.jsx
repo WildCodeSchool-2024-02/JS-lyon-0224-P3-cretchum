@@ -64,13 +64,13 @@ const router = createBrowserRouter([
         element: <ProtectedPage />,
       },
       {
-        path: "*",
-        element: <NotFoundPage />,
-      },
-      {
         path: "/reservation",
         element: <ReservationPage />,
         loader: reservationLoader,
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />,
       },
     ],
   },

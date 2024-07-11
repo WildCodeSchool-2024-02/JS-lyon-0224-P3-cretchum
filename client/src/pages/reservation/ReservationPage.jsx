@@ -113,7 +113,7 @@ function ReservationPage() {
         setChange(!change);
       }
     } catch (err) {
-      console.error("Fetch error");
+      console.error("Fetch error", err);
     }
   };
 
@@ -136,7 +136,7 @@ function ReservationPage() {
           notify("Une erreur est survenue", "error");
         }
       } catch (err) {
-        console.error("Fetch error");
+        console.error("Fetch error", err);
       }
     }
   };

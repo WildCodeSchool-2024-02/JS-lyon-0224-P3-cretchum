@@ -32,6 +32,7 @@
   border: none;
   border-bottom: solid 1px blue;
   color: blue;
+  cursor: pointer;
 }
 .none {
   display: none;
