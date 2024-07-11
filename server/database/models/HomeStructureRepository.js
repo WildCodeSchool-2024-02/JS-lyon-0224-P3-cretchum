@@ -49,7 +49,7 @@ class HomeStructureRepository extends AbstractRepository {
   async readStructure(id) {
     // Execute the SQL SELECT query to retrieve a specific home_structure by its ID
     const [rows] = await this.database.query(
-      `select username, location, avatar, description, postal_code, capacity, is_professional, cat, dog, price from ${this.table} RIGHT JOIN user ON ${this.table}.user_id = user.id WHERE ${this.table}.id = ?`,
+      `select ${this.table}.id, username, location, avatar, description, postal_code, capacity, is_professional, cat, dog, price from ${this.table} RIGHT JOIN user ON ${this.table}.user_id = user.id WHERE ${this.table}.id = ?`,
       [id]
     );
 
