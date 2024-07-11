@@ -80,14 +80,17 @@ function ProfilePage() {
             : state.customer;
 
         // Send the PUT request to update the customer information
-        const response = await fetch(`${URL}${accessPoint}${state.customer.id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(values),
-          credentials: "include",
-        });
+        const response = await fetch(
+          `${URL}${accessPoint}${state.customer.id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values),
+            credentials: "include",
+          }
+        );
 
         if (response.status === 204) {
           dispatch({ type: "SET_BEFORE_CHANGE", payload: state.customer });
@@ -103,8 +106,7 @@ function ProfilePage() {
       console.error("Fetch error:", err);
       notify("Erreur lors de la modification du profil", "error");
       return {
-        error:
-          "An error occurred during registration. Please try again later.",
+        error: "An error occurred during registration. Please try again later.",
       };
     }
     setChangeAvatar(!changeAvatar);
@@ -295,40 +297,61 @@ function ProfilePage() {
               />
               <EditableDropDown
                 label="Chats acceptés"
-                value={state.customer.cat === 1 ? "Oui" : "Non"}
+                value={parseInt(state.customer.cat, 10) ? "Oui" : "Non"}
                 isEditMode={state.isEditMode}
                 valueName="cat"
                 onChange={onChange}
-                options={[
-                  { name: "Oui", value: 1 },
-                  { name: "Non", value: 2 },
-                ]}
+                options={
+                  parseInt(state.customer.cat, 10) === 1
+                    ? [
+                        { name: "Oui", value: parseInt(1, 10) },
+                        { name: "Non", value: parseInt(0, 10) },
+                      ]
+                    : [
+                        { name: "Non", value: parseInt(0, 10) },
+                        { name: "Oui", value: parseInt(1, 10) },
+                      ]
+                }
               />
               <EditableDropDown
                 label="Chiens acceptés"
-                value={state.customer.dog === 1 ? "Oui" : "Non"}
+                value={parseInt(state.customer.dog, 10) === 1 ? "Oui" : "Non"}
                 isEditMode={state.isEditMode}
                 valueName="dog"
                 onChange={onChange}
-                options={[
-                  { name: "Oui", value: 1 },
-                  { name: "Non", value: 2 },
-                ]}
+                options={
+                  parseInt(state.customer.dog, 10) === 1
+                    ? [
+                        { name: "Oui", value: parseInt(1, 10) },
+                        { name: "Non", value: parseInt(0, 10) },
+                      ]
+                    : [
+                        { name: "Non", value: parseInt(0, 10) },
+                        { name: "Oui", value: parseInt(1, 10) },
+                      ]
+                }
               />
               <EditableDropDown
                 label="Type de structure"
                 value={
-                  state.customer.isProfessional === 1
+                  parseInt(state.customer.isProfessional, 10) === 1
                     ? "Professionnel"
                     : "Particulier"
                 }
                 isEditMode={state.isEditMode}
                 valueName="isProfessional"
                 onChange={onChange}
-                options={[
-                  { name: "Professionnel", value: 1 },
-                  { name: "Particulier", value: 2 },
-                ]}
+                options={
+                  parseInt(state.customer.isProfessional, 10) === 1
+                    ? [
+                        { name: "Professionnel", value: parseInt(1, 10) },
+                        { name: "Particulier", value: parseInt(0, 10) },
+                      ]
+                    : [
+                        { name: "Particulier", value: parseInt(0, 10) },
+                        { name: "Professionnel", value: parseInt(1, 10) },
+                      ]
+                }
               />
               <EditableField
                 label="Capacité d'accueil"
