@@ -214,21 +214,21 @@ function ProfilePage() {
         />
         <ProfileSection title="Informations générales">
           <EditableField
-            label="Nom :"
+            label="Nom"
             value={state.customer.lastname}
             isEditMode={state.isEditMode}
             valueName="lastname"
             onChange={onChange}
           />
           <EditableField
-            label="Prénom :"
+            label="Prénom"
             value={state.customer.firstname}
             isEditMode={state.isEditMode}
             valueName="firstname"
             onChange={onChange}
           />
           <EditableField
-            label="Localisation :"
+            label="Localisation"
             value={state.customer.location}
             isEditMode={state.isEditMode}
             valueName="location"
@@ -236,14 +236,14 @@ function ProfilePage() {
           />
           <address className={styles.profileAddressContainer}>
             <EditableField
-              label="Téléphone :"
+              label="Téléphone"
               value={state.customer.phoneNumber}
               isEditMode={state.isEditMode}
               valueName="phoneNumber"
               onChange={onChange}
             />
             <EditableField
-              label="Email :"
+              label="Email"
               value={state.customer.mail}
               isEditMode={state.isEditMode}
               valueName="mail"
