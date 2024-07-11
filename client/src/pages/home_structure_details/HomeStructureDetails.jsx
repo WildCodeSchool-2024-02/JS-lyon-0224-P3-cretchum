@@ -13,16 +13,12 @@ import { AuthentificationContext } from "../../use_context/authentification";
 function HomeStructureDetails() {
   const structures = useLoaderData();
   const { auth } = useContext(AuthentificationContext);
-
   return (
     <>
       <NavMenu />
       <div id="HomeStructurePage">
         <header id="homeStructureHeader">
-          <ProfileHeader
-            username={structures.username}
-            customer={structures}
-          />
+          <ProfileHeader username={structures.username} customer={structures} />
         </header>
         <section id="HomeStructureInfo">
           <div id="gobalInfo">

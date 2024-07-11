@@ -189,7 +189,7 @@ function ReservationPage() {
                       <th scope="row">{reservation.id}</th>
                       <td>{reservation.name}</td>
                       <td>{reservation.beginning}</td>
-                      <td>{index % 2}</td>
+                      <td>{reservation.end}</td>
                       <td>{reservation.day + 1}</td>
                       <td>{reservation.username}</td>
                       <td>
@@ -262,34 +262,39 @@ function ReservationPage() {
                       </td>
                       <td>{statusMap[reservation.status] || ""}</td>
                       <td>
-                        <button
-                          type="button"
-                          onClick={(event) =>
-                            editReservation(
-                              event,
-                              reservation.id,
-                              reservation.home_structure_id,
-                              "confirm",
-                              reservation.username
-                            )
-                          }
-                        >
-                          Confirmer
-                        </button>
-                        <button
-                          type="button"
-                          onClick={(event) =>
-                            editReservation(
-                              event,
-                              reservation.id,
-                              reservation.home_structure_id,
-                              "cancel",
-                              reservation.username
-                            )
-                          }
-                        >
-                          Annuler
-                        </button>
+                        {reservation.status !== "confirm" &&
+                          reservation.status !== "cancel" && (
+                            <button
+                              type="button"
+                              onClick={(event) =>
+                                editReservation(
+                                  event,
+                                  reservation.id,
+                                  reservation.home_structure_id,
+                                  "confirm",
+                                  reservation.username
+                                )
+                              }
+                            >
+                              Confirmer
+                            </button>
+                          )}
+                        {reservation.status !== "cancel" && (
+                          <button
+                            type="button"
+                            onClick={(event) =>
+                              editReservation(
+                                event,
+                                reservation.id,
+                                reservation.home_structure_id,
+                                "cancel",
+                                reservation.username
+                              )
+                            }
+                          >
+                            Annuler
+                          </button>
+                        )}
                       </td>
                     </tr>
                   ))}
