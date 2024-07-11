@@ -9,7 +9,7 @@ class NotificationRepository extends AbstractRepository {
 
   async read(userId) {
     const [rows] = await this.database.query(
-      `SELECT notification.id, reservation_id FROM notification JOIN user ON user_id = user.id WHERE user_id = ? ;
+      `SELECT notification.id, reservation_id FROM ${this.table} JOIN user ON user_id = user.id WHERE user_id = ? ;
 `,
       [userId]
     );

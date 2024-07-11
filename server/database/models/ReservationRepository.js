@@ -49,7 +49,7 @@ class HomeStructureRepository extends AbstractRepository {
 
   async verifyCancel(userId, reservationId) {
     const [response] = await this.database.query(
-      `SELECT COUNT( reservation.id) AS verify  FROM reservation  JOIN animal on animal_id = animal.id JOIN user ON animal.user_id=user.id JOIN home_structure ON home_structure_id=home_structure.id  WHERE (user.id= ? and reservation.id= ? ) OR (home_structure.user_id= ? AND reservation.id= ? );
+      `SELECT COUNT( reservation.id) AS verify  FROM ${this.table}  JOIN animal on animal_id = animal.id JOIN user ON animal.user_id=user.id JOIN home_structure ON home_structure_id=home_structure.id  WHERE (user.id= ? and reservation.id= ? ) OR (home_structure.user_id= ? AND reservation.id= ? );
       `,
       [userId, reservationId, userId, reservationId]
     );
@@ -58,7 +58,7 @@ class HomeStructureRepository extends AbstractRepository {
 
   async verify(userId, reservationId) {
     const [response] = await this.database.query(
-      `SELECT COUNT(reservation.id) AS verify  FROM reservation JOIN home_structure ON home_structure_id=home_structure.id JOIN user ON home_structure.user_id = user.id WHERE user.id = ? and reservation.id = ?;
+      `SELECT COUNT(reservation.id) AS verify  FROM ${this.table} JOIN home_structure ON home_structure_id=home_structure.id JOIN user ON home_structure.user_id = user.id WHERE user.id = ? and reservation.id = ?;
   `,
       [userId, reservationId]
     );

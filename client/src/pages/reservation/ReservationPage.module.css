@@ -60,9 +60,6 @@ td {
   width: 100%;
 }
 
-/* .row1 {
-  background-color: aqua;
-} */
 .row1,
 .columnName {
   background-color: var(--main-color);

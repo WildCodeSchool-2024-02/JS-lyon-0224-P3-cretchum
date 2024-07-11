@@ -4,7 +4,6 @@ import NavMenu from "../../components/nav_menu/NavMenu";
 import styles from "./ReservationPage.module.css";
 
 function ReservationPage() {
-  // const reservations = useLoaderData();
   const statusMap = {
     waiting: "En attente",
     confirm: "Confirmé",
