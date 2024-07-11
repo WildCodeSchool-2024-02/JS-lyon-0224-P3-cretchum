@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./Reservation.css";
-
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -168,14 +167,6 @@ function Reservation({ priceday, auth, structures }) {
                     </div>
                   ))}
                 </fieldset>
-                {/* <select name="annimal" className="filterInput reservationInput">
-                  <option value="tous">Tous mes animaux</option>;
-                  {animalData.map((animal) => (
-                    <option key={animal.id} value={animal.id}>
-                      {animal.name}
-                    </option>
-                  ))}
-                </select> */}
               </div>
               <button type="submit" className="searchBtn buttonType1">
                 Réserver
