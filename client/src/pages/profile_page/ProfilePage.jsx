@@ -9,6 +9,7 @@ import EditableField from "../../components/profile/editable_field/EditableField
 import EditableTextarea from "../../components/profile/editable_text_area/EditableTextarea";
 import { AuthentificationContext } from "../../use_context/authentification";
 import NavMenu from "../../components/nav_menu/NavMenu";
+import AnimalModification from "../animal_modification/AnimalModification";
 
 function ProfilePage() {
   const customerdata = useLoaderData();
@@ -211,6 +212,7 @@ function ProfilePage() {
         </ProfileSection>
 
         <ProfileSection title="Mes animaux">
+        <AnimalModification isEditMode={state.isEditMode} />
           {animalData.length > 0 && (
             <ul>
               {animalData.map((animal) => (
