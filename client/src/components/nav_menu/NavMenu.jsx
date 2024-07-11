@@ -1,13 +1,13 @@
-import { useContext } from "react";
-
+import { useContext, useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { AuthentificationContext } from "../../use_context/authentification";
+import Bell from "../../assets/images/cloche.png";
+import BellAlert from "../../assets/images/clocheAlerte.png";
 import "./NavMenu.css";
 import notify from "../../utils/notify";
-import { AuthentificationContext } from "../../use_context/authentification";
 
 function NavMenu() {
   const { auth, update, setUpdate } = useContext(AuthentificationContext);
-
   const URL = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ function NavMenu() {
         credentials: "include",
       });
       if (response.status === 200) {
-        setUpdate(!update)
+        setUpdate(!update);
         notify("Déconnecté avec succes", "success");
         setTimeout(navigate("/"), 5000);
       }
@@ -27,6 +27,24 @@ function NavMenu() {
       notify("Erreur", "error");
     }
   };
+  const [notification, setNotification] = useState(0);
+
+  useEffect(() => {
+    const fetchReservation = async () => {
+      try {
+        const response = await fetch(`${URL}notification/`, {
+          method: "GET",
+          credentials: "include",
+        });
+        const data = await response.json();
+        setNotification(data);
+      } catch (err) {
+        console.error("Fetch profile error:", err);
+      }
+    };
+    fetchReservation();
+  }, [URL]);
+
   return (
     <nav className="navMenu">
       <div className="navMenu-container">
@@ -46,6 +64,21 @@ function NavMenu() {
           </>
         ) : (
           <>
+            {" "}
+            <div className="navMenu-item">
+              <NavLink className="linkItem" to="/reservation">
+                <img
+                  id="bell"
+                  src={notification.length === 0 ? Bell : BellAlert}
+                  alt={
+                    notification === 0
+                      ? "Cloche"
+                      : "Cloche avec un point d'exclamation"
+                  }
+                />
+                Mes réservations
+              </NavLink>
+            </div>
             <div className="navMenu-item">
               <NavLink to={`/profil/${auth.user.sub}`} className="linkItem">
                 Profil

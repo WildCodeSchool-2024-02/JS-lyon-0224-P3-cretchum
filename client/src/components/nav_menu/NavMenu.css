@@ -19,7 +19,10 @@
   cursor: pointer;
   margin-left: 2%;
 }
-
+#bell {
+  height: 1.2em;
+  padding-right: 0.5em;
+}
 nav a {
   text-decoration: none;
   color: black;

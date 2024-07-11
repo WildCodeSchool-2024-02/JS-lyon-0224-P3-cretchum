@@ -1,6 +1,8 @@
 #resaH4 {
   font-weight: bold;
   margin-right: 2%;
+  position: relative;
+  bottom: 15px;
 }
 
 #totalPrice {

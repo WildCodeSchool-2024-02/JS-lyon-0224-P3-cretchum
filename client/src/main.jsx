@@ -15,7 +15,9 @@ import LegalMentions from "./pages/legal_mentions/LegalMentions";
 import AnimalsForm from "./pages/animals_form_page/AnimalsForm";
 import profileLoader from "./handlers/loader/profile_loader/profileLoader";
 import homeStructureLoader from "./handlers/loader/home_structure_loader/homeStructureLoader";
-import ProtectedPage from "./pages/protected_page/ProtectedPage"
+import ProtectedPage from "./pages/protected_page/ProtectedPage";
+import ReservationPage from "./pages/reservation/ReservationPage";
+import reservationLoader from "./handlers/loader/reservation/reservationLoader";
 
 const router = createBrowserRouter([
   {
@@ -49,7 +51,7 @@ const router = createBrowserRouter([
         loader: profileLoader,
       },
       {
-        path: "/reservation/:id",
+        path: "/hote/:id",
         element: <HomeStructureDetails />,
         loader: homeStructureLoader,
       },
@@ -60,6 +62,11 @@ const router = createBrowserRouter([
       {
         path: "acces_refuse",
         element: <ProtectedPage />,
+      },
+      {
+        path: "/reservation",
+        element: <ReservationPage />,
+        loader: reservationLoader,
       },
       {
         path: "*",
