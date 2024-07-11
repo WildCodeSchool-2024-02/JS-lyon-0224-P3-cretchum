@@ -17,6 +17,7 @@ import profileLoader from "./handlers/loader/profile_loader/profileLoader";
 import homeStructureLoader from "./handlers/loader/home_structure_loader/homeStructureLoader";
 import ProtectedPage from "./pages/protected_page/ProtectedPage";
 import ForgotPassword from "./pages/forgot_password/ForgotPassword";
+import ResetPassword from "./pages/reset_password/ResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
       {
         path: "/mot-de-passe-oublie",
         element: <ForgotPassword />,
+      },
+      {
+        path: "/reinitialiser-mot-de-passe",
+        element: <ResetPassword />,
       },
       {
         path: "/mentions-legales",
