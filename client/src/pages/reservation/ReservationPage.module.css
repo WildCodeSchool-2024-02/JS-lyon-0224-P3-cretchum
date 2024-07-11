@@ -45,7 +45,8 @@ td {
 .columnName {
   background-color: #e7e9eb;
 }
-
-/* .columnName {
-  background-color: var(--secondary-color);
-} */
+.tableContainer {
+  max-height: 300px;
+  height: 40%;
+  overflow: auto;
+}
