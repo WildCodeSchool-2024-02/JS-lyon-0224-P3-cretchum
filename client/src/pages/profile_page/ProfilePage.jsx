@@ -69,6 +69,7 @@ function ProfilePage() {
           auth.user.isHomeStructure === false
             ? {
                 id: state.customer.id,
+                avatar: state.customer.avatar,
                 lastname: state.customer.lastname,
                 firstname: state.customer.firstname,
                 username: state.customer.username,
