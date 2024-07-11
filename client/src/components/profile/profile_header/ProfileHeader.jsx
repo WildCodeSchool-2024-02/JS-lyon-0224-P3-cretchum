@@ -79,7 +79,7 @@ ProfileHeader.propTypes = {
   setChangeAvatar: PropTypes.func,
   changeAvatar: PropTypes.bool,
   customer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
     lastname: PropTypes.string,
     firstname: PropTypes.string,
     username: PropTypes.string.isRequired,

@@ -43,7 +43,6 @@ function SearchPage() {
     fetchData();
   }, [search, URL, offset, limit]);
 
-
   useEffect(() => {
     const applyFilters = () => {
       // Start with all structures

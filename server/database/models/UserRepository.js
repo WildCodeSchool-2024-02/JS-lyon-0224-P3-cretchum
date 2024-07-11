@@ -34,21 +34,22 @@ class UserRepository extends AbstractRepository {
   async read(id) {
     // Execute the SQL SELECT query to retrieve a specific user by its ID
     const [rows] = await this.database.query(
-      `select ${this.table}.id, lastname, firstname, username, phone_number, location, mail, avatar, description from ${this.table} where id = ?`,
+      `select ${this.table}.id, lastname, firstname, username, phone_number AS phoneNumber, location, mail, avatar, description from ${this.table} where ${this.table}.id = ?`,
       [id]
     );
 
     // Return the first row of the result, which represents the user
-    if (rows[0] === undefined) { return null; }
-    const phoneNumber = rows[0].phone_number;
-    rows[0].phoneNumber = phoneNumber;
-    delete rows[0].phone_number;
+    if (rows[0] === undefined) {
+      return null;
+    }
     return rows[0];
   }
 
   async readAll() {
     // Execute the SQL SELECT query to retrieve all user from the "user" table
-    const [rows] = await this.database.query(`select id, lastname, firstname, username, phone_number, location, mail, description from ${this.table}`);
+    const [rows] = await this.database.query(
+      `select id, lastname, firstname, username, phone_number, location, mail, description from ${this.table}`
+    );
 
     // Return the array of user
     return rows;
