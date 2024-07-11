@@ -55,7 +55,6 @@ function ReservationPage() {
           "Une erreur est survenue lors de la récupération des données du profil. Veuillez réessayer plus tard.",
           "error"
         );
-        throw err;
       }
     };
     reservationLoader();
