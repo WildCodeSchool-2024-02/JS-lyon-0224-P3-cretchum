@@ -15,11 +15,10 @@ const reservationLoader = async () => {
     return null;
   } catch (err) {
     console.error("Fetch profile error:", err);
-    notify(
+    return notify(
       "Une erreur est survenue lors de la récupération des données du profil. Veuillez réessayer plus tard.",
       "error"
     );
-    throw err;
   }
 };
 
