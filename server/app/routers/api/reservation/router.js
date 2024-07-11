@@ -12,7 +12,7 @@ const {
   edit,
 } = require("../../../controllers/reservationActions");
 
-const newNotification = require("../../../controllers/notificationAction");
+const { newNotification } = require("../../../controllers/notificationAction");
 
 const userIdCookie = require("../../../services/userIdCookie");
 

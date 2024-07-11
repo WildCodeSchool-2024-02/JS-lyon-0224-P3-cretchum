@@ -1,21 +1,19 @@
-import { useLoaderData } from "react-router-dom";
 import { useEffect, useState } from "react";
 import notify from "../../utils/notify";
 import NavMenu from "../../components/nav_menu/NavMenu";
 import styles from "./ReservationPage.module.css";
 
 function ReservationPage() {
-  const reservations = useLoaderData();
+  // const reservations = useLoaderData();
   const statusMap = {
     waiting: "En attente",
     confirm: "Confirmé",
     cancel: "Annulé",
   };
   const URL = import.meta.env.VITE_API_URL;
+  const [change, setChange] = useState(false);
 
-  //   const [change, setChange] = useState(false);
-
-  // Fetch received Reservation
+  // Fetch received Reservation as home_structure
   const [received, setReceived] = useState([]);
   useEffect(() => {
     const fetchReservation = async () => {
@@ -31,7 +29,61 @@ function ReservationPage() {
       }
     };
     fetchReservation();
-  }, [URL]);
+  }, [URL, change]);
+
+  // Fetch reservation as user
+  const [reservations, setReservation] = useState([]);
+  useEffect(() => {
+    const reservationLoader = async () => {
+      try {
+        const response = await fetch(`${URL}reservation`, {
+          method: "GET",
+          credentials: "include",
+        });
+
+        if (response.status !== 200) {
+          notify(
+            "Erreur lors de la récupération des données du profil !",
+            "error"
+          );
+          throw new Error("Failed to fetch profile data");
+        }
+        const data = await response.json();
+        setReservation(data);
+      } catch (err) {
+        console.error("Fetch profile error:", err);
+        notify(
+          "Une erreur est survenue lors de la récupération des données du profil. Veuillez réessayer plus tard.",
+          "error"
+        );
+        throw err;
+      }
+    };
+    reservationLoader();
+  }, [URL, change]);
+
+  // Fetch notifications
+  const [notification, setNotification] = useState(0);
+
+  useEffect(() => {
+    const fetchReservation = async () => {
+      try {
+        const response = await fetch(`${URL}notification/`, {
+          method: "GET",
+          credentials: "include",
+        });
+        const data = await response.json();
+        setNotification(data);
+      } catch (err) {
+        console.error("Fetch profile error:", err);
+      }
+    };
+    fetchReservation();
+  }, [URL, change]);
+
+  const reservationIds =
+    notification.length > 0 &&
+    notification.map((value) => value.reservation_id);
 
   // Cancelation button
   const editReservation = async (
@@ -59,12 +111,34 @@ function ReservationPage() {
         notify("Erreur lors de la modification de la réservation", "error");
       } else {
         notify("Réservation modifié", "success");
-        setTimeout(() => {
-          window.location.reload();
-        }, "1000");
+        setChange(!change);
       }
     } catch (err) {
       console.error("Fetch error");
+    }
+  };
+
+  const deleteNotification = async () => {
+    if (notification.length > 0) {
+      try {
+        const response = await fetch(`${URL}notification/`, {
+          method: "DELETE",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            notification,
+          }),
+        });
+        if (response.status === 204) {
+          setChange(!change);
+        } else {
+          notify("Une erreur est survenue", "error");
+        }
+      } catch (err) {
+        console.error("Fetch error");
+      }
     }
   };
 
@@ -77,6 +151,11 @@ function ReservationPage() {
             <h1 id={styles.reservationTitle}>Mes reservation</h1>
           </header>
           <div className={styles.reservationContent}>
+            <span id={styles.readButtonContainer}>
+              <button type="button" onClick={deleteNotification}>
+                Tout marquer comme lue
+              </button>
+            </span>
             <h2 className={styles.tableTitle}>Vos animaux</h2>
             <div className={styles.tableContainer}>
               <table id={styles.animalTable}>
@@ -97,16 +176,17 @@ function ReservationPage() {
                   {reservations.map((reservation, index) => (
                     <tr
                       className={
-                        index % 2 === 0
-                          ? `${styles.rowPair}`
-                          : `${styles.rowOdd}`
+                        reservationIds.length > 0 &&
+                        reservationIds.includes(reservation.id)
+                          ? `${styles.notify} ${styles.row} `
+                          : `${styles[`row${index % 2}`]}`
                       }
                       key={reservation.id}
                     >
                       <th scope="row">{reservation.id}</th>
                       <td>{reservation.name}</td>
                       <td>{reservation.beginning}</td>
-                      <td>{reservation.end}</td>
+                      <td>{index % 2}</td>
                       <td>{reservation.day + 1}</td>
                       <td>{reservation.username}</td>
                       <td>
@@ -159,9 +239,10 @@ function ReservationPage() {
                   {received.map((reservation, index) => (
                     <tr
                       className={
-                        index % 2 === 0
-                          ? `${styles.rowPair}`
-                          : `${styles.rowOdd}`
+                        reservationIds.length > 0 &&
+                        reservationIds.includes(reservation.id)
+                          ? `${styles.notify} ${styles.row} `
+                          : `${styles[`row${index % 2}`]}`
                       }
                       key={reservation.id}
                     >

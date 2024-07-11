@@ -7,6 +7,15 @@ class NotificationRepository extends AbstractRepository {
     super({ table: "notification" });
   }
 
+  async read(userId) {
+    const [rows] = await this.database.query(
+      `SELECT notification.id, reservation_id FROM notification JOIN user ON user_id = user.id WHERE user_id = ? ;
+`,
+      [userId]
+    );
+    return rows;
+  }
+
   async create(reservation, reservationId, type) {
     let [userId] = [];
     const { username } = reservation[0];
@@ -31,6 +40,16 @@ class NotificationRepository extends AbstractRepository {
       [allValues]
     );
     return result.affectedRows;
+  }
+
+  async delete(notification) {
+    const allValues = notification.map((notif) => notif.id);
+
+    const [response] = await allValues.map((notif) =>
+      this.database.query(`delete from ${this.table} where id = ?`, [notif])
+    );
+
+    return response.affectedRows;
   }
 }
 

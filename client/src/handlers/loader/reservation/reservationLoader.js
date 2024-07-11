@@ -9,16 +9,10 @@ const reservationLoader = async () => {
       method: "GET",
       credentials: "include",
     });
-    if (response.status === 401 || response.status === 403) {
+    if (response.status !== 200) {
       return redirect("/acces_refuse");
     }
-    if (response.status !== 200) {
-      notify("Erreur lors de la récupération des données du profil !", "error");
-      throw new Error("Failed to fetch profile data");
-    }
-    const data = await response.json();
-    notify("Les données du profil ont été récupérées avec succès.", "success");
-    return data;
+    return null;
   } catch (err) {
     console.error("Fetch profile error:", err);
     notify(

@@ -20,6 +20,11 @@
   text-align: center;
   font-size: 2rem;
 }
+#readButtonContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+}
 .reservationContent {
   padding: 1em;
   background-color: white;
@@ -27,7 +32,9 @@
   border-bottom-right-radius: 15px;
   height: 85%;
 }
-
+.notify {
+  background-color: #f9f9715b;
+}
 .tableTitle {
   text-align: center;
   font-size: 1.5rem;
@@ -41,9 +48,13 @@ td {
 #animalTable {
   width: 100%;
 }
-.rowOdd,
+
+/* .row1 {
+  background-color: aqua;
+} */
+.row1,
 .columnName {
-  background-color: #e7e9eb;
+  background-color: var(--main-color);
 }
 .tableContainer {
   max-height: 300px;

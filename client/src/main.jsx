@@ -51,7 +51,7 @@ const router = createBrowserRouter([
         loader: profileLoader,
       },
       {
-        path: "/reservation/:id",
+        path: "/hote/:id",
         element: <HomeStructureDetails />,
         loader: homeStructureLoader,
       },

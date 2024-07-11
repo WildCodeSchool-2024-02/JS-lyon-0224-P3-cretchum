@@ -5,14 +5,16 @@ const router = express.Router();
 /* ************************************************************************* */
 // Define Your API Routes Here
 /* ************************************************************************* */
-const { read, edit } = require("../../../controllers/reservationActions");
+const { read, destroy } = require("../../../controllers/notificationAction");
 
-// const userIdCookie = require("../../../services/userIdCookie");
+const userIdCookie = require("../../../services/userIdCookie");
 
 // Import reservation-related actions
 
-router.get("/", read);
+router.get("/", userIdCookie, read);
 
-router.put("/status", edit);
+router.delete("/", destroy);
+
+// router.put("/status", edit);
 
 module.exports = router;
