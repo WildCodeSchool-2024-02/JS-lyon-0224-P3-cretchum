@@ -92,15 +92,15 @@ function ProfilePage() {
           }
         );
 
-        if (response.status === 204) {
-          dispatch({ type: "SET_BEFORE_CHANGE", payload: state.customer });
-          dispatch({ type: "TOGGLE_EDIT_MODE" });
-          handleSave();
-          return setChangeAvatar(!changeAvatar);
+        if (response.status !== 204) {
+          const data = await response.json();
+          return notify(data.validationErrors[0].message, "error");
         }
+        dispatch({ type: "SET_BEFORE_CHANGE", payload: state.customer });
+        dispatch({ type: "TOGGLE_EDIT_MODE" });
+        handleSave();
+        return setChangeAvatar(!changeAvatar);
 
-        const data = await response.json();
-        notify(data.validationErrors[0].message, "error");
       }
     } catch (err) {
       console.error("Fetch error:", err);
