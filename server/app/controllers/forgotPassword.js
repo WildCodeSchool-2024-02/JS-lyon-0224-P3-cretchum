@@ -2,7 +2,7 @@ const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 const tables = require("../../database/tables");
 
-const { MAIL_FROM, MAILTRAP_PASSWORD, MAILTRAP_USER } = process.env;
+const { CLIENT_URL, MAIL_FROM, MAILTRAP_PASSWORD, MAILTRAP_USER } = process.env;
 
 const forgotPassword = async (req, res) => {
   try {
@@ -22,10 +22,10 @@ const forgotPassword = async (req, res) => {
     const transporter = nodemailer.createTransport({
       host: "sandbox.smtp.mailtrap.io",
       port: 2525,
-       auth: {
-         user: MAILTRAP_USER,
-         pass: MAILTRAP_PASSWORD,
-       },
+      auth: {
+        user: MAILTRAP_USER,
+        pass: MAILTRAP_PASSWORD,
+      },
     });
 
     const mailOptions = {
@@ -34,10 +34,10 @@ const forgotPassword = async (req, res) => {
       subject: "Réinitialisation du mot de passe",
       text: `Vous recevez cet email car vous (ou quelqu'un d'autre) avez demandé la réinitialisation du mot de passe de votre compte.\n\n
       Veuillez cliquer sur le lien suivant, ou le copier dans votre navigateur pour compléter le processus :\n\n
-      http://${req.headers.host}/reset/${token}\n\n
+      ${CLIENT_URL}/reinitialiser-mot-de-passe/${token}\n\n
       Si vous n'avez pas demandé cela, veuillez ignorer cet email et votre mot de passe restera inchangé.\n`,
     };
-    
+
     const info = await transporter.sendMail(mailOptions);
     if (info) {
       return res.status(250).json("Recovery email sent");
