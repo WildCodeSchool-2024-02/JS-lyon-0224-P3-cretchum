@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./Reservation.css";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -11,6 +11,7 @@ import notify from "../../utils/notify";
 
 function Reservation({ priceday, auth, structures }) {
   const URL = import.meta.env.VITE_API_URL;
+  const navigate = useNavigate();
   const [animalData, setAnimalData] = useState([]);
   const [selectedAnimals, setSelectedAnimals] = useState([]);
   useEffect(() => {
@@ -87,6 +88,7 @@ function Reservation({ priceday, auth, structures }) {
       });
 
       if (response.status === 201) {
+        navigate("/reservation");
         return notify("Réservation reussi", "success");
       }
       return notify("Une erreur est survenue lors de la réservation", "error");
