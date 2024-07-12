@@ -75,7 +75,28 @@ class UserRepository extends AbstractRepository {
       'UPDATE user SET resetPasswordToken = ?, resetPasswordExpires = ? WHERE id = ?',
       [token, expires, userId]
     );
-  }
+  };
+
+  // Checking token validity
+  async readByResetToken(token) {
+    const [rows] = await this.database.query(
+      `SELECT * FROM ${this.table} WHERE resetPasswordToken = ?`,
+      [token]
+    );
+  
+    if (rows.length === 0) {
+      return undefined;
+    }
+  
+    return rows[0];
+  };
+  
+  // Password update, clear resetPasswordToken and resetPasswordExpires 
+  async updatePasswordAndClearResetToken(userId, hashedPassword) {
+    await this.database.query(
+      `UPDATE ${this.table} SET password = ?, resetPasswordToken = NULL, resetPasswordExpires = NULL WHERE id = ?`,
+      [hashedPassword, userId]
+    )};
 
   // The U of CRUD - Update operation
 
