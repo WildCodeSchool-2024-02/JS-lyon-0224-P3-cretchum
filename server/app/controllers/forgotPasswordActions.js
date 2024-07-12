@@ -7,7 +7,7 @@ const { CLIENT_URL, MAIL_FROM, MAILTRAP_PASSWORD, MAILTRAP_USER } = process.env;
 const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body; // Get the email from the request body
-    const user = await tables.user.readByEmail( email); // Check if user exists with the given email
+    const user = await tables.user.readByEmail(email); // Check if user exists with the given email
 
     if (user === undefined) {
       return res.status(400).send("User with this email does not exist.");
