@@ -9,7 +9,7 @@ const router = express.Router();
 const resetPassword = require("../../../controllers/resetPasswordActions");
 
 // Import resetPassword actions
-router.post("/", resetPassword);
+router.post("/:token", resetPassword);
 
 /* ************************************************************************* */
 
