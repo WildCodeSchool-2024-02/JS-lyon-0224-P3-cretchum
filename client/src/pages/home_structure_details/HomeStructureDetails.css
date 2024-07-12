@@ -111,4 +111,9 @@
     min-height: 15vh;
     text-align: center;
   }
+
+  .reservation {
+    min-width: 385px;
+    justify-content: flex-end;
+  }
 }

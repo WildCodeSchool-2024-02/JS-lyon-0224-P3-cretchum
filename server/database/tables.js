@@ -1,8 +1,9 @@
 // Import the repository modules responsible for handling data operations on the tables
-const UsersRepository = require("./models/UsersRepository");
+const UserRepository = require("./models/UserRepository");
 const HomeStructureRepository = require("./models/HomeStructureRepository");
 const AnimalRepository = require("./models/AnimalRepository");
-
+const ReservationRepository = require("./models/ReservationRepository");
+const NotificationRepository = require("./models/NotificationRepository");
 // Create an empty object to hold data repositories for different tables
 const tables = {};
 
@@ -11,9 +12,11 @@ const tables = {};
 /* ************************************************************************* */
 
 // Register each repository as data access point for its table
-tables.user = new UsersRepository();
+tables.user = new UserRepository();
 tables.home_structure = new HomeStructureRepository();
 tables.animal = new AnimalRepository();
+tables.reservation = new ReservationRepository();
+tables.notification = new NotificationRepository();
 
 /* ************************************************************************* */
 

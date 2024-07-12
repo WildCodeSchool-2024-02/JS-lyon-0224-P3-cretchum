@@ -1,18 +1,39 @@
-import { useEffect, useState } from "react";
-import { Form } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./Reservation.css";
-
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import "dayjs/locale/fr";
+import notify from "../../utils/notify";
 
-function Reservation({ priceday }) {
-  // Get today date
+function Reservation({ priceday, auth, structures }) {
+  const URL = import.meta.env.VITE_API_URL;
+  const navigate = useNavigate();
+  const [animalData, setAnimalData] = useState([]);
+  const [selectedAnimals, setSelectedAnimals] = useState([]);
+  useEffect(() => {
+    if (auth !== null && auth !== false && auth.user.hasAnimals !== false) {
+      const fetchAnimals = async () => {
+        try {
+          const response = await fetch(`${URL}/animal/${auth.user.sub}`);
+          if (response.status === 200) {
+            const data = await response.json();
+            setAnimalData(data);
+          } else {
+            console.error("Fetch profile error:", response.statusText);
+          }
+        } catch (err) {
+          console.error("Fetch profile error:", err);
+        }
+      };
+      fetchAnimals();
+    }
+  }, [URL, auth]);
 
-  const todayDate = dayjs();
+  const todayDate = useRef(dayjs()).current;
 
   const [startingDate, setStartingDate] = useState(todayDate);
   const [endingDate, setEndingDate] = useState(todayDate);
@@ -28,7 +49,7 @@ function Reservation({ priceday }) {
   const datediff = dateDiffInDays(startingDate, endingDate);
 
   // calculating price
-  const price = priceday * datediff;
+  const price = priceday * datediff * selectedAnimals.length;
 
   // avoiding ending date to go before startingDate
   useEffect(() => {
@@ -41,47 +62,121 @@ function Reservation({ priceday }) {
     }
   }, [startingDate, endingDate, todayDate]);
 
+  const handleReservation = async (event) => {
+    event.preventDefault();
+    try {
+      const data = [];
+      let count = 0;
+      for (let i = 0; i < animalData.length; i += 1) {
+        if (selectedAnimals.includes(animalData[i].id) === true) {
+          data[count] = {
+            reservation_date_beginning:
+              dayjs(startingDate).format("YYYY-MM-DD"),
+            reservation_date_end: dayjs(endingDate).format("YYYY-MM-DD"),
+            home_structure_id: structures.id,
+            animal_id: animalData[i].id,
+            priceday,
+          };
+          count += 1;
+        }
+      }
+      const response = await fetch(`${URL}reservation`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+        credential: "include",
+      });
+
+      if (response.status === 201) {
+        navigate("/reservation");
+        return notify("Réservation reussi", "success");
+      }
+      return notify("Une erreur est survenue lors de la réservation", "error");
+    } catch (err) {
+      return console.error(
+        "Une erreur est survenue lors de la réservation",
+        "error"
+      );
+    }
+  };
+
+  const handleCheckedAnimals = (event) => {
+    const animalId = parseInt(event.target.value, 10);
+    if (event.target.checked) {
+      setSelectedAnimals([...selectedAnimals, animalId]);
+    } else {
+      setSelectedAnimals(selectedAnimals.filter((id) => id !== animalId));
+    }
+  };
+
   return (
     <section id="reservation">
-      <Form method="post" id="reservationForm">
+      <form method="post" onSubmit={handleReservation} id="reservationForm">
         <div id="userChoice">
           <h2 id="totalPrice">TOTAL {price} €</h2>
-          <div id="datesChoice">
-            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="fr">
-              <div className="datesInput">
-                <DatePicker
-                  label="Début"
-                  name="startingDate"
-                  value={startingDate}
-                  onChange={(newValue) => setStartingDate(newValue)}
-                  minDate={todayDate}
-                />
-              </div>
 
-              <div className="datesInput">
-                <DatePicker
-                  label="Fin"
-                  name="endingDate"
-                  value={endingDate}
-                  onChange={(newValue) => setEndingDate(newValue)}
-                  minDate={startingDate}
-                />
+          {auth !== null &&
+          (auth === false || auth.user.hasAnimals === false) ? (
+            <>
+              <p id="authDenied">
+                Vous devez avoir au moins un animal enregistré pour réserver
+              </p>
+              <Link to="/connexion" id="deniedLink">
+                Me Connecter
+              </Link>
+            </>
+          ) : (
+            <>
+              <div id="datesChoice">
+                <LocalizationProvider
+                  dateAdapter={AdapterDayjs}
+                  adapterLocale="fr"
+                >
+                  <div className="datesInput">
+                    <DatePicker
+                      label="Début"
+                      name="startingDate"
+                      value={startingDate}
+                      onChange={(newValue) => setStartingDate(newValue)}
+                      minDate={todayDate}
+                    />
+                  </div>
+
+                  <div className="datesInput">
+                    <DatePicker
+                      label="Fin"
+                      name="endingDate"
+                      value={endingDate}
+                      onChange={(newValue) => setEndingDate(newValue)}
+                      minDate={startingDate}
+                    />
+                  </div>
+                </LocalizationProvider>
               </div>
-            </LocalizationProvider>
-          </div>
-          <div id="reservationPets">
-            <h4 id="resaH4">Pour qui ?</h4>
-            <select className="filterInput reservationInput">
-              <option value="tous">Tous mes animaux</option>;
-              <option value="animal1">nom1</option>
-              <option value="animal2">nom2</option>
-            </select>
-          </div>
-          <button type="submit" className="searchBtn buttonType1">
-            Réserver
-          </button>
+              <div id="reservationPets">
+                <fieldset className="filterInput reservationInput">
+                  <legend id="resaH4">Pour qui ?</legend>
+                  {animalData.map((animal) => (
+                    <div key={animal.id}>
+                      <input
+                        className="test"
+                        type="checkbox"
+                        onChange={handleCheckedAnimals}
+                        value={animal.id}
+                        name="animals"
+                      />
+                      <label htmlFor={animal.id}>{animal.name}</label>
+                    </div>
+                  ))}
+                </fieldset>
+              </div>
+              <button type="submit" className="searchBtn buttonType1">
+                Réserver
+              </button>
+            </>
+          )}
         </div>
-      </Form>
+      </form>
       <div id="reservationDetails">
         <h3>Détails</h3>
         <hr id="detailsLine" />
@@ -95,6 +190,15 @@ function Reservation({ priceday }) {
 
 Reservation.propTypes = {
   priceday: PropTypes.number.isRequired,
+  auth: PropTypes.shape({
+    user: PropTypes.shape({
+      hasAnimals: PropTypes.bool.isRequired,
+      sub: PropTypes.number.isRequired,
+    }).isRequired,
+  }).isRequired,
+  structures: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default Reservation;

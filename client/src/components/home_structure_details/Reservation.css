@@ -1,6 +1,8 @@
 #resaH4 {
   font-weight: bold;
   margin-right: 2%;
+  position: relative;
+  bottom: 15px;
 }
 
 #totalPrice {
@@ -74,6 +76,13 @@
 
 .reservationInput {
   width: 50vw;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+}
+
+.reservationInput > p {
+  padding-left: 33%;
 }
 
 .datesInput {
@@ -86,6 +95,16 @@
 
 #reservationDetails {
   display: none;
+}
+
+#authDenied {
+  color: red;
+  margin: 5% 0;
+  width: 80%;
+}
+
+#deniedLink {
+  margin-bottom: 5%;
 }
 
 @media screen and (min-width: 1000px) {
@@ -108,9 +127,6 @@
     width: 80%;
     min-width: 310px;
   }
-  .reservation {
-    min-width: 385px;
-  }
 
   #reservationForm {
     flex-direction: column;
@@ -125,7 +141,7 @@
     margin: 5% 0 13% 0;
   }
   .reservationInput {
-    padding: 0;
+    padding: 0.7em;
     max-width: 200px;
   }
   .datesInput {
@@ -146,5 +162,10 @@
   }
   #reservation {
     padding: 2em 1em;
+  }
+  #authDenied {
+    color: red;
+    margin: 13% 0px 14% 0;
+    width: 80%;
   }
 }

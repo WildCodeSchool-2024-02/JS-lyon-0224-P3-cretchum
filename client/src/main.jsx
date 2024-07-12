@@ -10,14 +10,16 @@ import SearchPage from "./pages/search_page/SearchPage";
 import HomeStructureDetails from "./pages/home_structure_details/HomeStructureDetails";
 import ProfilePage from "./pages/profile_page/ProfilePage";
 import NotFoundPage from "./pages/not_found_page/NotFoundPage";
-
-import structureFormAction from "./handlers/actions/structure_form_action/structureFormAction";
+import LegalMentions from "./pages/legal_mentions/LegalMentions";
 import AnimalsForm from "./pages/animals_form_page/AnimalsForm";
-import connexionAction from "./handlers/actions/connexion_action/connexionAction";
-import signUpAction from "./handlers/actions/sign_up_action/signUpAction";
+import ProtectedPage from "./pages/protected_page/ProtectedPage";
+import ReservationPage from "./pages/reservation/ReservationPage";
+import ForgotPassword from "./pages/forgot_password/ForgotPassword";
+import ResetPassword from "./pages/reset_password/ResetPassword";
+
 import profileLoader from "./handlers/loader/profile_loader/profileLoader";
 import homeStructureLoader from "./handlers/loader/home_structure_loader/homeStructureLoader";
-import animalsFormAction from "./handlers/actions/animals_form_actions/animalsFormActions";
+import reservationLoader from "./handlers/loader/reservation/reservationLoader";
 
 const router = createBrowserRouter([
   {
@@ -28,22 +30,18 @@ const router = createBrowserRouter([
       {
         path: "/inscription_accueil/:id",
         element: <StructureForm />,
-        action: structureFormAction,
       },
       {
         path: "/connexion",
         element: <ConnexionPage />,
-        action: connexionAction,
       },
       {
         path: "/formulaire-animal/:id",
         element: <AnimalsForm />,
-        action: animalsFormAction,
       },
       {
         path: "/inscription",
         element: <SignUp />,
-        action: signUpAction,
       },
       {
         path: "/page-recherche",
@@ -55,9 +53,30 @@ const router = createBrowserRouter([
         loader: profileLoader,
       },
       {
-        path: "/reservation/:id",
+        path: "/hote/:id",
         element: <HomeStructureDetails />,
         loader: homeStructureLoader,
+      },
+      {
+        path: "/mot-de-passe-oublie",
+        element: <ForgotPassword />,
+      },
+      {
+        path: "/reinitialiser-mot-de-passe/:token",
+        element: <ResetPassword />,
+      },
+      {
+        path: "/mentions-legales",
+        element: <LegalMentions />,
+      },
+      {
+        path: "acces_refuse",
+        element: <ProtectedPage />,
+      },
+      {
+        path: "/reservation",
+        element: <ReservationPage />,
+        loader: reservationLoader,
       },
       {
         path: "*",

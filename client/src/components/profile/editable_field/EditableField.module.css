@@ -5,19 +5,20 @@
 }
 .field {
   display: flex;
-  flex-direction: column;
   padding-left: 15px;
+  align-items: center;
 }
 .input {
-  width: 100%;
+  width: 50%;
   padding: 10px;
   margin: 5px 0;
   border: 1px solid #ccc;
-  border-radius: 15px;
   font-size: 16px;
+  border-radius: 15px;
 }
 
 .readOnlyInput {
+  appearance: none;
   border: none;
   background-color: transparent;
   color: inherit;
@@ -25,4 +26,5 @@
   margin: 15px;
   font-size: inherit;
   cursor: default;
+  border-radius: 0;
 }

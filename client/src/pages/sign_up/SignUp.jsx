@@ -1,17 +1,79 @@
-import { useState } from "react";
-import { Form, Link } from "react-router-dom";
+import { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./SignUp.module.css";
+import notify from "../../utils/notify";
+import { AuthentificationContext } from "../../use_context/authentification";
 
 function SignUp() {
-  function handleInputChange(event, setState) {
-    setState(event.target.value);
-  }
-  const [password, setPassword] = useState("");
+  const URL = import.meta.env.VITE_API_URL;
+  const [passwordForm, setPasswordForm] = useState("");
   const [passwordConf, setPasswordConf] = useState("");
+  const navigate = useNavigate();
+  const { update, setUpdate } = useContext(AuthentificationContext);
+  const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&:;ù#àâäéèêëîïôöùûüÿç])[A-Za-z\d@$!%*?&:;ù#àâäéèêëîïôöùûüÿç]{12,}$/;
+
+  const handleInputChange = (event, setState) => {
+    setState(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const formData = new FormData(event.target);
+      const {
+        lastname,
+        firstname,
+        username,
+        phone_number: phoneNumber,
+        location,
+        mail,
+        password,
+        description,
+      } = Object.fromEntries(formData.entries());
+      const buttonValue = event.nativeEvent.submitter.value;
+
+      const response = await fetch(`${URL}user`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          lastname,
+          firstname,
+          username,
+          phoneNumber,
+          location,
+          mail,
+          password,
+          description,
+        }),
+        credentials: "include",
+      });
+
+      if (response.status === 201) {
+        const newData = await response.json();
+        const userId = newData.insertId;
+
+        setUpdate(!update);
+        if (buttonValue === "structure") {
+          notify("Votre compte à bien été créé", "success");
+          return navigate(`/inscription_accueil/${userId}`);
+        }
+        notify("Votre compte à bien été créé", "success");
+        return navigate(`/formulaire-animal/${userId}`);
+      }
+
+      const errorData = await response.json();
+      return notify(errorData.validationErrors[0].message, "error");
+    } catch (err) {
+      return notify("Une erreur est survenue lors de l'inscription.", "error");
+    }
+  };
 
   return (
     <div id={styles.formContainer}>
-      <Form method="post" id={styles.signInForm}>
+      <form method="post" id={styles.signInForm} onSubmit={handleSubmit}>
         <div className={styles.desktopRow}>
           <div className={styles.inputContainer} id={styles.firstInput}>
             <label className={styles.formLabel} htmlFor="lastname">
@@ -56,7 +118,7 @@ function SignUp() {
             />
           </div>
           <div className={styles.inputContainer}>
-            <label className={styles.formLabel} htmlFor="phonenumber">
+            <label className={styles.formLabel} htmlFor="phone_number">
               Téléphone <span className={styles.isRequired}> *</span>
             </label>
             <input
@@ -103,21 +165,23 @@ function SignUp() {
             className={styles.inputSizeM}
             type="password"
             name="password"
-            value={password}
+            value={passwordForm}
             minLength={12}
-            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}"
-            onChange={(event) => handleInputChange(event, setPassword)}
+            pattern={passwordRegex.source}
+            onChange={(event) => handleInputChange(event, setPasswordForm)}
             required
           />
           <section className={styles.passwordSmall}>
-            <small>
-              ** Le mot de passe doit comprendre une majuscule, une minuscule,
-              un chiffre et un caractère spécial.
-            </small>
+            {passwordRegex.test(passwordForm) !== true && (
+              <small>
+                ** Le mot de passe doit comprendre une majuscule, une minuscule,
+                un chiffre et un caractère spécial.
+              </small>
+            )}
           </section>
         </div>
         <div className={styles.inputContainer}>
-          <label className={styles.formLabel} htmlFor="adress">
+          <label className={styles.formLabel} htmlFor="passwordConf">
             Confirmer le mot de passe
             <span className={styles.isRequired}> *</span>
           </label>
@@ -126,14 +190,14 @@ function SignUp() {
             type="password"
             name="passwordConf"
             minLength={12}
-            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}"
+            pattern={passwordRegex.source}
             value={passwordConf}
             onChange={(event) => handleInputChange(event, setPasswordConf)}
             required
           />
           <div className={styles.passwordSmall}>
-            {password !== passwordConf && (
-              <small>les mots de passes ne sont pas identiques</small>
+            {passwordForm !== passwordConf && (
+              <small>Les mots de passe ne sont pas identiques</small>
             )}
           </div>
         </div>
@@ -151,7 +215,6 @@ function SignUp() {
         <div className={styles.containerSmall}>
           <small>* champs requis</small>
         </div>
-
         <div className={styles.buttonContainer}>
           <div className={styles.buttonsContainer}>
             <button
@@ -159,7 +222,7 @@ function SignUp() {
               type="submit"
               name="submitButton"
               value="animal"
-              disabled={password !== passwordConf}
+              disabled={passwordForm !== passwordConf}
             >
               Je veux faire garder
             </button>
@@ -168,7 +231,7 @@ function SignUp() {
               type="submit"
               name="submitButton"
               value="structure"
-              disabled={password !== passwordConf}
+              disabled={passwordForm !== passwordConf}
             >
               Je veux accueillir
             </button>
@@ -177,7 +240,7 @@ function SignUp() {
             Déjà un compte ? <Link to="/connexion">se connecter</Link>
           </p>
         </div>
-      </Form>
+      </form>
     </div>
   );
 }

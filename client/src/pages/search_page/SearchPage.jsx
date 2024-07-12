@@ -27,7 +27,7 @@ function SearchPage() {
       }
       try {
         const response = await fetch(
-          `${URL}/homestructure?search=${search}&limit=${limit}&offset=${offset}`
+          `${URL}homestructure?search=${search}&limit=${limit}&offset=${offset}`
         );
         if (response.status !== 200) {
           throw new Error("Erreur lors de la récupération des données.");
@@ -132,7 +132,7 @@ function SearchPage() {
         <ul id="peopleMap">
           {filteredStructures.map((structure) => (
             <li key={structure.id} id="peopleList">
-              <Link to={`/reservation/${structure.id}`}>
+              <Link to={`/hote/${structure.id}`}>
                 <HomeStructureList structure={structure} />
               </Link>
             </li>

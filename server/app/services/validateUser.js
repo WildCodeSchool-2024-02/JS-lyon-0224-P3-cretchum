@@ -33,9 +33,9 @@ const phoneNumber = Joi.string()
   });
 const location = Joi.string().min(3).max(55).required();
 const mail = Joi.string().email().required();
-const password = Joi.string().min(12).required();
+const password = Joi.string().pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&:;ù#àâäéèêëîïôöùûüÿç])[A-Za-z\d@$!%*?&:;ù#àâäéèêëîïôöùûüÿç]{12,}$/).min(12).required();
 const description = Joi.string().min(0).max(800);
-
+const avatar = Joi.string().min(0).max(254);
 // Schema of SingUp form
 
 const signInSchema = Joi.object({
@@ -54,7 +54,7 @@ const signInSchema = Joi.object({
 const validateSignup = (req, res, next) => {
   const { error } = signInSchema.validate(req.body, { abortEarly: true });
 
-  if (!error === true) {
+  if (error === undefined) {
     next();
   } else {
     res.status(400).json({ validationErrors: error.details });
@@ -71,11 +71,13 @@ const profileSchema = Joi.object({
   location,
   mail,
   description,
+  avatar,
 });
 
 const validateProfileEdit = (req, res, next) => {
   const { error } = profileSchema.validate(req.body, { abortEarly: true });
-  if (!error === true) {
+
+  if (error === undefined) {
     next();
   } else {
     res.status(400).json({ validationErrors: error.details });

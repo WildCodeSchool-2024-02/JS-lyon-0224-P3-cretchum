@@ -16,6 +16,7 @@ class UserSeeder extends AbstractSeeder {
         mail: "darkpedro@exemple.com",
         password: "true!25445aa",
         description: "Non !",
+        avatar: "http://localhost:3310/api/avatars/1.png",
       },
       {
         lastname: "Martin",
@@ -26,6 +27,7 @@ class UserSeeder extends AbstractSeeder {
         mail: "lou1.martin@exemple.com",
         password: "password",
         description: "J'ai 2 chiens :) !",
+        avatar: "http://localhost:3310/api/avatars/2.png",
       },
       {
         lastname: "Pedro",
@@ -36,6 +38,7 @@ class UserSeeder extends AbstractSeeder {
         mail: "lou2.martin@exemple.com",
         password: "password",
         description: "J'ai 2 chiens :) !",
+        avatar: "http://localhost:3310/api/avatars/3.png",
       },
       {
         lastname: "Mike",

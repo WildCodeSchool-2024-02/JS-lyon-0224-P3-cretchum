@@ -3,14 +3,14 @@ const AbstractRepository = require("./AbstractRepository");
 class HomeStructureRepository extends AbstractRepository {
   constructor() {
     // Call the constructor of the parent class (AbstractRepository)
-    // and pass the table name "program" as configuration
+    // and pass the table name "home_structure" as configuration
     super({ table: "home_structure" });
   }
 
   // The C of CRUD - Create operation
 
   async create(structure) {
-    // Execute the SQL INSERT query to add a new program to the "program" table
+    // Execute the SQL INSERT query to add a new home_structure to the "home_structure" table
     const [result] = await this.database.query(
       `insert into ${this.table} (postal_code, capacity, is_professional, cat, dog, price, user_id) values (?, ?, ?, ?, ?, ?, ?)`,
       [
@@ -24,43 +24,86 @@ class HomeStructureRepository extends AbstractRepository {
       ]
     );
 
-    // Return the ID of the newly inserted program
+    // Return the ID of the newly inserted home_structure
     return result.insertId;
   }
 
-  // The Rs of CRUD - Read operations
+  // The R of CRUD - Read operations
 
-  async read(id) {
-    // Execute the SQL SELECT query to retrieve a specific program by its ID
+  // read all information except password on user and home_structure
+  async readUserStructure(id) {
+    // Execute the SQL SELECT query to retrieve a specific home_structure by its ID
     const [rows] = await this.database.query(
-      `select * from ${this.table} JOIN user ON ${this.table}.user_id = user.id WHERE ${this.table}.id = ?`,
+      `SELECT user.id, lastname, firstname, username, phone_number AS phoneNumber, location, mail, avatar, description, postal_code AS postalCode, capacity, is_professional AS isProfessional, cat, dog, price from ${this.table} RIGHT JOIN user ON ${this.table}.user_id = user.id WHERE user.id = ?`,
       [id]
     );
 
-    // Return the first row of the result, which represents the program
+    // Return the first row of the result, which represents the home_structure
+    if (rows[0] === undefined) {
+      return null;
+    }
+    return rows[0];
+  }
+
+  // read only public home_structure and user information
+  async readStructure(id) {
+    // Execute the SQL SELECT query to retrieve a specific home_structure by its ID
+    const [rows] = await this.database.query(
+      `SELECT ${this.table}.id, username, location, avatar, description, postal_code, capacity, is_professional, cat, dog, price from ${this.table} RIGHT JOIN user ON ${this.table}.user_id = user.id WHERE ${this.table}.id = ?`,
+      [id]
+    );
+
+    // Return the first row of the result, which represents the home_structure
+    if (rows[0] === undefined) {
+      return null;
+    }
+    return rows[0];
+  }
+
+  async checkHomeStructure(mail) {
+    // Execute the SQL SELECT query to retrieve a specific home_structure by its ID
+    const [rows] = await this.database.query(
+      `select user_id from ${this.table} RIGHT JOIN user ON ${this.table}.user_id = user.id WHERE mail = ?`,
+      [mail]
+    );
+    // Return the first row of the result, which represents the home_structure
     return rows[0];
   }
 
   async readAll() {
     // Execute the SQL SELECT query to retrieve all homes strutures from the "home_structure" table
     const [rows] = await this.database.query(
-      `select * from ${this.table} JOIN user ON ${this.table}.user_id = user.id ORDER BY capacity DESC`
+      `select ${this.table}.id, lastname, firstname, username, phone_number, location, mail, description, postal_code, capacity, is_professional, cat, dog, price, user_id from ${this.table} JOIN user ON ${this.table}.user_id = user.id ORDER BY capacity DESC`
     );
 
-    // Return the array of programs
+    // Return the array of home_structure
     return rows;
   }
 
   // The U of CRUD - Update operation
 
   async update(structure) {
-    // Execute the SQL UPDATE query to update a specific program
-    const [result] = await this.database.query(
-      `update ${this.table} set postal_code = ?,capacity = ?,is_professional = ?, cat = ?, dog = ?, price =?  where id = ?`,
+    // Execute the SQL UPDATE query to update a specific user
+    const [userResult] = await this.database.query(
+      `UPDATE user SET lastname = ?, firstname = ?, username = ?, phone_number = ?, location = ?, mail = ?, description = ? WHERE id = ?`,
       [
-        structure.postal_code,
+        structure.lastname,
+        structure.firstname,
+        structure.username,
+        structure.phoneNumber,
+        structure.location,
+        structure.mail,
+        structure.description,
+        structure.id,
+      ]
+    );
+
+    const [structureResult] = await this.database.query(
+      `UPDATE ${this.table} SET postal_code = ?, capacity = ?, is_professional = ?, cat = ?, dog = ?, price = ? WHERE user_id = ?`,
+      [
+        structure.postalCode,
         structure.capacity,
-        structure.is_professional,
+        structure.isProfessional,
         structure.cat,
         structure.dog,
         structure.price,
@@ -69,16 +112,24 @@ class HomeStructureRepository extends AbstractRepository {
     );
 
     // Return how many rows were affected
-    return result.affectedRows;
+    return {
+      structureAffectedRows: structureResult.affectedRows,
+      userAffectedRows: userResult.affectedRows,
+    };
   }
 
   // The D of CRUD - Delete operation
 
   async delete(id) {
-    // Execute the SQL DELETE query to delete a specific program
+    // Execute the SQL DELETE query to delete a specific home_structure
+    const [userId] = await this.database.query(
+      `select ${this.table}.id from ${this.table} JOIN user ON ${this.table}.user_id = user.id where user.id = ?`,
+      [id]
+    );
+
     const [result] = await this.database.query(
       `delete from ${this.table} where id = ?`,
-      [id]
+      [userId[0].id]
     );
 
     // Return how many rows were affected
@@ -93,9 +144,11 @@ class HomeStructureRepository extends AbstractRepository {
     const [result] = await this.database.query(
       `SELECT 
          hs.id, 
-         u.firstname AS name, 
+         u.firstname AS name,
+         u.username,  
          u.phone_number, 
          u.location, 
+         u.avatar,
          hs.postal_code, 
          hs.is_professional, 
          hs.cat, 
@@ -103,7 +156,7 @@ class HomeStructureRepository extends AbstractRepository {
          hs.price 
        FROM ${this.table} hs 
        JOIN user u ON hs.user_id = u.id 
-       WHERE u.firstname LIKE ? OR u.location LIKE ? 
+       WHERE u.location LIKE ? OR u.username LIKE ?
        LIMIT ? OFFSET ? `,
       [`%${search}%`, `%${search}%`, parsedLimit, parsedOffset]
     );
@@ -119,14 +172,6 @@ class HomeStructureRepository extends AbstractRepository {
 
     const totalRow = count[0];
     return { result, totalRow };
-  }
-
-  async login(homeStructure) {
-    const [result] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE mail = ? AND password = ?`,
-      [homeStructure.mail, homeStructure.password]
-    );
-    return result;
   }
 }
 
