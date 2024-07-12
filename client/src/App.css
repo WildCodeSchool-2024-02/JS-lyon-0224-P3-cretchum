@@ -37,6 +37,16 @@ button {
   font-family: "roboto";
 }
 
+h1 {
+  font-size: 4rem;
+  margin: 0;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin: 20px 0;
+}
+
 body {
   background: var(--main-color);
 }
@@ -52,4 +62,11 @@ body {
   color: black;
   border: none;
   cursor: pointer;
+}
+
+@media screen and (max-width: 1000px) {
+  h1 {
+    font-size: 2rem;
+    margin: 0;
+  }
 }

@@ -11,16 +11,6 @@
   box-sizing: border-box;
 }
 
-h1 {
-  font-size: 4rem;
-  margin: 0;
-}
-
-h2 {
-  font-size: 1.5rem;
-  margin: 20px 0;
-}
-
 .navLink {
   margin: 20px 0;
   text-decoration: none;
