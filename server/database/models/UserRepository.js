@@ -80,7 +80,7 @@ class UserRepository extends AbstractRepository {
   // Checking token validity
   async readByResetToken(token) {
     const [rows] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE resetPasswordToken = ?`,
+      `SELECT id, mail, resetPasswordToken FROM ${this.table} WHERE resetPasswordToken = ?`,
       [token]
     );
   
