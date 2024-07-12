@@ -1,6 +1,6 @@
 const request = require("supertest");
 const express = require("express");
-const { browse } = require("../../../app/controllers/home_structureActions");
+const { browse } = require("../../../app/controllers/homestructureActions");
 
 // Mock the tables object and the research function
 jest.mock("../../../database/tables", () => ({
