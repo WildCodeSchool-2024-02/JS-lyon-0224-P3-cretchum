@@ -27,7 +27,7 @@ function ForgotPassword() {
           "Un e-mail de réinitialisation du mot de passe a été envoyé.",
           "success"
         );
-        navigate(`/reinitialiser-mot-de-passe`);
+        navigate("/");
       } else {
         const errorData = await response.json();
         notify(
