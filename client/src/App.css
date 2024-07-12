@@ -19,7 +19,8 @@
   font-family: "roboto";
   src: url("./assets/fonts/roboto/Roboto-Regular.ttf") format("truetype");
 }
-
+th,
+tr,
 h1,
 h2,
 h3,
