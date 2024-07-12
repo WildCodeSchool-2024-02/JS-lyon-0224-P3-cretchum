@@ -101,6 +101,27 @@ td {
   overflow: auto;
 }
 
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+.cancelButton,
+.confirmButton {
+  border: none;
+  background-color: transparent;
+  font-size: 1em;
+}
+
+.cancelButton {
+  color: var(--highlight-color);
+  border-bottom: var(--highlight-color) 1px solid;
+}
+.confirmButton {
+  color: var(--secondary-color);
+  border-bottom: var(--secondary-color) solid 1px;
+  padding-right: 5px;
+}
 @media screen and (max-width: 450px) {
   .reservationContent {
     height: auto;

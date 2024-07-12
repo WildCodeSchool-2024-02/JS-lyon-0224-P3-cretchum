@@ -214,6 +214,7 @@ function ReservationPage() {
                         <td>
                           {reservation.status !== "cancel" ? (
                             <button
+                              className={styles.cancelButton}
                               type="button"
                               onClick={(event) =>
                                 editReservation(
@@ -280,10 +281,11 @@ function ReservationPage() {
                           €
                         </td>
                         <td>{statusMap[reservation.status] || ""}</td>
-                        <td>
+                        <td className={styles.buttonContainer}>
                           {reservation.status !== "confirm" &&
                             reservation.status !== "cancel" && (
                               <button
+                                className={styles.confirmButton}
                                 type="button"
                                 onClick={(event) =>
                                   editReservation(
@@ -300,6 +302,7 @@ function ReservationPage() {
                             )}
                           {reservation.status !== "cancel" && (
                             <button
+                              className={styles.cancelButton}
                               type="button"
                               onClick={(event) =>
                                 editReservation(
