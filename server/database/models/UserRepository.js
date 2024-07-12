@@ -56,7 +56,7 @@ class UserRepository extends AbstractRepository {
   }
 
   // Recovering your email address
-  async readByEmail({ email }) {
+  async readByEmail( email ) {
     const [rows] = await this.database.query(
       `SELECT id, mail FROM ${this.table} WHERE mail = ?`,
       [email]
@@ -67,6 +67,14 @@ class UserRepository extends AbstractRepository {
     }
   
     return rows[0];
+  }
+
+  // Add token in database
+  async updateResetToken(userId, token, expires) {
+    await this.database.query(
+      'UPDATE user SET resetPasswordToken = ?, resetPasswordExpires = ? WHERE id = ?',
+      [token, expires, userId]
+    );
   }
 
   // The U of CRUD - Update operation
