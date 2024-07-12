@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import notify from "../../utils/notify";
 import Patoune from "../../assets/logo/1patounes.png";
 import "./ResetPassword.css";
@@ -10,6 +10,7 @@ function ResetPassword() {
   const [passwordForm, setPasswordForm] = useState("");
   const [passwordConf, setPasswordConf] = useState("");
   const navigate = useNavigate();
+  const { token } = useParams();
   const passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&:;ù#àâäéèêëîïôöùûüÿç])[A-Za-z\d@$!%*?&:;ù#àâäéèêëîïôöùûüÿç]{12,}$/;
 
@@ -24,7 +25,7 @@ function ResetPassword() {
       const formData = new FormData(event.target);
       const { password } = Object.fromEntries(formData.entries());
 
-      const response = await fetch(`${URL}reset`, {
+      const response = await fetch(`${URL}reset/${token}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
