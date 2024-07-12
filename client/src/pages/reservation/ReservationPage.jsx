@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import notify from "../../utils/notify";
 import NavMenu from "../../components/nav_menu/NavMenu";
 import styles from "./ReservationPage.module.css";
+import HeaderReservation from "../../components/reservation_page/header";
 
 function ReservationPage() {
   const statusMap = {
@@ -143,30 +144,36 @@ function ReservationPage() {
   return (
     <>
       <NavMenu />
+      <div className={styles.container}>
+        <span id={styles.readButtonContainer}>
+          <button
+            type="button"
+            id={styles.deleteNotification}
+            className={notification.length > 0 ? "" : styles.none}
+            onClick={deleteNotification}
+          >
+            Marquer les réservations comme vues
+          </button>
+        </span>
+      </div>
       <div id={styles.reservationContainer}>
-        <section className={styles.reservation}>
-          <header className={styles.reservationHeader}>
-            <h1 id={styles.reservationTitle}>Mes reservation</h1>
-          </header>
-          <div className={styles.reservationContent}>
-            <span id={styles.readButtonContainer}>
-              <button
-                type="button"
-                id={styles.deleteNotification}
-                className={notification.length > 0 ? "" : styles.none}
-                onClick={deleteNotification}
-              >
-                Marquer les réservations comme vues
-              </button>
-            </span>
-            {reservations.length === 0 && received.length === 0 && (
+        {reservations.length === 0 && received.length === 0 && (
+          <section className={styles.reservation}>
+            <HeaderReservation title="Vos reservations" />
+
+            <div className={styles.reservationContentNull}>
               <p id={styles.reservationNull}>
                 Vous n'avez aucune réservations pour le moment
               </p>
-            )}
-            {reservations.length !== 0 && (
+            </div>
+          </section>
+        )}
+
+        {reservations.length !== 0 && (
+          <section className={styles.reservation}>
+            <HeaderReservation title="Réservation émise" />
+            <div className={styles.reservationContent}>
               <div className={styles.tableContainer}>
-                <h2 className={styles.tableTitle}>Vos animaux</h2>
                 <table id={styles.animalTable}>
                   <thead>
                     <tr className={styles.columnName}>
@@ -228,10 +235,14 @@ function ReservationPage() {
                   </tbody>
                 </table>
               </div>
-            )}
-            {received.length !== 0 && (
+            </div>
+          </section>
+        )}
+        {received.length !== 0 && (
+          <section className={styles.reservation}>
+            <HeaderReservation title="Réservations reçus" />
+            <div className={styles.reservationContent}>
               <div className={styles.tableContainer}>
-                <h2 className={styles.tableTitle}>Vous Gardez</h2>
                 <table id={styles.animalTable}>
                   <thead>
                     <tr className={styles.columnName}>
@@ -309,9 +320,9 @@ function ReservationPage() {
                   </tbody>
                 </table>
               </div>
-            )}
-          </div>
-        </section>
+            </div>
+          </section>
+        )}
       </div>
     </>
   );
