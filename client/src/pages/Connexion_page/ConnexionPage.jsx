@@ -88,7 +88,7 @@ function ConnexionPage() {
             Connexion
           </button>
 
-          <p>Mot de passe oublié ?</p>
+          <Link to="/mot-de-passe-oublie">Mot de passe oublié ?</Link>
         </form>
       </section>
 

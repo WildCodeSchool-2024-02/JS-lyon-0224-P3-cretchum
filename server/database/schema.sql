@@ -7,6 +7,8 @@ CREATE TABLE user (
   location VARCHAR(55) NOT NULL,
   mail VARCHAR(254) NOT NULL UNIQUE,
   password TEXT NOT NULL,
+  resetPasswordToken VARCHAR(50) NOT NULL DEFAULT "",
+  resetPasswordExpires TIMESTAMP,
   description TEXT,  avatar VARCHAR(254) DEFAULT 'http://localhost:3310/api/avatars/patoune.png'
 );
 
