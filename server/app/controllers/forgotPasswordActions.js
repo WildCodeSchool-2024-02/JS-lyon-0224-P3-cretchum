@@ -7,7 +7,7 @@ const { CLIENT_URL, MAIL_FROM, MAILTRAP_PASSWORD, MAILTRAP_USER } = process.env;
 const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body; // Get the email from the request body
-    const user = await tables.user.readByEmail({ email }); // Check if user exists with the given email
+    const user = await tables.user.readByEmail( email); // Check if user exists with the given email
 
     if (user === undefined) {
       return res.status(400).send("User with this email does not exist.");
@@ -16,8 +16,9 @@ const forgotPassword = async (req, res) => {
     // Ajout d'un token temporaire pour la modification du mots de passe ajout d'une colone dans la table user resetpasswordtoken avec une date d'expiration. faire la logic avec la gestion du temps puis dans la le resetPasswords faire une correspondances de token.
 
     const token = crypto.randomBytes(20).toString("hex"); // Generate a random token
-    user.resetPasswordToken = token; // Assign the token to the user
-    user.resetPasswordExpires = Date.now() + 3600000; // Set expiration time for the token (1 hour)
+    const expires = new Date(Date.now() + 3600000); // Set expiration time for the token (1 hour)
+
+    await tables.user.updateResetToken(user.id, token, expires);
 
     const transporter = nodemailer.createTransport({
       host: "sandbox.smtp.mailtrap.io",
