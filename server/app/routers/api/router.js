@@ -14,11 +14,8 @@ const imageRouter = require("./image/router");
 const authAction = require("./auth/router");
 const reservationRouter = require("./reservation/router");
 const notificationRouter = require("./notification/router");
-
-const validateForgotPassword = require("../../services/validateForgotPassword");
-
-const forgotPassword = require("../../controllers/forgotPasswordActions");
-const resetPasswordAction = require("../../controllers/resetPasswordActions");
+const forgotPasswordRouter = require("./forgotPassword/router");
+const resetPasswordRouter = require("./resetPassword/router");
 
 router.use(
   "/avatars",
@@ -31,8 +28,8 @@ router.use("/image", imageRouter);
 router.use("/auth", authAction);
 router.use("/reservation", reservationRouter);
 router.use("/notification", notificationRouter);
-router.post("/forgot-password", validateForgotPassword, forgotPassword);
-router.post("/reset", resetPasswordAction);
+router.use("/forgot-password", forgotPasswordRouter);
+router.use("/reset", resetPasswordRouter);
 
 /* ************************************************************************* */
 
