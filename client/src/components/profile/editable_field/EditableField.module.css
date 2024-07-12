@@ -28,10 +28,3 @@
   cursor: default;
   border-radius: 0;
 }
-/* 
-@media screen and (min-width: 1000px) {
-  .readOnlyInput,
-  .field > p {
-    margin: 15px 0px;
-  }
-} */
