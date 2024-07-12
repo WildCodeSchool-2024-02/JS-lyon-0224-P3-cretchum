@@ -94,8 +94,8 @@ class UserRepository extends AbstractRepository {
   // Password update, clear resetPasswordToken and resetPasswordExpires 
   async updatePasswordAndClearResetToken(userId, hashedPassword) {
     await this.database.query(
-      `UPDATE ${this.table} SET password = ?, resetPasswordToken = NULL, resetPasswordExpires = NULL WHERE id = ?`,
-      [hashedPassword, userId]
+      `UPDATE ${this.table} SET password = ?, resetPasswordToken = ?, resetPasswordExpires = ? WHERE id = ?`,
+      [hashedPassword, "", null, userId]
     )};
 
   // The U of CRUD - Update operation
