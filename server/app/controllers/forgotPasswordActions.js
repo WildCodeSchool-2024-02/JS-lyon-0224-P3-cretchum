@@ -13,8 +13,6 @@ const forgotPassword = async (req, res) => {
       return res.status(400).send("User with this email does not exist.");
     }
 
-    // Ajout d'un token temporaire pour la modification du mots de passe ajout d'une colone dans la table user resetpasswordtoken avec une date d'expiration. faire la logic avec la gestion du temps puis dans la le resetPasswords faire une correspondances de token.
-
     const token = crypto.randomBytes(20).toString("hex"); // Generate a random token
     const expires = new Date(Date.now() + 3600000); // Set expiration time for the token (1 hour)
 
