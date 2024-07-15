@@ -32,19 +32,36 @@ const read = async (req, res, next) => {
   }
 };
 
+const readAnimalId = async (req, res, next) => {
+  try {
+    // Fetch a specific animal from the database based on the provided ID
+    const animal = await tables.animal.readId(req.params.id);
+    // If the animal is not found, respond with HTTP 404 (Not Found)
+    // Otherwise, respond with the users in JSON format
+    if (animal === null || animal === undefined) {
+      res.sendStatus(404);
+    } else {
+      res.status(200).json(animal);
+    }
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
 // The A of BREAD - Add (Create) operation
 const add = async (req, res, next) => {
   // Extract the animal data from the request body
   const animal = req.body;
-  
+
   try {
     // Insert the animal into the database
     const insertId = await tables.animal.create(animal);
-    
-    const {sub, isHomeStructure} = req.user;
-    let {hasAnimals} = req.user;
 
-    hasAnimals = true
+    const { sub, isHomeStructure } = req.user;
+    let { hasAnimals } = req.user;
+
+    hasAnimals = true;
 
     // Generate JWT token
     const token = jwt.sign(
@@ -88,4 +105,5 @@ module.exports = {
   read,
   add,
   destroy,
+  readAnimalId,
 };

@@ -12,6 +12,7 @@ const {
   browse,
   add,
   destroy,
+  readAnimalId,
 } = require("../../../controllers/animalActions");
 
 const validateAnimals = require("../../../services/validateAnimals");
@@ -20,8 +21,11 @@ const deniedAccess = require("../../../services/deniedAccess");
 // Route to get a list of animals
 router.get("/", browse);
 
-// Route to get a specific animal by ID
+// Route to get a specific animal by user ID
 router.get("/:id", read);
+
+// Route to get a specific animal by animal ID
+router.get("/animalid/:id", readAnimalId);
 
 // Route to add a new animal
 router.post("/:id", validateAnimals, deniedAccess, add);

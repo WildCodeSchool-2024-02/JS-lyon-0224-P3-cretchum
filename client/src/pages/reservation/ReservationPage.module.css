@@ -19,6 +19,7 @@
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   color: white;
+  width: 100%;
 }
 .container {
   width: 100%;
@@ -91,10 +92,18 @@ td {
 #animalTable {
   width: 100%;
 }
+.row0 {
+  font-size: 1.2em;
+}
 
 .row1,
 .columnName {
   background-color: var(--main-color);
+  font-size: 1.2em;
+}
+
+.columnName th {
+  font-size: 1.2em;
 }
 .tableContainer {
   height: 100%;
@@ -111,6 +120,7 @@ td {
   border: none;
   background-color: transparent;
   font-size: 1em;
+  cursor: pointer;
 }
 
 .cancelButton {

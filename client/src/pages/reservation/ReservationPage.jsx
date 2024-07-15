@@ -3,6 +3,7 @@ import notify from "../../utils/notify";
 import NavMenu from "../../components/nav_menu/NavMenu";
 import styles from "./ReservationPage.module.css";
 import HeaderReservation from "../../components/reservation_page/header";
+import AnimalDetails from "../../components/reservation_page/animal_details/AnimalDetails";
 
 function ReservationPage() {
   const statusMap = {
@@ -84,7 +85,8 @@ function ReservationPage() {
     notification.length > 0 &&
     notification.map((value) => value.reservation_id);
 
-  // Cancelation button
+  const [confirmBox, setConfirmBox] = useState(false);
+  // Cancelation / Confirm button
   const editReservation = async (
     event,
     id,
@@ -93,7 +95,9 @@ function ReservationPage() {
     username
   ) => {
     event.preventDefault();
-
+    if (type === "cancel") {
+      setConfirmBox(!confirmBox);
+    }
     try {
       const response = await fetch(`${URL}reservation/status?type=${type}`, {
         method: "PUT",
@@ -141,6 +145,7 @@ function ReservationPage() {
       }
     }
   };
+
   return (
     <>
       <NavMenu />
@@ -271,7 +276,14 @@ function ReservationPage() {
                       >
                         <th scope="row">{reservation.id}</th>
                         <td>{reservation.username}</td>
-                        <td>{reservation.name}</td>
+                        <td>
+                          <AnimalDetails
+                            aria-label={`plus de détails sur ${reservation.name}`}
+                            name={reservation.name}
+                            username={reservation.username}
+                            animalId={reservation.animalId}
+                          />
+                        </td>
                         <td>{reservation.beginning}</td>
                         <td>{reservation.end}</td>
                         <td>{reservation.day}</td>
