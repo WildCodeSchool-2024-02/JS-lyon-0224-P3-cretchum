@@ -27,14 +27,12 @@ const app = express();
 
 const cors = require("cors");
 
-  app.use(
-    cors({
-      origin: [
-        process.env.CLIENT_URL,
-      ],
-      credentials: true
-    })
-  );
+app.use(
+  cors({
+    origin: [process.env.CLIENT_URL],
+    credentials: true,
+  })
+);
 
 /* ************************************************************************* */
 
@@ -145,7 +143,6 @@ const logErrors = (err, req, res, next) => {
 // Mount the logErrors middleware globally
 app.use(logErrors);
 */
-
 
 /* ************************************************************************* */
 

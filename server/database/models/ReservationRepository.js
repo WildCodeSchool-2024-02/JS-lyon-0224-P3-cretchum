@@ -39,7 +39,7 @@ class HomeStructureRepository extends AbstractRepository {
   // Reads reservations received as a home structure
   async readReceived(userId) {
     const [rows] = await this.database.query(
-      `SELECT reservation.id, animal.name, username, DATE_FORMAT(reservation_date_beginning, "%d/%m/%Y") AS beginning, DATE_FORMAT(reservation_date_end, "%d/%m/%Y") AS end, DATEDIFF( reservation_date_end, reservation_date_beginning ) AS day, priceday, reservation.status FROM ${this.table} JOIN animal on animal_id = animal.id JOIN user ON user_id=user.id JOIN home_structure ON home_structure_id=home_structure.id  WHERE home_structure.user_id= ? ORDER BY reservation.id DESC;
+      `SELECT reservation.id, animal.name, animal.id AS animalId, username, DATE_FORMAT(reservation_date_beginning, "%d/%m/%Y") AS beginning, DATE_FORMAT(reservation_date_end, "%d/%m/%Y") AS end, DATEDIFF( reservation_date_end, reservation_date_beginning ) AS day, priceday, reservation.status FROM ${this.table} JOIN animal on animal_id = animal.id JOIN user ON user_id=user.id JOIN home_structure ON home_structure_id=home_structure.id  WHERE home_structure.user_id= ? ORDER BY reservation.id DESC;
     `,
       [userId]
     );
