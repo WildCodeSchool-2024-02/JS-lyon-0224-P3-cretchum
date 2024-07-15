@@ -1,11 +1,9 @@
 import styles from './LegalMentions.module.css';
-import NavMenu from "../../components/nav_menu/NavMenu";
 import Section from "../../components/section/Section";
 
 function LegalMentions() {
   return (
     <div>
-      <NavMenu />
       <div className={styles.container}>
         <h1 className={styles.title}>Mentions légales du site Cretchom</h1>
 

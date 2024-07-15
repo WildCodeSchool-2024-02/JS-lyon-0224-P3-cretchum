@@ -152,12 +152,7 @@
 
 @media screen and (min-width: 1100px) {
   #signInForm {
-    background-size: 22em;
-    background-repeat: repeat-x;
-    background-position: 0% 5px;
     max-width: 900px;
-    height: 99vh;
-    margin: 0;
     padding-bottom: 0.2em;
     padding-top: 0.2em;
   }
@@ -166,9 +161,6 @@
     flex-direction: row;
     width: 90%;
     align-items: center;
-  }
-  #formContainer {
-    height: 100vh;
   }
   #firstname {
     padding-top: 0.8em;

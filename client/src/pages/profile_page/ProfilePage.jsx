@@ -9,7 +9,6 @@ import EditableField from "../../components/profile/editable_field/EditableField
 import EditableTextarea from "../../components/profile/editable_text_area/EditableTextarea";
 import EditableDropDown from "../../components/profile/editable_dropdown/EditableDropDown";
 import { AuthentificationContext } from "../../use_context/authentification";
-import NavMenu from "../../components/nav_menu/NavMenu";
 
 function ProfilePage() {
   const customerdata = useLoaderData();
@@ -200,8 +199,6 @@ function ProfilePage() {
   };
 
   return (
-    <>
-      <NavMenu />
       <div className={styles.profilePageContainer}>
         <ProfileHeader
           username={state.customer.username}
@@ -379,7 +376,6 @@ function ProfilePage() {
           )}
         </ProfileSection>
       </div>
-    </>
   );
 }
 

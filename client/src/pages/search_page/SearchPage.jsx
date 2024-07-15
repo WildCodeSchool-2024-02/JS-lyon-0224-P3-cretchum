@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import notify from "../../utils/notify";
 import "./SearchPage.css";
-import NavMenu from "../../components/nav_menu/NavMenu";
 import Filter from "../../components/search_page_components/filter/Filter";
 import HomeStructureList from "../../components/search_page_components/home_strucutre_list/HomeStructureList";
 import BtnPrev from "../../assets/images/Btn-prev.png";
@@ -119,7 +118,6 @@ function SearchPage() {
 
   return (
     <>
-      <NavMenu />
       <Filter
         onFilterChange={handleFilterChange}
         setSearch={setSearch}

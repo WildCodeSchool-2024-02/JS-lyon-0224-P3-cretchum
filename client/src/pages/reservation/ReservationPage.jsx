@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import notify from "../../utils/notify";
-import NavMenu from "../../components/nav_menu/NavMenu";
 import styles from "./ReservationPage.module.css";
 import HeaderReservation from "../../components/reservation_page/header";
 
@@ -143,7 +142,6 @@ function ReservationPage() {
   };
   return (
     <>
-      <NavMenu />
       <div className={styles.container}>
         <span id={styles.readButtonContainer}>
           <button

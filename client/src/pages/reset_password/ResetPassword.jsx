@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import notify from "../../utils/notify";
 import Patoune from "../../assets/logo/1patounes.png";
 import "./ResetPassword.css";
-import NaveMenu from "../../components/nav_menu/NavMenu";
 
 function ResetPassword() {
   const URL = import.meta.env.VITE_API_URL;
@@ -47,8 +46,6 @@ function ResetPassword() {
 
   return (
     <div>
-      <NaveMenu />
-
       <section id="headerResetPasswordPage">
         <img src={Patoune} alt="orange paw" id="imgPatoune" />
         <h1>Réinitialisation du mot de passe </h1>

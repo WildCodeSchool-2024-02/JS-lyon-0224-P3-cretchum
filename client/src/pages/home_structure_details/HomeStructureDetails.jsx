@@ -6,7 +6,6 @@ import ProfileSection from "../../components/profile/profile_section/ProfileSect
 import Reservation from "../../components/home_structure_details/Reservation";
 import UserAnimal from "../../components/search_page_components/user_animal/UserAnimal";
 import IsProfessionnal from "../../components/search_page_components/is_professionnal/IsProfessional";
-import NavMenu from "../../components/nav_menu/NavMenu";
 import "./HomeStructureDetails.css";
 import { AuthentificationContext } from "../../use_context/authentification";
 
@@ -14,8 +13,6 @@ function HomeStructureDetails() {
   const structures = useLoaderData();
   const { auth } = useContext(AuthentificationContext);
   return (
-    <>
-      <NavMenu />
       <div id="HomeStructurePage">
         <header id="homeStructureHeader">
           <ProfileHeader username={structures.username} customer={structures} />
@@ -68,7 +65,6 @@ function HomeStructureDetails() {
           </aside>
         </section>
       </div>
-    </>
   );
 }
 
