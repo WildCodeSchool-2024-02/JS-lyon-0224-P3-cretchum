@@ -36,9 +36,7 @@
 .string {
   font-size: 1.4em;
 }
-/* .buttonContainer {
-  display: flex;
-} */
+
 #confirmCancel {
   font-size: 1.5em;
 }

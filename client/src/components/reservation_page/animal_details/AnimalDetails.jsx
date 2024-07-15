@@ -9,6 +9,8 @@ function AnimalDetails({ name, username, animalId }) {
     setDetails(!details);
   };
   const [animal, setAnimal] = useState();
+
+  // Fetch animal informations
   const URL = import.meta.env.VITE_API_URL;
   useEffect(() => {
     const fetchReservation = async () => {
