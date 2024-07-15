@@ -52,8 +52,10 @@ function ProfileHeader({
               onClick={handleEditClick}
             >
               {isEditMode === true ? "Sauvegarder" : "Modifier"}
-            </button>
-            <DeleteProfile />
+
+              </button>
+              {isEditMode === false && 
+            <DeleteProfile />}
           </div>
         )}
       </div>

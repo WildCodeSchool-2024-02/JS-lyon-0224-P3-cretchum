@@ -1,8 +1,7 @@
 .navMenu {
   background-color: white;
-  padding: 20px;
-  border-bottom: solid 1px rgb(97, 93, 93);
-  box-shadow: 0px 5px 0px rgba(0, 0, 0, 0.1);
+  padding: 20px 0px;
+  box-shadow: 0px 3px 0px rgba(0, 0, 0, 0.1);
   position: relative;
   width: 100%;
 }
@@ -11,13 +10,13 @@
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-  padding-right: 1.2em;
+  padding-right: 0em;
 }
 
 .navMenu-item {
   font-size: var(--base-font-size);
   cursor: pointer;
-  margin-left: 2%;
+  margin-right: 2%;
 }
 #bell {
   height: 1.2em;
@@ -35,9 +34,8 @@ nav a {
   background-color: transparent;
   border: none;
 }
-@media (min-width: 430px) {
+@media (min-width: 1000px) {
   .navMenu-container {
-    flex-direction: row;
-    justify-content: flex-end;
+    padding-right: 1.2em;
   }
 }

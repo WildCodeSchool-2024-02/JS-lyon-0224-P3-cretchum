@@ -11,12 +11,14 @@ import HomeStructureDetails from "./pages/home_structure_details/HomeStructureDe
 import ProfilePage from "./pages/profile_page/ProfilePage";
 import NotFoundPage from "./pages/not_found_page/NotFoundPage";
 import LegalMentions from "./pages/legal_mentions/LegalMentions";
-
 import AnimalsForm from "./pages/animals_form_page/AnimalsForm";
-import profileLoader from "./handlers/loader/profile_loader/profileLoader";
-import homeStructureLoader from "./handlers/loader/home_structure_loader/homeStructureLoader";
 import ProtectedPage from "./pages/protected_page/ProtectedPage";
 import ReservationPage from "./pages/reservation/ReservationPage";
+import ForgotPassword from "./pages/forgot_password/ForgotPassword";
+import ResetPassword from "./pages/reset_password/ResetPassword";
+
+import profileLoader from "./handlers/loader/profile_loader/profileLoader";
+import homeStructureLoader from "./handlers/loader/home_structure_loader/homeStructureLoader";
 import reservationLoader from "./handlers/loader/reservation/reservationLoader";
 
 const router = createBrowserRouter([
@@ -54,6 +56,14 @@ const router = createBrowserRouter([
         path: "/hote/:id",
         element: <HomeStructureDetails />,
         loader: homeStructureLoader,
+      },
+      {
+        path: "/mot-de-passe-oublie",
+        element: <ForgotPassword />,
+      },
+      {
+        path: "/reinitialiser-mot-de-passe/:token",
+        element: <ResetPassword />,
       },
       {
         path: "/mentions-legales",

@@ -5,11 +5,11 @@
 }
 .field {
   display: flex;
-  flex-direction: column;
   padding-left: 15px;
+  align-items: center;
 }
 .input {
-  width: 100%;
+  width: 50%;
   padding: 10px;
   margin: 5px 0;
   border: 1px solid #ccc;
@@ -17,8 +17,7 @@
   border-radius: 15px;
 }
 
-.readOnlyInput,
-.field > p {
+.readOnlyInput {
   appearance: none;
   border: none;
   background-color: transparent;

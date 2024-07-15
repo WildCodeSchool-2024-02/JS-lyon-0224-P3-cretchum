@@ -13,12 +13,11 @@ function EditableDropDown({
     <div className={styles.field}>
       <label>{label}</label>
       {isEditMode === false ? (
-        <p>{value}</p>
+       <p className={`${styles.input} ${styles.readOnlyInput}`}>{value}</p>
       ) : (
         <select
           onChange={(e) => onChange(e, valueName)}
-          className={`${styles.input} ${isEditMode === false ? styles.readOnlyInput : ""}`}
-          disabled={isEditMode === false}
+          className={styles.input}
           name={value}
         >
           {options.map((option) => (

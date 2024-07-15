@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import notify from "../../utils/notify";
 import NavMenu from "../../components/nav_menu/NavMenu";
 import styles from "./ReservationPage.module.css";
+import HeaderReservation from "../../components/reservation_page/header";
 
 function ReservationPage() {
   const statusMap = {
@@ -92,6 +93,7 @@ function ReservationPage() {
     username
   ) => {
     event.preventDefault();
+
     try {
       const response = await fetch(`${URL}reservation/status?type=${type}`, {
         method: "PUT",
@@ -139,170 +141,191 @@ function ReservationPage() {
       }
     }
   };
-
   return (
     <>
       <NavMenu />
+      <div className={styles.container}>
+        <span id={styles.readButtonContainer}>
+          <button
+            type="button"
+            id={styles.deleteNotification}
+            className={notification.length > 0 ? "" : styles.none}
+            onClick={deleteNotification}
+          >
+            Marquer les réservations comme vues
+          </button>
+        </span>
+      </div>
       <div id={styles.reservationContainer}>
-        <section className={styles.reservation}>
-          <header className={styles.reservationHeader}>
-            <h1 id={styles.reservationTitle}>Mes reservation</h1>
-          </header>
-          <div className={styles.reservationContent}>
-            <span id={styles.readButtonContainer}>
-              <button
-                type="button"
-                id={styles.deleteNotification}
-                className={notification.length > 0 ? "" : styles.none}
-                onClick={deleteNotification}
-              >
-                Marquer les réservations comme vues
-              </button>
-            </span>
-            <h2 className={styles.tableTitle}>Vos animaux</h2>
-            <div className={styles.tableContainer}>
-              <table id={styles.animalTable}>
-                <thead>
-                  <tr className={styles.columnName}>
-                    <th scope="col">reservation n°</th>
-                    <th scope="col">Pour</th>
-                    <th scope="col">Du</th>
-                    <th scope="col">Au</th>
-                    <th scope="col">Jours</th>
-                    <th scope="col">Hôte</th>
-                    <th scope="col">Total</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {reservations.map((reservation, index) => (
-                    <tr
-                      className={
-                        reservationIds.length > 0 &&
-                        reservationIds.includes(reservation.id)
-                          ? `${styles.notify} ${styles.row} `
-                          : `${styles[`row${index % 2}`]}`
-                      }
-                      key={reservation.id}
-                    >
-                      <th scope="row">{reservation.id}</th>
-                      <td>{reservation.name}</td>
-                      <td>{reservation.beginning}</td>
-                      <td>{reservation.end}</td>
-                      <td>{reservation.day + 1}</td>
-                      <td>{reservation.username}</td>
-                      <td>
-                        {reservation.priceday * reservation.day +
-                          reservation.priceday}{" "}
-                        €
-                      </td>
-                      <td>{statusMap[reservation.status] || ""}</td>
-                      <td>
-                        {reservation.status !== "cancel" ? (
-                          <button
-                            type="button"
-                            onClick={(event) =>
-                              editReservation(
-                                event,
-                                reservation.id,
-                                reservation.home_structure_id,
-                                "cancel"
-                              )
-                            }
-                          >
-                            Annuler
-                          </button>
-                        ) : (
-                          ""
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+        {reservations.length === 0 && received.length === 0 && (
+          <section className={styles.reservation}>
+            <HeaderReservation title="Vos reservations" />
+
+            <div className={styles.reservationContentNull}>
+              <p id={styles.reservationNull}>
+                Vous n'avez aucune réservations pour le moment
+              </p>
             </div>
-            <h2 className={styles.tableTitle}>Vous Gardez</h2>
-            <div className={styles.tableContainer}>
-              <table id={styles.animalTable}>
-                <thead>
-                  <tr className={styles.columnName}>
-                    <th scope="col">reservation n°</th>
-                    <th scope="col">Propriétaire</th>
-                    <th scope="col">Pour</th>
-                    <th scope="col">Du</th>
-                    <th scope="col">Au</th>
-                    <th scope="col">Jours</th>
-                    <th scope="col">Total</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {received.map((reservation, index) => (
-                    <tr
-                      className={
-                        reservationIds.length > 0 &&
-                        reservationIds.includes(reservation.id)
-                          ? `${styles.notify} ${styles.row} `
-                          : `${styles[`row${index % 2}`]}`
-                      }
-                      key={reservation.id}
-                    >
-                      <th scope="row">{reservation.id}</th>
-                      <td>{reservation.username}</td>
-                      <td>{reservation.name}</td>
-                      <td>{reservation.beginning}</td>
-                      <td>{reservation.end}</td>
-                      <td>{reservation.day}</td>
-                      <td>
-                        {reservation.priceday * reservation.day +
-                          reservation.priceday}{" "}
-                        €
-                      </td>
-                      <td>{statusMap[reservation.status] || ""}</td>
-                      <td>
-                        {reservation.status !== "confirm" &&
-                          reservation.status !== "cancel" && (
+          </section>
+        )}
+
+        {reservations.length !== 0 && (
+          <section className={styles.reservation}>
+            <HeaderReservation title="Réservation émise" />
+            <div className={styles.reservationContent}>
+              <div className={styles.tableContainer}>
+                <table id={styles.animalTable}>
+                  <thead>
+                    <tr className={styles.columnName}>
+                      <th scope="col">n°</th>
+                      <th scope="col">Pour</th>
+                      <th scope="col">Du</th>
+                      <th scope="col">Au</th>
+                      <th scope="col">Jours</th>
+                      <th scope="col">Hôte</th>
+                      <th scope="col">Total</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {reservations.map((reservation, index) => (
+                      <tr
+                        className={
+                          reservationIds.length > 0 &&
+                          reservationIds.includes(reservation.id)
+                            ? `${styles.notify} ${styles.row} `
+                            : `${styles[`row${index % 2}`]}`
+                        }
+                        key={reservation.id}
+                      >
+                        <th scope="row">{reservation.id}</th>
+                        <td>{reservation.name}</td>
+                        <td>{reservation.beginning}</td>
+                        <td>{reservation.end}</td>
+                        <td>{reservation.day + 1}</td>
+                        <td>{reservation.username}</td>
+                        <td>
+                          {reservation.priceday * reservation.day +
+                            reservation.priceday}{" "}
+                          €
+                        </td>
+                        <td>{statusMap[reservation.status] || ""}</td>
+                        <td>
+                          {reservation.status !== "cancel" ? (
                             <button
+                              className={styles.cancelButton}
                               type="button"
                               onClick={(event) =>
                                 editReservation(
                                   event,
                                   reservation.id,
                                   reservation.home_structure_id,
-                                  "confirm",
+                                  "cancel"
+                                )
+                              }
+                            >
+                              Annuler
+                            </button>
+                          ) : (
+                            ""
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        )}
+        {received.length !== 0 && (
+          <section className={styles.reservation}>
+            <HeaderReservation title="Réservations reçus" />
+            <div className={styles.reservationContent}>
+              <div className={styles.tableContainer}>
+                <table id={styles.animalTable}>
+                  <thead>
+                    <tr className={styles.columnName}>
+                      <th scope="col">n°</th>
+                      <th scope="col">Propriétaire</th>
+                      <th scope="col">Pour</th>
+                      <th scope="col">Du</th>
+                      <th scope="col">Au</th>
+                      <th scope="col">Jours</th>
+                      <th scope="col">Total</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {received.map((reservation, index) => (
+                      <tr
+                        className={
+                          reservationIds.length > 0 &&
+                          reservationIds.includes(reservation.id)
+                            ? `${styles.notify} ${styles.row} `
+                            : `${styles[`row${index % 2}`]}`
+                        }
+                        key={reservation.id}
+                      >
+                        <th scope="row">{reservation.id}</th>
+                        <td>{reservation.username}</td>
+                        <td>{reservation.name}</td>
+                        <td>{reservation.beginning}</td>
+                        <td>{reservation.end}</td>
+                        <td>{reservation.day}</td>
+                        <td>
+                          {reservation.priceday * reservation.day +
+                            reservation.priceday}{" "}
+                          €
+                        </td>
+                        <td>{statusMap[reservation.status] || ""}</td>
+                        <td className={styles.buttonContainer}>
+                          {reservation.status !== "confirm" &&
+                            reservation.status !== "cancel" && (
+                              <button
+                                className={styles.confirmButton}
+                                type="button"
+                                onClick={(event) =>
+                                  editReservation(
+                                    event,
+                                    reservation.id,
+                                    reservation.home_structure_id,
+                                    "confirm",
+                                    reservation.username
+                                  )
+                                }
+                              >
+                                Confirmer
+                              </button>
+                            )}
+                          {reservation.status !== "cancel" && (
+                            <button
+                              className={styles.cancelButton}
+                              type="button"
+                              onClick={(event) =>
+                                editReservation(
+                                  event,
+                                  reservation.id,
+                                  reservation.home_structure_id,
+                                  "cancel",
                                   reservation.username
                                 )
                               }
                             >
-                              Confirmer
+                              Annuler
                             </button>
                           )}
-                        {reservation.status !== "cancel" && (
-                          <button
-                            type="button"
-                            onClick={(event) =>
-                              editReservation(
-                                event,
-                                reservation.id,
-                                reservation.home_structure_id,
-                                "cancel",
-                                reservation.username
-                              )
-                            }
-                          >
-                            Annuler
-                          </button>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
       </div>
     </>
   );
