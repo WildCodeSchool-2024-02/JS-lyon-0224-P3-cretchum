@@ -9,7 +9,6 @@ const router = express.Router();
 // Import animal-related actions
 const {
   read,
-  browse,
   add,
   destroy,
   readAnimalId,
@@ -17,9 +16,6 @@ const {
 
 const validateAnimals = require("../../../services/validateAnimals");
 const deniedAccess = require("../../../services/deniedAccess");
-
-// Route to get a list of animals
-router.get("/", browse);
 
 // Route to get a specific animal by user ID
 router.get("/:id", read);

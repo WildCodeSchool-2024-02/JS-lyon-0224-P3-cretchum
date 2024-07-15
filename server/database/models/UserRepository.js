@@ -45,16 +45,6 @@ class UserRepository extends AbstractRepository {
     return rows[0];
   }
 
-  async readAll() {
-    // Execute the SQL SELECT query to retrieve all user from the "user" table
-    const [rows] = await this.database.query(
-      `select id, lastname, firstname, username, phone_number, location, mail, description from ${this.table}`
-    );
-
-    // Return the array of user
-    return rows;
-  }
-
   // Recovering your email address
   async readByEmail( email ) {
     const [rows] = await this.database.query(

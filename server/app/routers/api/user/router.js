@@ -8,7 +8,6 @@ const router = express.Router();
 
 // Import user-related actions
 const {
-  browse,
   read,
   edit,
   add,
@@ -26,9 +25,6 @@ const {
   validateProfileEdit,
 } = require("../../../services/validateUser");
 const uniqueEmailandUsername = require("../../../services/uniqueEmailAndUsername");
-
-// Route to get a list of users
-router.get("/", browse);
 
 // Route to get a specific user by ID
 router.get("/:id", deniedAccess, read);

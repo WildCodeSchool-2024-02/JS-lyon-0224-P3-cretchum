@@ -5,20 +5,6 @@ const tables = require("../../database/tables");
 
 const URL = `http://${process.env.DB_HOST}:${process.env.APP_PORT}/api`;
 
-// The B of BREAD - Browse (Read All) operation
-const browse = async (req, res, next) => {
-  try {
-    // Fetch all user from the database
-    const user = await tables.user.readAll();
-
-    // Respond with the user in JSON format
-    res.status(200).json(user);
-  } catch (err) {
-    // Pass any errors to the error-handling middleware
-    next(err);
-  }
-};
-
 // The R of BREAD - Read operation
 const read = async (req, res, next) => {
   try {
@@ -27,7 +13,7 @@ const read = async (req, res, next) => {
 
     // If the user is not found, respond with HTTP 404 (Not Found)
     // Otherwise, respond with the user in JSON format
-    if (user == null) {
+    if (user === null || user === undefined) {
       res.status(404).json({ error: "User not found" });
     } else {
       res.status(200).json(user);
@@ -202,7 +188,6 @@ const disconect = async (req, res) => {
 };
 // Ready to export the controller functions
 module.exports = {
-  browse,
   read,
   edit,
   add,
