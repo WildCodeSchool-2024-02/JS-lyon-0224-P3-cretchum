@@ -4,6 +4,7 @@ import NavMenu from "../../components/nav_menu/NavMenu";
 import styles from "./ReservationPage.module.css";
 import HeaderReservation from "../../components/reservation_page/header";
 import AnimalDetails from "../../components/reservation_page/animal_details/AnimalDetails";
+import CancelButton from "../../components/reservation_page/cancel_button/CancelButton";
 
 function ReservationPage() {
   const statusMap = {
@@ -85,7 +86,6 @@ function ReservationPage() {
     notification.length > 0 &&
     notification.map((value) => value.reservation_id);
 
-  const [confirmBox, setConfirmBox] = useState(false);
   // Cancelation / Confirm button
   const editReservation = async (
     event,
@@ -95,9 +95,7 @@ function ReservationPage() {
     username
   ) => {
     event.preventDefault();
-    if (type === "cancel") {
-      setConfirmBox(!confirmBox);
-    }
+
     try {
       const response = await fetch(`${URL}reservation/status?type=${type}`, {
         method: "PUT",
@@ -176,7 +174,7 @@ function ReservationPage() {
 
         {reservations.length !== 0 && (
           <section className={styles.reservation}>
-            <HeaderReservation title="Réservation émise" />
+            <HeaderReservation title="Réservations émises" />
             <div className={styles.reservationContent}>
               <div className={styles.tableContainer}>
                 <table id={styles.animalTable}>
@@ -217,23 +215,13 @@ function ReservationPage() {
                         </td>
                         <td>{statusMap[reservation.status] || ""}</td>
                         <td>
-                          {reservation.status !== "cancel" ? (
-                            <button
-                              className={styles.cancelButton}
-                              type="button"
-                              onClick={(event) =>
-                                editReservation(
-                                  event,
-                                  reservation.id,
-                                  reservation.home_structure_id,
-                                  "cancel"
-                                )
-                              }
-                            >
-                              Annuler
-                            </button>
-                          ) : (
-                            ""
+                          {reservation.status !== "cancel" && (
+                            <CancelButton
+                              editReservation={editReservation}
+                              id={reservation.id}
+                              homeStructureId={reservation.home_structure_id}
+                              username={undefined}
+                            />
                           )}
                         </td>
                       </tr>
@@ -313,21 +301,12 @@ function ReservationPage() {
                               </button>
                             )}
                           {reservation.status !== "cancel" && (
-                            <button
-                              className={styles.cancelButton}
-                              type="button"
-                              onClick={(event) =>
-                                editReservation(
-                                  event,
-                                  reservation.id,
-                                  reservation.home_structure_id,
-                                  "cancel",
-                                  reservation.username
-                                )
-                              }
-                            >
-                              Annuler
-                            </button>
+                            <CancelButton
+                              editReservation={editReservation}
+                              id={reservation.id}
+                              homeStructureId={reservation.home_structure_id}
+                              username={reservation.username}
+                            />
                           )}
                         </td>
                       </tr>

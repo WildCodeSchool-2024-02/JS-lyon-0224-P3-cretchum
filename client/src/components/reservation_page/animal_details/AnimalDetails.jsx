@@ -39,7 +39,6 @@ function AnimalDetails({ name, username, animalId }) {
       {details === true && (
         <div className={styles.animalPopup}>
           <div className={styles.animalDetailsContainer}>
-            {/* <h3 className={styles.name}>Fiche de : {name}</h3> */}
             <HeaderReservation
               additionalStyle={styles.header}
               title={`Fiche de ${name}`}
