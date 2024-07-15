@@ -4,8 +4,6 @@ import notify from "../../utils/notify";
 import Patoune from "../../assets/logo/1patounes.png";
 import "./ForgotPassword.css";
 
-import NavMenu from "../../components/nav_menu/NavMenu";
-
 function ForgotPassword() {
   const URL = import.meta.env.VITE_API_URL;
   const [email, setEmail] = useState("");
@@ -42,8 +40,6 @@ function ForgotPassword() {
 
   return (
     <div>
-      <NavMenu />
-
       <section id="headerforgotPasswordPage">
         <img src={Patoune} alt="orange paw" id="imgPatoune" />
         <h1>Réinitialisation du mot de passe </h1>

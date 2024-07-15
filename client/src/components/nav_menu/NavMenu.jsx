@@ -69,7 +69,7 @@ function NavMenu() {
               <NavLink className="linkItem" to="/reservation">
                 <img
                   id="bell"
-                  src={notification.length === 0 ? Bell : BellAlert}
+                  src={notification.length === 0 || notification.length === undefined ? Bell : BellAlert}
                   alt={
                     notification === 0
                       ? "Cloche"
