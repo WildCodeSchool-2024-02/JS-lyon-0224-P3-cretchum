@@ -137,7 +137,6 @@ function ProfilePage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ animalId }),
       });
 
       // if something went wrong, notify user
