@@ -34,9 +34,7 @@ function ProfileHeader({
                 className={styles.input}
                 readOnly={isEditMode === false}
                 onChange={
-                  isEditMode === true
-                    ? (e) => onChange(e, valueName)
-                    : null
+                  isEditMode === true ? (e) => onChange(e, valueName) : null
                 }
               />
             ) : (
@@ -48,14 +46,12 @@ function ProfileHeader({
           <div className={styles.editProfile}>
             <button
               type="button"
-              className={styles.editButton}
+              className={`${styles.editButton} ${isEditMode === true ? styles.save : ""}`}
               onClick={handleEditClick}
             >
               {isEditMode === true ? "Sauvegarder" : "Modifier"}
-
-              </button>
-              {isEditMode === false && 
-            <DeleteProfile />}
+            </button>
+            {isEditMode === false && <DeleteProfile />}
           </div>
         )}
       </div>
@@ -76,7 +72,7 @@ ProfileHeader.propTypes = {
   username: PropTypes.string.isRequired,
   isEditMode: PropTypes.bool,
   handleEditClick: PropTypes.func,
-  onChange: PropTypes.func, 
+  onChange: PropTypes.func,
   valueName: PropTypes.string,
   setChangeAvatar: PropTypes.func,
   changeAvatar: PropTypes.bool,
@@ -96,10 +92,10 @@ ProfileHeader.propTypes = {
 ProfileHeader.defaultProps = {
   isEditMode: false,
   handleEditClick: null,
-  onChange: null, 
-  setChangeAvatar : null, 
-  changeAvatar : null, 
-  valueName : null
+  onChange: null,
+  setChangeAvatar: null,
+  changeAvatar: null,
+  valueName: null,
 };
 
 export default ProfileHeader;
