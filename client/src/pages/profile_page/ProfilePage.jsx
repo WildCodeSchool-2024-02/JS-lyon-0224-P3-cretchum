@@ -9,6 +9,7 @@ import EditableField from "../../components/profile/editable_field/EditableField
 import EditableTextarea from "../../components/profile/editable_text_area/EditableTextarea";
 import EditableDropDown from "../../components/profile/editable_dropdown/EditableDropDown";
 import { AuthentificationContext } from "../../use_context/authentification";
+import DeleteProfile from "../../components/profile/profile_header/delete_profile/DeleteProfile";
 
 function ProfilePage() {
   const customerdata = useLoaderData();
@@ -100,7 +101,6 @@ function ProfilePage() {
         dispatch({ type: "TOGGLE_EDIT_MODE" });
         handleSave();
         return setChangeAvatar(!changeAvatar);
-
       }
     } catch (err) {
       console.error("Fetch error:", err);
@@ -198,183 +198,182 @@ function ProfilePage() {
   };
 
   return (
-      <div className={styles.profilePageContainer}>
-        <ProfileHeader
-          username={state.customer.username}
+    <div className={styles.profilePageContainer}>
+      <ProfileHeader
+        username={state.customer.username}
+        isEditMode={state.isEditMode}
+        handleEditClick={handleEditClick}
+        valueName="username"
+        onChange={onChange}
+        customer={state.customer}
+        changeAvatar={changeAvatar}
+        setChangeAvatar={setChangeAvatar}
+      />
+      <ProfileSection title="Informations générales">
+        <EditableField
+          label="Nom"
+          value={state.customer.lastname}
           isEditMode={state.isEditMode}
-          handleEditClick={handleEditClick}
-          valueName="username"
+          valueName="lastname"
           onChange={onChange}
-          customer={state.customer}
-          changeAvatar={changeAvatar}
-          setChangeAvatar={setChangeAvatar}
         />
-        <ProfileSection title="Informations générales">
+        <EditableField
+          label="Prénom"
+          value={state.customer.firstname}
+          isEditMode={state.isEditMode}
+          valueName="firstname"
+          onChange={onChange}
+        />
+        <EditableField
+          label="Localisation"
+          value={state.customer.location}
+          isEditMode={state.isEditMode}
+          valueName="location"
+          onChange={onChange}
+        />
+        <address className={styles.profileAddressContainer}>
           <EditableField
-            label="Nom"
-            value={state.customer.lastname}
+            label="Téléphone"
+            value={state.customer.phoneNumber}
             isEditMode={state.isEditMode}
-            valueName="lastname"
+            valueName="phoneNumber"
             onChange={onChange}
           />
           <EditableField
-            label="Prénom"
-            value={state.customer.firstname}
+            label="Email"
+            value={state.customer.mail}
             isEditMode={state.isEditMode}
-            valueName="firstname"
+            valueName="mail"
             onChange={onChange}
           />
-          <EditableField
-            label="Localisation"
-            value={state.customer.location}
-            isEditMode={state.isEditMode}
-            valueName="location"
-            onChange={onChange}
-          />
-          <address className={styles.profileAddressContainer}>
+        </address>
+      </ProfileSection>
+      <ProfileSection title="Description">
+        <EditableTextarea
+          value={state.customer.description}
+          isEditMode={state.isEditMode}
+          valueName="description"
+          onChange={onChange}
+        />
+      </ProfileSection>
+
+      <ProfileSection title="Mes animaux">
+        {animalData.length > 0 && (
+          <ul>
+            {animalData.map((animal) => (
+              <li className={styles.profilAnimalsList} key={animal.id}>
+                {animal.name}
+                <DeleteProfile
+                  text={`Êtes-vous sûr de vouloir effectuer cette action ? La suppression de ${animal.name} entraînera également la suppression des réservations associées.`}
+                  deleteOnClick={() =>
+                    handleDeleteAnimals(animal.id, animal.name)
+                  }
+                />
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <Link to={`/formulaire-animal/${id}`} className={styles.addLink}>
+          Ajouter des animaux
+        </Link>
+      </ProfileSection>
+
+      <ProfileSection title="Ma structure">
+        {auth !== null &&
+        auth !== false &&
+        auth.user.isHomeStructure === true ? (
+          <>
             <EditableField
-              label="Téléphone"
-              value={state.customer.phoneNumber}
+              label="Code postale"
+              value={state.customer.postalCode}
               isEditMode={state.isEditMode}
-              valueName="phoneNumber"
+              valueName="postalCode"
               onChange={onChange}
             />
-            <EditableField
-              label="Email"
-              value={state.customer.mail}
+            <EditableDropDown
+              label="Chats acceptés"
+              value={parseInt(state.customer.cat, 10) ? "Oui" : "Non"}
               isEditMode={state.isEditMode}
-              valueName="mail"
+              valueName="cat"
+              onChange={onChange}
+              options={
+                parseInt(state.customer.cat, 10) === 1
+                  ? [
+                      { name: "Oui", value: parseInt(1, 10) },
+                      { name: "Non", value: parseInt(0, 10) },
+                    ]
+                  : [
+                      { name: "Non", value: parseInt(0, 10) },
+                      { name: "Oui", value: parseInt(1, 10) },
+                    ]
+              }
+            />
+            <EditableDropDown
+              label="Chiens acceptés"
+              value={parseInt(state.customer.dog, 10) === 1 ? "Oui" : "Non"}
+              isEditMode={state.isEditMode}
+              valueName="dog"
+              onChange={onChange}
+              options={
+                parseInt(state.customer.dog, 10) === 1
+                  ? [
+                      { name: "Oui", value: parseInt(1, 10) },
+                      { name: "Non", value: parseInt(0, 10) },
+                    ]
+                  : [
+                      { name: "Non", value: parseInt(0, 10) },
+                      { name: "Oui", value: parseInt(1, 10) },
+                    ]
+              }
+            />
+            <EditableDropDown
+              label="Type de structure"
+              value={
+                parseInt(state.customer.isProfessional, 10) === 1
+                  ? "Professionnel"
+                  : "Particulier"
+              }
+              isEditMode={state.isEditMode}
+              valueName="isProfessional"
+              onChange={onChange}
+              options={
+                parseInt(state.customer.isProfessional, 10) === 1
+                  ? [
+                      { name: "Professionnel", value: parseInt(1, 10) },
+                      { name: "Particulier", value: parseInt(0, 10) },
+                    ]
+                  : [
+                      { name: "Particulier", value: parseInt(0, 10) },
+                      { name: "Professionnel", value: parseInt(1, 10) },
+                    ]
+              }
+            />
+            <EditableField
+              label="Capacité d'accueil"
+              value={state.customer.capacity}
+              isEditMode={state.isEditMode}
+              valueName="capacity"
               onChange={onChange}
             />
-          </address>
-        </ProfileSection>
-        <ProfileSection title="Description">
-          <EditableTextarea
-            value={state.customer.description}
-            isEditMode={state.isEditMode}
-            valueName="description"
-            onChange={onChange}
-          />
-        </ProfileSection>
-
-        <ProfileSection title="Mes animaux">
-          {animalData.length > 0 && (
-            <ul>
-              {animalData.map((animal) => (
-                <li className={styles.profilAnimalsList} key={animal.id}>
-                  {animal.name}
-                  <button
-                    type="submit"
-                    onClick={() => handleDeleteAnimals(animal.id, animal.name)}
-                    className={styles.deleteButton}
-                  >
-                    Supprimer
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
-
-          <Link to={`/formulaire-animal/${id}`} className={styles.addLink}>
-            Ajouter des animaux
+            {state.isEditMode === false && (
+              <button
+                type="submit"
+                onClick={handleDeleteStructure}
+                className={styles.deleteButton}
+                id={styles.deleteHomeStructureButton}
+              >
+                Je ne souhaite plus être structure d'accueil
+              </button>
+            )}
+          </>
+        ) : (
+          <Link to={`/inscription_accueil/${id}`} className={styles.addLink}>
+            Devenir structure d'accueil
           </Link>
-        </ProfileSection>
-
-        <ProfileSection title="Ma structure">
-          {auth !== null &&
-          auth !== false &&
-          auth.user.isHomeStructure === true ? (
-            <>
-              <EditableField
-                label="Code postale"
-                value={state.customer.postalCode}
-                isEditMode={state.isEditMode}
-                valueName="postalCode"
-                onChange={onChange}
-              />
-              <EditableDropDown
-                label="Chats acceptés"
-                value={parseInt(state.customer.cat, 10) ? "Oui" : "Non"}
-                isEditMode={state.isEditMode}
-                valueName="cat"
-                onChange={onChange}
-                options={
-                  parseInt(state.customer.cat, 10) === 1
-                    ? [
-                        { name: "Oui", value: parseInt(1, 10) },
-                        { name: "Non", value: parseInt(0, 10) },
-                      ]
-                    : [
-                        { name: "Non", value: parseInt(0, 10) },
-                        { name: "Oui", value: parseInt(1, 10) },
-                      ]
-                }
-              />
-              <EditableDropDown
-                label="Chiens acceptés"
-                value={parseInt(state.customer.dog, 10) === 1 ? "Oui" : "Non"}
-                isEditMode={state.isEditMode}
-                valueName="dog"
-                onChange={onChange}
-                options={
-                  parseInt(state.customer.dog, 10) === 1
-                    ? [
-                        { name: "Oui", value: parseInt(1, 10) },
-                        { name: "Non", value: parseInt(0, 10) },
-                      ]
-                    : [
-                        { name: "Non", value: parseInt(0, 10) },
-                        { name: "Oui", value: parseInt(1, 10) },
-                      ]
-                }
-              />
-              <EditableDropDown
-                label="Type de structure"
-                value={
-                  parseInt(state.customer.isProfessional, 10) === 1
-                    ? "Professionnel"
-                    : "Particulier"
-                }
-                isEditMode={state.isEditMode}
-                valueName="isProfessional"
-                onChange={onChange}
-                options={
-                  parseInt(state.customer.isProfessional, 10) === 1
-                    ? [
-                        { name: "Professionnel", value: parseInt(1, 10) },
-                        { name: "Particulier", value: parseInt(0, 10) },
-                      ]
-                    : [
-                        { name: "Particulier", value: parseInt(0, 10) },
-                        { name: "Professionnel", value: parseInt(1, 10) },
-                      ]
-                }
-              />
-              <EditableField
-                label="Capacité d'accueil"
-                value={state.customer.capacity}
-                isEditMode={state.isEditMode}
-                valueName="capacity"
-                onChange={onChange}
-              />
-              {state.isEditMode === false && (
-                <button
-                  type="submit"
-                  onClick={handleDeleteStructure}
-                  className={styles.deleteButton}
-                  id={styles.deleteHomeStructureButton}
-                >
-                  Je ne souhaite plus être structure d'accueil
-                </button>
-              )}
-            </>
-          ) : (
-            <Link to={`/inscription_accueil/${id}`} className={styles.addLink}>
-              Devenir structure d'accueil
-            </Link>
-          )}
-        </ProfileSection>
-      </div>
+        )}
+      </ProfileSection>
+    </div>
   );
 }
 
