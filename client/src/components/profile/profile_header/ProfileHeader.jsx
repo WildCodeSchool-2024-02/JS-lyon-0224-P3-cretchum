@@ -46,7 +46,7 @@ function ProfileHeader({
           <div className={styles.editProfile}>
             <button
               type="button"
-              className={`${styles.editButton} ${isEditMode === true ? styles.save : ""}`}
+              className={`${styles.editButton} ${isEditMode === true && styles.save}`}
               onClick={handleEditClick}
             >
               {isEditMode === true ? "Sauvegarder" : "Modifier"}
