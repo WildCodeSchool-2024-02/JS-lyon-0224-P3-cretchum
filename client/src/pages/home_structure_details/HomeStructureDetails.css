@@ -51,6 +51,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin: 2% 0;
 }
 #userParticulier,
 #userChenil {
@@ -115,5 +116,6 @@
   .reservation {
     min-width: 385px;
     justify-content: flex-end;
+    margin: 0;
   }
 }

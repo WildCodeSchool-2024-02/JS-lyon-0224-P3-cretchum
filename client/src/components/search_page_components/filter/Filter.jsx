@@ -56,6 +56,7 @@ function Filter({ onFilterChange, setSearch, setCountPage, setOffset }) {
               type="number"
               className="filterInput"
               placeholder="Code postal"
+              min={0}
               maxLength={11}
               value={postalCode}
               onChange={(e) => setPostalCode(e.target.value)}
