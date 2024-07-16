@@ -27,6 +27,7 @@ function AnimalsFormComponent() {
             className={styles.inputSizeM}
             type="number"
             name="age"
+            min={0}
             required
           />
         </div>
