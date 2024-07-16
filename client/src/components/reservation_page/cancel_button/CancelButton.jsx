@@ -10,7 +10,9 @@ function CancelButton({ editReservation, id, homeStructureId, username }) {
       {confirmBox === true && (
         <div className={styles.confirmPopup}>
           <div className={styles.confirmContainer}>
-            <p className={styles.string}>Êtes vous sur de vouloir Annuler ?</p>
+            <p className={styles.string}>
+              Êtes vous sur de vouloir Annuler cette réservation ?
+            </p>
             <span className={styles.buttonContainer}>
               <button
                 id={styles.confirmCancel}
