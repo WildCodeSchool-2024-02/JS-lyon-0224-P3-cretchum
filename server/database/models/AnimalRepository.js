@@ -64,13 +64,27 @@ class AnimalRepository extends AbstractRepository {
 
   async delete(id) {
     // Execute the SQL DELETE query to delete a specific animal
+    const [notification] = await this.database.query(
+      `delete notification from notification JOIN reservation ON notification.reservation_id = reservation.id JOIN animal ON reservation.animal_id = animal.id WHERE animal.id = ?`,
+      [id]
+    );
+
+    const [reservation] = await this.database.query(
+      `delete reservation from reservation JOIN animal ON reservation.animal_id = animal.id WHERE animal.id = ?`,
+      [id]
+    );
+
     const [result] = await this.database.query(
       `delete from ${this.table} where id = ?`,
       [id]
     );
 
     // Return how many rows were affected
-    return result.affectedRows;
+    return [
+      result.affectedRows,
+      reservation.affectedRows,
+      notification.affectedRows,
+    ];
   }
 }
 

@@ -115,6 +115,9 @@ address {
     gap: 5px;
     background-color: transparent;
   }
+  .save {
+    transform: translateY(-32px);
+  }
 }
 
 @media (min-width: 550px) and (max-width: 1000px) {
