@@ -27,7 +27,6 @@ function AnimalDetails({ name, username, animalId }) {
     };
     fetchReservation();
   }, [URL, animalId]);
-
   return (
     <>
       <button
@@ -51,6 +50,9 @@ function AnimalDetails({ name, username, animalId }) {
                 Propriétaire
               </th>
               <th className={styles.col} scope="col">
+                Age
+              </th>
+              <th className={styles.col} scope="col">
                 Stérilisé
               </th>
               <th className={styles.col} scope="col">
@@ -64,6 +66,7 @@ function AnimalDetails({ name, username, animalId }) {
               </th>
 
               <td className={styles.row}>{username}</td>
+              <td className={styles.row}>{animal.age}</td>
               <td className={styles.row}>
                 {animal.is_sterilized === 1 ? "Oui" : "Non"}
               </td>

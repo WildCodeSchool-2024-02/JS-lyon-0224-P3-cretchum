@@ -54,7 +54,7 @@ class AnimalRepository extends AbstractRepository {
 
   async readId(id) {
     const [rows] = await this.database.query(
-      `select species, is_sterilized, is_tattooed_chipped, breed from ${this.table} WHERE id = ? ;`,
+      `select species, is_sterilized, is_tattooed_chipped, breed, age from ${this.table} WHERE id = ? ;`,
       [id]
     );
 
