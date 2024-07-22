@@ -1,4 +1,3 @@
-// const request = require("supertest");
 const express = require("express");
 const { browse } = require("../../../app/controllers/homestructureActions");
 const { app, request, database } = require("../../config");
@@ -10,7 +9,6 @@ jest.mock("../../../database/tables", () => ({
   },
 }));
 
-// const app = express();
 const router = express.Router();
 
 // Define the browse route

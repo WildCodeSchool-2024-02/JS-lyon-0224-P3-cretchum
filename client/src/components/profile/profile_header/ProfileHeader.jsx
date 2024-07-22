@@ -1,4 +1,5 @@
-import { useNavigate, useParams, useContext } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useContext } from "react";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import styles from "./ProfileHeader.module.css";
@@ -30,7 +31,7 @@ function ProfileHeader({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id }),
+        credentials: "include",
       });
 
       if (response.status === 204) {
