@@ -1,7 +1,7 @@
-import { Link, useParams, useNavigate } from "react-router-dom";
 import { useContext } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 import styles from "./StructureForm.module.css";
-import notify from "../../utils/notify";
 import { AuthentificationContext } from "../../use_context/authentification";
 
 function StructureForm() {
@@ -43,18 +43,18 @@ function StructureForm() {
 
       const info = await response.json();
       if (response.status === 403) {
-        return notify(info.validationErrors[0].message, "error");
+        return toast.error(info.validationErrors[0].message, "error");
       }
 
       if (response.status === 201) {
         setUpdate(!update);
-        notify("Inscription réussie !", "success");
+        toast.success("Inscription réussie !", "success");
         return navigate("/page-recherche");
       }
-      return notify(info.validationErrors[0].message, "error");
+      return toast.error(info.validationErrors[0].message, "error");
     } catch (err) {
       console.error("Fetch error:", err);
-      notify(
+      toast.error(
         "Une erreur est survenue lors de l'inscription. Veuillez réessayer plus tard.",
         "error"
       );

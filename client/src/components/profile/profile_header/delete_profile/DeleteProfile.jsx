@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { useState } from "react";
 import styles from "./DeleteProfile.module.css";
 
-function DeleteProfile({deleteOnClick, text}) {
+function DeleteProfile({ deleteOnClick, text }) {
   const [confirmBox, setConfirmBox] = useState(false);
   const deletePop = () => {
     setConfirmBox(!confirmBox);

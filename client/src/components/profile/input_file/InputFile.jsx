@@ -1,5 +1,5 @@
+import { toast } from "react-toastify";
 import PropTypes from "prop-types";
-import notify from "../../../utils/notify";
 import styles from "./InputFile.module.css";
 
 function InputFile({ changeAvatar, setChangeAvatar, customer }) {
@@ -16,16 +16,15 @@ function InputFile({ changeAvatar, setChangeAvatar, customer }) {
         body: formData,
       });
       if (response.status !== 204) {
-        notify(
-          "Erreur lors de l'upload de limage, verifier que votre image fait moins de 1 mo et qu'elle est du type jpeg/jpg/png/gif",
-          "error"
+        toast.error(
+          "Erreur lors de l'upload de limage, verifier que votre image fait moins de 1 mo et qu'elle est du type jpeg/jpg/png/gif"
         );
 
         throw new Error("Erreur lors du téléchargement de l'image");
       }
 
       if (response.status === 204) {
-        notify("Image téléchargée avec succès", "success");
+        toast.success("Image téléchargée avec succès");
         setChangeAvatar(!changeAvatar);
         setTimeout(() => {
           window.location.reload();

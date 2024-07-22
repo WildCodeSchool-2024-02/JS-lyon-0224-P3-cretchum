@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import notify from "../../utils/notify";
+import { toast } from 'react-toastify';
 import styles from "./ReservationPage.module.css";
 import HeaderReservation from "../../components/reservation_page/header";
 import AnimalDetails from "../../components/reservation_page/animal_details/AnimalDetails";
@@ -43,7 +43,7 @@ function ReservationPage() {
         });
 
         if (response.status !== 200) {
-          notify(
+          toast.error(
             "Erreur lors de la récupération des données du profil !",
             "error"
           );
@@ -53,7 +53,7 @@ function ReservationPage() {
         setReservation(data);
       } catch (err) {
         console.error("Fetch profile error:", err);
-        notify(
+        toast.error(
           "Une erreur est survenue lors de la récupération des données du profil. Veuillez réessayer plus tard.",
           "error"
         );
@@ -109,9 +109,9 @@ function ReservationPage() {
         }),
       });
       if (response.status !== 204) {
-        notify("Erreur lors de la modification de la réservation", "error");
+        toast.error("Erreur lors de la modification de la réservation", "error");
       } else {
-        notify("Réservation modifié", "success");
+        toast.success("Réservation modifiée", "success");
         setChange(!change);
       }
     } catch (err) {
@@ -135,7 +135,7 @@ function ReservationPage() {
         if (response.status === 204) {
           setChange(!change);
         } else {
-          notify("Une erreur est survenue", "error");
+          toast.error("Une erreur est survenue", "error");
         }
       } catch (err) {
         console.error("Fetch error", err);
@@ -232,7 +232,7 @@ function ReservationPage() {
         )}
         {received.length !== 0 && (
           <section className={styles.reservation}>
-            <HeaderReservation title="Réservations reçus" />
+            <HeaderReservation title="Réservations reçues" />
             <div className={styles.reservationContent}>
               <div className={styles.tableContainer}>
                 <table id={styles.animalTable}>

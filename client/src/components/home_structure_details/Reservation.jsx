@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import "./Reservation.css";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -7,7 +8,6 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import "dayjs/locale/fr";
-import notify from "../../utils/notify";
 
 function Reservation({ priceday, auth, structures }) {
   const URL = import.meta.env.VITE_API_URL;
@@ -89,9 +89,9 @@ function Reservation({ priceday, auth, structures }) {
 
       if (response.status === 201) {
         navigate("/reservation");
-        return notify("Réservation reussi", "success");
+        return toast.success("Réservation reussie");
       }
-      return notify("Une erreur est survenue lors de la réservation", "error");
+      return toast.error("Une erreur est survenue lors de la réservation");
     } catch (err) {
       return console.error(
         "Une erreur est survenue lors de la réservation",

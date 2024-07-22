@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext, useReducer } from "react";
 import { useLoaderData, useParams, Link } from "react-router-dom";
-import notify from "../../utils/notify";
+import { toast } from 'react-toastify';
 
 import styles from "./ProfilePage.module.css";
 import ProfileHeader from "../../components/profile/profile_header/ProfileHeader";
@@ -21,7 +21,7 @@ function ProfilePage() {
 
   // notify the user that their information have been fetch correctly
   const handleSave = () => {
-    notify("Informations mises à jour avec succès !", "success");
+    toast.success("Informations mises à jour avec succès !");
   };
   const URL = import.meta.env.VITE_API_URL;
 
@@ -95,7 +95,7 @@ function ProfilePage() {
 
         if (response.status !== 204) {
           const data = await response.json();
-          return notify(data.validationErrors[0].message, "error");
+          return toast.error(data.validationErrors[0].message);
         }
         dispatch({ type: "SET_BEFORE_CHANGE", payload: state.customer });
         dispatch({ type: "TOGGLE_EDIT_MODE" });
@@ -104,7 +104,7 @@ function ProfilePage() {
       }
     } catch (err) {
       console.error("Fetch error:", err);
-      notify("Erreur lors de la modification du profil", "error");
+      toast.error("Erreur lors de la modification du profil");
       return {
         error: "An error occurred during registration. Please try again later.",
       };
@@ -148,11 +148,11 @@ function ProfilePage() {
       and notify them that everything went well */
       setUpdateAnimals(!updateAnimals);
 
-      notify(`${animalName} a bien été supprimé`, "success");
+      toast.success(`${animalName} a bien été supprimé`);
       return { success: true };
     } catch (err) {
       console.error("Fetch error:", err);
-      notify(
+      toast.error(
         "Erreur lors de la suppression du profil. Veuillez réessayer plus tard.",
         "error"
       );
@@ -180,16 +180,14 @@ function ProfilePage() {
       }
 
       setUpdate(!update);
-      notify(
-        `les informations de votre structure ont bien été supprimées`,
-        "success"
+      toast.success(
+        `les informations de votre structure ont bien été supprimées`
       );
       return { success: true };
     } catch (err) {
       console.error("Fetch error:", err);
-      notify(
-        "Erreur lors de la suppression du profil. Veuillez réessayer plus tard.",
-        "error"
+      toast.error(
+        "Erreur lors de la suppression du profil. Veuillez réessayer plus tard."
       );
       return {
         error: "An error occurred during deletion. Please try again later.",

@@ -20,7 +20,7 @@ describe("POST /api/user", () => {
       phoneNumber: "0123456789",
       location: "Somewhere",
       mail: "john.doe@example.com",
-      password: "strongpassword1234",
+      password: "Strongpassword1234?",
       description: "A description about John Doe",
     };
 
@@ -39,8 +39,8 @@ describe("POST /api/user", () => {
 describe("POST /api/user/login", () => {
   it("should validate login request body", async () => {
     const invalidCredentials = {
-      mail: "invalidemail.com",
-      password: "short",
+      mail: "john.doe1234@example.com",
+      password: "Strongpassword1234?",
     };
 
     const response = await request(app)
@@ -48,7 +48,7 @@ describe("POST /api/user/login", () => {
       .send(invalidCredentials);
 
     expect(response.status).toBe(401);
-    expect(response.body).toHaveProperty("error","unauthorized access");
+    expect(response.body).toHaveProperty("error", "unauthorized access");
   });
 
   it("should return 401 for invalid login credentials", async () => {

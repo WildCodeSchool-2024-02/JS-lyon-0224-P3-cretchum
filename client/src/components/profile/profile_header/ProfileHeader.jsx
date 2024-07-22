@@ -1,9 +1,11 @@
 import { useNavigate, useParams } from "react-router-dom";
+import { useContext } from "react";
+import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import styles from "./ProfileHeader.module.css";
 import DeleteProfile from "./delete_profile/DeleteProfile";
 import InputFile from "../input_file/InputFile";
-import notify from "../../../utils/notify";
+import { AuthentificationContext } from "../../../use_context/authentification";
 
 function ProfileHeader({
   username,
@@ -15,6 +17,7 @@ function ProfileHeader({
   setChangeAvatar = null,
   changeAvatar = null,
 }) {
+  const { update, setUpdate } = useContext(AuthentificationContext);
   const { avatar } = customer;
   const navigate = useNavigate();
   const { id } = useParams();
@@ -28,19 +31,19 @@ function ProfileHeader({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({id}),
+        credentials: "include",
       });
 
       if (response.status === 204) {
-        notify("Le profile à été supprimé", "success");
+        setUpdate(!update);
+        toast.success("Le profile à été supprimé");
         return navigate("/");
       }
       throw new Error("Registration error");
     } catch (err) {
       console.error("Fetch error:", err);
-      notify(
-        "Erreur lors de la suppression du profil. Veuillez réessayer plus tard.",
-        "error"
+      toast.error(
+        "Erreur lors de la suppression du profil. Veuillez réessayer plus tard."
       );
       return {
         error: "An error occurred during deletion. Please try again later.",
@@ -86,9 +89,9 @@ function ProfileHeader({
             </button>
             {isEditMode === false && (
               <DeleteProfile
-                 text="Êtes vous sur de vouloir supprimer votre compte ?"
-                 deleteOnClick={deleteprofile}
-               />
+                text="Êtes vous sur de vouloir supprimer votre compte ?"
+                deleteOnClick={deleteprofile}
+              />
             )}
           </div>
         )}

@@ -43,7 +43,7 @@ router.post("/login", validateLogin, checkLog);
 router.post("/logout", disconect);
 
 // Route to delete an existing user
-router.delete("/:id", destroy);
+router.delete("/:id", deniedAccess, destroy);
 
 /* ************************************************************************* */
 
