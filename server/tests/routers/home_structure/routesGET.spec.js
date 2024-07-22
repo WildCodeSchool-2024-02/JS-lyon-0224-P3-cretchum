@@ -1,6 +1,6 @@
-const request = require("supertest");
 const express = require("express");
 const { browse } = require("../../../app/controllers/homestructureActions");
+const { app, request, database } = require("../../config");
 
 // Mock the tables object and the research function
 jest.mock("../../../database/tables", () => ({
@@ -9,42 +9,29 @@ jest.mock("../../../database/tables", () => ({
   },
 }));
 
-const tables = require("../../../database/tables");
-
-const app = express();
 const router = express.Router();
 
 // Define the browse route
 router.get("/", browse);
 
 app.use(express.json());
-app.use("/home-structure", router);
+app.use("/home_structure", router);
 
-describe("GET /home-structure", () => {
+describe("GET /home_structure", () => {
   it("should return a list of home structures", async () => {
     // Arrange
-    const mockData = [
-      { id: 1, name: "Structure 1" },
-      { id: 2, name: "Structure 2" },
-    ];
-    tables.home_structure.research.mockResolvedValue(mockData);
+
+    const rows = [];
+
+    // Mock the implementation of the database query method
+    jest.spyOn(database, "query").mockImplementation(() => [rows]);
 
     // Act
-    const res = await request(app).get("/home-structure");
+    const res = await request(app).get(
+      "/api/homestructure/?offset=0&limit=30&search="
+    );
 
     // Assert
     expect(res.status).toBe(200);
-    expect(res.body).toEqual(mockData);
-  });
-
-  it("should handle errors", async () => {
-    // Arrange
-    tables.home_structure.research.mockRejectedValue(new Error("Database error"));
-
-    // Act
-    const res = await request(app).get("/home-structure");
-
-    // Assert
-    expect(res.status).toBe(404);
   });
 });

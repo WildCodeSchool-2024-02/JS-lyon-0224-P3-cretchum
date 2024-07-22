@@ -1,7 +1,11 @@
+import { useNavigate, useParams } from "react-router-dom";
+import { useContext } from "react";
+import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import styles from "./ProfileHeader.module.css";
 import DeleteProfile from "./delete_profile/DeleteProfile";
 import InputFile from "../input_file/InputFile";
+import { AuthentificationContext } from "../../../use_context/authentification";
 
 function ProfileHeader({
   username,
@@ -13,7 +17,39 @@ function ProfileHeader({
   setChangeAvatar = null,
   changeAvatar = null,
 }) {
+  const { update, setUpdate } = useContext(AuthentificationContext);
   const { avatar } = customer;
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const URL = import.meta.env.VITE_API_URL;
+
+  // Delete profile
+  const deleteprofile = async () => {
+    try {
+      const response = await fetch(`${URL}user/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+
+      if (response.status === 204) {
+        setUpdate(!update);
+        toast.success("Le profile à été supprimé");
+        return navigate("/");
+      }
+      throw new Error("Registration error");
+    } catch (err) {
+      console.error("Fetch error:", err);
+      toast.error(
+        "Erreur lors de la suppression du profil. Veuillez réessayer plus tard."
+      );
+      return {
+        error: "An error occurred during deletion. Please try again later.",
+      };
+    }
+  };
 
   return (
     <header className={styles.profilePageHeader}>
@@ -34,9 +70,7 @@ function ProfileHeader({
                 className={styles.input}
                 readOnly={isEditMode === false}
                 onChange={
-                  isEditMode === true
-                    ? (e) => onChange(e, valueName)
-                    : null
+                  isEditMode === true ? (e) => onChange(e, valueName) : null
                 }
               />
             ) : (
@@ -48,14 +82,17 @@ function ProfileHeader({
           <div className={styles.editProfile}>
             <button
               type="button"
-              className={styles.editButton}
+              className={`${styles.editButton} ${isEditMode === true && styles.save}`}
               onClick={handleEditClick}
             >
               {isEditMode === true ? "Sauvegarder" : "Modifier"}
-
-              </button>
-              {isEditMode === false && 
-            <DeleteProfile />}
+            </button>
+            {isEditMode === false && (
+              <DeleteProfile
+                text="Êtes vous sur de vouloir supprimer votre compte ?"
+                deleteOnClick={deleteprofile}
+              />
+            )}
           </div>
         )}
       </div>
@@ -76,7 +113,7 @@ ProfileHeader.propTypes = {
   username: PropTypes.string.isRequired,
   isEditMode: PropTypes.bool,
   handleEditClick: PropTypes.func,
-  onChange: PropTypes.func, 
+  onChange: PropTypes.func,
   valueName: PropTypes.string,
   setChangeAvatar: PropTypes.func,
   changeAvatar: PropTypes.bool,
@@ -96,10 +133,10 @@ ProfileHeader.propTypes = {
 ProfileHeader.defaultProps = {
   isEditMode: false,
   handleEditClick: null,
-  onChange: null, 
-  setChangeAvatar : null, 
-  changeAvatar : null, 
-  valueName : null
+  onChange: null,
+  setChangeAvatar: null,
+  changeAvatar: null,
+  valueName: null,
 };
 
 export default ProfileHeader;

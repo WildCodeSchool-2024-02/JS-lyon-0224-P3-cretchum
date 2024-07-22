@@ -45,37 +45,27 @@ class UserRepository extends AbstractRepository {
     return rows[0];
   }
 
-  async readAll() {
-    // Execute the SQL SELECT query to retrieve all user from the "user" table
-    const [rows] = await this.database.query(
-      `select id, lastname, firstname, username, phone_number, location, mail, description from ${this.table}`
-    );
-
-    // Return the array of user
-    return rows;
-  }
-
   // Recovering your email address
-  async readByEmail( email ) {
+  async readByEmail(email) {
     const [rows] = await this.database.query(
       `SELECT id, mail FROM ${this.table} WHERE mail = ?`,
       [email]
     );
-  
+
     if (rows.length === 0) {
       return undefined;
     }
-  
+
     return rows[0];
   }
 
   // Add token in database
   async updateResetToken(userId, token, expires) {
     await this.database.query(
-      'UPDATE user SET resetPasswordToken = ?, resetPasswordExpires = ? WHERE id = ?',
+      "UPDATE user SET resetPasswordToken = ?, resetPasswordExpires = ? WHERE id = ?",
       [token, expires, userId]
     );
-  };
+  }
 
   // Checking token validity
   async readByResetToken(token) {
@@ -83,20 +73,21 @@ class UserRepository extends AbstractRepository {
       `SELECT id, mail, resetPasswordToken FROM ${this.table} WHERE resetPasswordToken = ?`,
       [token]
     );
-  
+
     if (rows.length === 0) {
       return undefined;
     }
-  
+
     return rows[0];
-  };
-  
-  // Password update, clear resetPasswordToken and resetPasswordExpires 
+  }
+
+  // Password update, clear resetPasswordToken and resetPasswordExpires
   async updatePasswordAndClearResetToken(userId, hashedPassword) {
     await this.database.query(
       `UPDATE ${this.table} SET password = ?, resetPasswordToken = ?, resetPasswordExpires = ? WHERE id = ?`,
       [hashedPassword, "", null, userId]
-    )};
+    );
+  }
 
   // The U of CRUD - Update operation
 
@@ -124,6 +115,20 @@ class UserRepository extends AbstractRepository {
 
   async delete(id) {
     // Execute the SQL DELETE query to delete a specific user
+    const [notification] = await this.database.query(
+      "DELETE notification FROM notification JOIN reservation ON notification.reservation_id = reservation.id JOIN home_structure ON home_structure.id = reservation.home_structure_id JOIN animal ON reservation.animal_id = animal.id WHERE notification.user_id = ?  OR animal.user_id = ? OR home_structure.user_id = ?;",
+      [id, id, id]
+    );
+
+    const [reservation] = await this.database.query(
+      "DELETE reservation FROM reservation JOIN home_structure ON reservation.home_structure_id = home_structure.id JOIN animal ON reservation.animal_id = animal.id WHERE home_structure.user_id = ? OR animal.user_id = ?",
+      [id, id]
+    );
+
+    const [animal] = await this.database.query(
+      `delete from animal where user_id = ?`,
+      [id]
+    );
     const [homeStructure] = await this.database.query(
       "delete from home_structure where user_id = ?",
       [id]
@@ -140,7 +145,14 @@ class UserRepository extends AbstractRepository {
     );
 
     // Return how many rows were affected
-    return [user.affectedRows, anim.affectedRows, homeStructure.affectedRows];
+    return [
+      user.affectedRows,
+      anim.affectedRows,
+      homeStructure.affectedRows,
+      animal.affectedRows,
+      reservation.affectedRows,
+      notification.affectedRows,
+    ];
   }
 
   async login(mail) {

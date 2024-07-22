@@ -8,7 +8,6 @@ const router = express.Router();
 
 // Import user-related actions
 const {
-  browse,
   read,
   edit,
   add,
@@ -27,9 +26,6 @@ const {
 } = require("../../../services/validateUser");
 const uniqueEmailandUsername = require("../../../services/uniqueEmailAndUsername");
 
-// Route to get a list of users
-router.get("/", browse);
-
 // Route to get a specific user by ID
 router.get("/:id", deniedAccess, read);
 
@@ -47,7 +43,7 @@ router.post("/login", validateLogin, checkLog);
 router.post("/logout", disconect);
 
 // Route to delete an existing user
-router.delete("/:id", destroy);
+router.delete("/:id", deniedAccess, destroy);
 
 /* ************************************************************************* */
 

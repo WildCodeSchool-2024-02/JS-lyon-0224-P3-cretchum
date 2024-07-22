@@ -16,7 +16,7 @@ class HomeStructureSeeder extends AbstractSeeder {
   run() {
     const homeStructure = [
       {
-        postal_code: 69008,
+        postal_code: 69002,
         capacity: 25,
         is_professional: true,
         cat: true,
@@ -25,7 +25,7 @@ class HomeStructureSeeder extends AbstractSeeder {
         user_id: 1,
       },
       {
-        postal_code: 69100,
+        postal_code: 69007,
         capacity: 4,
         is_professional: false,
         cat: true,
@@ -34,7 +34,7 @@ class HomeStructureSeeder extends AbstractSeeder {
         user_id: 2,
       },
       {
-        postal_code: 69006,
+        postal_code: 69003,
         capacity: 3,
         is_professional: false,
         cat: false,

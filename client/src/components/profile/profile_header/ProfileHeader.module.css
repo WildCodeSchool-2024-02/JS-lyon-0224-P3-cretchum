@@ -112,9 +112,11 @@ address {
     font-size: 0.9em;
     flex-direction: row;
     position: absolute;
-    transform: translateY(-103px);
     gap: 5px;
     background-color: transparent;
+  }
+  .save {
+    transform: translateY(-32px);
   }
 }
 

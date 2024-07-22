@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import notify from "../../utils/notify";
+import { toast } from "react-toastify";
 import "./SearchPage.css";
-import NavMenu from "../../components/nav_menu/NavMenu";
 import Filter from "../../components/search_page_components/filter/Filter";
 import HomeStructureList from "../../components/search_page_components/home_strucutre_list/HomeStructureList";
 import BtnPrev from "../../assets/images/Btn-prev.png";
@@ -36,7 +35,10 @@ function SearchPage() {
         setAllStructures(jsonData.result);
         setReponseNumber(jsonData.totalRow.total);
       } catch (error) {
-        notify("Erreur de réseau. Veuillez vérifier votre connexion.", "error");
+        toast.error(
+          "Erreur de réseau. Veuillez vérifier votre connexion.",
+          "error"
+        );
         console.error("Fetch error:", error);
       }
     };
@@ -119,7 +121,6 @@ function SearchPage() {
 
   return (
     <>
-      <NavMenu />
       <Filter
         onFilterChange={handleFilterChange}
         setSearch={setSearch}

@@ -27,23 +27,14 @@ class AnimalRepository extends AbstractRepository {
 
     // Return the ID of the newly inserted animal
     return result.insertId;
-  }  
-
-  async readAll() {
-    // Execute the SQL SELECT query to retrieve all animals from the "animal" table
-    const [rows] = await this.database.query(`select ${this.table}.id, name, age, is_sterilized, species, is_tattooed_chipped, breed from ${this.table} JOIN user ON ${this.table}.user_id = user.id`);
-
-    // Return the array of animals
-    return rows;
   }
-
 
   // The Rs of CRUD - Read operations
 
   async read(id) {
     // Execute the SQL SELECT query to retrieve a specific animal by its ID
     const [rows] = await this.database.query(
-      `select ${this.table}.id, name, species, is_sterilized, is_tattooed_chipped, breed, user_id from ${this.table} LEFT JOIN user ON ${this.table}.user_id = user.id WHERE user.id = ?`,
+      `select ${this.table}.id, name, species, is_sterilized, is_tattooed_chipped, breed from ${this.table} LEFT JOIN user ON ${this.table}.user_id = user.id WHERE user.id = ?`,
       [id]
     );
 
@@ -51,17 +42,39 @@ class AnimalRepository extends AbstractRepository {
     return rows;
   }
 
+  async readId(id) {
+    const [rows] = await this.database.query(
+      `select species, is_sterilized, is_tattooed_chipped, breed, age from ${this.table} WHERE id = ? ;`,
+      [id]
+    );
+
+    return rows[0];
+  }
   // The D of CRUD - Delete operation
 
   async delete(id) {
     // Execute the SQL DELETE query to delete a specific animal
+    const [notification] = await this.database.query(
+      `delete notification from notification JOIN reservation ON notification.reservation_id = reservation.id JOIN animal ON reservation.animal_id = animal.id WHERE animal.id = ?`,
+      [id]
+    );
+
+    const [reservation] = await this.database.query(
+      `delete reservation from reservation JOIN animal ON reservation.animal_id = animal.id WHERE animal.id = ?`,
+      [id]
+    );
+
     const [result] = await this.database.query(
       `delete from ${this.table} where id = ?`,
       [id]
     );
 
     // Return how many rows were affected
-    return result.affectedRows;
+    return [
+      result.affectedRows,
+      reservation.affectedRows,
+      notification.affectedRows,
+    ];
   }
 }
 

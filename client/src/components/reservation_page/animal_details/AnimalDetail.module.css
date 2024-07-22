@@ -1,0 +1,70 @@
+.animalDetailsButton {
+  border: none;
+  color: blue;
+  background-color: transparent;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.animalPopup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 60%);
+}
+
+.animalDetailsContainer {
+  background-color: white;
+  width: 80vw;
+  height: 12em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1300px;
+  border: 2px solid var(--highlight-color);
+  border-radius: 15px;
+}
+.animalTable {
+  padding-top: 0.8em;
+  width: 95%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  column-gap: 0.5em;
+  align-items: center;
+  font-size: 1.2em;
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+
+.row {
+  height: 3em;
+  align-content: center;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  border-radius: 0px 0px 15px 15px;
+  min-width: 123px;
+}
+
+.col {
+  padding-top: 0.2em;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-radius: 15px 15px 0px 0px;
+  min-width: 123px;
+}
+
+.closeButton {
+  margin-top: 0.6em;
+  font-size: 1.2em;
+  padding: 0 0.5em;
+  border-radius: 8px;
+  background-color: transparent;
+  cursor: pointer;
+}

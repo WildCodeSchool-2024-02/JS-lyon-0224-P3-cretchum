@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import notify from "../../utils/notify";
+import { toast } from "react-toastify";
 import Patoune from "../../assets/logo/1patounes.png";
 import "./ResetPassword.css";
-import NaveMenu from "../../components/nav_menu/NavMenu";
 
 function ResetPassword() {
   const URL = import.meta.env.VITE_API_URL;
@@ -34,11 +33,11 @@ function ResetPassword() {
       });
 
       if (response.status === 201) {
-        notify("Votre mot de passe a bien été modifié", "success");
+        toast.success("Votre mot de passe a bien été modifié", "success");
         navigate("/");
       }
     } catch (error) {
-      notify(
+      toast.error(
         "Une erreur est survenue lors du changement de mot de passe.",
         "error"
       );
@@ -47,8 +46,6 @@ function ResetPassword() {
 
   return (
     <div>
-      <NaveMenu />
-
       <section id="headerResetPasswordPage">
         <img src={Patoune} alt="orange paw" id="imgPatoune" />
         <h1>Réinitialisation du mot de passe </h1>

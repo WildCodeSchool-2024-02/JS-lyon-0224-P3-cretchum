@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import notify from "../../utils/notify";
-import NavMenu from "../../components/nav_menu/NavMenu";
+import { toast } from 'react-toastify';
 import styles from "./ReservationPage.module.css";
 import HeaderReservation from "../../components/reservation_page/header";
+import AnimalDetails from "../../components/reservation_page/animal_details/AnimalDetails";
+import CancelButton from "../../components/reservation_page/cancel_button/CancelButton";
 
 function ReservationPage() {
   const statusMap = {
@@ -42,7 +43,7 @@ function ReservationPage() {
         });
 
         if (response.status !== 200) {
-          notify(
+          toast.error(
             "Erreur lors de la récupération des données du profil !",
             "error"
           );
@@ -52,7 +53,7 @@ function ReservationPage() {
         setReservation(data);
       } catch (err) {
         console.error("Fetch profile error:", err);
-        notify(
+        toast.error(
           "Une erreur est survenue lors de la récupération des données du profil. Veuillez réessayer plus tard.",
           "error"
         );
@@ -84,7 +85,7 @@ function ReservationPage() {
     notification.length > 0 &&
     notification.map((value) => value.reservation_id);
 
-  // Cancelation button
+  // Cancelation / Confirm button
   const editReservation = async (
     event,
     id,
@@ -108,9 +109,9 @@ function ReservationPage() {
         }),
       });
       if (response.status !== 204) {
-        notify("Erreur lors de la modification de la réservation", "error");
+        toast.error("Erreur lors de la modification de la réservation", "error");
       } else {
-        notify("Réservation modifié", "success");
+        toast.success("Réservation modifiée", "success");
         setChange(!change);
       }
     } catch (err) {
@@ -134,16 +135,16 @@ function ReservationPage() {
         if (response.status === 204) {
           setChange(!change);
         } else {
-          notify("Une erreur est survenue", "error");
+          toast.error("Une erreur est survenue", "error");
         }
       } catch (err) {
         console.error("Fetch error", err);
       }
     }
   };
+
   return (
     <>
-      <NavMenu />
       <div className={styles.container}>
         <span id={styles.readButtonContainer}>
           <button
@@ -171,7 +172,7 @@ function ReservationPage() {
 
         {reservations.length !== 0 && (
           <section className={styles.reservation}>
-            <HeaderReservation title="Réservation émise" />
+            <HeaderReservation title="Réservations émises" />
             <div className={styles.reservationContent}>
               <div className={styles.tableContainer}>
                 <table id={styles.animalTable}>
@@ -212,23 +213,13 @@ function ReservationPage() {
                         </td>
                         <td>{statusMap[reservation.status] || ""}</td>
                         <td>
-                          {reservation.status !== "cancel" ? (
-                            <button
-                              className={styles.cancelButton}
-                              type="button"
-                              onClick={(event) =>
-                                editReservation(
-                                  event,
-                                  reservation.id,
-                                  reservation.home_structure_id,
-                                  "cancel"
-                                )
-                              }
-                            >
-                              Annuler
-                            </button>
-                          ) : (
-                            ""
+                          {reservation.status !== "cancel" && (
+                            <CancelButton
+                              editReservation={editReservation}
+                              id={reservation.id}
+                              homeStructureId={reservation.home_structure_id}
+                              username={undefined}
+                            />
                           )}
                         </td>
                       </tr>
@@ -241,7 +232,7 @@ function ReservationPage() {
         )}
         {received.length !== 0 && (
           <section className={styles.reservation}>
-            <HeaderReservation title="Réservations reçus" />
+            <HeaderReservation title="Réservations reçues" />
             <div className={styles.reservationContent}>
               <div className={styles.tableContainer}>
                 <table id={styles.animalTable}>
@@ -271,7 +262,14 @@ function ReservationPage() {
                       >
                         <th scope="row">{reservation.id}</th>
                         <td>{reservation.username}</td>
-                        <td>{reservation.name}</td>
+                        <td>
+                          <AnimalDetails
+                            aria-label={`plus de détails sur ${reservation.name}`}
+                            name={reservation.name}
+                            username={reservation.username}
+                            animalId={reservation.animalId}
+                          />
+                        </td>
                         <td>{reservation.beginning}</td>
                         <td>{reservation.end}</td>
                         <td>{reservation.day}</td>
@@ -301,21 +299,12 @@ function ReservationPage() {
                               </button>
                             )}
                           {reservation.status !== "cancel" && (
-                            <button
-                              className={styles.cancelButton}
-                              type="button"
-                              onClick={(event) =>
-                                editReservation(
-                                  event,
-                                  reservation.id,
-                                  reservation.home_structure_id,
-                                  "cancel",
-                                  reservation.username
-                                )
-                              }
-                            >
-                              Annuler
-                            </button>
+                            <CancelButton
+                              editReservation={editReservation}
+                              id={reservation.id}
+                              homeStructureId={reservation.home_structure_id}
+                              username={reservation.username}
+                            />
                           )}
                         </td>
                       </tr>

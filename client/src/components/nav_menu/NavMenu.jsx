@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { AuthentificationContext } from "../../use_context/authentification";
 import Bell from "../../assets/images/cloche.png";
 import BellAlert from "../../assets/images/clocheAlerte.png";
 import "./NavMenu.css";
-import notify from "../../utils/notify";
 
 function NavMenu() {
   const { auth, update, setUpdate } = useContext(AuthentificationContext);
@@ -20,11 +20,11 @@ function NavMenu() {
       });
       if (response.status === 200) {
         setUpdate(!update);
-        notify("Déconnecté avec succes", "success");
+        toast.success("Déconnecté avec succes");
         setTimeout(navigate("/"), 5000);
       }
     } catch (error) {
-      notify("Erreur", "error");
+      toast.error("Erreur");
     }
   };
   const [notification, setNotification] = useState(0);
@@ -69,7 +69,12 @@ function NavMenu() {
               <NavLink className="linkItem" to="/reservation">
                 <img
                   id="bell"
-                  src={notification.length === 0 ? Bell : BellAlert}
+                  src={
+                    notification.length === 0 ||
+                    notification.length === undefined
+                      ? Bell
+                      : BellAlert
+                  }
                   alt={
                     notification === 0
                       ? "Cloche"

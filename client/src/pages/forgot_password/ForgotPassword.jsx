@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import notify from "../../utils/notify";
+import { toast } from "react-toastify";
 import Patoune from "../../assets/logo/1patounes.png";
 import "./ForgotPassword.css";
-
-import NavMenu from "../../components/nav_menu/NavMenu";
 
 function ForgotPassword() {
   const URL = import.meta.env.VITE_API_URL;
@@ -23,27 +21,23 @@ function ForgotPassword() {
       });
 
       if (response.status === 250) {
-        notify(
-          "Un e-mail de réinitialisation du mot de passe a été envoyé.",
-          "success"
+        toast.success(
+          "Un e-mail de réinitialisation du mot de passe a été envoyé."
         );
         navigate("/");
       } else {
         const errorData = await response.json();
-        notify(
-          errorData.message || "Une erreur est survenue. Veuillez réessayer.",
-          "error"
+        toast.error(
+          errorData.message || "Une erreur est survenue. Veuillez réessayer."
         );
       }
     } catch (err) {
-      notify("Une erreur est survenue. Veuillez réessayer.", "error");
+      toast.error("Une erreur est survenue. Veuillez réessayer.");
     }
   };
 
   return (
     <div>
-      <NavMenu />
-
       <section id="headerforgotPasswordPage">
         <img src={Patoune} alt="orange paw" id="imgPatoune" />
         <h1>Réinitialisation du mot de passe </h1>

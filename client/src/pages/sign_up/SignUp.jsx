@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 import styles from "./SignUp.module.css";
-import notify from "../../utils/notify";
 import { AuthentificationContext } from "../../use_context/authentification";
 
 function SignUp() {
@@ -57,17 +57,17 @@ function SignUp() {
 
         setUpdate(!update);
         if (buttonValue === "structure") {
-          notify("Votre compte à bien été créé", "success");
+          toast.success("Votre compte à bien été créé", "success");
           return navigate(`/inscription_accueil/${userId}`);
         }
-        notify("Votre compte à bien été créé", "success");
+        toast.success("Votre compte à bien été créé", "success");
         return navigate(`/formulaire-animal/${userId}`);
       }
 
       const errorData = await response.json();
-      return notify(errorData.validationErrors[0].message, "error");
+      return toast.error(errorData.validationErrors[0].message, "error");
     } catch (err) {
-      return notify("Une erreur est survenue lors de l'inscription.", "error");
+      return toast.error("Une erreur est survenue lors de l'inscription.", "error");
     }
   };
 
@@ -174,7 +174,7 @@ function SignUp() {
           <section className={styles.passwordSmall}>
             {passwordRegex.test(passwordForm) !== true && (
               <small>
-                ** Le mot de passe doit comprendre une majuscule, une minuscule,
+                ** Le mot de passe doit faire 12 caractères minimum, comprendre une majuscule, une minuscule,
                 un chiffre et un caractère spécial.
               </small>
             )}
