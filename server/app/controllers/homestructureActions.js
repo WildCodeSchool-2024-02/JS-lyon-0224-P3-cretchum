@@ -25,7 +25,9 @@ const browse = async (req, res, next) => {
 const readall = async (req, res, next) => {
   try {
     // Fetch a specific home_structure from the database based on the provided ID
-    const homeStructure = await tables.home_structure.readUserStructure(req.params.id);
+    const homeStructure = await tables.home_structure.readUserStructure(
+      req.params.id
+    );
 
     // If the home_structure is not found, respond with HTTP 404 (Not Found)
     // Otherwise, respond with the home_structure in JSON format
@@ -44,7 +46,9 @@ const readall = async (req, res, next) => {
 const read = async (req, res, next) => {
   try {
     // Fetch a specific home_structure from the database based on the provided ID
-    const homeStructure = await tables.home_structure.readStructure(req.params.id);
+    const homeStructure = await tables.home_structure.readStructure(
+      req.params.id
+    );
 
     // If the home_structure is not found, respond with HTTP 404 (Not Found)
     // Otherwise, respond with the home_structure in JSON format
@@ -115,30 +119,32 @@ const add = async (req, res, next) => {
 const destroy = async (req, res, next) => {
   try {
     // Delete the home_structure from the database
-
-    await tables.home_structure.delete(req.body.id);
-
-    const { sub, hasAnimals } = req.user;
-    let { isHomeStructure } = req.user;
-
-    isHomeStructure = false;
-
-    // Generate JWT token
-    const token = jwt.sign(
-      { sub, hasAnimals, isHomeStructure },
-      process.env.APP_SECRET,
-      { expiresIn: "1d" }
+    const homeStructureDestroy = await tables.home_structure.delete(
+      req.body.id
     );
+    if (homeStructureDestroy !== null || homeStructureDestroy !== undefined) {
+      const { sub, hasAnimals } = req.user;
+      let { isHomeStructure } = req.user;
 
-    // Set the token in cookie
-    res.cookie("cretchomCookie", token, {
-      httpOnly: true,
-      sameSite: "Strict",
-      maxAge: 24 * 60 * 60 * 1000,
-    });
+      isHomeStructure = false;
 
-    // Respond with HTTP 204 (No Content)
-    res.sendStatus(204);
+      // Generate JWT token
+      const token = jwt.sign(
+        { sub, hasAnimals, isHomeStructure },
+        process.env.APP_SECRET,
+        { expiresIn: "1d" }
+      );
+
+      // Set the token in cookie
+      res.cookie("cretchomCookie", token, {
+        httpOnly: true,
+        sameSite: "Strict",
+        maxAge: 24 * 60 * 60 * 1000,
+      });
+
+      // Respond with HTTP 204 (No Content)
+      res.sendStatus(204);
+    }
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);

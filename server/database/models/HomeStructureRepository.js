@@ -122,14 +122,24 @@ class HomeStructureRepository extends AbstractRepository {
 
   async delete(id) {
     // Execute the SQL DELETE query to delete a specific home_structure
-    const [userId] = await this.database.query(
+    let [homeStructureId] = await this.database.query(
       `select ${this.table}.id from ${this.table} JOIN user ON ${this.table}.user_id = user.id where user.id = ?`,
       [id]
     );
+    homeStructureId = homeStructureId[0].id;
 
+    await this.database.query(
+      `delete notification from notification JOIN reservation ON reservation_id = reservation.id JOIN home_structure ON home_structure_id = home_structure.id where home_structure.id = ? `,
+      [homeStructureId]
+    );
+
+    await this.database.query(
+      `delete from reservation where home_structure_id = ?`,
+      [homeStructureId]
+    );
     const [result] = await this.database.query(
       `delete from ${this.table} where id = ?`,
-      [userId[0].id]
+      [homeStructureId]
     );
 
     // Return how many rows were affected
