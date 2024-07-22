@@ -1,8 +1,8 @@
 import { useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import styles from "../sign_up/SignUp.module.css";
 import AnimalsFormComponent from "../../components/animals_form_components/AnimalsFormComponents";
-import notify from "../../utils/notify";
 import { AuthentificationContext } from "../../use_context/authentification";
 
 function AnimalsForm() {
@@ -55,20 +55,19 @@ function AnimalsForm() {
 
       if (response.status === 403) {
         const data = await response.json();
-        return notify(data.validationErrors[0].message, "error");
+        return toast.error(data.validationErrors[0].message);
       }
       if (response.status === 201) {
         setUpdate(!update);
-        notify("Inscription réussie !", "success");
+        toast.success("Inscription réussie !");
         return navigate("/page-recherche");
       }
       const errorData = await response.json();
-      return notify(errorData.validationErrors[0].message, "error");
+      return toast.error(errorData.validationErrors[0].message);
     } catch (err) {
       console.error("Fetch error:", err);
-      notify(
-        "Une erreur est survenue lors de l'inscription. Veuillez réessayer plus tard.",
-        "error"
+      toast.error(
+        "Une erreur est survenue lors de l'inscription. Veuillez réessayer plus tard."
       );
       return {
         error: "An error occurred during registration. Please try again later.",

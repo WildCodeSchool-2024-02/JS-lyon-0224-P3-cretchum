@@ -2,7 +2,7 @@ const { app, request, database } = require("../../config");
 
 // TEST : suite for the GET /api/animal
 
-describe("GET /api/user", () => {
+describe("GET /api/animal", () => {
     it("should fetch user successfully", async () => {
       // Mock empty rows returned from the database
       const rows = [];
@@ -11,7 +11,7 @@ describe("GET /api/user", () => {
       jest.spyOn(database, "query").mockImplementation(() => [rows]);
   
       // Send a GET request to the /api/user endpoint
-      const response = await request(app).get("/api/user");
+      const response = await request(app).get("/api/animal");
   
       // Assertions
       expect(response.status).toBe(200);

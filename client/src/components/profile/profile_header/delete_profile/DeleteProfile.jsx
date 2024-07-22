@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./DeleteProfile.module.css";
-import notify from "../../../../utils/notify";
 
 function DeleteProfile() {
   const [confirmBox, setConfirmBox] = useState(false);
@@ -22,15 +22,14 @@ function DeleteProfile() {
       });
 
       if (response.status === 204) {
-        notify("Le profile à été supprimé", "success");
+        toast.success("Le profile à été supprimé");
         return navigate("/");
       }
       throw new Error("Registration error");
     } catch (err) {
       console.error("Fetch error:", err);
-      notify(
-        "Erreur lors de la suppression du profil. Veuillez réessayer plus tard.",
-        "error"
+      toast.error(
+        "Erreur lors de la suppression du profil. Veuillez réessayer plus tard."
       );
       return {
         error: "An error occurred during deletion. Please try again later.",
@@ -48,9 +47,7 @@ function DeleteProfile() {
           confirmBox === true ? `${styles.confirmBox}` : `${styles.hidden}`
         }
       >
-        <p>
-          Êtes vous sur de vouloir supprimer votre compte ?
-        </p>
+        <p>Êtes vous sur de vouloir supprimer votre compte ?</p>
         <div className={styles.confirmButton}>
           <button type="button" onClick={deletePop}>
             Annuler

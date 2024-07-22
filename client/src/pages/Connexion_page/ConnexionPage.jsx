@@ -1,8 +1,8 @@
 import { Link, useNavigate} from "react-router-dom";
 import { useState, useContext } from "react";
+import { toast } from 'react-toastify';
 import Patoune from "../../assets/logo/1patounes.png";
 import "./ConnexionPage.css";
-import notify from "../../utils/notify";
 import { AuthentificationContext } from "../../use_context/authentification";
 
 
@@ -35,15 +35,14 @@ function ConnexionPage() {
 
       if (response.status === 200) {
         setUpdate(!update)
-        notify("Connexion réussie !", "success");
+        toast.success("Connexion réussie !");
         return navigate("/page-recherche");
       }
-      notify("Email ou mot de passe incorrect !", "error");
+      toast.error("Email ou mot de passe incorrect !");
       return { error: "incorrect mail or password" };
     } catch (err) {
-      notify(
-        "Une erreur est survenue lors de la connexion. Veuillez réessayer plus tard.",
-        "error"
+      toast.error(
+        "Une erreur est survenue lors de la connexion. Veuillez réessayer plus tard."
       );
       console.error("Login error:", err);
       return {

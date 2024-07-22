@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import notify from "../../utils/notify";
+import { toast } from "react-toastify";
 import Patoune from "../../assets/logo/1patounes.png";
 import "./ResetPassword.css";
 
@@ -33,11 +33,11 @@ function ResetPassword() {
       });
 
       if (response.status === 201) {
-        notify("Votre mot de passe a bien été modifié", "success");
+        toast.success("Votre mot de passe a bien été modifié", "success");
         navigate("/");
       }
     } catch (error) {
-      notify(
+      toast.error(
         "Une erreur est survenue lors du changement de mot de passe.",
         "error"
       );

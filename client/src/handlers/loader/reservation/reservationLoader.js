@@ -1,5 +1,5 @@
 import { redirect } from "react-router-dom";
-import notify from "../../../utils/notify";
+import { toast } from 'react-toastify';
 
 const URL = import.meta.env.VITE_API_URL;
 
@@ -15,9 +15,8 @@ const reservationLoader = async () => {
     return null;
   } catch (err) {
     console.error("Fetch profile error:", err);
-    return notify(
-      "Une erreur est survenue lors de la récupération des données du profil. Veuillez réessayer plus tard.",
-      "error"
+    return toast.error(
+      "Une erreur est survenue lors de la récupération des données du profil. Veuillez réessayer plus tard."
     );
   }
 };
