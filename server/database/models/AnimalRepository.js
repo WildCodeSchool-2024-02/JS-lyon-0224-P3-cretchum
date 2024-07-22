@@ -29,16 +29,6 @@ class AnimalRepository extends AbstractRepository {
     return result.insertId;
   }
 
-  async readAll() {
-    // Execute the SQL SELECT query to retrieve all animals from the "animal" table
-    const [rows] = await this.database.query(
-      `select ${this.table}.id, name, age, is_sterilized, species, is_tattooed_chipped, breed from ${this.table} JOIN user ON ${this.table}.user_id = user.id`
-    );
-
-    // Return the array of animals
-    return rows;
-  }
-
   // The Rs of CRUD - Read operations
 
   async read(id) {
@@ -54,7 +44,7 @@ class AnimalRepository extends AbstractRepository {
 
   async readId(id) {
     const [rows] = await this.database.query(
-      `select species, is_sterilized, is_tattooed_chipped, breed from ${this.table} WHERE id = ? ;`,
+      `select species, is_sterilized, is_tattooed_chipped, breed, age from ${this.table} WHERE id = ? ;`,
       [id]
     );
 

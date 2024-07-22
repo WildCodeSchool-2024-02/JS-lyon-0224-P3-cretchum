@@ -34,7 +34,7 @@ router.get("/", browse);
 router.get("/single/:id", read);
 
 // Route to get a specific home_structure by ID
-router.get("/:id", readall);
+router.get("/:id", deniedAccess, readall);
 
 // Route to edit an existing home_structure
 router.put("/:id", uniqueEmailandUsername, updateUserHomeStructure, edit);

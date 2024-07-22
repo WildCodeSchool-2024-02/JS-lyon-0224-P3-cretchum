@@ -1,19 +1,6 @@
 const jwt = require("jsonwebtoken");
 const tables = require("../../database/tables");
 
-const browse = async (req, res, next) => {
-  try {
-    // Fetch all animals from the database
-    const users = await tables.animal.readAll();
-
-    // Respond with the animals in JSON format
-    res.status(200).json(users);
-  } catch (err) {
-    // Pass any errors to the error-handling middleware
-    next(err);
-  }
-};
-
 const read = async (req, res, next) => {
   try {
     // Fetch a specific animal from the database based on the provided ID
@@ -21,7 +8,7 @@ const read = async (req, res, next) => {
 
     // If the animal is not found, respond with HTTP 404 (Not Found)
     // Otherwise, respond with the users in JSON format
-    if (animal == null) {
+    if (animal === null || animal === undefined) {
       res.sendStatus(404);
     } else {
       res.status(200).json(animal);
@@ -101,7 +88,6 @@ const destroy = async (req, res, next) => {
 
 // Ready to export the controller functions
 module.exports = {
-  browse,
   read,
   add,
   destroy,

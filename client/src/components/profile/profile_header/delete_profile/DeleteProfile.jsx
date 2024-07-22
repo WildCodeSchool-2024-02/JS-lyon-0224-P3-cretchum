@@ -1,40 +1,11 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
-import { toast } from "react-toastify";
-import { useNavigate, useParams } from "react-router-dom";
 import styles from "./DeleteProfile.module.css";
 
-function DeleteProfile() {
+function DeleteProfile({ deleteOnClick, text }) {
   const [confirmBox, setConfirmBox] = useState(false);
-  const URL = import.meta.env.VITE_API_URL;
   const deletePop = () => {
     setConfirmBox(!confirmBox);
-  };
-  const urlId = useParams();
-  const navigate = useNavigate();
-  const deleteprofile = async () => {
-    try {
-      const response = await fetch(`${URL}user/${urlId.id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(urlId),
-      });
-
-      if (response.status === 204) {
-        toast.success("Le profile à été supprimé");
-        return navigate("/");
-      }
-      throw new Error("Registration error");
-    } catch (err) {
-      console.error("Fetch error:", err);
-      toast.error(
-        "Erreur lors de la suppression du profil. Veuillez réessayer plus tard."
-      );
-      return {
-        error: "An error occurred during deletion. Please try again later.",
-      };
-    }
   };
 
   return (
@@ -47,7 +18,7 @@ function DeleteProfile() {
           confirmBox === true ? `${styles.confirmBox}` : `${styles.hidden}`
         }
       >
-        <p>Êtes vous sur de vouloir supprimer votre compte ?</p>
+        <p id={styles.deleteParagraph}>{text}</p>
         <div className={styles.confirmButton}>
           <button type="button" onClick={deletePop}>
             Annuler
@@ -55,7 +26,7 @@ function DeleteProfile() {
           <button
             type="button"
             id={styles.confirmDeleteButton}
-            onClick={deleteprofile}
+            onClick={deleteOnClick}
           >
             Confirmer
           </button>
@@ -64,5 +35,10 @@ function DeleteProfile() {
     </>
   );
 }
+
+DeleteProfile.propTypes = {
+  deleteOnClick: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
+};
 
 export default DeleteProfile;

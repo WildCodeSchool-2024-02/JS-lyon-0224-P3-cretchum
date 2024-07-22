@@ -36,10 +36,14 @@
   font-size: 0.9em;
 }
 
+#deleteParagraph {
+  width: auto;
+}
+
 @media (min-width: 768px) {
   .confirmBox {
     width: 40vw;
     left: 30%;
-    height: 175px;
+    height: auto;
   }
 }

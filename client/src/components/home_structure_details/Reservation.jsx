@@ -121,9 +121,15 @@ function Reservation({ priceday, auth, structures }) {
               <p id="authDenied">
                 Vous devez avoir au moins un animal enregistré pour réserver
               </p>
-              <Link to="/connexion" id="deniedLink">
-                Me Connecter
-              </Link>
+              {(auth === false) ? (
+                <Link to="/connexion" id="deniedLink">
+                  Me Connecter
+                </Link>
+              ) : (
+                <Link to={`/formulaire-animal/${auth.user.sub}`} id="deniedLink">
+                  Ajouter un animal
+                </Link>
+              )}
             </>
           ) : (
             <>
@@ -181,7 +187,7 @@ function Reservation({ priceday, auth, structures }) {
         <h3>Détails</h3>
         <hr id="detailsLine" />
         <p>
-          {priceday} € / jour(s) x {datediff} jour(s)
+          {priceday} € / jour(s) x {datediff} jour(s) x {selectedAnimals.length} animaux
         </p>
       </div>
     </section>

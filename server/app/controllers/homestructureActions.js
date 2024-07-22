@@ -29,7 +29,7 @@ const readall = async (req, res, next) => {
 
     // If the home_structure is not found, respond with HTTP 404 (Not Found)
     // Otherwise, respond with the home_structure in JSON format
-    if (homeStructure == null) {
+    if (homeStructure === null || homeStructure === undefined) {
       res.sendStatus(404);
     } else {
       res.status(200).json(homeStructure);
@@ -48,7 +48,7 @@ const read = async (req, res, next) => {
 
     // If the home_structure is not found, respond with HTTP 404 (Not Found)
     // Otherwise, respond with the home_structure in JSON format
-    if (homeStructure == null) {
+    if (homeStructure === null || homeStructure === undefined) {
       res.sendStatus(404);
     } else {
       res.status(200).json(homeStructure);
