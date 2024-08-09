@@ -28,8 +28,8 @@
   align-items: center;
 }
 .profilePageImg {
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 99%;
   object-fit: contain;
 }
 
